@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BY Design — Independent Design Practice</title>
+    <style>
+        @font-face {
+            font-family: 'OT Brut Mono';
+            src: url('assets/fonts/OTBrut-RegularMono.woff2') format('woff2'),
+                 url('assets/fonts/OTBrut-RegularMono.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Acumin Variable';
+            src: url('assets/fonts/AcuminVariableConcept.otf') format('opentype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #000000;
+            --bg-card: #2a2a2a;
+            --text-primary: #e8e8e8;
+            --text-secondary: #8a8a8a;
+            --font-body: 'Acumin Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --gutter: 16px;
+            --side-padding: 24px;
+        }
+
+        html, html * {
+            cursor: none !important;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 9pt;
+            line-height: 1.4;
+            cursor: none !important;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a, button, input, textarea, select, [role="button"] {
+            cursor: none !important;
+        }
+
+        /* ---- Custom Cursor ---- */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+            will-change: transform, background-color, box-shadow;
+            transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        height 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        opacity 0.2s ease;
+        }
+
+        #custom-cursor.hovering {
+            width: 8px;
+            height: 8px;
+        }
+
+        /* ---- Header ---- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px var(--side-padding);
+        }
+
+        .logo {
+            font-family: 'OT Brut Mono', monospace;
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        nav a {
+            font-family: 'OT Brut Mono', monospace;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0;
+            transition: opacity 0.25s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Projects Grid ---- */
+        .projects {
+            padding: 60px var(--side-padding) 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--gutter);
+            margin-bottom: 48px;
+        }
+
+        .project-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .project-thumb {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            background-color: var(--bg-card);
+            overflow: hidden;
+            position: relative;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-thumb img,
+        .project-thumb video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-thumb .thumb-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            mix-blend-mode: multiply;
+            opacity: 0.7;
+        }
+
+        .project-thumb.matos-thumb {
+            background-color: #FFD600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-thumb.matos-thumb img {
+            width: 55%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .project-card:hover .project-thumb {
+            opacity: 0.75;
+        }
+
+        .project-info {
+            padding-top: 12px;
+            padding-bottom: 24px;
+        }
+
+        .project-title {
+            font-family: 'OT Brut Mono', monospace;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-primary);
+            letter-spacing: 0;
+            margin-bottom: 2px;
+        }
+
+        .project-subtitle {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        /* ---- Footer ---- */
+        footer {
+            margin-top: 80px;
+            padding: 0 var(--side-padding) 40px;
+        }
+
+        .footer-line {
+            width: 100%;
+            height: 1px;
+            background-color: #222;
+            margin-bottom: 24px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-left {
+            font-size: 13px;
+            color: var(--text-secondary);
+            max-width: 60%;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .footer-right a {
+            font-family: 'OT Brut Mono', monospace;
+            font-size: 13px;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .footer-right a:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Responsive ---- */
+
+        @media (max-width: 1200px) {
+            .projects-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            nav {
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            :root {
+                --side-padding: 16px;
+                --gutter: 12px;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 24px var(--side-padding);
+            }
+
+            nav {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .projects {
+                padding-top: 32px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .project-title {
+                font-size: 13px;
+            }
+
+            .project-subtitle {
+                font-size: 12px;
+            }
+
+            .project-info {
+                padding-top: 8px;
+                padding-bottom: 16px;
+            }
+
+            footer {
+                margin-top: 40px;
+                padding-bottom: 32px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-left {
+                max-width: 100%;
+                font-size: 12px;
+            }
+
+            .footer-right {
+                align-items: flex-start;
+            }
+
+            #custom-cursor {
+                display: none !important;
+            }
+
+            html, html * {
+                cursor: auto !important;
+            }
+        }
+
+        @media (max-width: 380px) {
+            :root {
+                --side-padding: 12px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            nav {
+                gap: 16px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-thumb {
+                aspect-ratio: 4 / 5;
+            }
+        }
+
+        /* ---- Page load fade ---- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(12px);
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .projects-grid .project-card:nth-child(1) { animation-delay: 0.05s; }
+        .projects-grid .project-card:nth-child(2) { animation-delay: 0.1s; }
+        .projects-grid .project-card:nth-child(3) { animation-delay: 0.15s; }
+        .projects-grid .project-card:nth-child(4) { animation-delay: 0.2s; }
+        .projects-grid .project-card:nth-child(5) { animation-delay: 0.25s; }
+        .projects-grid .project-card:nth-child(6) { animation-delay: 0.3s; }
+        .projects-grid .project-card:nth-child(7) { animation-delay: 0.35s; }
+        .projects-grid .project-card:nth-child(8) { animation-delay: 0.4s; }
+        .projects-grid .project-card:nth-child(9) { animation-delay: 0.45s; }
+        .projects-grid .project-card:nth-child(10) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+
+    <header class="fade-in">
+        <a href="/" class="logo">BY</a>
+        <nav>
+            <a href="about.html">about</a>
+            <a href="mailto:yorohan.b@gmail.com">contact</a>
+            <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">@beniyorohan.design</a>
+        </nav>
+    </header>
+
+    <section class="projects">
+        <div class="projects-grid">
+
+            <!-- Row 1 -->
+
+            <div class="project-card fade-in">
+                <a href="/projects/dadi-khool-magazine">
+                    <div class="project-thumb">
+                        <video autoplay loop muted playsinline preload="auto" disablepictureinpicture>
+                            <source src="assets/video/dadi-khool.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-title">Dadi Khool Magazine</div>
+                        <div class="project-subtitle">Editorial Design for Print and Web</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="project-card fade-in">
+                <a href="/projects/start-today">
+                    <div class="project-thumb">
+                        <img src="assets/img/start-today.gif" alt="Start Today" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <div class="project-title">Start Today</div>
+                        <div class="project-subtitle">Type Installation &amp; Editorial</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="project-card fade-in">
+                <a href="/projects/patico-bar">
+                    <div class="project-thumb">
+                        <img src="assets/img/dadi-khool-animated.gif" alt="Patico Bar" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <div class="project-title">Patico Bar</div>
+                        <div class="project-subtitle">Brand Identity &amp; Art Direction</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="project-card fade-in">
+                <a href="/projects/moms-club">
+                    <div class="project-thumb">
+                        <img src="assets/img/moms-club.png" alt="Mom's Club" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <div class="project-title">Mom's Club</div>
+                        <div class="project-subtitle">Brand Identity &amp; Creative Consulting</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="project-card fade-in">
+                <a href="/projects/flavors-of-solitude">
+                    <div class="project-thumb">
+                        <img src="assets/img/flavors-of-solitude.png" alt="Flavors of Solitude" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <div class="project-title">Flavors of Solitude</div>
+                        <div class="project-subtitle">Product Design, Album &amp; Book Design</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Row 2 -->
+
+            <div class="project-card fade-in">
+                <a href="/projects/type-bird-series">
+                    <div class="project-thumb">
+                        <video autoplay loop muted playsinline preload="auto" disablepictureinpicture>
+                            <source src="assets/video/glyph-birds.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-title">The Type Bird Series</div>
+                        <div class="project-subtitle">Typographic Exploration &amp; Vibe Coding</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="project-card fade-in">
+                <a href="/projects/ganchos-sans">
+                    <div class="project-thumb">
+                        <video autoplay loop muted playsinline preload="auto" disablepictureinpicture>
+                            <source src="assets/video/ganchos-sans.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-title">Ganchos Sans</div>
+                        <div class="project-subtitle">Cultural Revival &amp; Type Design</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="project-card fade-in">
+                <a href="/projects/patico-geometric">
+                    <div class="project-thumb">
+                        <img src="assets/img/oh-la-la.png" alt="Patico Geometric" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <div class="project-title">Patico Geometric</div>
+                        <div class="project-subtitle">Type Design</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="project-card fade-in">
+                <a href="/projects/matos-organic-tomato-juice">
+                    <div class="project-thumb matos-thumb">
+                        <img src="assets/img/matos.gif" alt="Matos Organic Tomato Juice" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <div class="project-title">Matos Organic Tomato Juice</div>
+                        <div class="project-subtitle">Brand Identity &amp; Art Direction</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="project-card fade-in">
+                <a href="/projects/itc-stamps-series">
+                    <div class="project-thumb">
+                        <video autoplay loop muted playsinline>
+                            <source src="assets/video/sequence-01.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-title">ITC Stamps Series</div>
+                        <div class="project-subtitle">Iconography &amp; Stamps</div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-line"></div>
+        <div class="footer-content">
+            <div class="footer-left">
+                &copy; 2024 BY Design — Independent Design Practice. All rights reserved.
+            </div>
+            <div class="footer-right">
+                <a href="assets/beni_yorohan_resume_2026.pdf" target="_blank" rel="noopener">cv/resume</a>
+                <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">linkedin</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ---- Custom Cursor with smooth warm color cycling ----
+        const cursor = document.getElementById('custom-cursor');
+        let mouseX = -100, mouseY = -100;
+        let cursorX = -100, cursorY = -100;
+        let isHovering = false;
+        let currentSize = 16;
+
+        // Warm color palette in HSL
+        const colorStops = [
+            { h: 48,  s: 65, l: 72 },   // pastel yellow
+            { h: 30,  s: 60, l: 70 },   // pastel orange
+            { h: 12,  s: 58, l: 72 },   // pastel red-orange
+            { h: 355, s: 55, l: 74 },   // pastel red
+            { h: 340, s: 50, l: 72 },   // pastel pink
+            { h: 320, s: 48, l: 70 },   // pastel magenta
+            { h: 290, s: 40, l: 72 },   // pastel mauve
+            { h: 200, s: 50, l: 72 },   // pastel blue
+            { h: 180, s: 42, l: 68 },   // pastel teal
+            { h: 155, s: 40, l: 68 },   // pastel green
+            { h: 130, s: 38, l: 70 },   // pastel sage
+            { h: 22,  s: 40, l: 62 },   // pastel brown
+            { h: 14,  s: 45, l: 68 },   // pastel terracotta
+            { h: 48,  s: 65, l: 72 },   // pastel yellow (loop close)
+        ];
+
+        // Catmull-Rom spline for buttery smooth interpolation
+        function catmullRom(p0, p1, p2, p3, t) {
+            const t2 = t * t;
+            const t3 = t2 * t;
+            return 0.5 * (
+                (2 * p1) +
+                (-p0 + p2) * t +
+                (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 +
+                (-p0 + 3 * p1 - 3 * p2 + p3) * t3
+            );
+        }
+
+        function unwrapHue(val, ref) {
+            let diff = val - ref;
+            if (diff > 180) return val - 360;
+            if (diff < -180) return val + 360;
+            return val;
+        }
+
+        function getColor(t) {
+            const segCount = colorStops.length - 1;
+            const scaledT = t * segCount;
+            const i = Math.floor(scaledT);
+            const frac = scaledT - i;
+
+            const i0 = (i - 1 + segCount) % segCount;
+            const i1 = i % segCount;
+            const i2 = (i + 1) % segCount;
+            const i3 = (i + 2) % segCount;
+
+            const p0 = colorStops[i0];
+            const p1 = colorStops[i1];
+            const p2 = colorStops[i2];
+            const p3 = colorStops[i3];
+
+            const h0 = unwrapHue(p0.h, p1.h);
+            const h1 = p1.h;
+            const h2 = unwrapHue(p2.h, p1.h);
+            const h3 = unwrapHue(p3.h, p1.h);
+
+            let h = catmullRom(h0, h1, h2, h3, frac);
+            const s = catmullRom(p0.s, p1.s, p2.s, p3.s, frac);
+            const l = catmullRom(p0.l, p1.l, p2.l, p3.l, frac);
+
+            h = ((h % 360) + 360) % 360;
+            return `hsl(${h.toFixed(1)}, ${Math.max(0, Math.min(100, s)).toFixed(1)}%, ${Math.max(0, Math.min(100, l)).toFixed(1)}%)`;
+        }
+
+        let colorTime = 0;
+        const colorSpeed = 0.000295; // ~40s full cycle
+
+        function getGlowColor(t) {
+            const segCount = colorStops.length - 1;
+            const scaledT = t * segCount;
+            const i = Math.floor(scaledT);
+            const frac = scaledT - i;
+
+            const i0 = (i - 1 + segCount) % segCount;
+            const i1 = i % segCount;
+            const i2 = (i + 1) % segCount;
+            const i3 = (i + 2) % segCount;
+
+            const p0 = colorStops[i0];
+            const p1 = colorStops[i1];
+            const p2 = colorStops[i2];
+            const p3 = colorStops[i3];
+
+            const h0 = unwrapHue(p0.h, p1.h);
+            const h1 = p1.h;
+            const h2 = unwrapHue(p2.h, p1.h);
+            const h3 = unwrapHue(p3.h, p1.h);
+
+            let h = catmullRom(h0, h1, h2, h3, frac);
+            const s = catmullRom(p0.s, p1.s, p2.s, p3.s, frac);
+            const l = catmullRom(p0.l, p1.l, p2.l, p3.l, frac);
+
+            h = ((h % 360) + 360) % 360;
+            return `hsla(${h.toFixed(1)}, ${Math.max(0, Math.min(100, s)).toFixed(1)}%, ${Math.max(0, Math.min(100, l)).toFixed(1)}%, 0.15)`;
+        }
+
+        let cursorActive = false;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!cursorActive) {
+                cursorActive = true;
+                cursorX = mouseX;
+                cursorY = mouseY;
+                cursor.style.opacity = '1';
+            }
+        });
+
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('a, button, [role="button"]')) {
+                isHovering = true;
+                cursor.classList.add('hovering');
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest('a, button, [role="button"]')) {
+                isHovering = false;
+                cursor.classList.remove('hovering');
+            }
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.18;
+            cursorY += (mouseY - cursorY) * 0.18;
+
+            const targetSize = isHovering ? 8 : 16;
+            currentSize += (targetSize - currentSize) * 0.12;
+            const half = currentSize / 2;
+
+            cursor.style.transform = `translate(${cursorX - half}px, ${cursorY - half}px)`;
+
+            colorTime += colorSpeed;
+            if (colorTime > 1) colorTime -= 1;
+            cursor.style.backgroundColor = getColor(colorTime);
+            cursor.style.boxShadow = `0 0 12px 2px ${getGlowColor(colorTime)}`;
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+        document.addEventListener('mouseenter', () => { if (cursorActive) cursor.style.opacity = '1'; });
+
+        // Force autoplay on all thumbnail videos
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.project-thumb video').forEach(video => {
+                video.muted = true;
+                video.play().catch(() => {});
+            });
+        });
+
+        // Also try playing on first user interaction (for stricter browsers)
+        let hasInteracted = false;
+        function tryPlayVideos() {
+            if (hasInteracted) return;
+            hasInteracted = true;
+            document.querySelectorAll('.project-thumb video').forEach(video => {
+                video.muted = true;
+                video.play().catch(() => {});
+            });
+        }
+        document.addEventListener('click', tryPlayVideos, { once: true });
+        document.addEventListener('mousemove', tryPlayVideos, { once: true });
+        document.addEventListener('scroll', tryPlayVideos, { once: true });
+    </script>
+
+</body>
+</html>
