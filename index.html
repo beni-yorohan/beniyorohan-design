@@ -21,6 +21,7 @@
             font-weight: 100 900;
             font-style: normal;
             font-display: swap;
+            font-variation-settings: 'ital' 0, 'slnt' 0;
         }
 
         *, *::before, *::after {
@@ -48,6 +49,7 @@
             color: var(--text-primary);
             font-family: var(--font-body);
             font-weight: 500;
+            font-style: normal;
             font-size: 9pt;
             line-height: 1.4;
             cursor: none !important;
@@ -297,7 +299,7 @@
             }
 
             .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
             }
 
             .project-title {
@@ -311,6 +313,10 @@
             .project-info {
                 padding-top: 8px;
                 padding-bottom: 16px;
+            }
+
+            .project-thumb {
+                aspect-ratio: 16 / 10;
             }
 
             footer {
@@ -352,10 +358,6 @@
 
             nav {
                 gap: 16px;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
             }
 
             .project-thumb {
