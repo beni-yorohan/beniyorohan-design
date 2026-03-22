@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Source/working files (not needed for the website)
+BY Design_files/
+assets/Mato's/
+assets/img/matos.mp4
+assets/img/matos_option1_native.mp4
+assets/img/matos_option2_smoothed.mp4
+assets/img/matos_option3_balanced.mp4
+
+# Claude config
+.claude/
