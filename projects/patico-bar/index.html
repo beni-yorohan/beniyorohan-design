@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patico Bar — BY Design</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <style>
+        @font-face {
+            font-family: 'OT Brut Mono';
+            src: url('../../assets/fonts/OTBrut-RegularMono.woff2') format('woff2'),
+                 url('../../assets/fonts/OTBrut-RegularMono.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Acumin Variable';
+            src: url('../../assets/fonts/AcuminVariableConcept.otf') format('opentype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+            font-variation-settings: 'ital' 0, 'slnt' 0;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #000000;
+            --text-primary: #e8e8e8;
+            --text-secondary: #8a8a8a;
+            --font-body: 'Acumin Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --side-padding: 16px;
+            --content-gap: 18px;
+            --section-gap: 120px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, html * {
+            cursor: none !important;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 9pt;
+            line-height: 1.4;
+            cursor: none !important;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a, button, input, textarea, select, [role="button"] {
+            cursor: none !important;
+        }
+
+        /* ---- Custom Cursor ---- */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+            will-change: transform, background-color, box-shadow;
+            transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        height 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        opacity 0.2s ease;
+        }
+
+        #custom-cursor.hovering {
+            width: 8px;
+            height: 8px;
+        }
+
+        /* ---- Header ---- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px var(--side-padding);
+        }
+
+        .logo {
+            font-family: 'OT Brut Mono', monospace;
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        nav a {
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0;
+            transition: opacity 0.25s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Hero ---- */
+        .project-hero {
+            width: 100%;
+            padding: 0 var(--side-padding);
+            margin-top: 10px;
+        }
+
+        .project-hero img {
+            width: 100%;
+            display: block;
+        }
+
+        /* ---- Project Title (Cotton-style: left-aligned below hero) ---- */
+        .project-name {
+            padding: 16px var(--side-padding) 0;
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .project-description {
+            padding: 12px var(--side-padding) 0;
+            max-width: 600px;
+        }
+
+        .project-description p {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .project-meta-line {
+            padding: 16px var(--side-padding) 0;
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        /* ---- Project Gallery ---- */
+        .project-gallery {
+            padding: var(--section-gap) var(--side-padding) 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--content-gap);
+        }
+
+        /* Section header — Cotton-style small label */
+        .section-header {
+            width: 100%;
+            padding: 60px 0 10px;
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        /* Full-width image block */
+        .g-full {
+            width: 100%;
+        }
+
+        .g-full img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Half-width image block (side-by-side) */
+        .g-half {
+            width: calc(50% - 9px);
+        }
+
+        .g-half img,
+        .g-half video {
+            width: 100%;
+            display: block;
+        }
+
+        /* Third-width block (3 across) */
+        .g-third {
+            width: calc(33.333% - 12px);
+        }
+
+        .g-third img,
+        .g-third video {
+            width: 100%;
+            display: block;
+        }
+
+        /* Quarter-width block (4 across) */
+        .g-quarter {
+            width: calc(25% - 13.5px);
+        }
+
+        .g-quarter video,
+        .g-quarter img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Fifth-width block (5 across) */
+        .g-fifth {
+            width: calc(20% - 14.4px);
+        }
+
+        .g-fifth img {
+            width: 100%;
+            display: block;
+        }
+
+        /* ---- Scroll Reveal Animation (Cotton-style fade-in) ---- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Initial page-load fade for header/hero */
+        .page-fade {
+            opacity: 0;
+            transform: translateY(12px);
+            animation: pageEntry 0.6s ease forwards;
+        }
+
+        .page-fade:nth-child(2) { animation-delay: 0.05s; }
+        .page-fade:nth-child(3) { animation-delay: 0.1s; }
+
+        @keyframes pageEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ---- Back link ---- */
+        .back-link {
+            display: inline-block;
+            margin-top: 100px;
+            padding: 0 var(--side-padding);
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .back-link:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Footer ---- */
+        footer {
+            margin-top: 200px;
+            padding: 0 var(--side-padding) 60px;
+        }
+
+        .footer-line {
+            width: 100%;
+            height: 1px;
+            background-color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-left {
+            font-size: 13px;
+            color: #ffffff;
+            max-width: 60%;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .footer-right a {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .footer-right a:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 680px) {
+            :root {
+                --side-padding: 12px;
+                --content-gap: 10px;
+                --section-gap: 60px;
+                --font-body: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 24px var(--side-padding);
+            }
+
+            nav {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            nav a { font-size: 13px; }
+
+            .project-name { font-size: 18px; }
+
+            .section-header {
+                font-size: 16px;
+                padding: 40px 0 8px;
+            }
+
+            .g-half, .g-third, .g-quarter, .g-fifth {
+                width: 100%;
+            }
+
+            footer {
+                margin-top: 120px;
+                padding-bottom: 32px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-left {
+                max-width: 100%;
+                font-size: 12px;
+            }
+
+            .footer-right { align-items: flex-start; }
+
+            #custom-cursor { display: none !important; }
+            html, html * { cursor: auto !important; }
+        }
+
+        @media (max-width: 380px) {
+            :root { --side-padding: 10px; }
+            .logo { font-size: 24px; }
+            nav { gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+
+    <header class="page-fade">
+        <a href="/" class="logo">BY</a>
+        <nav>
+            <a href="/about.html">about</a>
+            <a href="mailto:yorohan.b@gmail.com">contact</a>
+            <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">@beniyorohan.design</a>
+        </nav>
+    </header>
+
+    <!-- Hero Video -->
+    <div class="project-hero page-fade">
+        <video src="../../assets/video/patico-hero.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>
+    </div>
+
+    <!-- Project Title (Cotton-style) -->
+    <div class="project-name page-fade">Patico Bar</div>
+    <div class="project-meta-line page-fade">Brand Identity &amp; Art Direction — 2026</div>
+    <div class="project-description page-fade">
+        <p>Patico is a listening bar reimagining Sephardic flavors through contemporary Mediterranean culture. Located in Cihangir, Istanbul, the rebrand transforms Patico D'Estambol into Patico Bar — a space where food, music, and design meet. The identity spans logo, custom typeface, color palette, menus, social media, and physical applications.</p>
+    </div>
+
+    <!-- Project Gallery -->
+    <div class="project-gallery">
+
+        <!-- Cover -->
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_01.jpg" alt="Restaurant Re-Branding Project" loading="lazy"></div>
+
+        <!-- Intro -->
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_02.jpg" alt="Project Introduction" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_03.jpg" alt="Mission Statement" loading="lazy"></div>
+
+        <!-- Who? -->
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_04.jpg" alt="Target Audience" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_05.jpg" alt="Audience Profile" loading="lazy"></div>
+
+        <!-- Location -->
+        <h2 class="section-header fade-in">Location</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_06.jpg" alt="Where?" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_07.jpg" alt="Cihangir Map" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_08.jpg" alt="Cihangir, Istanbul" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_09.jpg" alt="Neighborhood" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_10.jpg" alt="Street View" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_11.jpg" alt="Location Detail" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_12.jpg" alt="Surroundings" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_13.jpg" alt="Address" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_14.jpg" alt="Street View Detail" loading="lazy"></div>
+
+        <!-- Mood board & Art direction -->
+        <h2 class="section-header fade-in">Mood board &amp; Art direction</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_15.jpg" alt="Art Direction Materials" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_16.jpg" alt="Material Textures" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_17.jpg" alt="Imagery Direction" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_18.jpg" alt="Food Photography" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_19.jpg" alt="Atmosphere" loading="lazy"></div>
+
+        <!-- Logo -->
+        <h2 class="section-header fade-in">Logo</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_20.jpg" alt="Patico Logo" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_21.jpg" alt="Logo Grid Construction" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_22.jpg" alt="Logo Sizing" loading="lazy"></div>
+
+        <!-- Typography -->
+        <h2 class="section-header fade-in">Typography</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_23.jpg" alt="Source Serif Variable" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_24.jpg" alt="Patico Geometric Typeface" loading="lazy"></div>
+
+        <!-- Colors -->
+        <h2 class="section-header fade-in">Colors</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_25.jpg" alt="Brand Colors" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_26.jpg" alt="Color Application" loading="lazy"></div>
+
+        <!-- Brand -->
+        <h2 class="section-header fade-in">Brand</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_27.jpg" alt="Brand Philosophy" loading="lazy"></div>
+
+        <!-- Implementations -->
+        <h2 class="section-header fade-in">Implementations</h2>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_28.jpg" alt="Storefront Day" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_29.jpg" alt="Storefront Night" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_30.jpg" alt="Branded Apron" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_31.jpg" alt="DJ Sweatshirt" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_32.jpg" alt="Matchboxes" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_33.jpg" alt="Ashtray" loading="lazy"></div>
+
+        <!-- Brand Photography -->
+        <h2 class="section-header fade-in">Brand photography</h2>
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_01.jpg" alt="Chef Plating" loading="lazy"></div>
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_02.jpg" alt="Serving Dishes" loading="lazy"></div>
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_03.jpg" alt="Patico Apron" loading="lazy"></div>
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_04.jpg" alt="Mediterranean Plate" loading="lazy"></div>
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_05.jpg" alt="Olives" loading="lazy"></div>
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_12.jpg" alt="Waiter Serving" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_06.jpg" alt="Interior Dining" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_07.jpg" alt="Bar Counter" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_08.jpg" alt="Evening Crowd" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_09.jpg" alt="Cheers" loading="lazy"></div>
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_10.jpg" alt="Food & Music" loading="lazy"></div>
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_11.jpg" alt="DJ" loading="lazy"></div>
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_13.jpg" alt="Bar Scene" loading="lazy"></div>
+
+        <!-- Social media -->
+        <h2 class="section-header fade-in">Social media</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_34.jpg" alt="Instagram Profile" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_35.jpg" alt="Instagram Stories" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_36.jpg" alt="Story Templates" loading="lazy"></div>
+
+        <!-- Menus -->
+        <h2 class="section-header fade-in">Menus</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_37.jpg" alt="Menu Title" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_38.jpg" alt="Menu Design" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_39.jpg" alt="Menu Details" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_40.jpg" alt="Menu Photography" loading="lazy"></div>
+
+        <!-- End -->
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_41.jpg" alt="Thanks" loading="lazy"></div>
+
+    </div>
+
+    <a href="/" class="back-link">&larr; Back to all projects</a>
+
+    <footer>
+        <div class="footer-line"></div>
+        <div class="footer-content">
+            <div class="footer-left">
+                &copy; 2024 BY Design. All rights reserved.
+            </div>
+            <div class="footer-right">
+                <a href="../../assets/beni_yorohan_resume_2026.pdf" target="_blank" rel="noopener">cv/resume</a>
+                <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">linkedin</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ---- Custom Cursor with smooth warm color cycling ----
+        const cursor = document.getElementById('custom-cursor');
+        let mouseX = -100, mouseY = -100;
+        let cursorX = -100, cursorY = -100;
+        let isHovering = false;
+        let currentSize = 16;
+
+        const colorStops = [
+            { h: 48,  s: 65, l: 72 },
+            { h: 30,  s: 60, l: 70 },
+            { h: 12,  s: 58, l: 72 },
+            { h: 355, s: 55, l: 74 },
+            { h: 340, s: 50, l: 72 },
+            { h: 320, s: 48, l: 70 },
+            { h: 290, s: 40, l: 72 },
+            { h: 200, s: 50, l: 72 },
+            { h: 180, s: 42, l: 68 },
+            { h: 155, s: 40, l: 68 },
+            { h: 130, s: 38, l: 70 },
+            { h: 22,  s: 40, l: 62 },
+            { h: 14,  s: 45, l: 68 },
+            { h: 48,  s: 65, l: 72 },
+        ];
+
+        function catmullRom(p0, p1, p2, p3, t) {
+            const t2 = t * t, t3 = t2 * t;
+            return 0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3);
+        }
+
+        function unwrapHue(val, ref) {
+            let diff = val - ref;
+            if (diff > 180) return val - 360;
+            if (diff < -180) return val + 360;
+            return val;
+        }
+
+        function getColor(t) {
+            const segCount = colorStops.length - 1;
+            const scaledT = t * segCount;
+            const i = Math.floor(scaledT);
+            const frac = scaledT - i;
+            const i0 = (i - 1 + segCount) % segCount, i1 = i % segCount, i2 = (i + 1) % segCount, i3 = (i + 2) % segCount;
+            const p0 = colorStops[i0], p1 = colorStops[i1], p2 = colorStops[i2], p3 = colorStops[i3];
+            const h0 = unwrapHue(p0.h, p1.h), h1 = p1.h, h2 = unwrapHue(p2.h, p1.h), h3 = unwrapHue(p3.h, p1.h);
+            let h = catmullRom(h0, h1, h2, h3, frac);
+            const s = catmullRom(p0.s, p1.s, p2.s, p3.s, frac);
+            const l = catmullRom(p0.l, p1.l, p2.l, p3.l, frac);
+            h = ((h % 360) + 360) % 360;
+            return `hsl(${h.toFixed(1)}, ${Math.max(0, Math.min(100, s)).toFixed(1)}%, ${Math.max(0, Math.min(100, l)).toFixed(1)}%)`;
+        }
+
+        let colorTime = 0;
+        const colorSpeed = 0.000295;
+
+        function getGlowColor(t) {
+            const segCount = colorStops.length - 1;
+            const scaledT = t * segCount;
+            const i = Math.floor(scaledT);
+            const frac = scaledT - i;
+            const i0 = (i - 1 + segCount) % segCount, i1 = i % segCount, i2 = (i + 1) % segCount, i3 = (i + 2) % segCount;
+            const p0 = colorStops[i0], p1 = colorStops[i1], p2 = colorStops[i2], p3 = colorStops[i3];
+            const h0 = unwrapHue(p0.h, p1.h), h1 = p1.h, h2 = unwrapHue(p2.h, p1.h), h3 = unwrapHue(p3.h, p1.h);
+            let h = catmullRom(h0, h1, h2, h3, frac);
+            const s = catmullRom(p0.s, p1.s, p2.s, p3.s, frac);
+            const l = catmullRom(p0.l, p1.l, p2.l, p3.l, frac);
+            h = ((h % 360) + 360) % 360;
+            return `hsla(${h.toFixed(1)}, ${Math.max(0, Math.min(100, s)).toFixed(1)}%, ${Math.max(0, Math.min(100, l)).toFixed(1)}%, 0.15)`;
+        }
+
+        let cursorActive = false;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            if (!cursorActive) { cursorActive = true; cursorX = mouseX; cursorY = mouseY; cursor.style.opacity = '1'; }
+        });
+        document.addEventListener('mouseover', (e) => { if (e.target.closest('a, button, [role="button"]')) { isHovering = true; cursor.classList.add('hovering'); } });
+        document.addEventListener('mouseout', (e) => { if (e.target.closest('a, button, [role="button"]')) { isHovering = false; cursor.classList.remove('hovering'); } });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.18; cursorY += (mouseY - cursorY) * 0.18;
+            const targetSize = isHovering ? 8 : 16; currentSize += (targetSize - currentSize) * 0.12;
+            cursor.style.transform = `translate(${cursorX - currentSize / 2}px, ${cursorY - currentSize / 2}px)`;
+            colorTime += colorSpeed; if (colorTime > 1) colorTime -= 1;
+            cursor.style.backgroundColor = getColor(colorTime);
+            cursor.style.boxShadow = `0 0 12px 2px ${getGlowColor(colorTime)}`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+        document.addEventListener('mouseenter', () => { if (cursorActive) cursor.style.opacity = '1'; });
+
+        // ---- Scroll-triggered fade-in (Cotton Design style) ----
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.05,
+            rootMargin: '0px 0px -60px 0px'
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
