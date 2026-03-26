@@ -349,6 +349,11 @@
                 width: 100%;
             }
 
+            /* Installation portrait images go full-width on mobile */
+            .g-full img[style*="width:50%"] {
+                width: 100% !important;
+            }
+
             footer {
                 margin-top: 120px;
                 padding-bottom: 32px;
@@ -413,10 +418,10 @@
     <!-- Project Gallery -->
     <div class="project-gallery">
 
-        <!-- Installation -->
+        <!-- Installation (9:16 portrait, stacked) -->
         <h2 class="section-header fade-in">Installation</h2>
-        <div class="g-half fade-in"><img src="../../assets/img/start-today/install_final_outdoor.jpg" alt="Start Today — final outdoor type installation in green turf" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/start-today/install_blueprints_wall.jpg" alt="Blueprints and turf roll — preparation for the installation" loading="lazy"></div>
+        <div class="g-full fade-in" style="display:flex;justify-content:center;"><img src="../../assets/img/start-today/install_final_outdoor.jpg" alt="Start Today — final outdoor type installation in green turf" loading="lazy" style="width:50%;"></div>
+        <div class="g-full fade-in" style="display:flex;justify-content:center;"><img src="../../assets/img/start-today/install_blueprints_wall.jpg" alt="Blueprints and turf roll — preparation for the installation" loading="lazy" style="width:50%;"></div>
 
         <!-- Blueprints -->
         <h2 class="section-header fade-in">Blueprints</h2>
@@ -424,7 +429,7 @@
         <div class="g-full fade-in"><img src="../../assets/img/start-today/blueprint_750pt.jpg" alt="PF Pixelscript 750pt — detailed type measurements" loading="lazy"></div>
         <div class="g-full fade-in"><img src="../../assets/img/start-today/blueprint_900pt.jpg" alt="PF Pixelscript 900pt — detailed type measurements" loading="lazy"></div>
 
-        <!-- Process -->
+        <!-- Process (booklet scans — side by side, two at a time, no cropping) -->
         <h2 class="section-header fade-in">Process</h2>
         <div class="g-half fade-in"><img src="../../assets/img/start-today/scan_01_cover.jpg" alt="Case study cover — Start Today" loading="lazy"></div>
         <div class="g-half fade-in"><img src="../../assets/img/start-today/scan_02_week01.jpg" alt="Week 01 — research and initial ideas" loading="lazy"></div>
@@ -440,7 +445,7 @@
         <div class="g-half fade-in"><img src="../../assets/img/start-today/scan_12_portraits.jpg" alt="The team — start today please" loading="lazy"></div>
         <div class="g-half fade-in"><img src="../../assets/img/start-today/scan_13_installing.jpg" alt="Installing the turf type" loading="lazy"></div>
         <div class="g-half fade-in"><img src="../../assets/img/start-today/scan_14_groupphoto.jpg" alt="Massart CD '26 — group photo" loading="lazy"></div>
-        <div class="g-full fade-in"><img src="../../assets/img/start-today/scan_15_backcover.jpg" alt="Start Today — Massart" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/start-today/scan_15_backcover.jpg" alt="Start Today — Massart" loading="lazy"></div>
 
     </div>
 
