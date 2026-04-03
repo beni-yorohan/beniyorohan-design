@@ -216,12 +216,12 @@
 
         .glyph-row span {
             font-family: 'Patico Geometric', sans-serif;
-            font-size: 18vw;
+            font-size: 22vw;
             color: var(--text-primary);
             transition: color 0.15s ease, text-shadow 0.15s ease;
             line-height: 0.85;
             padding: 0;
-            margin: 0 -0.5vw;
+            margin: 0 -1vw;
             user-select: none;
         }
 
@@ -233,13 +233,38 @@
         /* Full alphabet row */
         .alphabet-row {
             width: 100%;
-            padding: 20px 0 40px;
+            padding: 10px 0;
             font-family: 'Patico Geometric', sans-serif;
-            font-size: 42px;
+            font-size: 72px;
             color: var(--text-primary);
-            line-height: 1.3;
-            letter-spacing: 0.04em;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
             word-break: break-word;
+        }
+
+        /* Download button */
+        .download-btn {
+            display: inline-block;
+            margin-top: 80px;
+            padding: 14px 40px;
+            font-family: 'Patico Geometric', sans-serif;
+            font-size: 16px;
+            letter-spacing: 0.05em;
+            color: #000;
+            background: var(--text-primary);
+            text-decoration: none;
+            border: none;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background: #39FF14;
+            color: #000;
+        }
+
+        .download-section {
+            padding: 0 var(--side-padding);
+            text-align: center;
         }
 
         /* Type Tester */
@@ -476,11 +501,16 @@
             .project-name { font-size: 18px; }
 
             .glyph-row span {
-                font-size: 15vw;
+                font-size: 20vw;
             }
 
             .alphabet-row {
-                font-size: 24px;
+                font-size: 36px;
+            }
+
+            .download-btn {
+                font-size: 14px;
+                padding: 12px 32px;
             }
 
             .type-tester-controls {
@@ -558,13 +588,13 @@
         <!-- Glyph Hover Row -->
         <h2 class="section-header fade-in">Glyphs</h2>
         <div class="glyph-row fade-in">
-            <span>A</span><span>A</span><span>A</span><span>A</span><span>A</span><span>A</span>
+            <span>A</span><span>A</span><span>A</span><span>A</span><span>A</span>
         </div>
 
         <!-- Full Alphabet -->
-        <div class="alphabet-row fade-in">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</div>
-        <div class="alphabet-row fade-in" style="font-size:36px;">a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
-        <div class="alphabet-row fade-in" style="font-size:36px;">0 1 2 3 4 5 6 7 8 9</div>
+        <div class="alphabet-row fade-in">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+        <div class="alphabet-row fade-in" style="font-size:60px;">abcdefghijklmnopqrstuvwxyz</div>
+        <div class="alphabet-row fade-in" style="font-size:60px;">0123456789</div>
 
         <!-- Type Tester -->
         <h2 class="section-header fade-in">Type tester</h2>
@@ -592,6 +622,11 @@
             <div class="type-cascade" id="type-cascade"></div>
         </div>
 
+    </div>
+
+    <!-- Download -->
+    <div class="download-section fade-in">
+        <a href="../../assets/fonts/PaticoGeometric-Regular.ttf" download="PaticoGeometric-Regular.ttf" class="download-btn">DOWNLOAD TYPEFACE</a>
     </div>
 
     <a href="/" class="back-link">&lt; back to home</a>
