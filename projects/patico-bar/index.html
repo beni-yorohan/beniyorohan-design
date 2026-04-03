@@ -29,6 +29,14 @@
             font-variation-settings: 'ital' 0, 'slnt' 0;
         }
 
+        @font-face {
+            font-family: 'Patico Geometric';
+            src: url('../../assets/fonts/PaticoGeometric-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -398,6 +406,146 @@
             html, html * { cursor: auto !important; }
         }
 
+        /* ---- Patico Geometric Type Section ---- */
+        .type-specimen-video {
+            width: 100%;
+        }
+        .type-specimen-video video {
+            width: 100%;
+            display: block;
+        }
+
+        .type-description {
+            width: 100%;
+            max-width: 600px;
+            padding: 24px 0 0;
+        }
+        .type-description p {
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Hover A row */
+        .glyph-row {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            padding: 60px 0 20px;
+        }
+        .glyph-row span {
+            font-family: 'Patico Geometric', sans-serif;
+            font-size: 96px;
+            color: var(--text-primary);
+            transition: color 0.15s ease, text-shadow 0.15s ease;
+            line-height: 1;
+            padding: 0 2px;
+            user-select: none;
+        }
+        .glyph-row span:hover {
+            color: #39FF14;
+            text-shadow: 0 0 20px rgba(57, 255, 20, 0.4), 0 0 40px rgba(57, 255, 20, 0.15);
+        }
+
+        /* Type tester */
+        .type-tester {
+            width: 100%;
+            padding: 40px 0 0;
+        }
+        .type-tester-controls {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #222;
+        }
+        .type-tester-controls label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .type-tester-controls input[type="text"] {
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            width: 280px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .type-tester-controls input[type="text"]:focus {
+            border-color: #666;
+        }
+        .type-tester-controls input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 120px;
+            height: 2px;
+            background: #333;
+            border-radius: 2px;
+            outline: none;
+        }
+        .type-tester-controls input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            cursor: none !important;
+        }
+        .control-value {
+            font-family: 'OT Brut Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+            min-width: 36px;
+            text-align: right;
+        }
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .type-cascade {
+            width: 100%;
+        }
+        .type-cascade-line {
+            font-family: 'Patico Geometric', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.15;
+            word-break: break-word;
+            overflow: hidden;
+            padding: 4px 0;
+        }
+
+        @media (max-width: 680px) {
+            .glyph-row span {
+                font-size: 48px;
+            }
+            .type-tester-controls {
+                gap: 16px;
+            }
+            .type-tester-controls input[type="text"] {
+                width: 100%;
+            }
+            .type-tester-controls input[type="range"] {
+                width: 80px;
+            }
+        }
+
         @media (max-width: 380px) {
             :root { --side-padding: 10px; }
             .logo { font-size: 24px; }
@@ -468,9 +616,51 @@
         <div class="g-full fade-in"><img src="../../assets/img/patico/patico_22.jpg" alt="Logo Sizing" loading="lazy"></div>
 
         <!-- Typography -->
-        <h2 class="section-header fade-in">Typography</h2>
+        <h2 class="section-header fade-in">Typography — Patico Geometric</h2>
+
+        <!-- Specimen Video -->
+        <div class="type-specimen-video fade-in">
+            <video src="../../assets/video/patico-type-specimen.mp4" autoplay loop muted playsinline></video>
+        </div>
+
+        <!-- Type Description -->
+        <div class="type-description fade-in">
+            <p>Patico Geometric is a custom display typeface designed for Patico Bar. Its forms draw from the geometric lettering traditions of Istanbul's Sephardic Jewish community — the clean, rounded shapes found in synagogue inscriptions, old Ladino signage, and Ottoman-era Jewish printing. The letterforms carry the structural rhythm of the Galata Bridge: repeating arcs, even weight distribution, and a sense of calm modularity that echoes the bridge's procession of spans across the Golden Horn. What emerges is a typeface that feels both ancient and contemporary — rooted in the cultural intersection where Sephardic heritage meets modern Istanbul.</p>
+        </div>
+
+        <!-- Static type slides -->
         <div class="g-full fade-in"><img src="../../assets/img/patico/patico_23.jpg" alt="Source Serif Variable" loading="lazy"></div>
         <div class="g-full fade-in"><img src="../../assets/img/patico/patico_24.jpg" alt="Patico Geometric Typeface" loading="lazy"></div>
+
+        <!-- Interactive Glyph Row -->
+        <div class="glyph-row fade-in">
+            <span>A</span><span>A</span><span>A</span><span>A</span><span>A</span><span>A</span><span>A</span><span>A</span><span>A</span><span>A</span><span>A</span><span>A</span><span>A</span><span>A</span><span>A</span>
+        </div>
+
+        <!-- Type Tester -->
+        <div class="type-tester fade-in">
+            <div class="type-tester-controls">
+                <label>
+                    Sample text
+                    <input type="text" id="type-input" value="NASILSINIZ INSALLAH" spellcheck="false">
+                </label>
+                <label>
+                    Tracking
+                    <div class="control-row">
+                        <input type="range" id="tracking-slider" min="-50" max="200" value="0">
+                        <span class="control-value" id="tracking-value">0</span>
+                    </div>
+                </label>
+                <label>
+                    Leading
+                    <div class="control-row">
+                        <input type="range" id="leading-slider" min="80" max="200" value="115">
+                        <span class="control-value" id="leading-value">1.15</span>
+                    </div>
+                </label>
+            </div>
+            <div class="type-cascade" id="type-cascade"></div>
+        </div>
 
         <!-- Colors -->
         <h2 class="section-header fade-in">Colors</h2>
@@ -629,6 +819,39 @@
         });
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // ---- Type Tester ----
+        const typeSizes = [96, 72, 60, 48, 36, 24, 18, 14, 11, 8];
+        const typeInput = document.getElementById('type-input');
+        const trackingSlider = document.getElementById('tracking-slider');
+        const leadingSlider = document.getElementById('leading-slider');
+        const trackingValue = document.getElementById('tracking-value');
+        const leadingValue = document.getElementById('leading-value');
+        const typeCascade = document.getElementById('type-cascade');
+
+        function renderCascade() {
+            const text = typeInput.value || 'NASILSINIZ INSALLAH';
+            const tracking = trackingSlider.value / 1000;
+            const leading = leadingSlider.value / 100;
+            trackingValue.textContent = trackingSlider.value;
+            leadingValue.textContent = leading.toFixed(2);
+
+            typeCascade.innerHTML = '';
+            typeSizes.forEach(size => {
+                const line = document.createElement('div');
+                line.className = 'type-cascade-line';
+                line.style.fontSize = size + 'px';
+                line.style.letterSpacing = tracking + 'em';
+                line.style.lineHeight = leading;
+                line.textContent = text;
+                typeCascade.appendChild(line);
+            });
+        }
+
+        typeInput.addEventListener('input', renderCascade);
+        trackingSlider.addEventListener('input', renderCascade);
+        leadingSlider.addEventListener('input', renderCascade);
+        renderCascade();
     </script>
 
 </body>

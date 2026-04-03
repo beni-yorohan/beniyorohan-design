@@ -12,5 +12,6 @@ assets/img/matos_option3_balanced.mp4
 # Claude config
 .claude/
 projects/start-today/Reviews type installation.pdf
-projects/start-today/Reviews type installation.pdf
-projects/start-today/Reviews type installation.pdf
+
+# Large uncompressed video files
+assets/video/patico-specimen.mp4
