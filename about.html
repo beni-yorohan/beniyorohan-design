@@ -145,6 +145,168 @@
             opacity: 0.6;
         }
 
+        /* ---- Quote Overlay ---- */
+        .quote-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .quote-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .quote-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .quote-form-container {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            padding: 48px 40px;
+            margin: 0 16px;
+            transform: translateY(20px);
+            transition: transform 0.35s ease;
+        }
+
+        .quote-overlay.active .quote-form-container {
+            transform: translateY(0);
+        }
+
+        .quote-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            padding: 8px;
+            transition: color 0.2s ease;
+            font-family: var(--font-body);
+        }
+
+        .quote-close:hover {
+            color: var(--text-primary);
+        }
+
+        .quote-form-container h2 {
+            font-family: var(--font-body);
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .quote-form-container p.quote-sub {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .quote-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .quote-form input,
+        .quote-form textarea,
+        .quote-form select {
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 14px;
+            padding: 12px 14px;
+            border-radius: 0;
+            outline: none;
+            transition: border-color 0.2s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+        }
+
+        .quote-form input::placeholder,
+        .quote-form textarea::placeholder {
+            color: #555;
+        }
+
+        .quote-form input:focus,
+        .quote-form textarea:focus,
+        .quote-form select:focus {
+            border-color: #888;
+        }
+
+        .quote-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .quote-form select option {
+            background: #111;
+            color: var(--text-primary);
+        }
+
+        .quote-submit {
+            background: var(--text-primary);
+            color: #000;
+            border: none;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 14px 24px;
+            letter-spacing: 0.02em;
+            transition: opacity 0.2s ease;
+            margin-top: 8px;
+            border-radius: 0;
+        }
+
+        .quote-submit:hover {
+            opacity: 0.8;
+        }
+
+        .quote-success {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .quote-success h3 {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .quote-success p {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 680px) {
+            .quote-form-container {
+                padding: 32px 24px;
+            }
+        }
+
         /* ---- About Content ---- */
         .about-content {
             flex: 1;
@@ -261,7 +423,7 @@
         <a href="/" class="logo">BY</a>
         <nav>
             <a href="about.html">about</a>
-            <a href="mailto:yorohan.b@gmail.com">contact</a>
+            <a href="#" id="quote-btn">get a quote</a>
             <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">@beniyorohan.design</a>
         </nav>
     </header>
@@ -285,6 +447,38 @@
             </div>
         </div>
     </footer>
+
+    <!-- Quote Overlay -->
+    <div class="quote-overlay" id="quote-overlay">
+        <div class="quote-backdrop" id="quote-backdrop"></div>
+        <div class="quote-form-container">
+            <button class="quote-close" id="quote-close">&times;</button>
+            <h2>Get a quote</h2>
+            <p class="quote-sub">Tell me about your project and I'll get back to you within 24 hours.</p>
+            <form class="quote-form" id="quote-form" name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="quote">
+                <p style="display:none"><input name="bot-field"></p>
+                <input type="text" name="name" placeholder="Your name" required>
+                <input type="email" name="email" placeholder="Email address" required>
+                <select name="service" required>
+                    <option value="" disabled selected>Type of project</option>
+                    <option value="branding">Brand Identity</option>
+                    <option value="type-design">Type Design</option>
+                    <option value="editorial">Editorial / Publication</option>
+                    <option value="packaging">Packaging Design</option>
+                    <option value="web">Web Design</option>
+                    <option value="art-direction">Art Direction</option>
+                    <option value="other">Other</option>
+                </select>
+                <textarea name="message" placeholder="Tell me about your project — scope, timeline, budget range..." rows="4"></textarea>
+                <button type="submit" class="quote-submit">Get quote now</button>
+            </form>
+            <div class="quote-success" id="quote-success">
+                <h3>Request sent</h3>
+                <p>Thanks! I'll be in touch soon.</p>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ---- Custom Cursor (same as index) ----
@@ -609,6 +803,50 @@
         });
 
         window.addEventListener('resize', createBoundaries);
+
+        // ---- Quote Overlay ----
+        const quoteOverlay = document.getElementById('quote-overlay');
+        const quoteBtn = document.getElementById('quote-btn');
+        const quoteClose = document.getElementById('quote-close');
+        const quoteBackdrop = document.getElementById('quote-backdrop');
+        const quoteForm = document.getElementById('quote-form');
+        const quoteSuccess = document.getElementById('quote-success');
+
+        function openQuote(e) {
+            e.preventDefault();
+            quoteOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeQuote() {
+            quoteOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        quoteBtn.addEventListener('click', openQuote);
+        quoteClose.addEventListener('click', closeQuote);
+        quoteBackdrop.addEventListener('click', closeQuote);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeQuote(); });
+
+        quoteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const data = new FormData(quoteForm);
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(data).toString()
+            }).then(() => {
+                quoteForm.style.display = 'none';
+                quoteSuccess.style.display = 'block';
+                setTimeout(closeQuote, 2500);
+                setTimeout(() => { quoteForm.style.display = ''; quoteSuccess.style.display = 'none'; quoteForm.reset(); }, 3000);
+            }).catch(() => {
+                quoteForm.style.display = 'none';
+                quoteSuccess.style.display = 'block';
+                setTimeout(closeQuote, 2500);
+                setTimeout(() => { quoteForm.style.display = ''; quoteSuccess.style.display = 'none'; quoteForm.reset(); }, 3000);
+            });
+        });
     </script>
 
 </body>
