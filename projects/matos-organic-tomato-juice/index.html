@@ -694,9 +694,10 @@
             <button class="quote-close" id="quote-close">&times;</button>
             <h2>Get a quote</h2>
             <p class="quote-sub">Tell me about your project and I'll get back to you within 24 hours.</p>
-            <form class="quote-form" id="quote-form" name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                <input type="hidden" name="form-name" value="quote">
-                <p style="display:none"><input name="bot-field"></p>
+            <form class="quote-form" id="quote-form" action="https://formsubmit.co/yorohan.b@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New Quote Request — BY Design">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
                 <input type="text" name="name" placeholder="Your name" required>
                 <input type="email" name="email" placeholder="Email address" required>
                 <select name="service" required>
@@ -852,11 +853,11 @@
         quoteForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const data = new FormData(quoteForm);
-            fetch('/', {
+            fetch('https://formsubmit.co/ajax/yorohan.b@gmail.com', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(data).toString()
-            }).then(() => {
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(data))
+            }).then(r => r.json()).then(() => {
                 quoteForm.style.display = 'none';
                 quoteSuccess.style.display = 'block';
                 setTimeout(closeQuote, 2500);
