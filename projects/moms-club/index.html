@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mom's Club — BY Design</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="../../assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <style>
+        @font-face {
+            font-family: 'OT Brut Mono';
+            src: url('../../assets/fonts/OTBrut-RegularMono.woff2') format('woff2'),
+                 url('../../assets/fonts/OTBrut-RegularMono.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Acumin Variable';
+            src: url('../../assets/fonts/AcuminVariableConcept.otf') format('opentype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+            font-variation-settings: 'ital' 0, 'slnt' 0;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #000000;
+            --text-primary: #e8e8e8;
+            --text-secondary: #8a8a8a;
+            --font-body: 'Acumin Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --side-padding: 16px;
+            --content-gap: 18px;
+            --section-gap: 120px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, html * {
+            cursor: none !important;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 9pt;
+            line-height: 1.4;
+            cursor: none !important;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a, button, input, textarea, select, [role="button"] {
+            cursor: none !important;
+        }
+
+        /* ---- Custom Cursor ---- */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+            will-change: transform, background-color, box-shadow;
+            transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        height 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        opacity 0.2s ease;
+        }
+
+        #custom-cursor.hovering {
+            width: 8px;
+            height: 8px;
+        }
+
+        /* ---- Header ---- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px var(--side-padding);
+        }
+
+        .logo {
+            font-family: 'OT Brut Mono', monospace;
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        nav a {
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0;
+            transition: opacity 0.25s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Quote Overlay ---- */
+        .quote-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .quote-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .quote-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .quote-form-container {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            padding: 48px 40px;
+            margin: 0 16px;
+            transform: translateY(20px);
+            transition: transform 0.35s ease;
+        }
+
+        .quote-overlay.active .quote-form-container {
+            transform: translateY(0);
+        }
+
+        .quote-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            padding: 8px;
+            transition: color 0.2s ease;
+            font-family: var(--font-body);
+        }
+
+        .quote-close:hover {
+            color: var(--text-primary);
+        }
+
+        .quote-form-container h2 {
+            font-family: var(--font-body);
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .quote-form-container p.quote-sub {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .quote-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .quote-form input,
+        .quote-form textarea,
+        .quote-form select {
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 14px;
+            padding: 12px 14px;
+            border-radius: 0;
+            outline: none;
+            transition: border-color 0.2s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+        }
+
+        .quote-form input::placeholder,
+        .quote-form textarea::placeholder {
+            color: #555;
+        }
+
+        .quote-form input:focus,
+        .quote-form textarea:focus,
+        .quote-form select:focus {
+            border-color: #888;
+        }
+
+        .quote-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .quote-form select option {
+            background: #111;
+            color: var(--text-primary);
+        }
+
+        .quote-submit {
+            background: var(--text-primary);
+            color: #000;
+            border: none;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 14px 24px;
+            letter-spacing: 0.02em;
+            transition: opacity 0.2s ease;
+            margin-top: 8px;
+            border-radius: 0;
+        }
+
+        .quote-submit:hover {
+            opacity: 0.8;
+        }
+
+        .quote-success {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .quote-success h3 {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .quote-success p {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 680px) {
+            .quote-form-container {
+                padding: 32px 24px;
+            }
+        }
+
+        /* ---- Hero ---- */
+        .project-hero {
+            width: 100%;
+            padding: 0 var(--side-padding);
+            margin-top: 10px;
+        }
+
+        .project-hero img {
+            width: 100%;
+            display: block;
+        }
+
+        /* ---- Project Title ---- */
+        .project-name {
+            padding: 16px var(--side-padding) 0;
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .project-description {
+            padding: 12px var(--side-padding) 0;
+            max-width: 600px;
+        }
+
+        .project-description p {
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .project-meta-line {
+            padding: 16px var(--side-padding) 0;
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        /* ---- Project Gallery ---- */
+        .project-gallery {
+            padding: var(--section-gap) var(--side-padding) 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--content-gap);
+        }
+
+        .section-header {
+            width: 100%;
+            padding: 60px 0 10px;
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .g-full { width: 100%; }
+        .g-full img { width: 100%; display: block; }
+
+        .g-half { width: calc(50% - 9px); }
+        .g-half img, .g-half video { width: 100%; display: block; }
+
+        .g-third { width: calc(33.333% - 12px); }
+        .g-third img, .g-third video { width: 100%; display: block; }
+
+        .g-quarter { width: calc(25% - 13.5px); }
+        .g-quarter video, .g-quarter img { width: 100%; display: block; }
+
+        .g-fifth { width: calc(20% - 14.4px); }
+        .g-fifth img { width: 100%; display: block; }
+
+        /* ---- Scroll Reveal Animation ---- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .page-fade {
+            opacity: 0;
+            transform: translateY(12px);
+            animation: pageEntry 0.6s ease forwards;
+        }
+
+        .page-fade:nth-child(2) { animation-delay: 0.05s; }
+        .page-fade:nth-child(3) { animation-delay: 0.1s; }
+
+        @keyframes pageEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ---- Back link ---- */
+        .back-link {
+            display: inline-block;
+            margin-top: 100px;
+            padding: 0 var(--side-padding);
+            font-family: 'OT Brut Mono', monospace;
+            font-size: 14px;
+            font-weight: 400;
+            color: #ffffff;
+            text-decoration: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .back-link:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Footer ---- */
+        footer {
+            margin-top: 200px;
+            padding: 0 var(--side-padding) 60px;
+        }
+
+        .footer-line {
+            width: 100%;
+            height: 1px;
+            background-color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-left {
+            font-size: 13px;
+            color: #ffffff;
+            max-width: 60%;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .footer-right a {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .footer-right a:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 680px) {
+            :root {
+                --side-padding: 12px;
+                --content-gap: 10px;
+                --section-gap: 60px;
+                --font-body: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 24px var(--side-padding);
+            }
+
+            nav {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            nav a { font-size: 13px; }
+
+            .project-name { font-size: 18px; }
+
+            .section-header {
+                font-size: 16px;
+                padding: 40px 0 8px;
+            }
+
+            .g-half, .g-third, .g-quarter, .g-fifth {
+                width: 100%;
+            }
+
+            footer {
+                margin-top: 120px;
+                padding-bottom: 32px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-left {
+                max-width: 100%;
+                font-size: 12px;
+            }
+
+            .footer-right { align-items: flex-start; }
+
+            #custom-cursor { display: none !important; }
+            html, html * { cursor: auto !important; }
+        }
+
+        @media (max-width: 380px) {
+            :root { --side-padding: 10px; }
+            .logo { font-size: 24px; }
+            nav { gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+
+    <header class="page-fade">
+        <a href="/" class="logo">BY</a>
+        <nav>
+            <a href="/about.html">about</a>
+            <a href="#" id="quote-btn">get a quote</a>
+            <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">@beniyorohan.design</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <div class="project-hero page-fade">
+        <img src="../../assets/img/moms-club/brand-01.jpg" alt="Mom's Club — Brand Identity" loading="eager">
+    </div>
+
+    <!-- Project Title -->
+    <div class="project-name page-fade">Mom's Club</div>
+    <div class="project-meta-line page-fade">Brand Identity &amp; Print Collateral — 2025</div>
+    <div class="project-description page-fade">
+        <p>Mom's Club is a women-focused wellness and social space in Istanbul — part café, part fitness studio, part community hub. The brand identity needed to feel warm and inviting without losing its edge: bold enough to stand on a street-facing light box, personal enough to feel like home on a coffee cup sleeve. We built a system rooted in earthy tones — chrome green, sage, cream, olive brown, and a signature orange — paired with hand-drawn illustrations of everyday rituals: kettlebells, coffee mugs, rubber ducks, open books. The illustration style bridges the playful and the grounded, giving the brand a voice that's confident, inclusive, and distinctly maternal without being precious.</p>
+    </div>
+
+    <!-- Project Gallery -->
+    <div class="project-gallery">
+
+        <!-- Brand Guidelines -->
+        <h2 class="section-header fade-in">Brand guidelines</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/brand-02.jpg" alt="Mom's Club — brand intro" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/brand-03.jpg" alt="Mom's Club — typography system" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/brand-04.jpg" alt="Mom's Club — Manofa typeface specimen" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/brand-05.jpg" alt="Mom's Club — Marion typeface specimen" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/brand-06.jpg" alt="Mom's Club — color palette" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/brand-07.jpg" alt="Mom's Club — color usage" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/brand-08.jpg" alt="Mom's Club — logos and marks" loading="lazy"></div>
+
+        <!-- Color Pairings -->
+        <h2 class="section-header fade-in">Color pairings</h2>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-09.jpg" alt="Color pairing — correct usage" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-10.jpg" alt="Color pairing — correct usage" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-11.jpg" alt="Color pairing — incorrect usage" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-12.jpg" alt="Color pairing — incorrect usage" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-13.jpg" alt="Color pairing — correct usage" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-14.jpg" alt="Color pairing — correct usage" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-15.jpg" alt="Color pairing — incorrect usage" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-16.jpg" alt="Color pairing — incorrect usage" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-17.jpg" alt="Color pairing — correct usage" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-18.jpg" alt="Color pairing — correct usage" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-19.jpg" alt="Color pairing — incorrect usage" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-20.jpg" alt="Color pairing — incorrect usage" loading="lazy"></div>
+
+        <!-- Pattern & Illustration -->
+        <h2 class="section-header fade-in">Pattern &amp; illustration</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/brand-21.jpg" alt="Mom's Club — illustration pattern" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/brand-22.jpg" alt="Mom's Club — illustration detail" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-23.jpg" alt="Mom's Club — pattern application" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/brand-24.jpg" alt="Mom's Club — pattern variation" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/brand-25.jpg" alt="Mom's Club — full pattern" loading="lazy"></div>
+
+        <!-- Print Collateral -->
+        <h2 class="section-header fade-in">Print collateral</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/matbaa-11.jpg" alt="Mom's Club — RAL color scale for production" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/matbaa-01.jpg" alt="Mom's Club — coffee cup sleeve, orange" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/matbaa-02.jpg" alt="Mom's Club — coffee cup sleeve, sage" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/matbaa-03.jpg" alt="Mom's Club — coffee cup sleeve, dark green" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/matbaa-04.jpg" alt="Mom's Club — coffee cup sleeve, brown" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/matbaa-05.jpg" alt="Mom's Club — coffee cup sleeve, cream" loading="lazy"></div>
+
+        <!-- Stickers & Coasters -->
+        <h2 class="section-header fade-in">Stickers &amp; coasters</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/matbaa-06.jpg" alt="Mom's Club — stickers in four brand colors" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/matbaa-08.jpg" alt="Mom's Club — coasters in four brand colors" loading="lazy"></div>
+
+        <!-- Business Cards -->
+        <h2 class="section-header fade-in">Business cards</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/matbaa-07.jpg" alt="Mom's Club — business cards front and back" loading="lazy"></div>
+
+        <!-- Signage & Posters -->
+        <h2 class="section-header fade-in">Signage &amp; posters</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/matbaa-09.jpg" alt="Mom's Club — corner posters: Book, Kids, Café, Sports, Work" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/matbaa-10.jpg" alt="Mom's Club — exterior light box sign" loading="lazy"></div>
+
+        <!-- Kraft Paper -->
+        <h2 class="section-header fade-in">Kraft paper</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/matbaa-12.jpg" alt="Mom's Club — kraft paper wrapping with illustration pattern" loading="lazy"></div>
+
+        <!-- The Space -->
+        <h2 class="section-header fade-in">The space</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/photo-storefront.jpg" alt="Mom's Club — exterior storefront with orange circle sign" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/moms-club/photo-interior-play.jpg" alt="Mom's Club — interior play area with sage green chairs and climbing wall" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/photo-kids-corner.jpg" alt="Mom's Club — kids corner with reading nook and activity table" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/photo-cafe-counter.jpg" alt="Mom's Club — café counter with neon sign and pastry display" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/photo-coffee.jpg" alt="Mom's Club — espresso on branded kraft paper napkin with cookies" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/moms-club/photo-brownie-latte.jpg" alt="Mom's Club — brownie and latte on branded kraft paper" loading="lazy"></div>
+
+    </div>
+
+    <a href="/" class="back-link">&lt; back to home</a>
+
+    <footer>
+        <div class="footer-line"></div>
+        <div class="footer-content">
+            <div class="footer-left">
+                &copy; 2024 BY Design. All rights reserved.
+            </div>
+            <div class="footer-right">
+                <a href="../../assets/beni_yorohan_resume_2026.pdf" target="_blank" rel="noopener">cv/resume</a>
+                <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">linkedin</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quote Overlay -->
+    <div class="quote-overlay" id="quote-overlay">
+        <div class="quote-backdrop" id="quote-backdrop"></div>
+        <div class="quote-form-container">
+            <button class="quote-close" id="quote-close">&times;</button>
+            <h2>Get a quote</h2>
+            <p class="quote-sub">Tell me about your project and I'll get back to you within 24 hours.</p>
+            <form class="quote-form" id="quote-form" action="https://formsubmit.co/yorohan.b@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New Quote Request — BY Design">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="text" name="name" placeholder="Your name" required>
+                <input type="email" name="email" placeholder="Email address" required>
+                <select name="service" required>
+                    <option value="" disabled selected>Type of project</option>
+                    <option value="branding">Brand Identity</option>
+                    <option value="type-design">Type Design</option>
+                    <option value="editorial">Editorial / Publication</option>
+                    <option value="packaging">Packaging Design</option>
+                    <option value="web">Web Design</option>
+                    <option value="art-direction">Art Direction</option>
+                    <option value="other">Other</option>
+                </select>
+                <textarea name="message" placeholder="Tell me about your project — scope, timeline, budget range..." rows="4"></textarea>
+                <button type="submit" class="quote-submit">Get quote now</button>
+            </form>
+            <div class="quote-success" id="quote-success">
+                <h3>Request sent</h3>
+                <p>Thanks! I'll be in touch soon.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---- Custom Cursor with smooth warm color cycling ----
+        const cursor = document.getElementById('custom-cursor');
+        let mouseX = -100, mouseY = -100;
+        let cursorX = -100, cursorY = -100;
+        let isHovering = false;
+        let currentSize = 16;
+
+        const colorStops = [
+            { h: 48,  s: 65, l: 72 },
+            { h: 30,  s: 60, l: 70 },
+            { h: 12,  s: 58, l: 72 },
+            { h: 355, s: 55, l: 74 },
+            { h: 340, s: 50, l: 72 },
+            { h: 320, s: 48, l: 70 },
+            { h: 290, s: 40, l: 72 },
+            { h: 200, s: 50, l: 72 },
+            { h: 180, s: 42, l: 68 },
+            { h: 155, s: 40, l: 68 },
+            { h: 130, s: 38, l: 70 },
+            { h: 22,  s: 40, l: 62 },
+            { h: 14,  s: 45, l: 68 },
+            { h: 48,  s: 65, l: 72 },
+        ];
+
+        function catmullRom(p0, p1, p2, p3, t) {
+            const t2 = t * t, t3 = t2 * t;
+            return 0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3);
+        }
+
+        function unwrapHue(val, ref) {
+            let diff = val - ref;
+            if (diff > 180) return val - 360;
+            if (diff < -180) return val + 360;
+            return val;
+        }
+
+        function getColor(t) {
+            const segCount = colorStops.length - 1;
+            const scaledT = t * segCount;
+            const i = Math.floor(scaledT);
+            const frac = scaledT - i;
+            const i0 = (i - 1 + segCount) % segCount, i1 = i % segCount, i2 = (i + 1) % segCount, i3 = (i + 2) % segCount;
+            const p0 = colorStops[i0], p1 = colorStops[i1], p2 = colorStops[i2], p3 = colorStops[i3];
+            const h0 = unwrapHue(p0.h, p1.h), h1 = p1.h, h2 = unwrapHue(p2.h, p1.h), h3 = unwrapHue(p3.h, p1.h);
+            let h = catmullRom(h0, h1, h2, h3, frac);
+            const s = catmullRom(p0.s, p1.s, p2.s, p3.s, frac);
+            const l = catmullRom(p0.l, p1.l, p2.l, p3.l, frac);
+            h = ((h % 360) + 360) % 360;
+            return `hsl(${h.toFixed(1)}, ${Math.max(0, Math.min(100, s)).toFixed(1)}%, ${Math.max(0, Math.min(100, l)).toFixed(1)}%)`;
+        }
+
+        let colorTime = 0;
+        const colorSpeed = 0.000295;
+
+        function getGlowColor(t) {
+            const segCount = colorStops.length - 1;
+            const scaledT = t * segCount;
+            const i = Math.floor(scaledT);
+            const frac = scaledT - i;
+            const i0 = (i - 1 + segCount) % segCount, i1 = i % segCount, i2 = (i + 1) % segCount, i3 = (i + 2) % segCount;
+            const p0 = colorStops[i0], p1 = colorStops[i1], p2 = colorStops[i2], p3 = colorStops[i3];
+            const h0 = unwrapHue(p0.h, p1.h), h1 = p1.h, h2 = unwrapHue(p2.h, p1.h), h3 = unwrapHue(p3.h, p1.h);
+            let h = catmullRom(h0, h1, h2, h3, frac);
+            const s = catmullRom(p0.s, p1.s, p2.s, p3.s, frac);
+            const l = catmullRom(p0.l, p1.l, p2.l, p3.l, frac);
+            h = ((h % 360) + 360) % 360;
+            return `hsla(${h.toFixed(1)}, ${Math.max(0, Math.min(100, s)).toFixed(1)}%, ${Math.max(0, Math.min(100, l)).toFixed(1)}%, 0.15)`;
+        }
+
+        let cursorActive = false;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            if (!cursorActive) { cursorActive = true; cursorX = mouseX; cursorY = mouseY; cursor.style.opacity = '1'; }
+        });
+        document.addEventListener('mouseover', (e) => { if (e.target.closest('a, button, [role="button"], iframe')) { isHovering = true; cursor.classList.add('hovering'); } });
+        document.addEventListener('mouseout', (e) => { if (e.target.closest('a, button, [role="button"], iframe')) { isHovering = false; cursor.classList.remove('hovering'); } });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.18; cursorY += (mouseY - cursorY) * 0.18;
+            const targetSize = isHovering ? 8 : 16; currentSize += (targetSize - currentSize) * 0.12;
+            cursor.style.transform = `translate(${cursorX - currentSize / 2}px, ${cursorY - currentSize / 2}px)`;
+            colorTime += colorSpeed; if (colorTime > 1) colorTime -= 1;
+            cursor.style.backgroundColor = getColor(colorTime);
+            cursor.style.boxShadow = `0 0 12px 2px ${getGlowColor(colorTime)}`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+        document.addEventListener('mouseenter', () => { if (cursorActive) cursor.style.opacity = '1'; });
+
+        // ---- Scroll-triggered fade-in ----
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // ---- Quote Overlay ----
+        const quoteBtn = document.getElementById('quote-btn');
+        const quoteOverlay = document.getElementById('quote-overlay');
+        const quoteBackdrop = document.getElementById('quote-backdrop');
+        const quoteClose = document.getElementById('quote-close');
+        const quoteForm = document.getElementById('quote-form');
+        const quoteSuccess = document.getElementById('quote-success');
+
+        function openQuote(e) {
+            e.preventDefault();
+            quoteOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeQuote() {
+            quoteOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        quoteBtn.addEventListener('click', openQuote);
+        quoteBackdrop.addEventListener('click', closeQuote);
+        quoteClose.addEventListener('click', closeQuote);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeQuote(); });
+
+        quoteForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => { data[key] = value; });
+
+            fetch('https://formsubmit.co/ajax/yorohan.b@gmail.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(() => {
+                quoteForm.style.display = 'none';
+                quoteSuccess.style.display = 'block';
+                setTimeout(closeQuote, 2500);
+                setTimeout(() => {
+                    quoteForm.style.display = '';
+                    quoteSuccess.style.display = 'none';
+                    quoteForm.reset();
+                }, 3000);
+            })
+            .catch(() => {
+                quoteForm.style.display = 'none';
+                quoteSuccess.style.display = 'block';
+                quoteSuccess.querySelector('h3').textContent = 'Something went wrong';
+                quoteSuccess.querySelector('p').textContent = 'Please try again or email directly.';
+                setTimeout(closeQuote, 2500);
+                setTimeout(() => {
+                    quoteForm.style.display = '';
+                    quoteSuccess.style.display = 'none';
+                    quoteSuccess.querySelector('h3').textContent = 'Request sent';
+                    quoteSuccess.querySelector('p').textContent = "Thanks! I'll be in touch soon.";
+                    quoteForm.reset();
+                }, 3000);
+            });
+        });
+    </script>
+
+</body>
+</html>

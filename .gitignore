@@ -15,3 +15,10 @@ projects/start-today/Reviews type installation.pdf
 
 # Large uncompressed video files
 assets/video/patico-specimen.mp4
+
+# Temporary extraction files (created by subagent, read-only)
+assets/img/moms-club/image_*.jpg
+assets/img/moms-club/brand-26.jpg
+
+# Original uncompressed Mom's Club photos
+assets/moms_club_images_/
