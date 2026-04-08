@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Type Bird Series — BY Design</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="../../assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <style>
+        @font-face {
+            font-family: 'OT Brut Mono';
+            src: url('../../assets/fonts/OTBrut-RegularMono.woff2') format('woff2'),
+                 url('../../assets/fonts/OTBrut-RegularMono.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Acumin Variable';
+            src: url('../../assets/fonts/AcuminVariableConcept.otf') format('opentype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+            font-variation-settings: 'ital' 0, 'slnt' 0;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #000000;
+            --text-primary: #e8e8e8;
+            --text-secondary: #8a8a8a;
+            --font-body: 'Acumin Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --side-padding: 16px;
+            --content-gap: 18px;
+            --section-gap: 120px;
+        }
+
+        html { scroll-behavior: smooth; }
+        html, html * { cursor: none !important; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 9pt;
+            line-height: 1.4;
+            cursor: none !important;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a, button, input, textarea, select, [role="button"] { cursor: none !important; }
+
+        /* ---- Custom Cursor ---- */
+        #custom-cursor {
+            position: fixed; top: 0; left: 0; width: 16px; height: 16px;
+            border-radius: 50%; pointer-events: none; z-index: 10000; opacity: 0;
+            will-change: transform, background-color, box-shadow;
+            transition: width 0.3s cubic-bezier(0.25,0.1,0.25,1), height 0.3s cubic-bezier(0.25,0.1,0.25,1), opacity 0.2s ease;
+        }
+        #custom-cursor.hovering { width: 8px; height: 8px; }
+
+        /* ---- Header ---- */
+        header {
+            position: sticky; top: 0; z-index: 1000; background-color: var(--bg);
+            display: flex; justify-content: space-between; align-items: center; padding: 20px var(--side-padding);
+        }
+        .logo { font-family: 'OT Brut Mono', monospace; font-size: 28px; font-weight: 400; letter-spacing: -0.04em; color: var(--text-primary); text-decoration: none; flex-shrink: 0; }
+        nav { display: flex; gap: 40px; align-items: center; }
+        nav a { font-family: var(--font-body); color: var(--text-primary); text-decoration: none; font-size: 14px; font-weight: 400; transition: opacity 0.25s ease; white-space: nowrap; }
+        nav a:hover { opacity: 0.6; }
+
+        /* ---- Quote Overlay ---- */
+        .quote-overlay { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.35s ease, visibility 0.35s ease; }
+        .quote-overlay.active { opacity: 1; visibility: visible; }
+        .quote-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        .quote-form-container { position: relative; width: 100%; max-width: 520px; padding: 48px 40px; margin: 0 16px; transform: translateY(20px); transition: transform 0.35s ease; }
+        .quote-overlay.active .quote-form-container { transform: translateY(0); }
+        .quote-close { position: absolute; top: 0; right: 0; background: none; border: none; color: var(--text-secondary); font-size: 24px; padding: 8px; transition: color 0.2s ease; font-family: var(--font-body); }
+        .quote-close:hover { color: var(--text-primary); }
+        .quote-form-container h2 { font-family: var(--font-body); font-size: 22px; font-weight: 500; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.01em; }
+        .quote-form-container p.quote-sub { font-family: var(--font-body); font-size: 13px; color: var(--text-secondary); margin-bottom: 32px; line-height: 1.5; }
+        .quote-form { display: flex; flex-direction: column; gap: 16px; }
+        .quote-form input, .quote-form textarea, .quote-form select { background: transparent; border: 1px solid #333; color: var(--text-primary); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; border-radius: 0; outline: none; transition: border-color 0.2s ease; -webkit-appearance: none; appearance: none; width: 100%; }
+        .quote-form input::placeholder, .quote-form textarea::placeholder { color: #555; }
+        .quote-form input:focus, .quote-form textarea:focus, .quote-form select:focus { border-color: #888; }
+        .quote-form textarea { resize: vertical; min-height: 100px; }
+        .quote-form select option { background: #111; color: var(--text-primary); }
+        .quote-submit { background: var(--text-primary); color: #000; border: none; font-family: var(--font-body); font-size: 14px; font-weight: 500; padding: 14px 24px; letter-spacing: 0.02em; transition: opacity 0.2s ease; margin-top: 8px; border-radius: 0; }
+        .quote-submit:hover { opacity: 0.8; }
+        .quote-success { display: none; text-align: center; padding: 40px 0; }
+        .quote-success h3 { font-family: var(--font-body); font-size: 20px; font-weight: 500; color: var(--text-primary); margin-bottom: 8px; }
+        .quote-success p { font-family: var(--font-body); font-size: 14px; color: var(--text-secondary); }
+
+        @media (max-width: 680px) { .quote-form-container { padding: 32px 24px; } }
+
+        /* ---- Hero ---- */
+        .project-hero { width: 100%; padding: 0 var(--side-padding); margin-top: 10px; }
+        .project-hero video { width: 100%; display: block; }
+
+        /* ---- Project Title ---- */
+        .project-name { padding: 16px var(--side-padding) 0; font-family: var(--font-body); font-size: 20px; font-weight: 500; color: var(--text-primary); letter-spacing: -0.01em; }
+        .project-description { padding: 12px var(--side-padding) 0; max-width: 600px; }
+        .project-description p { font-family: var(--font-body); font-size: 15px; font-weight: 400; color: #ffffff; line-height: 1.6; }
+        .project-meta-line { padding: 16px var(--side-padding) 0; font-family: var(--font-body); font-size: 12px; font-weight: 400; color: var(--text-secondary); letter-spacing: 0.02em; }
+
+        /* ---- Feature Grid ---- */
+        .feature-grid {
+            padding: var(--section-gap) var(--side-padding) 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--content-gap);
+        }
+
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card video {
+            width: 100%;
+            display: block;
+            border-radius: 0;
+        }
+
+        .feature-label {
+            padding: 10px 0 0;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        /* ---- Project Gallery ---- */
+        .project-gallery {
+            padding: var(--section-gap) var(--side-padding) 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--content-gap);
+        }
+
+        .section-header {
+            width: 100%;
+            padding: 60px 0 10px;
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .g-full { width: 100%; }
+        .g-full img, .g-full video { width: 100%; display: block; }
+        .g-half { width: calc(50% - 9px); }
+        .g-half img, .g-half video { width: 100%; display: block; }
+
+        /* ---- Scroll Reveal ---- */
+        .fade-in {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25,0.1,0.25,1), transform 0.8s cubic-bezier(0.25,0.1,0.25,1);
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .page-fade { opacity: 0; transform: translateY(12px); animation: pageEntry 0.6s ease forwards; }
+        .page-fade:nth-child(2) { animation-delay: 0.05s; }
+        .page-fade:nth-child(3) { animation-delay: 0.1s; }
+        @keyframes pageEntry { to { opacity: 1; transform: translateY(0); } }
+
+        /* ---- Back link ---- */
+        .back-link { display: inline-block; margin-top: 100px; padding: 0 var(--side-padding); font-family: 'OT Brut Mono', monospace; font-size: 14px; font-weight: 400; color: #ffffff; text-decoration: none; transition: opacity 0.25s ease; }
+        .back-link:hover { opacity: 0.6; }
+
+        /* ---- Footer ---- */
+        footer { margin-top: 200px; padding: 0 var(--side-padding) 60px; }
+        .footer-line { width: 100%; height: 1px; background-color: #ffffff; margin-bottom: 24px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; }
+        .footer-left { font-size: 13px; color: #ffffff; max-width: 60%; }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+        .footer-right a { font-family: var(--font-body); font-size: 13px; color: #ffffff; text-decoration: none; transition: opacity 0.25s ease; }
+        .footer-right a:hover { opacity: 0.6; }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 680px) {
+            :root { --side-padding: 12px; --content-gap: 10px; --section-gap: 60px; --font-body: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+            header { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px var(--side-padding); }
+            nav { gap: 20px; flex-wrap: wrap; }
+            nav a { font-size: 13px; }
+            .project-name { font-size: 18px; }
+            .section-header { font-size: 16px; padding: 40px 0 8px; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .g-half { width: 100%; }
+            footer { margin-top: 120px; padding-bottom: 32px; }
+            .footer-content { flex-direction: column; gap: 20px; }
+            .footer-left { max-width: 100%; font-size: 12px; }
+            .footer-right { align-items: flex-start; }
+            #custom-cursor { display: none !important; }
+            html, html * { cursor: auto !important; }
+        }
+        @media (max-width: 380px) { :root { --side-padding: 10px; } .logo { font-size: 24px; } nav { gap: 16px; } }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+
+    <header class="page-fade">
+        <a href="/" class="logo">BY</a>
+        <nav>
+            <a href="/about.html">about</a>
+            <a href="#" id="quote-btn">get a quote</a>
+            <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">@beniyorohan.design</a>
+        </nav>
+    </header>
+
+    <!-- Hero: Full tool overview -->
+    <div class="project-hero page-fade">
+        <video autoplay loop muted playsinline preload="auto">
+            <source src="../../assets/video/type-birds/01-overview.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Project Title -->
+    <div class="project-name page-fade">The Type Bird Series</div>
+    <div class="project-meta-line page-fade">Typographic Exploration &amp; Vibe Coding — 2026</div>
+    <div class="project-description page-fade">
+        <p>Glyph Birds is a browser-based typographic flock simulator that turns punctuation marks into living creatures. Every comma, slash, bracket, and period becomes a bird in flight — governed by real flocking algorithms with controls for density, drift, speed, and follow behavior. The tool lets you shape every dimension of the output: glyph weight and size, solid or gradient backgrounds with noise textures, radial or linear color fields, and full canvas sizing for any format. Built as a creative coding experiment at the intersection of type design and generative art, Glyph Birds treats typography not as static form but as something animated, organic, and unpredictable.</p>
+    </div>
+
+    <!-- Feature Clips Grid -->
+    <div class="feature-grid">
+
+        <div class="feature-card fade-in">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="../../assets/video/type-birds/02-flock-density.mp4" type="video/mp4">
+            </video>
+            <div class="feature-label">Flock density &amp; behavior</div>
+        </div>
+
+        <div class="feature-card fade-in">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="../../assets/video/type-birds/03-glyph-controls.mp4" type="video/mp4">
+            </video>
+            <div class="feature-label">Glyph size, weight &amp; flap speed</div>
+        </div>
+
+        <div class="feature-card fade-in">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="../../assets/video/type-birds/04-bird-color.mp4" type="video/mp4">
+            </video>
+            <div class="feature-label">Bird color</div>
+        </div>
+
+        <div class="feature-card fade-in">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="../../assets/video/type-birds/05-gradient-bg.mp4" type="video/mp4">
+            </video>
+            <div class="feature-label">Gradient background</div>
+        </div>
+
+        <div class="feature-card fade-in">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="../../assets/video/type-birds/06-radial-gradient.mp4" type="video/mp4">
+            </video>
+            <div class="feature-label">Radial gradient direction</div>
+        </div>
+
+        <div class="feature-card fade-in">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="../../assets/video/type-birds/07-canvas-size.mp4" type="video/mp4">
+            </video>
+            <div class="feature-label">Canvas size presets</div>
+        </div>
+
+        <div class="feature-card fade-in">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="../../assets/video/type-birds/08-export.mp4" type="video/mp4">
+            </video>
+            <div class="feature-label">Export &amp; record MP4</div>
+        </div>
+
+        <div class="feature-card fade-in">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="../../assets/video/type-birds/09-dark-light-mode.mp4" type="video/mp4">
+            </video>
+            <div class="feature-label">Dark &amp; light mode</div>
+        </div>
+
+    </div>
+
+    <!-- Output Gallery -->
+    <div class="project-gallery">
+        <h2 class="section-header fade-in">Output</h2>
+        <div class="g-full fade-in">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="../../assets/video/glyph-birds.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <a href="/" class="back-link">&lt; back to home</a>
+
+    <footer>
+        <div class="footer-line"></div>
+        <div class="footer-content">
+            <div class="footer-left">&copy; 2024 BY Design. All rights reserved.</div>
+            <div class="footer-right">
+                <a href="../../assets/beni_yorohan_resume_2026.pdf" target="_blank" rel="noopener">cv/resume</a>
+                <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">linkedin</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quote Overlay -->
+    <div class="quote-overlay" id="quote-overlay">
+        <div class="quote-backdrop" id="quote-backdrop"></div>
+        <div class="quote-form-container">
+            <button class="quote-close" id="quote-close">&times;</button>
+            <h2>Get a quote</h2>
+            <p class="quote-sub">Tell me about your project and I'll get back to you within 24 hours.</p>
+            <form class="quote-form" id="quote-form" action="https://formsubmit.co/yorohan.b@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New Quote Request — BY Design">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="text" name="name" placeholder="Your name" required>
+                <input type="email" name="email" placeholder="Email address" required>
+                <select name="service" required>
+                    <option value="" disabled selected>Type of project</option>
+                    <option value="branding">Brand Identity</option>
+                    <option value="type-design">Type Design</option>
+                    <option value="editorial">Editorial / Publication</option>
+                    <option value="packaging">Packaging Design</option>
+                    <option value="web">Web Design</option>
+                    <option value="art-direction">Art Direction</option>
+                    <option value="other">Other</option>
+                </select>
+                <textarea name="message" placeholder="Tell me about your project — scope, timeline, budget range..." rows="4"></textarea>
+                <button type="submit" class="quote-submit">Get quote now</button>
+            </form>
+            <div class="quote-success" id="quote-success">
+                <h3>Request sent</h3>
+                <p>Thanks! I'll be in touch soon.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---- Custom Cursor ----
+        const cursor = document.getElementById('custom-cursor');
+        let mouseX = -100, mouseY = -100, cursorX = -100, cursorY = -100, isHovering = false, currentSize = 16;
+        const colorStops = [
+            {h:48,s:65,l:72},{h:30,s:60,l:70},{h:12,s:58,l:72},{h:355,s:55,l:74},{h:340,s:50,l:72},
+            {h:320,s:48,l:70},{h:290,s:40,l:72},{h:200,s:50,l:72},{h:180,s:42,l:68},{h:155,s:40,l:68},
+            {h:130,s:38,l:70},{h:22,s:40,l:62},{h:14,s:45,l:68},{h:48,s:65,l:72}
+        ];
+        function catmullRom(p0,p1,p2,p3,t){const t2=t*t,t3=t2*t;return .5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t2+(-p0+3*p1-3*p2+p3)*t3)}
+        function unwrapHue(v,r){let d=v-r;if(d>180)return v-360;if(d<-180)return v+360;return v}
+        function getColor(t){const s=colorStops.length-1,sc=t*s,i=Math.floor(sc),f=sc-i;const i0=(i-1+s)%s,i1=i%s,i2=(i+1)%s,i3=(i+2)%s;const p0=colorStops[i0],p1=colorStops[i1],p2=colorStops[i2],p3=colorStops[i3];const h0=unwrapHue(p0.h,p1.h),h1=p1.h,h2=unwrapHue(p2.h,p1.h),h3=unwrapHue(p3.h,p1.h);let h=catmullRom(h0,h1,h2,h3,f);const ss=catmullRom(p0.s,p1.s,p2.s,p3.s,f),l=catmullRom(p0.l,p1.l,p2.l,p3.l,f);h=((h%360)+360)%360;return`hsl(${h.toFixed(1)},${Math.max(0,Math.min(100,ss)).toFixed(1)}%,${Math.max(0,Math.min(100,l)).toFixed(1)}%)`}
+        let colorTime=0;const colorSpeed=.000295;
+        function getGlowColor(t){const s=colorStops.length-1,sc=t*s,i=Math.floor(sc),f=sc-i;const i0=(i-1+s)%s,i1=i%s,i2=(i+1)%s,i3=(i+2)%s;const p0=colorStops[i0],p1=colorStops[i1],p2=colorStops[i2],p3=colorStops[i3];const h0=unwrapHue(p0.h,p1.h),h1=p1.h,h2=unwrapHue(p2.h,p1.h),h3=unwrapHue(p3.h,p1.h);let h=catmullRom(h0,h1,h2,h3,f);const ss=catmullRom(p0.s,p1.s,p2.s,p3.s,f),l=catmullRom(p0.l,p1.l,p2.l,p3.l,f);h=((h%360)+360)%360;return`hsla(${h.toFixed(1)},${Math.max(0,Math.min(100,ss)).toFixed(1)}%,${Math.max(0,Math.min(100,l)).toFixed(1)}%,0.15)`}
+        let cursorActive=false;
+        document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;if(!cursorActive){cursorActive=true;cursorX=mouseX;cursorY=mouseY;cursor.style.opacity='1'}});
+        document.addEventListener('mouseover',e=>{if(e.target.closest('a,button,[role="button"],iframe')){isHovering=true;cursor.classList.add('hovering')}});
+        document.addEventListener('mouseout',e=>{if(e.target.closest('a,button,[role="button"],iframe')){isHovering=false;cursor.classList.remove('hovering')}});
+        function animateCursor(){cursorX+=(mouseX-cursorX)*.18;cursorY+=(mouseY-cursorY)*.18;const ts=isHovering?8:16;currentSize+=(ts-currentSize)*.12;cursor.style.transform=`translate(${cursorX-currentSize/2}px,${cursorY-currentSize/2}px)`;colorTime+=colorSpeed;if(colorTime>1)colorTime-=1;cursor.style.backgroundColor=getColor(colorTime);cursor.style.boxShadow=`0 0 12px 2px ${getGlowColor(colorTime)}`;requestAnimationFrame(animateCursor)}
+        animateCursor();
+        document.addEventListener('mouseleave',()=>{cursor.style.opacity='0'});
+        document.addEventListener('mouseenter',()=>{if(cursorActive)cursor.style.opacity='1'});
+
+        // ---- Scroll-triggered fade-in ----
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // ---- Quote Overlay ----
+        const quoteBtn=document.getElementById('quote-btn'),quoteOverlay=document.getElementById('quote-overlay'),quoteBackdrop=document.getElementById('quote-backdrop'),quoteClose=document.getElementById('quote-close'),quoteForm=document.getElementById('quote-form'),quoteSuccess=document.getElementById('quote-success');
+        function openQuote(e){e.preventDefault();quoteOverlay.classList.add('active');document.body.style.overflow='hidden'}
+        function closeQuote(){quoteOverlay.classList.remove('active');document.body.style.overflow=''}
+        quoteBtn.addEventListener('click',openQuote);quoteBackdrop.addEventListener('click',closeQuote);quoteClose.addEventListener('click',closeQuote);
+        document.addEventListener('keydown',e=>{if(e.key==='Escape')closeQuote()});
+        quoteForm.addEventListener('submit',function(e){e.preventDefault();const fd=new FormData(this);const data={};fd.forEach((v,k)=>{data[k]=v});
+            fetch('https://formsubmit.co/ajax/yorohan.b@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+            .then(r=>r.json()).then(()=>{quoteForm.style.display='none';quoteSuccess.style.display='block';setTimeout(closeQuote,2500);setTimeout(()=>{quoteForm.style.display='';quoteSuccess.style.display='none';quoteForm.reset()},3000)})
+            .catch(()=>{quoteForm.style.display='none';quoteSuccess.style.display='block';quoteSuccess.querySelector('h3').textContent='Something went wrong';quoteSuccess.querySelector('p').textContent='Please try again or email directly.';setTimeout(closeQuote,2500);setTimeout(()=>{quoteForm.style.display='';quoteSuccess.style.display='none';quoteSuccess.querySelector('h3').textContent='Request sent';quoteSuccess.querySelector('p').textContent="Thanks! I'll be in touch soon.";quoteForm.reset()},3000)});
+        });
+    </script>
+
+</body>
+</html>
