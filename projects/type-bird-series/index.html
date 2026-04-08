@@ -192,6 +192,52 @@
         .g-half { width: calc(50% - 9px); }
         .g-half img, .g-half video { width: 100%; display: block; }
 
+        /* ---- Output Gallery ---- */
+        .output-section {
+            padding: var(--section-gap) var(--side-padding) 0;
+        }
+
+        .output-section h2 {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            margin-bottom: 48px;
+        }
+
+        .output-group {
+            margin-bottom: 60px;
+        }
+
+        .output-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .output-group-label {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .output-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .output-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .output-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .output-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+        .output-grid video {
+            width: 100%;
+            display: block;
+        }
+
         /* ---- Scroll Reveal ---- */
         .fade-in {
             opacity: 0; transform: translateY(30px);
@@ -226,6 +272,7 @@
             .section-header { font-size: 16px; padding: 40px 0 8px; }
             .feature-grid { grid-template-columns: 1fr; }
             .g-half { width: 100%; }
+            .output-grid.cols-3, .output-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
             footer { margin-top: 120px; padding-bottom: 32px; }
             .footer-content { flex-direction: column; gap: 20px; }
             .footer-left { max-width: 100%; font-size: 12px; }
@@ -330,6 +377,85 @@
             </video>
         </div>
 
+    </div>
+
+    <!-- Output Gallery -->
+    <div class="output-section fade-in">
+        <h2>Outputs</h2>
+
+        <div class="output-group">
+            <div class="output-group-label">Daylight</div>
+            <div class="output-grid cols-2">
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/daylight-01.mp4" type="video/mp4">
+                </video>
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/daylight-02.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="output-group fade-in">
+            <div class="output-group-label">Golden hour</div>
+            <div class="output-grid cols-4">
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/golden-01.mp4" type="video/mp4">
+                </video>
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/golden-02.mp4" type="video/mp4">
+                </video>
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/golden-07.mp4" type="video/mp4">
+                </video>
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/golden-08.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="output-grid cols-4" style="margin-top: 10px;">
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/golden-03.mp4" type="video/mp4">
+                </video>
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/golden-04.mp4" type="video/mp4">
+                </video>
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/golden-05.mp4" type="video/mp4">
+                </video>
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/golden-06.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="output-group fade-in">
+            <div class="output-group-label">Night</div>
+            <div class="output-grid cols-3">
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/night-01.mp4" type="video/mp4">
+                </video>
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/night-02.mp4" type="video/mp4">
+                </video>
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/night-03.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="output-group fade-in">
+            <div class="output-group-label">Radial</div>
+            <div class="output-grid cols-3">
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/radial-01.mp4" type="video/mp4">
+                </video>
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/radial-02.mp4" type="video/mp4">
+                </video>
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="../../assets/video/type-birds/outputs/radial-03.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
     </div>
 
     <a href="/" class="back-link">&lt; back to home</a>
