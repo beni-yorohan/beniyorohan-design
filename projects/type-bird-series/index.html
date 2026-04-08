@@ -116,32 +116,57 @@
         .project-description p { font-family: var(--font-body); font-size: 15px; font-weight: 400; color: #ffffff; line-height: 1.6; }
         .project-meta-line { padding: 16px var(--side-padding) 0; font-family: var(--font-body); font-size: 12px; font-weight: 400; color: var(--text-secondary); letter-spacing: 0.02em; }
 
-        /* ---- Feature Grid ---- */
-        .feature-grid {
+        /* ---- Feature Stack ---- */
+        .feature-stack {
             padding: var(--section-gap) var(--side-padding) 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--content-gap);
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
         }
 
-        .feature-card {
+        .feature-item video {
+            width: 100%;
+            display: block;
+        }
+
+        .feature-title {
+            padding: 0 0 12px;
+            font-family: var(--font-body);
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        /* ---- Tool Embed ---- */
+        .tool-section {
+            padding: var(--section-gap) var(--side-padding) 0;
+        }
+
+        .tool-section h2 {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            margin-bottom: 16px;
+        }
+
+        .tool-embed {
             position: relative;
+            width: 100%;
+            padding-bottom: 62.5%; /* slightly taller than 16:9 for tool UI */
+            height: 0;
             overflow: hidden;
         }
 
-        .feature-card video {
+        .tool-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            display: block;
-            border-radius: 0;
-        }
-
-        .feature-label {
-            padding: 10px 0 0;
-            font-family: var(--font-body);
-            font-size: 13px;
-            font-weight: 400;
-            color: var(--text-secondary);
-            letter-spacing: 0.02em;
+            height: 100%;
+            border: 1px solid #222;
         }
 
         /* ---- Project Gallery ---- */
@@ -238,74 +263,72 @@
         <p>Glyph Birds is a browser-based typographic flock simulator that turns punctuation marks into living creatures. Every comma, slash, bracket, and period becomes a bird in flight — governed by real flocking algorithms with controls for density, drift, speed, and follow behavior. The tool lets you shape every dimension of the output: glyph weight and size, solid or gradient backgrounds with noise textures, radial or linear color fields, and full canvas sizing for any format. Built as a creative coding experiment at the intersection of type design and generative art, Glyph Birds treats typography not as static form but as something animated, organic, and unpredictable.</p>
     </div>
 
-    <!-- Feature Clips Grid -->
-    <div class="feature-grid">
+    <!-- Feature Clips (stacked) -->
+    <div class="feature-stack">
 
-        <div class="feature-card fade-in">
+        <div class="feature-item fade-in">
+            <div class="feature-title">Flock density &amp; behavior</div>
             <video autoplay loop muted playsinline preload="auto">
                 <source src="../../assets/video/type-birds/02-flock-density.mp4" type="video/mp4">
             </video>
-            <div class="feature-label">Flock density &amp; behavior</div>
         </div>
 
-        <div class="feature-card fade-in">
+        <div class="feature-item fade-in">
+            <div class="feature-title">Glyph size, weight &amp; flap speed</div>
             <video autoplay loop muted playsinline preload="auto">
                 <source src="../../assets/video/type-birds/03-glyph-controls.mp4" type="video/mp4">
             </video>
-            <div class="feature-label">Glyph size, weight &amp; flap speed</div>
         </div>
 
-        <div class="feature-card fade-in">
+        <div class="feature-item fade-in">
+            <div class="feature-title">Bird color</div>
             <video autoplay loop muted playsinline preload="auto">
                 <source src="../../assets/video/type-birds/04-bird-color.mp4" type="video/mp4">
             </video>
-            <div class="feature-label">Bird color</div>
         </div>
 
-        <div class="feature-card fade-in">
+        <div class="feature-item fade-in">
+            <div class="feature-title">Gradient background</div>
             <video autoplay loop muted playsinline preload="auto">
                 <source src="../../assets/video/type-birds/05-gradient-bg.mp4" type="video/mp4">
             </video>
-            <div class="feature-label">Gradient background</div>
         </div>
 
-        <div class="feature-card fade-in">
+        <div class="feature-item fade-in">
+            <div class="feature-title">Radial gradient direction</div>
             <video autoplay loop muted playsinline preload="auto">
                 <source src="../../assets/video/type-birds/06-radial-gradient.mp4" type="video/mp4">
             </video>
-            <div class="feature-label">Radial gradient direction</div>
         </div>
 
-        <div class="feature-card fade-in">
+        <div class="feature-item fade-in">
+            <div class="feature-title">Canvas size presets</div>
             <video autoplay loop muted playsinline preload="auto">
                 <source src="../../assets/video/type-birds/07-canvas-size.mp4" type="video/mp4">
             </video>
-            <div class="feature-label">Canvas size presets</div>
         </div>
 
-        <div class="feature-card fade-in">
+        <div class="feature-item fade-in">
+            <div class="feature-title">Export &amp; record MP4</div>
             <video autoplay loop muted playsinline preload="auto">
                 <source src="../../assets/video/type-birds/08-export.mp4" type="video/mp4">
             </video>
-            <div class="feature-label">Export &amp; record MP4</div>
         </div>
 
-        <div class="feature-card fade-in">
+        <div class="feature-item fade-in">
+            <div class="feature-title">Dark &amp; light mode</div>
             <video autoplay loop muted playsinline preload="auto">
                 <source src="../../assets/video/type-birds/09-dark-light-mode.mp4" type="video/mp4">
             </video>
-            <div class="feature-label">Dark &amp; light mode</div>
         </div>
 
     </div>
 
-    <!-- Output Gallery -->
-    <div class="project-gallery">
-        <h2 class="section-header fade-in">Output</h2>
-        <div class="g-full fade-in">
-            <video autoplay loop muted playsinline preload="auto">
-                <source src="../../assets/video/glyph-birds.mp4" type="video/mp4">
-            </video>
+    <!-- Live Tool Embed -->
+    <div class="tool-section fade-in">
+        <h2>Try the tool</h2>
+        <div class="tool-embed">
+            <iframe src="https://beni-yorohan.github.io/glyph-birds/" title="Glyph Birds — Typographic Flock Simulator" allow="autoplay" loading="lazy"></iframe>
         </div>
     </div>
 
