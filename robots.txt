@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://beniyorohan-design.com/sitemap.xml
+Sitemap: https://beniyorohan.design/sitemap.xml
