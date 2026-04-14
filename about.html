@@ -35,6 +35,15 @@
         }
 
         @font-face {
+            font-family: 'OT Brut';
+            src: url('assets/fonts/OTBrut-Regular.woff2') format('woff2'),
+                 url('assets/fonts/OTBrut-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
             font-family: 'Acumin Variable';
             src: url('assets/fonts/AcuminVariableConcept.otf') format('opentype');
             font-weight: 100 900;
@@ -115,7 +124,7 @@
         }
 
         .logo {
-            font-family: 'OT Brut Mono', monospace;
+            font-family: 'OT Brut', sans-serif;
             font-size: 28px;
             font-weight: 400;
             letter-spacing: -0.04em;
@@ -316,7 +325,7 @@
         }
 
         .about-text {
-            font-family: 'OT Brut Mono', monospace;
+            font-family: 'OT Brut', sans-serif;
             font-size: clamp(28px, 4vw, 48px);
             font-weight: 400;
             line-height: 1.25;
@@ -420,7 +429,7 @@
     <div id="custom-cursor"></div>
 
     <header>
-        <a href="/" class="logo">BY</a>
+        <a href="/" class="logo">BY Design</a>
         <nav>
             <a href="about.html">about</a>
             <a href="#" id="quote-btn">get a quote</a>
