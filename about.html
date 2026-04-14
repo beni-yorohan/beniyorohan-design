@@ -371,9 +371,6 @@
             height: 100%;
             display: block;
         }
-        .floating-svg {
-            transition: filter 0.2s ease;
-        }
 
         /* ---- Footer ---- */
         footer {
@@ -845,17 +842,17 @@
             createBoundaries();
         });
 
-        // ---- Floating SVG Physics (zero-gravity space objects) ----
+        // ---- Floating SVG Physics (smooth zero-gravity) ----
         const floatingEngine = Engine.create({ gravity: { x: 0, y: 0 } });
         const floatingWorld = floatingEngine.world;
 
         const floatingItems = [];
         let fWalls = [];
 
-        // Cursor body in the floating world
-        const floatingCursorBody = Bodies.circle(-100, -100, 40, {
+        // Cursor body in the floating world — soft pusher
+        const floatingCursorBody = Bodies.circle(-100, -100, 50, {
             isStatic: true,
-            restitution: 1,
+            restitution: 0.4,
             friction: 0,
         });
         World.add(floatingWorld, floatingCursorBody);
@@ -865,18 +862,18 @@
         });
 
         function createFloatingBoundaries() {
-            // Remove old walls
             fWalls.forEach(w => World.remove(floatingWorld, w));
             fWalls = [];
 
             const vw = window.innerWidth;
             const vh = window.innerHeight;
-            const t = 60;
+            const t = 200; // thick walls far outside so objects never peek out
+            const pad = 40; // inset padding so SVGs stay fully visible
 
-            const top = Bodies.rectangle(vw / 2, -t / 2, vw + t * 2, t, { isStatic: true, restitution: 1, friction: 0 });
-            const bottom = Bodies.rectangle(vw / 2, vh + t / 2, vw + t * 2, t, { isStatic: true, restitution: 1, friction: 0 });
-            const left = Bodies.rectangle(-t / 2, vh / 2, t, vh + t * 2, { isStatic: true, restitution: 1, friction: 0 });
-            const right = Bodies.rectangle(vw + t / 2, vh / 2, t, vh + t * 2, { isStatic: true, restitution: 1, friction: 0 });
+            const top    = Bodies.rectangle(vw / 2, -t / 2 + pad, vw * 3, t, { isStatic: true, restitution: 0.6, friction: 0 });
+            const bottom = Bodies.rectangle(vw / 2, vh + t / 2 - pad, vw * 3, t, { isStatic: true, restitution: 0.6, friction: 0 });
+            const left   = Bodies.rectangle(-t / 2 + pad, vh / 2, t, vh * 3, { isStatic: true, restitution: 0.6, friction: 0 });
+            const right  = Bodies.rectangle(vw + t / 2 - pad, vh / 2, t, vh * 3, { isStatic: true, restitution: 0.6, friction: 0 });
 
             fWalls = [top, bottom, left, right];
             World.add(floatingWorld, fWalls);
@@ -896,93 +893,84 @@
 
             configs.forEach((cfg, i) => {
                 const el = document.getElementById(cfg.id);
-                // Start at random positions spread across viewport
-                const startX = vw * 0.2 + Math.random() * vw * 0.6;
-                const startY = vh * 0.2 + Math.random() * vh * 0.6;
+                // Spread them out — avoid overlap at start
+                const startX = vw * (0.2 + i * 0.25) + (Math.random() - 0.5) * 80;
+                const startY = vh * (0.25 + (i % 2) * 0.35) + (Math.random() - 0.5) * 80;
 
-                // Use a chamfered rectangle for pills, rounder for emblem
-                const body = Bodies.rectangle(startX, startY, cfg.w * 0.85, cfg.h * 0.85, {
-                    restitution: 0.95,
-                    friction: 0,
-                    frictionAir: 0.0005,
-                    density: 0.001,
-                    chamfer: { radius: Math.min(cfg.w, cfg.h) * 0.3 },
-                    angle: (Math.random() - 0.5) * Math.PI * 0.5,
+                const body = Bodies.rectangle(startX, startY, cfg.w * 0.8, cfg.h * 0.8, {
+                    restitution: 0.6,
+                    friction: 0.02,
+                    frictionAir: 0.002,
+                    density: 0.0008,
+                    chamfer: { radius: Math.min(cfg.w, cfg.h) * 0.35 },
+                    angle: (Math.random() - 0.5) * 0.4,
                 });
 
-                // Initial drift velocity — gentle and random
-                const speed = 0.8 + Math.random() * 1.2;
+                // Gentle initial drift
+                const speed = 0.4 + Math.random() * 0.6;
                 const angle = Math.random() * Math.PI * 2;
                 Body.setVelocity(body, {
                     x: Math.cos(angle) * speed,
                     y: Math.sin(angle) * speed,
                 });
 
-                // Slow spin
-                Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.008);
+                // Very slow spin
+                Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.003);
 
                 World.add(floatingWorld, body);
                 floatingItems.push({ el, body, w: cfg.w, h: cfg.h });
             });
         }
 
-        // Keep objects drifting — if they slow down too much, nudge them
-        function maintainDrift() {
-            floatingItems.forEach(item => {
-                const v = item.body.velocity;
-                const speed = Math.sqrt(v.x * v.x + v.y * v.y);
-                if (speed < 0.3) {
-                    const angle = Math.random() * Math.PI * 2;
-                    const nudge = 0.0001;
-                    Body.applyForce(item.body, item.body.position, {
-                        x: Math.cos(angle) * nudge,
-                        y: Math.sin(angle) * nudge,
-                    });
-                }
-                // Cap max speed so they don't go crazy
-                if (speed > 4) {
-                    const scale = 4 / speed;
-                    Body.setVelocity(item.body, { x: v.x * scale, y: v.y * scale });
-                }
-                // Maintain gentle spin
-                const av = item.body.angularVelocity;
-                if (Math.abs(av) < 0.001) {
-                    Body.setAngularVelocity(item.body, (Math.random() - 0.5) * 0.005);
-                }
-            });
-        }
+        // Smooth position tracking with lerp for natural feel
+        const floatPositions = [];
 
-        // Floating physics render loop
         function floatingLoop() {
             Engine.update(floatingEngine, 16.67);
-            maintainDrift();
 
-            floatingItems.forEach(item => {
+            floatingItems.forEach((item, i) => {
                 const { el, body, w, h } = item;
-                const x = body.position.x - w / 2;
-                const y = body.position.y - h / 2;
-                const a = body.angle;
-                el.style.transform = `translate(${x}px, ${y}px) rotate(${a}rad)`;
+
+                // Soft nudge to keep drifting if too slow
+                const v = body.velocity;
+                const speed = Math.sqrt(v.x * v.x + v.y * v.y);
+                if (speed < 0.15) {
+                    const a = Math.random() * Math.PI * 2;
+                    Body.applyForce(body, body.position, {
+                        x: Math.cos(a) * 0.00003,
+                        y: Math.sin(a) * 0.00003,
+                    });
+                }
+                // Gentle speed cap
+                if (speed > 2.5) {
+                    const scale = 2.5 / speed;
+                    Body.setVelocity(body, { x: v.x * scale, y: v.y * scale });
+                }
+                // Keep a slight spin
+                if (Math.abs(body.angularVelocity) < 0.0005) {
+                    Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.002);
+                }
+                // Cap angular speed
+                if (Math.abs(body.angularVelocity) > 0.02) {
+                    Body.setAngularVelocity(body, Math.sign(body.angularVelocity) * 0.02);
+                }
+
+                // Lerp for smoother visual motion
+                if (!floatPositions[i]) {
+                    floatPositions[i] = { x: body.position.x, y: body.position.y, a: body.angle };
+                }
+                const fp = floatPositions[i];
+                fp.x += (body.position.x - fp.x) * 0.12;
+                fp.y += (body.position.y - fp.y) * 0.12;
+                fp.a += (body.angle - fp.a) * 0.12;
+
+                const x = fp.x - w / 2;
+                const y = fp.y - h / 2;
+                el.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${fp.a.toFixed(4)}rad)`;
             });
 
             requestAnimationFrame(floatingLoop);
         }
-
-        // Color flash on collision between floating objects
-        Events.on(floatingEngine, 'collisionStart', (event) => {
-            for (const pair of event.pairs) {
-                // Find which floating items collided
-                floatingItems.forEach(item => {
-                    if (pair.bodyA.id === item.body.id || pair.bodyB.id === item.body.id) {
-                        // Brief flash effect
-                        item.el.style.filter = 'brightness(1.5) drop-shadow(0 0 20px rgba(255,255,255,0.4))';
-                        setTimeout(() => {
-                            item.el.style.filter = '';
-                        }, 200);
-                    }
-                });
-            }
-        });
 
         window.addEventListener('load', () => {
             initFloatingObjects();
