@@ -694,7 +694,7 @@
             <button class="quote-close" id="quote-close">&times;</button>
             <h2>Get a quote</h2>
             <p class="quote-sub">Tell me about your project and I'll get back to you within 24 hours.</p>
-            <form class="quote-form" id="quote-form" action="https://formsubmit.co/yorohan.b@gmail.com" method="POST">
+            <form class="quote-form" id="quote-form" action="https://formsubmit.co/info@beniyorohan.design" method="POST">
                 <input type="hidden" name="_subject" value="New Quote Request — BY Design">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_template" value="table">
@@ -853,7 +853,7 @@
         quoteForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const data = new FormData(quoteForm);
-            fetch('https://formsubmit.co/ajax/yorohan.b@gmail.com', {
+            fetch('https://formsubmit.co/ajax/info@beniyorohan.design', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify(Object.fromEntries(data))

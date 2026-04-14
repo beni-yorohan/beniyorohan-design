@@ -478,7 +478,7 @@
             <button class="quote-close" id="quote-close">&times;</button>
             <h2>Get a quote</h2>
             <p class="quote-sub">Tell me about your project and I'll get back to you within 24 hours.</p>
-            <form class="quote-form" id="quote-form" action="https://formsubmit.co/yorohan.b@gmail.com" method="POST">
+            <form class="quote-form" id="quote-form" action="https://formsubmit.co/info@beniyorohan.design" method="POST">
                 <input type="hidden" name="_subject" value="New Quote Request — BY Design">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_template" value="table">
@@ -540,7 +540,7 @@
         quoteBtn.addEventListener('click',openQuote);quoteBackdrop.addEventListener('click',closeQuote);quoteClose.addEventListener('click',closeQuote);
         document.addEventListener('keydown',e=>{if(e.key==='Escape')closeQuote()});
         quoteForm.addEventListener('submit',function(e){e.preventDefault();const fd=new FormData(this);const data={};fd.forEach((v,k)=>{data[k]=v});
-            fetch('https://formsubmit.co/ajax/yorohan.b@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+            fetch('https://formsubmit.co/ajax/info@beniyorohan.design',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
             .then(r=>r.json()).then(()=>{quoteForm.style.display='none';quoteSuccess.style.display='block';setTimeout(closeQuote,2500);setTimeout(()=>{quoteForm.style.display='';quoteSuccess.style.display='none';quoteForm.reset()},3000)})
             .catch(()=>{quoteForm.style.display='none';quoteSuccess.style.display='block';quoteSuccess.querySelector('h3').textContent='Something went wrong';quoteSuccess.querySelector('p').textContent='Please try again or email directly.';setTimeout(closeQuote,2500);setTimeout(()=>{quoteForm.style.display='';quoteSuccess.style.display='none';quoteSuccess.querySelector('h3').textContent='Request sent';quoteSuccess.querySelector('p').textContent="Thanks! I'll be in touch soon.";quoteForm.reset()},3000)});
         });

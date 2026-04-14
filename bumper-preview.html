@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Club — Bumper</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #e3e0d4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  .bumper-wrap {
+    width: 90vw;
+    max-width: 900px;
+  }
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  /* All drawn paths: start as stroke-only, no fill */
+  .draw-path {
+    fill: none;
+    stroke: #e07329;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: var(--len);
+    stroke-dashoffset: var(--len);
+  }
+  /* Fill layer: starts invisible, fades in */
+  .fill-path {
+    fill: #e07329;
+    opacity: 0;
+  }
+  /* Animations applied via JS after measuring path lengths */
+  .draw-path.animate {
+    animation: drawIn var(--dur) var(--delay) cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+  }
+  .fill-path.animate {
+    animation: fillIn 0.6s var(--fill-delay) ease forwards;
+  }
+  @keyframes drawIn {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes fillIn {
+    to { opacity: 1; }
+  }
+  /* Stroke fades out as fill comes in */
+  .draw-path.fade-stroke {
+    animation: drawIn var(--dur) var(--delay) cubic-bezier(0.4, 0.0, 0.2, 1) forwards,
+               fadeStroke 0.5s var(--fill-delay) ease forwards;
+  }
+  @keyframes fadeStroke {
+    to { stroke-opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bumper-wrap">
+  <svg id="bumper-svg" viewBox="0 0 1080 1353.76" xmlns="http://www.w3.org/2000/svg">
+    <rect fill="#e3e0d4" width="1080" height="1353.76"/>
+
+    <!-- Fill layers (hidden initially, fade in after draw) -->
+    <g id="fill-group">
+      <!-- m1 -->
+      <path class="fill-path" data-letter="0" d="M212.41,643.12l-26.05,12.52c-4.25-7.97-11.16-12.52-22.33-12.52l-19.85,9.48v-7.78l-30.83.95v101.29l30.83-.95v-60.7c0-6.83.89-14.98,2.3-24.28,14.35,0,15.24,3.04,15.24,42.11v43.81l30.66-.95v-55.2c0-11.57.35-18.4,2.48-29.78,14.35,0,15.42,3.04,15.42,42.11v43.81l30.66-.95v-52.35c0-30.54-4.96-50.64-28.53-50.64"/>
+      <!-- o -->
+      <path class="fill-path" data-letter="1" d="M309.53,730.75h-6.91c-11.87-8.34-18.25-24.09-18.25-45.33,0-7.4.89-15.93,1.95-24.28h7.09c11.87,8.35,18.25,24.28,18.25,45.33,0,6.64-.89,14.99-2.13,24.28M303.68,643.12l-43.24,20.67c-4.61,12.9-6.73,23.71-6.73,34.33,0,30.54,15.24,50.64,38.63,50.64l43.06-20.67c4.78-12.9,6.91-24.28,6.91-34.33,0-30.54-15.42-50.64-38.63-50.64"/>
+      <!-- m2 -->
+      <path class="fill-path" data-letter="2" d="M454.67,643.12l-26.05,12.52c-4.25-7.97-11.17-12.52-22.33-12.52l-19.85,9.48v-7.78l-30.83.95v101.29l30.83-.95v-60.7c0-6.83.89-14.98,2.3-24.28,14.35,0,15.24,3.04,15.24,42.11v43.81l30.66-.95v-55.2c0-11.57.36-18.4,2.48-29.78,14.35,0,15.42,3.04,15.42,42.11v43.81l30.66-.95v-52.35c0-30.54-4.96-50.64-28.53-50.64"/>
+      <!-- apostrophe -->
+      <polygon class="fill-path" data-letter="3" points="517.76 604.99 490.47 621.68 505.89 643.12 502.88 671.38 510.15 674.79 533.54 627.18 517.76 604.99"/>
+      <!-- s -->
+      <path class="fill-path" data-letter="4" d="M575.36,681.62c-14-4.17-18.61-6.26-18.61-12.71,0-2.28.53-4.74,1.42-7.78h5.85c8.15,3.79,12.23,7.97,16.84,14.98l20.03-18.97c-6.91-10.24-16.66-14.04-24.46-14.04l-32.61,18.21c-4.78,7.02-7.44,14.42-7.44,19.73,0,18.4,15.77,25.04,26.4,28.26,14,4.17,17.72,6.26,17.72,12.33,0,2.28-.35,5.88-1.24,9.1h-8.51c-7.8-3.79-12.41-8.54-16.48-16.12l-20.38,20.11c9.75,11.57,17.72,14.04,28,14.04l32.61-18.21c4.61-6.64,6.56-14.79,6.56-20.29,0-17.83-10.81-24.09-25.7-28.64"/>
+      <!-- c -->
+      <path class="fill-path" data-letter="5" d="M686.12,661.14c7.8,3.79,12.4,9.29,16.48,16.88l20.38-20.86c-7.09-10.24-15.24-14.04-24.1-14.04l-43.24,20.67c-4.61,12.9-6.73,23.71-6.73,34.33,0,30.54,15.24,50.64,38.46,50.64h15.42l17.37-22.57-3.19-5.69c-8.68,5.31-12.94,7.4-16.66,7.4-10.63,0-20.73-15.36-20.73-42.49,0-7.4,1.06-15.93,2.31-24.28h4.25Z"/>
+      <!-- l -->
+      <polygon class="fill-path" data-letter="6" points="733.79 747.06 764.45 746.11 764.45 606.7 733.79 607.65 733.79 747.06"/>
+      <!-- u -->
+      <path class="fill-path" data-letter="7" d="M829.31,706.47c0,7.02-.89,14.98-2.48,24.28-13.65,0-15.24-3.03-15.24-42.11v-43.82l-30.66.95v52.35c0,30.54,5.32,50.64,28.53,50.64l19.85-9.48v7.78l30.83-.95v-101.29l-30.83.95v60.7Z"/>
+      <!-- b -->
+      <path class="fill-path" data-letter="8" d="M933.87,730.75h-7.09c-12.23-8.34-18.61-24.09-18.61-45.33,0-6.64.71-14.04,2.3-24.28h7.27c11.87,8.35,18.25,24.28,18.25,45.33,0,5.69-.71,14.04-2.13,24.28M928.02,643.12l-19.85,10.43v-46.85l-30.66.95v139.41l30.66-.95v-11c5.85,7.97,12.23,13.66,16.3,13.66l35.27-20.67c4.78-12.9,6.91-24.28,6.91-34.33,0-30.54-15.42-50.64-38.63-50.64"/>
+    </g>
+
+    <!-- Stroke layers (draw-on animation) -->
+    <g id="stroke-group">
+      <!-- m1 -->
+      <path class="draw-path" data-letter="0" d="M212.41,643.12l-26.05,12.52c-4.25-7.97-11.16-12.52-22.33-12.52l-19.85,9.48v-7.78l-30.83.95v101.29l30.83-.95v-60.7c0-6.83.89-14.98,2.3-24.28,14.35,0,15.24,3.04,15.24,42.11v43.81l30.66-.95v-55.2c0-11.57.35-18.4,2.48-29.78,14.35,0,15.42,3.04,15.42,42.11v43.81l30.66-.95v-52.35c0-30.54-4.96-50.64-28.53-50.64"/>
+      <!-- o -->
+      <path class="draw-path" data-letter="1" d="M309.53,730.75h-6.91c-11.87-8.34-18.25-24.09-18.25-45.33,0-7.4.89-15.93,1.95-24.28h7.09c11.87,8.35,18.25,24.28,18.25,45.33,0,6.64-.89,14.99-2.13,24.28M303.68,643.12l-43.24,20.67c-4.61,12.9-6.73,23.71-6.73,34.33,0,30.54,15.24,50.64,38.63,50.64l43.06-20.67c4.78-12.9,6.91-24.28,6.91-34.33,0-30.54-15.42-50.64-38.63-50.64"/>
+      <!-- m2 -->
+      <path class="draw-path" data-letter="2" d="M454.67,643.12l-26.05,12.52c-4.25-7.97-11.17-12.52-22.33-12.52l-19.85,9.48v-7.78l-30.83.95v101.29l30.83-.95v-60.7c0-6.83.89-14.98,2.3-24.28,14.35,0,15.24,3.04,15.24,42.11v43.81l30.66-.95v-55.2c0-11.57.36-18.4,2.48-29.78,14.35,0,15.42,3.04,15.42,42.11v43.81l30.66-.95v-52.35c0-30.54-4.96-50.64-28.53-50.64"/>
+      <!-- apostrophe -->
+      <path class="draw-path" data-letter="3" d="M517.76,604.99 L490.47,621.68 L505.89,643.12 L502.88,671.38 L510.15,674.79 L533.54,627.18 Z"/>
+      <!-- s -->
+      <path class="draw-path" data-letter="4" d="M575.36,681.62c-14-4.17-18.61-6.26-18.61-12.71,0-2.28.53-4.74,1.42-7.78h5.85c8.15,3.79,12.23,7.97,16.84,14.98l20.03-18.97c-6.91-10.24-16.66-14.04-24.46-14.04l-32.61,18.21c-4.78,7.02-7.44,14.42-7.44,19.73,0,18.4,15.77,25.04,26.4,28.26,14,4.17,17.72,6.26,17.72,12.33,0,2.28-.35,5.88-1.24,9.1h-8.51c-7.8-3.79-12.41-8.54-16.48-16.12l-20.38,20.11c9.75,11.57,17.72,14.04,28,14.04l32.61-18.21c4.61-6.64,6.56-14.79,6.56-20.29,0-17.83-10.81-24.09-25.7-28.64"/>
+      <!-- c -->
+      <path class="draw-path" data-letter="5" d="M686.12,661.14c7.8,3.79,12.4,9.29,16.48,16.88l20.38-20.86c-7.09-10.24-15.24-14.04-24.1-14.04l-43.24,20.67c-4.61,12.9-6.73,23.71-6.73,34.33,0,30.54,15.24,50.64,38.46,50.64h15.42l17.37-22.57-3.19-5.69c-8.68,5.31-12.94,7.4-16.66,7.4-10.63,0-20.73-15.36-20.73-42.49,0-7.4,1.06-15.93,2.31-24.28h4.25Z"/>
+      <!-- l -->
+      <path class="draw-path" data-letter="6" d="M733.79,747.06 L764.45,746.11 L764.45,606.7 L733.79,607.65 Z"/>
+      <!-- u -->
+      <path class="draw-path" data-letter="7" d="M829.31,706.47c0,7.02-.89,14.98-2.48,24.28-13.65,0-15.24-3.03-15.24-42.11v-43.82l-30.66.95v52.35c0,30.54,5.32,50.64,28.53,50.64l19.85-9.48v7.78l30.83-.95v-101.29l-30.83.95v60.7Z"/>
+      <!-- b -->
+      <path class="draw-path" data-letter="8" d="M933.87,730.75h-7.09c-12.23-8.34-18.61-24.09-18.61-45.33,0-6.64.71-14.04,2.3-24.28h7.27c11.87,8.35,18.25,24.28,18.25,45.33,0,5.69-.71,14.04-2.13,24.28M928.02,643.12l-19.85,10.43v-46.85l-30.66.95v139.41l30.66-.95v-11c5.85,7.97,12.23,13.66,16.3,13.66l35.27-20.67c4.78-12.9,6.91-24.28,6.91-34.33,0-30.54-15.42-50.64-38.63-50.64"/>
+    </g>
+  </svg>
+</div>
+
+<script>
+  // Timing config
+  const LETTER_COUNT = 9; // 0-8
+  const DRAW_DURATION_BASE = 0.8;  // seconds per letter
+  const STAGGER = 0.15;             // overlap between letters
+  const FILL_FADE = 0.5;            // seconds after last draw finishes
+
+  // Measure all path lengths and set CSS custom properties
+  const drawPaths = document.querySelectorAll('.draw-path');
+  const fillPaths = document.querySelectorAll('.fill-path');
+
+  // Calculate total animation duration
+  const totalDrawTime = DRAW_DURATION_BASE + (LETTER_COUNT - 1) * STAGGER + DRAW_DURATION_BASE;
+
+  drawPaths.forEach(path => {
+    const len = path.getTotalLength();
+    const letterIdx = parseInt(path.dataset.letter);
+    const delay = letterIdx * STAGGER;
+    // Longer paths get slightly more time
+    const dur = DRAW_DURATION_BASE + (len / 3000) * 0.4;
+
+    path.style.setProperty('--len', len);
+    path.style.setProperty('--dur', dur + 's');
+    path.style.setProperty('--delay', delay + 's');
+    path.style.setProperty('--fill-delay', (delay + dur + FILL_FADE) + 's');
+  });
+
+  fillPaths.forEach(path => {
+    const letterIdx = parseInt(path.dataset.letter);
+    const correspondingDraw = document.querySelector(`.draw-path[data-letter="${letterIdx}"]`);
+    const len = correspondingDraw.getTotalLength();
+    const delay = letterIdx * STAGGER;
+    const dur = DRAW_DURATION_BASE + (len / 3000) * 0.4;
+
+    path.style.setProperty('--fill-delay', (delay + dur * 0.7) + 's');
+  });
+
+  // Trigger animations after a brief pause
+  setTimeout(() => {
+    drawPaths.forEach(p => p.classList.add('animate', 'fade-stroke'));
+    fillPaths.forEach(p => p.classList.add('animate'));
+  }, 400);
+</script>
+
+</body>
+</html>
