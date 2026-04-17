@@ -356,6 +356,48 @@
             letter-spacing: 0.02em;
         }
 
+        /* ---- Live Demo ---- */
+        .project-demo {
+            padding: 100px var(--side-padding) 0;
+        }
+
+        .demo-label {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            margin-bottom: 24px;
+        }
+
+        .demo-phone {
+            position: relative;
+            width: 100%;
+            max-width: 390px;
+            aspect-ratio: 390 / 844;
+            border: 12px solid #2a2a2a;
+            border-radius: 48px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .demo-phone iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .demo-caption {
+            margin-top: 20px;
+            max-width: 600px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
         /* ---- Page load fade ---- */
         .page-fade {
             opacity: 0;
@@ -460,6 +502,21 @@
 
             .project-name { font-size: 18px; }
 
+            .project-demo {
+                padding-top: 60px;
+            }
+
+            .demo-label {
+                font-size: 16px;
+                margin-bottom: 16px;
+            }
+
+            .demo-phone {
+                border-width: 8px;
+                border-radius: 36px;
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+            }
+
             footer {
                 margin-top: 120px;
                 padding-bottom: 32px;
@@ -513,6 +570,20 @@
         <p>Comi is a swipe-style roommate matching app built for universities, with a commercial version designed to scale beyond the campus. Finding a roommate today is a patchwork of group chats, DMs, and half-filled matching forms — a high-stakes decision made with almost no real information. Comi turns that into something familiar: a swipe-forward interface that makes compatibility quick to read, with the questions that actually predict who you can live with surfacing underneath. The brand sits in the tension between cool and trust — casual enough that students actually want to use it, credible enough that schools and parents take it seriously.</p>
         <p style="margin-top: 12px; font-size: 13px; color: #8a8a8a; line-height: 1.6;">In collaboration with Tayra Morhayim<br>MVP built in React with Claude Code</p>
     </div>
+
+    <!-- Live Demo -->
+    <section class="project-demo">
+        <div class="demo-label">Live demo</div>
+        <div class="demo-phone">
+            <iframe
+                src="https://comi-demo.vercel.app"
+                title="Comi App — interactive demo"
+                loading="lazy"
+                allow="autoplay; fullscreen">
+            </iframe>
+        </div>
+        <p class="demo-caption">Interactive web build of the Comi MVP — sign up, swipe, match, and chat directly in the browser. Best experienced with a mouse or trackpad; some gesture-heavy interactions feel subtly different on web than on iOS.</p>
+    </section>
 
     <a href="/" class="back-link">&lt; back to home</a>
 
@@ -639,8 +710,8 @@
             mouseX = e.clientX; mouseY = e.clientY;
             if (!cursorActive) { cursorActive = true; cursorX = mouseX; cursorY = mouseY; cursor.style.opacity = '1'; }
         });
-        document.addEventListener('mouseover', (e) => { if (e.target.closest('a, button, [role="button"]')) { isHovering = true; cursor.classList.add('hovering'); } });
-        document.addEventListener('mouseout', (e) => { if (e.target.closest('a, button, [role="button"]')) { isHovering = false; cursor.classList.remove('hovering'); } });
+        document.addEventListener('mouseover', (e) => { if (e.target.closest('a, button, [role="button"], iframe')) { isHovering = true; cursor.classList.add('hovering'); } });
+        document.addEventListener('mouseout', (e) => { if (e.target.closest('a, button, [role="button"], iframe')) { isHovering = false; cursor.classList.remove('hovering'); } });
 
         function animateCursor() {
             cursorX += (mouseX - cursorX) * 0.18; cursorY += (mouseY - cursorY) * 0.18;
