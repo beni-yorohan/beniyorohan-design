@@ -585,11 +585,18 @@
             }
         }
 
-        /* ---- Back link ---- */
-        .back-link {
-            display: inline-block;
+        /* ---- Project nav (back + next) ---- */
+        .project-nav {
             margin-top: 100px;
             padding: 0 var(--side-padding);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .back-link {
             font-family: 'OT Brut Mono', monospace;
             font-size: 14px;
             font-weight: 400;
@@ -802,7 +809,10 @@
         <a href="../../assets/fonts/PaticoGeometric-Regular.ttf" download="PaticoGeometric-Regular.ttf" class="download-btn">DOWNLOAD TYPEFACE</a>
     </div>
 
-    <a href="/" class="back-link">&lt; back to home</a>
+    <div class="project-nav">
+        <a href="/" class="back-link">&lt; back to home</a>
+        <a href="/projects/matos-organic-tomato-juice" class="back-link">next project: Matos Organic Tomato Juice &gt;</a>
+    </div>
 
     <footer>
         <div class="footer-line"></div>

@@ -258,8 +258,9 @@
         .page-fade:nth-child(3) { animation-delay: 0.1s; }
         @keyframes pageEntry { to { opacity: 1; transform: translateY(0); } }
 
-        /* ---- Back link ---- */
-        .back-link { display: inline-block; margin-top: 100px; padding: 0 var(--side-padding); font-family: 'OT Brut Mono', monospace; font-size: 14px; font-weight: 400; color: #ffffff; text-decoration: none; transition: opacity 0.25s ease; }
+        /* ---- Project nav (back + next) ---- */
+        .project-nav { margin-top: 100px; padding: 0 var(--side-padding); display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+        .back-link { font-family: 'OT Brut Mono', monospace; font-size: 14px; font-weight: 400; color: #ffffff; text-decoration: none; transition: opacity 0.25s ease; }
         .back-link:hover { opacity: 0.6; }
 
         /* ---- Footer ---- */
@@ -467,7 +468,10 @@
         </div>
     </div>
 
-    <a href="/" class="back-link">&lt; back to home</a>
+    <div class="project-nav">
+        <a href="/" class="back-link">&lt; back to home</a>
+        <a href="/projects/patico-geometric" class="back-link">next project: Patico Geometric &gt;</a>
+    </div>
 
     <footer>
         <div class="footer-line"></div>

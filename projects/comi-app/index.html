@@ -419,11 +419,18 @@
             }
         }
 
-        /* ---- Back link ---- */
-        .back-link {
-            display: inline-block;
+        /* ---- Project nav (back + next) ---- */
+        .project-nav {
             margin-top: 100px;
             padding: 0 var(--side-padding);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .back-link {
             font-family: 'OT Brut Mono', monospace;
             font-size: 14px;
             font-weight: 400;
@@ -589,7 +596,10 @@
         <p class="demo-caption">Interactive web build of the Comi MVP — sign up, swipe, match, and chat directly in the browser. Best experienced with a mouse or trackpad; some gesture-heavy interactions feel subtly different on web than on iOS.</p>
     </section>
 
-    <a href="/" class="back-link">&lt; back to home</a>
+    <div class="project-nav">
+        <a href="/" class="back-link">&lt; back to home</a>
+        <a href="/projects/start-today" class="back-link">next project: Start Today &gt;</a>
+    </div>
 
     <footer>
         <div class="footer-line"></div>
