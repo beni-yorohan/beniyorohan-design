@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K339D507XJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-K339D507XJ');
+    </script>
     <title>Comi App — BY Design</title>
     <meta name="description" content="Comi App — UI/UX &amp; Branding by Beni Yorohan / BY Design.">
     <link rel="canonical" href="https://beniyorohan.design/projects/comi-app">
@@ -390,11 +400,13 @@
             width: 100%;
             max-width: 390px;
             aspect-ratio: 390 / 844;
-            border: 12px solid #2a2a2a;
-            border-radius: 48px;
+            border: 8px solid #0a0a0a;
+            border-radius: 52px;
             overflow: hidden;
             background: #000;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            box-shadow:
+                0 0 0 2px #1f1f1f,
+                0 30px 70px rgba(0, 0, 0, 0.75);
         }
 
         .demo-phone iframe {
@@ -402,6 +414,8 @@
             height: 100%;
             border: 0;
             display: block;
+            border-radius: 44px;
+            background: #000;
         }
 
         .demo-caption {
@@ -534,9 +548,15 @@
             }
 
             .demo-phone {
-                border-width: 8px;
-                border-radius: 36px;
-                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+                border-width: 6px;
+                border-radius: 40px;
+                box-shadow:
+                    0 0 0 1px #1f1f1f,
+                    0 15px 35px rgba(0, 0, 0, 0.7);
+            }
+
+            .demo-phone iframe {
+                border-radius: 34px;
             }
 
             footer {

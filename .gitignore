@@ -1,24 +1,19 @@
 # macOS
 .DS_Store
 
-# Source/working files (not needed for the website)
+# Design source files
+*.psd
+*.psdt
+*.ai
+*.indd
+
+# Design asset / process folders (not shipped to site)
+073- BOX WALL/
+Reference Images/
 BY Design_files/
-assets/Mato's/
-assets/img/matos.mp4
-assets/img/matos_option1_native.mp4
-assets/img/matos_option2_smoothed.mp4
-assets/img/matos_option3_balanced.mp4
-
-# Claude config
-.claude/
-projects/start-today/Reviews type installation.pdf
-
-# Large uncompressed video files
-assets/video/patico-specimen.mp4
-
-# Temporary extraction files (created by subagent, read-only)
-assets/img/moms-club/image_*.jpg
-assets/img/moms-club/brand-26.jpg
-
-# Original uncompressed Mom's Club photos
-assets/moms_club_images_/
+mato's_02_/
+matos'instasancs_.ai
+bydesign_resume:cv_2026_v0.1_.pdf
+og_comparison_temp.png
+font_test.png
+assets/font_compare.png
