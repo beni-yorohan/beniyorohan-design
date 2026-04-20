@@ -1,0 +1,9 @@
+# 301 redirects from old domain to new domain.
+# Covers both protocols (http/https) and www/non-www variants.
+# The `!` at the end forces the redirect even if a matching file exists.
+# :splat captures the wildcard path so /projects/comi-app, etc. all redirect to the same page on the new domain.
+
+http://beniyorohan-design.com/*       https://beniyorohan.design/:splat  301!
+https://beniyorohan-design.com/*      https://beniyorohan.design/:splat  301!
+http://www.beniyorohan-design.com/*   https://beniyorohan.design/:splat  301!
+https://www.beniyorohan-design.com/*  https://beniyorohan.design/:splat  301!
