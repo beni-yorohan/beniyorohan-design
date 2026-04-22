@@ -20,3 +20,8 @@ assets/font_compare.png
 
 # Sandbox preview files (internal only, start with underscore)
 assets/img/flavors-of-solitude/_*
+assets/img/comi-app/_*
+
+# Source PDFs of process decks — displayed inline as images, raw PDF not shipped
+assets/music-box-concept-discovery.pdf
+assets/comi-v1-deck.pdf

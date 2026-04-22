@@ -427,6 +427,59 @@
             line-height: 1.6;
         }
 
+        /* ---- Process gallery (matches Mato's / Flavors of Solitude pattern) ---- */
+        .project-gallery {
+            padding: var(--section-gap) var(--side-padding) 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--content-gap);
+        }
+
+        .section-header {
+            width: 100%;
+            padding: 60px 0 10px;
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .section-header.sub {
+            padding: 40px 0 8px;
+            font-size: 16px;
+        }
+
+        .section-intro {
+            width: 100%;
+            max-width: 720px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .g-full { width: 100%; }
+        .g-full img { width: 100%; display: block; }
+
+        .g-half { width: calc(50% - 9px); }
+        .g-half img { width: 100%; display: block; }
+
+        /* ---- Scroll Reveal Animation ---- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* ---- Page load fade ---- */
         .page-fade {
             opacity: 0;
@@ -538,6 +591,13 @@
 
             .project-name { font-size: 18px; }
 
+            .section-header {
+                padding: 40px 0 8px;
+                font-size: 16px;
+            }
+
+            .g-half { width: 100%; }
+
             .project-demo {
                 padding-top: 60px;
             }
@@ -626,6 +686,71 @@
         </div>
         <p class="demo-caption">Interactive web build of the Comi MVP — sign up, swipe, match, and chat directly in the browser. Best experienced with a mouse or trackpad; some gesture-heavy interactions feel subtly different on web than on iOS.</p>
     </section>
+
+    <!-- Research and Version 1 — the initial UX research deck + v1 app UI that preceded the .edu pivot -->
+    <div class="project-gallery">
+
+        <h2 class="section-header fade-in">Research and Version 1</h2>
+        <p class="section-intro fade-in">Initial UX research and version 1 of the app — a commercial roommate &amp; apartment finder. After this phase, the project pivoted into an .edu-gated, student-only platform rather than a fully commercial consumer app.</p>
+
+        <h3 class="section-header sub fade-in">Problem &amp; opportunity</h3>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_01.jpg" alt="Everyday Enhancements — cover slide" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_02.jpg" alt="Find your perfect roommate — hook quote" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_03.jpg" alt="Main problems" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_04.jpg" alt="Research question" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_05.jpg" alt="Specific problem and key pain points" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_06.jpg" alt="Roommate market is massive" loading="lazy"></div>
+
+        <h3 class="section-header sub fade-in">Quantitative data</h3>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_07.jpg" alt="Quantitative data — section cover" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_08.jpg" alt="Google Survey results" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_09.jpg" alt="Highlighted survey findings" loading="lazy"></div>
+
+        <h3 class="section-header sub fade-in">Secondary research</h3>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_10.jpg" alt="Secondary research — section cover" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_11.jpg" alt="Cities research — US and West Coast" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_12.jpg" alt="Cities research — Europe and Asia data" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_13.jpg" alt="Rising rents and limited housing" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_14.jpg" alt="Europe & Asia cities continued" loading="lazy"></div>
+
+        <h3 class="section-header sub fade-in">Users &amp; personas</h3>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_15.jpg" alt="Possible user groups — section cover" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_16.jpg" alt="User groups breakdown" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_17.jpg" alt="User personas and current journeys — section cover" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_18.jpg" alt="From the renter's POV" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_19.jpg" alt="Sara Lopez — renter persona" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_20.jpg" alt="Sara Lopez — journey steps" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_21.jpg" alt="From the sublet's POV" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_22.jpg" alt="Mei Chen — sublet persona" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_23.jpg" alt="Mei Chen — journey steps" loading="lazy"></div>
+
+        <h3 class="section-header sub fade-in">Solution &amp; wireframes</h3>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_24.jpg" alt="Our solution? — section cover" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_25.jpg" alt="Solution features" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_26.jpg" alt="Solution summary with sketch mockup" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_27.jpg" alt="Hand-drawn wireframes" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_28.jpg" alt="Hand-drawn wireframes continued" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_29.jpg" alt="Early digital mockups — messaging interface" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_30.jpg" alt="Early dark UI exploration" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_31.jpg" alt="Dark UI mockups" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_32.jpg" alt="Dark UI mockups continued" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_33.jpg" alt="Landing and app UI exploration" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_34.jpg" alt="Figma board overview" loading="lazy"></div>
+
+        <h3 class="section-header sub fade-in">Brand &amp; Version 1 UI</h3>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_35.jpg" alt="The Brand — section cover" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_36.jpg" alt="Type specimen — alphabet" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_37.jpg" alt="Color palettes — Roommates, Housing, Services" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_38.jpg" alt="Comi logo mark" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_39.jpg" alt="v1 app UI — phone mockup" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_40.jpg" alt="v1 app UI — splash screen" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_41.jpg" alt="v1 app UI — profile" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_42.jpg" alt="v1 app UI — property listing and details" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_43.jpg" alt="v1 app UI — messaging" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/process/research_44.jpg" alt="v1 app UI — amenities filter" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/process/research_45.jpg" alt="v1 app UI — property detail with reviews" loading="lazy"></div>
+
+    </div>
 
     <div class="project-nav">
         <a href="/" class="back-link">&lt; back to home</a>
@@ -770,6 +895,18 @@
         animateCursor();
         document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
         document.addEventListener('mouseenter', () => { if (cursorActive) cursor.style.opacity = '1'; });
+
+        // ---- Scroll-triggered fade-in ----
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    scrollObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.fade-in').forEach(el => scrollObserver.observe(el));
 
         // Force autoplay on hero video
         document.addEventListener('DOMContentLoaded', () => {
