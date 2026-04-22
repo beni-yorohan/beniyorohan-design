@@ -13,15 +13,15 @@
         gtag('js', new Date());
         gtag('config', 'G-K339D507XJ');
     </script>
-    <title>Patico Geometric — BY Design</title>
-    <meta name="description" content="Patico Geometric — Type Design by Beni Yorohan / BY Design.">
-    <link rel="canonical" href="https://beniyorohan.design/projects/patico-geometric">
+    <title>Flavors of Solitude — BY Design</title>
+    <meta name="description" content="Flavors of Solitude — Product Design, Album &amp; Book Design by Beni Yorohan / BY Design.">
+    <link rel="canonical" href="https://beniyorohan.design/projects/flavors-of-solitude">
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://beniyorohan.design/projects/patico-geometric">
-    <meta property="og:title" content="Patico Geometric — BY Design">
-    <meta property="og:description" content="Patico Geometric — Type Design by Beni Yorohan / BY Design.">
+    <meta property="og:url" content="https://beniyorohan.design/projects/flavors-of-solitude">
+    <meta property="og:title" content="Flavors of Solitude — BY Design">
+    <meta property="og:description" content="Flavors of Solitude — Product Design, Album &amp; Book Design by Beni Yorohan / BY Design.">
     <meta property="og:site_name" content="BY Design">
     <meta property="og:image" content="https://beniyorohan.design/assets/og-image.png">
     <meta property="og:image:width" content="1200">
@@ -30,8 +30,8 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Patico Geometric — BY Design">
-    <meta name="twitter:description" content="Patico Geometric — Type Design by Beni Yorohan / BY Design.">
+    <meta name="twitter:title" content="Flavors of Solitude — BY Design">
+    <meta name="twitter:description" content="Flavors of Solitude — Product Design, Album &amp; Book Design by Beni Yorohan / BY Design.">
     <meta name="twitter:image" content="https://beniyorohan.design/assets/og-image.png">
 
     <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
@@ -66,14 +66,6 @@
             font-style: normal;
             font-display: swap;
             font-variation-settings: 'ital' 0, 'slnt' 0;
-        }
-
-        @font-face {
-            font-family: 'Patico Geometric';
-            src: url('../../assets/fonts/PaticoGeometric-Regular.ttf') format('truetype');
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
         }
 
         *, *::before, *::after {
@@ -344,16 +336,29 @@
             }
         }
 
-        /* ---- Hero ---- */
+        /* ---- Hero: Coming Soon placeholder ---- */
         .project-hero {
             width: 100%;
             padding: 0 var(--side-padding);
             margin-top: 10px;
         }
 
-        .project-hero video {
+        .coming-soon-frame {
             width: 100%;
-            display: block;
+            aspect-ratio: 16 / 9;
+            background: #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .coming-soon-label {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0;
         }
 
         /* ---- Project Title ---- */
@@ -366,9 +371,18 @@
             letter-spacing: -0.01em;
         }
 
+        .project-meta-line {
+            padding: 16px var(--side-padding) 0;
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
         .project-description {
             padding: 12px var(--side-padding) 0;
-            max-width: 600px;
+            max-width: 720px;
         }
 
         .project-description p {
@@ -379,24 +393,9 @@
             line-height: 1.6;
         }
 
-        .project-meta-line {
-            padding: 16px var(--side-padding) 0;
-            font-family: var(--font-body);
-            font-size: 12px;
-            font-weight: 400;
-            color: var(--text-secondary);
-            letter-spacing: 0.02em;
-        }
-
-        /* ---- Interactive Sections ---- */
-        .type-sections {
-            padding: 0 var(--side-padding);
-        }
-
-        /* Section header */
         .section-header {
             width: 100%;
-            padding: 80px 0 10px;
+            padding: 60px 0 10px;
             font-family: var(--font-body);
             font-size: 20px;
             font-weight: 500;
@@ -404,189 +403,59 @@
             letter-spacing: -0.01em;
         }
 
-        /* Glyph hover row */
-        .glyph-row {
+        .slideshow {
+            position: relative;
             width: 100%;
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: center;
-            gap: 0;
-            padding: 50px 0 30px;
+            aspect-ratio: 16 / 9;
+            background: #000;
             overflow: hidden;
         }
 
-        .glyph-row span {
-            font-family: 'Patico Geometric', sans-serif;
-            font-size: 520px;
-            color: var(--text-primary);
-            transition: color 0.15s ease, text-shadow 0.15s ease;
-            line-height: 0.85;
-            padding: 0;
-            margin: 0;
-            letter-spacing: 0.05em;
-            user-select: none;
-        }
-
-        .glyph-row span:hover {
-            color: #39FF14;
-        }
-
-        /* Full alphabet row */
-        .alphabet-row {
+        .slideshow img {
+            position: absolute;
+            inset: 0;
             width: 100%;
-            padding: 10px 0;
-            font-family: 'Patico Geometric', sans-serif;
-            font-size: 96px;
-            color: var(--text-primary);
-            line-height: 1.2;
-            letter-spacing: 0.04em;
-            word-break: break-word;
-            text-align: center;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+            will-change: opacity;
         }
 
-        /* Download button */
-        .download-btn {
-            display: inline-block;
-            margin-top: 80px;
-            padding: 14px 40px;
-            font-family: 'Patico Geometric', sans-serif;
-            font-size: 16px;
-            letter-spacing: 0.05em;
-            color: #000;
-            background: var(--text-primary);
-            text-decoration: none;
-            border: none;
-            transition: background 0.2s ease, color 0.2s ease;
+        .slideshow img.active {
+            opacity: 1;
         }
 
-        .download-btn:hover {
-            background: #39FF14;
-            color: #000;
-        }
-
-        .download-section {
-            padding: 0 var(--side-padding);
-            text-align: center;
-        }
-
-        /* Type Tester */
-        .type-tester {
+        .more-soon {
             width: 100%;
-            padding: 40px 0 0;
-        }
-
-        .type-tester-controls {
-            display: flex;
-            gap: 24px;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            margin-bottom: 32px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #222;
-        }
-
-        .type-tester-controls label {
-            font-family: var(--font-body);
-            font-size: 11px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .type-tester-controls input[type="text"] {
-            background: transparent;
-            border: 1px solid #333;
-            color: var(--text-primary);
             font-family: var(--font-body);
             font-size: 13px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            width: 280px;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .type-tester-controls input[type="text"]:focus {
-            border-color: #666;
-        }
-
-        .type-tester-controls input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 120px;
-            height: 2px;
-            background: #333;
-            border-radius: 2px;
-            outline: none;
-        }
-
-        .type-tester-controls input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--text-primary);
-            cursor: none !important;
-        }
-
-        .control-value {
-            font-family: 'OT Brut Mono', monospace;
-            font-size: 11px;
+            font-weight: 400;
             color: var(--text-secondary);
-            min-width: 36px;
-            text-align: right;
+            letter-spacing: 0;
         }
 
-        .control-row {
+        /* ---- Process gallery (matches Mato's / Start Today pattern) ---- */
+        .project-gallery {
+            padding: var(--section-gap) var(--side-padding) 0;
             display: flex;
-            align-items: center;
-            gap: 8px;
+            flex-wrap: wrap;
+            gap: var(--content-gap);
         }
 
-        .type-cascade {
+        .g-full { width: 100%; }
+        .g-full img {
             width: 100%;
+            display: block;
         }
 
-        .type-cascade-line {
-            font-family: 'Patico Geometric', sans-serif;
-            color: var(--text-primary);
-            line-height: 1.15;
-            word-break: break-word;
-            overflow: hidden;
-            padding: 4px 0;
+        .g-half { width: calc(50% - 9px); }
+        .g-half img {
+            width: 100%;
+            display: block;
         }
 
-        .type-cascade-size {
-            font-family: 'OT Brut Mono', monospace;
-            font-size: 10px;
-            color: var(--text-secondary);
-            display: inline-block;
-            width: 40px;
-            flex-shrink: 0;
-            padding-top: 4px;
-            vertical-align: top;
-        }
-
-        .cascade-row {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-            padding: 6px 0;
-            border-bottom: 1px solid #111;
-        }
-
-        .cascade-text {
-            font-family: 'Patico Geometric', sans-serif;
-            color: var(--text-primary);
-            word-break: break-word;
-            overflow: hidden;
-            flex: 1;
-        }
-
-        /* ---- Scroll Reveal ---- */
+        /* ---- Scroll Reveal Animation ---- */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -709,33 +578,13 @@
 
             .project-name { font-size: 18px; }
 
-            .glyph-row span {
-                font-size: 80px;
-            }
+            .coming-soon-label { font-size: 12px; }
 
-            .alphabet-row {
-                font-size: 32px;
-            }
+            .g-half { width: 100%; }
 
-            .download-btn {
-                font-size: 14px;
-                padding: 12px 32px;
-            }
-
-            .type-tester-controls {
-                gap: 16px;
-            }
-
-            .type-tester-controls input[type="text"] {
-                width: 100%;
-            }
-
-            .type-tester-controls input[type="range"] {
-                width: 80px;
-            }
-
-            .type-cascade-size {
-                display: none;
+            .section-header {
+                padding: 40px 0 8px;
+                font-size: 16px;
             }
 
             footer {
@@ -779,69 +628,74 @@
         </nav>
     </header>
 
-    <!-- Hero: Specimen Video -->
+    <!-- Hero: Coming Soon placeholder (leather record box + album photography + promo video to come) -->
     <div class="project-hero page-fade">
-        <video src="../../assets/video/patico-type-specimen.mp4" autoplay loop muted playsinline></video>
+        <div class="coming-soon-frame">
+            <span class="coming-soon-label">coming soon</span>
+        </div>
     </div>
 
     <!-- Project Title -->
-    <div class="project-name page-fade">Patico Geometric</div>
-    <div class="project-meta-line page-fade">Type Design — 2026</div>
+    <div class="project-name page-fade">Flavors of Solitude</div>
+    <div class="project-meta-line page-fade">Product Design, Album &amp; Book Design — 2025</div>
     <div class="project-description page-fade">
-        <p>Patico Geometric is a custom display typeface designed for Patico Bar. Its letterforms draw from the geometric lettering traditions of Istanbul's Sephardic Jewish community — the clean, rounded shapes found carved into synagogue facades, printed in old Ladino newspapers, and hand-painted on shopfronts across Balat and Galata. The typeface also carries the structural rhythm of the Galata Bridge: its repeating arcs, even weight distribution, and quiet modularity echo the bridge's procession of identical spans across the Golden Horn. What emerges is a typeface rooted in the cultural intersection where Sephardic heritage meets modern Istanbul — geometric yet warm, contemporary yet layered with history.</p>
+        <p>Flavors of Solitude is a three-album curation organized around <em>bitter</em>, <em>sweet</em>, and <em>plain</em> — three registers of being alone — built from my move from Istanbul to Boston. As a kid in Turkey I was obsessed with cowboys and dreamt of studying in the U.S.; when I finally arrived and became the Turkish cowboy I'd imagined, I realized the dream had been a dream, and the reality of it was far lonelier. The project runs through americana and the rockesque, bluesy register that shaped that dream — Dire Straits, Eric Clapton, The Band — pairing three 12" vinyl records with a leather record box and a companion catalog book of the lyrics, sleeves, and label designs. Sound, object, and text as a single curatorial system for what it feels like to be far from home and still learning what that means.</p>
+        <p style="margin-top: 12px; font-size: 13px; color: #8a8a8a; line-height: 1.6;">Album curation co-led with Ali Kahramanoglu</p>
     </div>
 
-    <!-- Interactive Sections -->
-    <div class="type-sections">
+    <!-- Project gallery — catalog slideshow + process deck, flat sections matching Mato's / Start Today -->
+    <div class="project-gallery">
 
-        <!-- Glyph Hover Row -->
-        <h2 class="section-header fade-in">Glyphs</h2>
-        <div class="glyph-row fade-in">
-            <span>A</span><span>A</span><span>A</span><span>A</span><span>A</span>
-        </div>
+        <h2 class="section-header fade-in">Catalog</h2>
+        <div class="slideshow fade-in" id="book-slideshow" aria-label="Slideshow of book spreads from the Flavors of Solitude catalog"></div>
+        <div class="more-soon fade-in">More coming soon — record box, album photography, promo film</div>
 
-        <!-- Full Alphabet -->
-        <div class="alphabet-row fade-in">A B C D E F G H I J K L M N O</div>
-        <div class="alphabet-row fade-in">P Q R S T U V W X Y Z</div>
-        <div class="alphabet-row fade-in" style="font-size:80px;">a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
-        <div class="alphabet-row fade-in" style="font-size:80px;">0 1 2 3 4 5 6 7 8 9</div>
+        <h2 class="section-header fade-in">Concept</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_01.jpg" alt="Music Box Discovery Presentation — cover" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_02.jpg" alt="Flavors of solitude — statement" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_03.jpg" alt="The journey changes you" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_04.jpg" alt="Istanbul to Boston" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_05.jpg" alt="Solitude" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_06.jpg" alt="Personal narrative — leaving family, coming to America" loading="lazy"></div>
 
-        <!-- Type Tester -->
-        <h2 class="section-header fade-in">Type tester</h2>
-        <div class="type-tester fade-in">
-            <div class="type-tester-controls">
-                <label>
-                    Sample text
-                    <input type="text" id="type-input" value="NASILSINIZ INSALLAH" spellcheck="false">
-                </label>
-                <label>
-                    Tracking
-                    <div class="control-row">
-                        <input type="range" id="tracking-slider" min="-50" max="200" value="0">
-                        <span class="control-value" id="tracking-value">0</span>
-                    </div>
-                </label>
-                <label>
-                    Leading
-                    <div class="control-row">
-                        <input type="range" id="leading-slider" min="80" max="200" value="115">
-                        <span class="control-value" id="leading-value">1.15</span>
-                    </div>
-                </label>
-            </div>
-            <div class="type-cascade" id="type-cascade"></div>
-        </div>
+        <h2 class="section-header fade-in">Album 01 — Bitter</h2>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_07.jpg" alt="Album 01 — title page" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_08.jpg" alt="Bitter — tracklist" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_09.jpg" alt="Bitter — album cover references" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_10.jpg" alt="Bitter — what the songs feel like, image collage" loading="lazy"></div>
 
-    </div>
+        <h2 class="section-header fade-in">Album 02 — Sweet</h2>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_11.jpg" alt="Album 02 — title page" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_12.jpg" alt="Sweet — statement" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_13.jpg" alt="Sweet — album cover references" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_14.jpg" alt="Sweet — what the songs feel like, image collage" loading="lazy"></div>
 
-    <!-- Download -->
-    <div class="download-section fade-in">
-        <a href="../../assets/fonts/PaticoGeometric-Regular.ttf" download="PaticoGeometric-Regular.ttf" class="download-btn">DOWNLOAD TYPEFACE</a>
+        <h2 class="section-header fade-in">Album 03 — Plain</h2>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_15.jpg" alt="Album 03 — title page" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_16.jpg" alt="Plain — there" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_17.jpg" alt="Plain — album cover references" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_18.jpg" alt="Plain — what the songs feel like, image collage" loading="lazy"></div>
+
+        <h2 class="section-header fade-in">Visual direction &amp; textures</h2>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_19.jpg" alt="Visual thesis — nomadic cowboy" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_20.jpg" alt="Possible textures to explore — leather" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_21.jpg" alt="Texture study — fur and hide" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_22.jpg" alt="Texture study — denim and blue tones" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_23.jpg" alt="Texture study — wood and brown tones" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_24.jpg" alt="Texture study — green and nature tones" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_25.jpg" alt="Texture study — stone and neutral tones" loading="lazy"></div>
+
+        <h2 class="section-header fade-in">Shapes, patterns &amp; navigation</h2>
+        <div class="g-full fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_26.jpg" alt="Shapes and patterns — intro" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_27.jpg" alt="Patterns — star and checker" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_28.jpg" alt="Patterns — southwestern motifs" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/flavors-of-solitude/process/process_29.jpg" alt="Navigation — directional diagrams" loading="lazy"></div>
+
     </div>
 
     <div class="project-nav">
         <a href="/" class="back-link">&lt; back to home</a>
-        <a href="/projects/flavors-of-solitude" class="back-link">next project: Flavors of Solitude &gt;</a>
+        <a href="/projects/moms-club" class="back-link">next project: Mom's Club &gt;</a>
     </div>
 
     <footer>
@@ -998,48 +852,55 @@
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // ---- Type Tester ----
-        const typeSizes = [96, 72, 60, 48, 36, 24, 18, 14, 11, 8];
-        const typeInput = document.getElementById('type-input');
-        const trackingSlider = document.getElementById('tracking-slider');
-        const leadingSlider = document.getElementById('leading-slider');
-        const trackingValue = document.getElementById('tracking-value');
-        const leadingValue = document.getElementById('leading-value');
-        const typeCascade = document.getElementById('type-cascade');
+        // ---- Book Slideshow ----
+        const slideshow = document.getElementById('book-slideshow');
+        const bookImages = [
+            '2026-03-26-0001.jpg', '2026-03-26-0002.jpg', '2026-03-26-0003.jpg',
+            '2026-03-26-0004.jpg', '2026-03-26-0005.jpg', '2026-03-26-0007.jpg',
+            '2026-03-26-0008.jpg', '2026-03-26-0009.jpg', '2026-03-26-0011.jpg',
+            '2026-03-26-0012.jpg', '2026-03-26-0013.jpg', '2026-03-26-0014.jpg',
+            '2026-03-26-0015.jpg', '2026-03-26-0016.jpg', '2026-03-26-0017.jpg',
+            '2026-03-26-0018.jpg', '2026-03-26-0019.jpg', '2026-03-26-0020.jpg',
+            '2026-03-26-0021.jpg', '2026-03-26-0022.jpg', '2026-03-26-0023.jpg',
+            '2026-03-26-0024.jpg', '2026-03-26-0025.jpg'
+        ];
 
-        function renderCascade() {
-            const text = typeInput.value || 'NASILSINIZ INSALLAH';
-            const tracking = trackingSlider.value / 1000;
-            const leading = leadingSlider.value / 100;
-            trackingValue.textContent = trackingSlider.value;
-            leadingValue.textContent = leading.toFixed(2);
-
-            typeCascade.innerHTML = '';
-            typeSizes.forEach(size => {
-                const row = document.createElement('div');
-                row.className = 'cascade-row';
-
-                const sizeLabel = document.createElement('span');
-                sizeLabel.className = 'type-cascade-size';
-                sizeLabel.textContent = size + 'px';
-
-                const textEl = document.createElement('span');
-                textEl.className = 'cascade-text';
-                textEl.style.fontSize = size + 'px';
-                textEl.style.letterSpacing = tracking + 'em';
-                textEl.style.lineHeight = leading;
-                textEl.textContent = text;
-
-                row.appendChild(sizeLabel);
-                row.appendChild(textEl);
-                typeCascade.appendChild(row);
-            });
+        // Fisher-Yates shuffle
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
         }
 
-        typeInput.addEventListener('input', renderCascade);
-        trackingSlider.addEventListener('input', renderCascade);
-        leadingSlider.addEventListener('input', renderCascade);
-        renderCascade();
+        // Build img elements — first one eager-loaded, rest lazy
+        bookImages.forEach((filename, i) => {
+            const img = document.createElement('img');
+            img.src = `../../assets/img/flavors-of-solitude/${filename}`;
+            img.alt = `Flavors of Solitude catalog spread ${i + 1}`;
+            img.loading = i === 0 ? 'eager' : 'lazy';
+            slideshow.appendChild(img);
+        });
+
+        const slides = Array.from(slideshow.querySelectorAll('img'));
+        let order = shuffle([...Array(slides.length).keys()]);
+        let position = 0;
+
+        // Show first slide
+        slides[order[0]].classList.add('active');
+
+        // Auto-advance every 4.5 seconds (crossfade is 1.2s via CSS transition)
+        setInterval(() => {
+            slides[order[position]].classList.remove('active');
+            position = (position + 1) % order.length;
+            // At end of cycle, reshuffle for the next loop
+            if (position === 0) {
+                order = shuffle([...Array(slides.length).keys()]);
+            }
+            slides[order[position]].classList.add('active');
+        }, 4500);
 
         // ---- Quote Overlay ----
         const quoteOverlay = document.getElementById('quote-overlay');

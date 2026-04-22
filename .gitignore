@@ -17,3 +17,6 @@ bydesign_resume:cv_2026_v0.1_.pdf
 og_comparison_temp.png
 font_test.png
 assets/font_compare.png
+
+# Sandbox preview files (internal only, start with underscore)
+assets/img/flavors-of-solitude/_*
