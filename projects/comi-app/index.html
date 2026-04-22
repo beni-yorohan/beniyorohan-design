@@ -398,23 +398,24 @@
         .demo-phone {
             position: relative;
             width: 100%;
-            max-width: 390px;
-            aspect-ratio: 390 / 844;
-            border: 8px solid #0a0a0a;
-            border-radius: 52px;
+            max-width: 387px;
+            aspect-ratio: 430 / 932;
             overflow: hidden;
             background: #000;
-            box-shadow:
-                0 0 0 2px #1f1f1f,
-                0 30px 70px rgba(0, 0, 0, 0.75);
+            border-radius: 28px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
         }
 
         .demo-phone iframe {
-            width: 100%;
-            height: 100%;
+            /* Iframe is 111% of the visible frame, then scaled to 90%,
+               so the app still reports its full 430×932 viewport internally
+               but renders 10% smaller on screen to match the scaled-down frame. */
+            width: calc(100% / 0.9);
+            height: calc(100% / 0.9);
+            transform: scale(0.9);
+            transform-origin: top left;
             border: 0;
             display: block;
-            border-radius: 44px;
             background: #000;
         }
 
@@ -425,6 +426,50 @@
             font-size: 13px;
             color: var(--text-secondary);
             line-height: 1.6;
+        }
+
+        /* ---- Product walkthrough — 3×2 grid of phone-shaped looping videos ---- */
+        .flow-section {
+            padding: var(--section-gap) var(--side-padding) 0;
+        }
+
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 88px 96px;
+            margin: 40px auto 0;
+            max-width: 1040px;
+        }
+
+        .flow-item {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .flow-label {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .flow-phone {
+            width: 100%;
+            aspect-ratio: 1320 / 2868;
+            background: #000;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 16px 38px rgba(0, 0, 0, 0.55);
+        }
+
+        .flow-phone video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
         }
 
         /* ---- Process gallery (matches Mato's / Flavors of Solitude pattern) ---- */
@@ -598,6 +643,11 @@
 
             .g-half { width: 100%; }
 
+            .flow-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 28px 16px;
+            }
+
             .project-demo {
                 padding-top: 60px;
             }
@@ -608,15 +658,8 @@
             }
 
             .demo-phone {
-                border-width: 6px;
-                border-radius: 40px;
-                box-shadow:
-                    0 0 0 1px #1f1f1f,
-                    0 15px 35px rgba(0, 0, 0, 0.7);
-            }
-
-            .demo-phone iframe {
-                border-radius: 34px;
+                border-radius: 22px;
+                box-shadow: 0 14px 32px rgba(0, 0, 0, 0.55);
             }
 
             footer {
@@ -672,6 +715,49 @@
         <p>Comi is a swipe-style roommate matching app built for universities, with a commercial version designed to scale beyond the campus. Finding a roommate today is a patchwork of group chats, DMs, and half-filled matching forms — a high-stakes decision made with almost no real information. Comi turns that into something familiar: a swipe-forward interface that makes compatibility quick to read, with the questions that actually predict who you can live with surfacing underneath. The brand sits in the tension between cool and trust — casual enough that students actually want to use it, credible enough that schools and parents take it seriously.</p>
         <p style="margin-top: 12px; font-size: 13px; color: #8a8a8a; line-height: 1.6;">In collaboration with Tayra Morhayim<br>MVP built in React with Claude Code</p>
     </div>
+
+    <!-- Product walkthrough — six key flows from the app, looping side-by-side -->
+    <section class="flow-section">
+        <h2 class="section-header fade-in">Product walkthrough</h2>
+        <div class="flow-grid">
+            <div class="flow-item fade-in">
+                <span class="flow-label">01 — Sign-in</span>
+                <div class="flow-phone">
+                    <video src="../../assets/video/comi-flow/signin.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Sign-in flow — .edu email and OTP verification"></video>
+                </div>
+            </div>
+            <div class="flow-item fade-in">
+                <span class="flow-label">02 — Onboarding</span>
+                <div class="flow-phone">
+                    <video src="../../assets/video/comi-flow/onboarding.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Onboarding flow — profile setup and roommate preferences"></video>
+                </div>
+            </div>
+            <div class="flow-item fade-in">
+                <span class="flow-label">03 — Browse matches</span>
+                <div class="flow-phone">
+                    <video src="../../assets/video/comi-flow/browse.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Browse flow — home feed of potential roommates"></video>
+                </div>
+            </div>
+            <div class="flow-item fade-in">
+                <span class="flow-label">04 — Profile detail</span>
+                <div class="flow-phone">
+                    <video src="../../assets/video/comi-flow/profile.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Profile detail — compatibility breakdown and reviews"></video>
+                </div>
+            </div>
+            <div class="flow-item fade-in">
+                <span class="flow-label">05 — Messaging</span>
+                <div class="flow-phone">
+                    <video src="../../assets/video/comi-flow/messaging.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Messaging flow — chat with a match and schedule a meet-up"></video>
+                </div>
+            </div>
+            <div class="flow-item fade-in">
+                <span class="flow-label">06 — Match &amp; navigation</span>
+                <div class="flow-phone">
+                    <video src="../../assets/video/comi-flow/match.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Match celebration and core app navigation — activity, profile"></video>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Live Demo -->
     <section class="project-demo">
@@ -908,9 +994,9 @@
 
         document.querySelectorAll('.fade-in').forEach(el => scrollObserver.observe(el));
 
-        // Force autoplay on hero video
+        // Force autoplay on hero video + walkthrough grid
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.project-hero video').forEach(video => {
+            document.querySelectorAll('.project-hero video, .flow-phone video').forEach(video => {
                 video.muted = true;
                 video.play().catch(() => {});
             });
