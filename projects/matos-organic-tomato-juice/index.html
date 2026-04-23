@@ -410,6 +410,30 @@
             display: block;
         }
 
+        /* Inline call-to-action link (same style as header nav) */
+        .tool-link {
+            font-family: 'OT Brut', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 0;
+            display: inline-flex;
+            align-items: baseline;
+            gap: 10px;
+            transition: opacity 0.25s ease;
+        }
+
+        .tool-link:hover {
+            opacity: 0.6;
+        }
+
+        .tool-link .glyph {
+            display: inline-block;
+            font-size: 16px;
+            transform: translateY(-1px);
+        }
+
         /* Half-width image block (side-by-side) */
         .g-half {
             width: calc(50% - 9px);
@@ -706,6 +730,9 @@
 
         <!-- Social Assets Tool (preview — coming soon) -->
         <h2 class="section-header fade-in">Social assets tool</h2>
+        <div class="g-full fade-in">
+            <a href="./social-tool/" target="_blank" rel="noopener" class="tool-link"><span class="glyph" aria-hidden="true">&#x2197;</span>try the tool now in a new page!</a>
+        </div>
         <div class="g-full fade-in"><video src="../../assets/video/matos-social-tool.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Preview of Mato's social assets creation tool"></video></div>
         <p class="g-full fade-in" style="font-family: var(--font-body); font-size: 13px; color: #8a8a8a; line-height: 1.6; margin: 0;">Mato's specialized social assets creation tool &mdash; coming soon</p>
 
