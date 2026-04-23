@@ -85,6 +85,7 @@
         }
 
         body {
+            hanging-punctuation: first last allow-end;
             background-color: var(--bg);
             color: var(--text-primary);
             font-family: var(--font-body);
@@ -363,42 +364,144 @@
             margin-bottom: 1em;
         }
 
-        /* ---- Meet the team link (same style + glyph as Mato's tool link, bigger) ---- */
-        .team-link {
-            display: inline-flex;
-            align-items: baseline;
-            gap: 16px;
+        /* ---- Meet the team section (mirrors homepage thumbnail grid exactly) ---- */
+        .team-section {
             margin-top: 160px;
-            font-family: 'OT Brut', sans-serif;
-            font-size: 32px;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            color: #00BFFF;
-            text-decoration: none;
-            transition: opacity 0.25s ease;
             position: relative;
             z-index: 600;
         }
 
-        .team-link:hover {
-            opacity: 0.6;
+        .section-header {
+            width: 100%;
+            padding: 0 0 24px;
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            margin: 0;
         }
 
-        .team-link .glyph {
-            display: inline-block;
-            font-size: 28px;
-            transform: translateY(-2px);
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 16px;
+            row-gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .team-card {
+            display: block;
+        }
+
+        .team-thumb {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            background-color: #2a2a2a;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #333333;
+        }
+
+        .team-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .team-thumb.empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .team-thumb-placeholder {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0;
+        }
+
+        .team-info {
+            padding-top: 12px;
+            padding-bottom: 24px;
+        }
+
+        .team-name {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: 0;
+            margin-bottom: 2px;
+        }
+
+        .team-role {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        .team-bio {
+            margin-top: 12px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1200px) {
+            .team-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 900px) {
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 680px) {
-            .team-link {
-                font-size: 22px;
+            .team-section {
                 margin-top: 100px;
+            }
+
+            .section-header {
+                padding: 0 0 16px;
+                font-size: 16px;
+            }
+
+            /* Mobile: horizontal-scroll carousel edge-to-edge */
+            .team-grid {
+                display: flex;
+                grid-template-columns: unset;
+                flex-wrap: nowrap;
                 gap: 12px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                margin-bottom: 32px;
             }
-            .team-link .glyph {
-                font-size: 20px;
+
+            .team-grid::-webkit-scrollbar {
+                display: none;
             }
+
+            .team-card {
+                flex: 0 0 68%;
+                scroll-snap-align: start;
+            }
+
+            .team-info {
+                padding-top: 8px;
+                padding-bottom: 16px;
+            }
+
+            .team-name { font-size: 13px; }
+            .team-role { font-size: 12px; }
         }
 
         .about-text .char {
@@ -499,7 +602,34 @@
             <div class="paragraph" data-text="We work with brands, institutions, and founders to shape identities, narratives, and systems — treating design as both a strategic tool and a cultural practice."></div>
         </div>
 
-        <a href="#" class="team-link" onclick="event.preventDefault();"><span class="glyph" aria-hidden="true">&#x2197;</span>meet the team</a>
+        <section class="team-section">
+            <h2 class="section-header">Meet the team</h2>
+            <div class="team-grid">
+
+                <div class="team-card">
+                    <div class="team-thumb">
+                        <img src="assets/img/team/beni.jpg" alt="Beni Yorohan — black and white portrait" loading="lazy">
+                    </div>
+                    <div class="team-info">
+                        <div class="team-name">Beni Yorohan</div>
+                        <div class="team-role">Founder &amp; Creative Director</div>
+                        <p class="team-bio">A designer, founder, and generous host, Beni trained at Massachusetts College of Art &amp; Design. He believes the strongest work travels — across rooms, across cultures, and the conversation that outlasts dessert.</p>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-thumb empty">
+                        <span class="team-thumb-placeholder">coming soon</span>
+                    </div>
+                    <div class="team-info">
+                        <div class="team-name">TBD</div>
+                        <div class="team-role">Co-Founder &amp; Managing Director</div>
+                        <p class="team-bio">A new partner is joining the consultancy in 2026. More here soon.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </div>
 
     <footer>
