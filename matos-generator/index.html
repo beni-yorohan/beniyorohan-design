@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- Hidden from search engines — only accessible via the in-page link on the Mato's project page -->
+    <meta name="robots" content="noindex, nofollow">
+    <title>Mato's Generator</title>
+    <meta name="description" content="Mato's brand asset + tomato blob generator.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="tool-composer">
+    <div id="canvas-container"></div>
+
+    <aside id="controls-container">
+        <header id="brand">
+            <svg id="brand-logo" viewBox="0 0 712.25 595.78" aria-label="Mato's">
+                <path d="M135.47,13.02h-19.08c-2.29,0-4.58,4.88-5.72,14.65l-38.92,320.68c-.76,6.51-2.67,6.51-3.43,0L28.62,27.67c-1.14-9.77-3.43-14.65-5.72-14.65H3.82c-2.29,0-3.82,6.51-3.82,16.28v537.18c0,9.77,1.53,16.28,3.82,16.28h13.36c2.29,0,3.82-6.51,3.82-16.28V172.55c0-9.77,3.05-13.02,4.2-4.88l31.29,253.94c1.14,9.77,3.43,14.65,6.11,14.65h14.5c2.67,0,4.58-4.88,5.72-14.65l31.67-253.94c.76-6.51,3.82-4.88,3.82,4.88v393.93c0,9.77,1.53,16.28,3.82,16.28h13.36c2.29,0,3.82-6.51,3.82-16.28V29.3c0-9.77-1.53-16.28-3.82-16.28Z"/>
+                <path d="M240.78,29.3c-.95-9.77-3.24-16.28-6.11-16.28h-16.79c-2.86,0-5.34,6.51-6.11,16.28l-54.95,533.92c-.95,9.77.19,19.53,3.05,19.53h13.74c2.48,0,4.77-6.51,6.11-17.91l11.45-113.95c.57-8.14,2.48-13.02,4.96-13.02h60.29c1.72,0,3.62,4.88,4.58,13.02l11.83,113.95c.57,11.39,3.24,17.91,6.11,17.91h13.74c2.1,0,3.43-9.77,2.67-19.53L240.78,29.3ZM247.27,353.23h-41.97c-2.48,0-3.62-8.14-2.67-16.28l21.75-218.13c.76-8.14,3.43-8.14,4.2,0l20.99,218.13c.57,8.14-.95,16.28-2.29,16.28Z"/>
+                <path d="M400.1,13.02h-114.1c-2.29,0-3.82,6.51-3.82,16.28v52.09c0,9.77,1.53,16.28,3.82,16.28h40.83c3.05,0,5.72,11.39,5.72,24.42v444.39c0,9.77,1.53,16.28,3.82,16.28h13.36c2.29,0,3.82-6.51,3.82-16.28V122.09c0-13.02,2.67-24.42,6.11-24.42h40.45c2.29,0,3.82-6.51,3.82-16.28V29.3c0-9.77-1.53-16.28-3.82-16.28Z"/>
+                <path d="M483.29,0c-46.94,0-72.88,125.34-72.88,297.89s25.95,297.89,72.88,297.89,72.88-126.97,72.88-297.89S529.46,0,483.29,0ZM483.29,511.13c-33.2,0-51.9-91.16-51.9-213.24s18.7-213.24,51.9-213.24,51.9,89.53,51.9,213.24-19.08,213.24-51.9,213.24Z"/>
+                <path d="M588.23,13.02h-16.79c-2.29,0-3.82,6.51-3.82,16.28v71.62c0,9.77,1.53,16.28,3.82,16.28h6.49c2.29,0,3.43,4.88,3.43,14.65v19.53c0,16.28-1.53,22.79-5.34,22.79h-4.96c-2.29,0-3.43,4.88-3.43,14.65v16.28c0,9.77,1.14,14.65,3.43,14.65h6.87c8.97,0,14.12-20.35,14.12-60.23V29.3c0-9.77-1.53-16.28-3.82-16.28Z"/>
+                <path d="M629.06,148.13c0-43.95,12.78-68.37,28.05-68.37s25.18,21.16,28.43,71.62c.76,10.58,1.91,16.28,4.58,16.28h11.45c2.86,0,4.39-5.7,4.2-17.09-2.29-113.95-27.28-150.57-48.65-150.57-31.48,0-49.22,59.41-49.22,153.83,0,218.94,83.19,123.71,83.19,269.4,0,70.81-17.74,89.53-32.05,89.53s-32.05-19.53-34.72-97.67c-.38-10.58-1.91-16.28-4.58-16.28h-12.4c-2.86,0-4.39,5.7-4.2,17.09,1.72,141.62,31.67,179.87,56.28,179.87,37.4,0,52.85-75.69,52.85-172.55,0-231.96-83.19-140.8-83.19-275.1Z"/>
+            </svg>
+        </header>
+
+        <!-- Tool selector -->
+        <section class="group tool-switch">
+            <div class="seg">
+                <button type="button" class="seg-btn active" data-tool="composer">Asset Composer</button>
+                <button type="button" class="seg-btn" data-tool="blob">Blob (Tomato)</button>
+            </div>
+        </section>
+
+        <!-- Canvas (shared) -->
+        <section class="group">
+            <h3>Canvas</h3>
+            <div class="row">
+                <label for="canvas-preset">Preset</label>
+                <select id="canvas-preset">
+                    <option value="1080x1350">IG Portrait · 1080×1350</option>
+                    <option value="1080x1080">Square · 1080×1080</option>
+                    <option value="1080x1920">Story · 1080×1920</option>
+                    <option value="1920x1080">Landscape · 1920×1080</option>
+                    <option value="1600x1600">Print · 1600×1600</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+            <div class="row two">
+                <div>
+                    <label for="canvas-w">Width</label>
+                    <input id="canvas-w" type="number" min="200" max="4000" step="10" value="1080">
+                </div>
+                <div>
+                    <label for="canvas-h">Height</label>
+                    <input id="canvas-h" type="number" min="200" max="4000" step="10" value="1350">
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- ASSET COMPOSER — preset-only -->
+        <!-- ============================================================ -->
+        <section class="group only-composer">
+            <h3>Layout</h3>
+            <div id="layout-tiles" class="layout-grid"></div>
+        </section>
+
+        <section class="group only-composer">
+            <h3>Background Mode</h3>
+            <div id="mode-tiles" class="mode-grid"></div>
+        </section>
+
+        <section class="group only-composer">
+            <h3>Upload Image / Video</h3>
+            <label for="media-file" class="drop-zone" id="media-drop">
+                <input id="media-file" type="file" accept="image/*,video/*" hidden>
+                <span id="media-drop-label">Drop image or video, or click to upload</span>
+            </label>
+            <button id="media-remove" class="btn btn-secondary">Remove image / video</button>
+            <p class="hint">Used as full-canvas background in image modes.</p>
+        </section>
+
+        <section class="group only-composer">
+            <h3>Sizes</h3>
+            <p class="hint">Each step ≈ golden ratio (1.618).</p>
+            <div class="size-row" data-row="logo">
+                <span class="size-label">Logo</span>
+                <div class="seg size-seg" data-target="logoTier">
+                    <button type="button" class="seg-btn" data-size="XS">XS</button>
+                    <button type="button" class="seg-btn" data-size="S">S</button>
+                    <button type="button" class="seg-btn" data-size="M">M</button>
+                    <button type="button" class="seg-btn" data-size="L">L</button>
+                </div>
+            </div>
+            <div class="size-row" data-row="stars">
+                <span class="size-label">Stars</span>
+                <div class="seg size-seg" data-target="starTier">
+                    <button type="button" class="seg-btn" data-size="XS">XS</button>
+                    <button type="button" class="seg-btn" data-size="S">S</button>
+                    <button type="button" class="seg-btn" data-size="M">M</button>
+                    <button type="button" class="seg-btn" data-size="L">L</button>
+                </div>
+            </div>
+            <div class="size-row" data-row="text">
+                <span class="size-label">Text</span>
+                <div class="seg size-seg" data-target="textTier">
+                    <button type="button" class="seg-btn" data-size="XS">XS</button>
+                    <button type="button" class="seg-btn" data-size="S">S</button>
+                    <button type="button" class="seg-btn" data-size="M">M</button>
+                    <button type="button" class="seg-btn" data-size="L">L</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="group only-composer" id="text-group">
+            <h3>Text</h3>
+            <div class="row">
+                <label for="text-line1">Line 1</label>
+                <input id="text-line1" type="text" value="BATCH 07" maxlength="40">
+            </div>
+            <div class="row">
+                <label for="text-line2">Line 2</label>
+                <input id="text-line2" type="text" value="ÇANAKKALE    HARVEST,    TÜRKİYE." maxlength="80">
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- BLOB (TOMATO) — animated -->
+        <!-- ============================================================ -->
+        <section class="group only-blob">
+            <h3>Tomato (Blob + Star)</h3>
+            <div class="row">
+                <label for="blob-size">Combo Size <span class="val" data-val="blob-size">0.40</span></label>
+                <input id="blob-size" type="range" min="0.10" max="0.90" step="0.01" value="0.40">
+            </div>
+            <p class="hint">Star scales with the blob — single combo size.</p>
+            <div class="row">
+                <label for="blob-wobble">Wobble <span class="val" data-val="blob-wobble">0.10</span></label>
+                <input id="blob-wobble" type="range" min="0" max="0.5" step="0.005" value="0.10">
+            </div>
+            <div class="row">
+                <label for="blob-noise-scale">Noise Scale <span class="val" data-val="blob-noise-scale">0.90</span></label>
+                <input id="blob-noise-scale" type="range" min="0.2" max="4" step="0.05" value="0.9">
+            </div>
+            <div class="row">
+                <label for="blob-segments">Smoothness <span class="val" data-val="blob-segments">96</span></label>
+                <input id="blob-segments" type="range" min="32" max="200" step="2" value="96">
+            </div>
+            <div class="row">
+                <label for="blob-seed">Seed <span class="val" data-val="blob-seed">42</span></label>
+                <input id="blob-seed" type="range" min="0" max="9999" step="1" value="42">
+            </div>
+        </section>
+
+        <section class="group only-blob">
+            <h3>Motion</h3>
+            <div class="row">
+                <label for="motion-type">Type</label>
+                <select id="motion-type">
+                    <option value="static">Static</option>
+                    <option value="wobble" selected>Wobble</option>
+                    <option value="rotate">Rotate</option>
+                    <option value="combo">Wobble + Rotate</option>
+                </select>
+            </div>
+            <div class="row">
+                <label for="motion-speed">Speed <span class="val" data-val="motion-speed">0.30</span></label>
+                <input id="motion-speed" type="range" min="0.05" max="3" step="0.05" value="0.3">
+            </div>
+            <div class="row">
+                <label for="motion-duration">Loop Duration (s) <span class="val" data-val="motion-duration">6.0</span></label>
+                <input id="motion-duration" type="range" min="1" max="16" step="0.5" value="6">
+            </div>
+        </section>
+
+        <section class="group only-blob">
+            <h3>Background</h3>
+            <div class="seg" id="blob-bg-seg">
+                <button type="button" class="seg-btn active" data-bg="transparent">Transparent</button>
+                <button type="button" class="seg-btn" data-bg="yellow">Yellow</button>
+            </div>
+            <p class="hint">Transparent = star is a true alpha cutout. Yellow = solid brand yellow with the star rendered in yellow so it reads as a cutout against the red blob.</p>
+        </section>
+
+        <!-- Export -->
+        <section class="group export-group">
+            <h3>Export</h3>
+            <div class="row two">
+                <button id="export-png" class="btn">PNG</button>
+                <button id="export-svg" class="btn">SVG</button>
+            </div>
+            <div class="row two">
+                <button id="export-webm" class="btn">WebM</button>
+                <button id="export-mp4" class="btn">MP4</button>
+            </div>
+            <div class="row">
+                <button id="export-gif" class="btn">GIF</button>
+            </div>
+            <div class="row only-blob">
+                <button id="export-lottie" class="btn">Lottie</button>
+            </div>
+            <div id="export-status" class="status"></div>
+        </section>
+
+        <footer class="meta">
+            <span>p5.js · CCapture · Lottie</span>
+        </footer>
+    </aside>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5.js-svg@1.5.1/dist/p5.svg.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <script src="assets/gif.js"></script>
+    <script src="sketch.js"></script>
+    <script src="recordCanvas.js"></script>
+</body>
+</html>

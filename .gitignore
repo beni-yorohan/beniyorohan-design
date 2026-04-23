@@ -25,3 +25,20 @@ assets/img/comi-app/_*
 # Source PDFs of process decks — displayed inline as images, raw PDF not shipped
 assets/music-box-concept-discovery.pdf
 assets/comi-v1-deck.pdf
+assets/beniyorohan_music*.pdf
+assets/comi_roommate*.pdf
+
+# Source folders / raw files kept locally for reference but not shipped to site
+assets/Mato's/
+assets/flavors_of_solitude_book_scans_/
+assets/moms_club_images_/
+
+# Experimental / unused assets (kept on disk but not in repo)
+assets/video/ScreenRecording_*.MP4
+assets/video/ScreenRecording_*.mp4
+assets/video/patico-specimen.mp4
+assets/img/matos.mp4
+assets/img/matos_option*.mp4
+assets/img/moms-club/brand-26.jpg
+assets/img/moms-club/image_*.jpg
+projects/start-today/Reviews*.pdf
