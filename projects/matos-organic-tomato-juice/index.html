@@ -410,17 +410,17 @@
             display: block;
         }
 
-        /* Inline call-to-action link (same style as header nav) */
+        /* Inline CTA link — matches the "meet the team" link on the about page */
         .tool-link {
             font-family: 'OT Brut', sans-serif;
-            font-size: 18px;
+            font-size: 32px;
             font-weight: 400;
-            color: var(--text-primary);
+            color: #00BFFF;
             text-decoration: none;
-            letter-spacing: 0;
+            letter-spacing: -0.01em;
             display: inline-flex;
             align-items: baseline;
-            gap: 10px;
+            gap: 16px;
             transition: opacity 0.25s ease;
         }
 
@@ -430,8 +430,18 @@
 
         .tool-link .glyph {
             display: inline-block;
-            font-size: 16px;
-            transform: translateY(-1px);
+            font-size: 28px;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 680px) {
+            .tool-link {
+                font-size: 22px;
+                gap: 12px;
+            }
+            .tool-link .glyph {
+                font-size: 20px;
+            }
         }
 
         /* Half-width image block (side-by-side) */
