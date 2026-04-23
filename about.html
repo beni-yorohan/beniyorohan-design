@@ -363,6 +363,44 @@
             margin-bottom: 1em;
         }
 
+        /* ---- Meet the team link (same style + glyph as Mato's tool link, bigger) ---- */
+        .team-link {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 16px;
+            margin-top: 160px;
+            font-family: 'OT Brut', sans-serif;
+            font-size: 32px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: opacity 0.25s ease;
+            position: relative;
+            z-index: 600;
+        }
+
+        .team-link:hover {
+            opacity: 0.6;
+        }
+
+        .team-link .glyph {
+            display: inline-block;
+            font-size: 28px;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 680px) {
+            .team-link {
+                font-size: 22px;
+                margin-top: 100px;
+                gap: 12px;
+            }
+            .team-link .glyph {
+                font-size: 20px;
+            }
+        }
+
         .about-text .char {
             display: inline-block;
             position: relative;
@@ -460,6 +498,8 @@
             <div class="paragraph" data-text="Founded in 2024, BY Design is a creative consultancy exploring new models of branding and visual culture through research, strategy, and experimental design."></div>
             <div class="paragraph" data-text="We work with brands, institutions, and founders to shape identities, narratives, and systems — treating design as both a strategic tool and a cultural practice."></div>
         </div>
+
+        <a href="#" class="team-link" onclick="event.preventDefault();"><span class="glyph" aria-hidden="true">&#x2197;</span>meet the team</a>
     </div>
 
     <footer>
