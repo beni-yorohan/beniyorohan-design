@@ -337,29 +337,16 @@
             }
         }
 
-        /* ---- Hero: Coming Soon placeholder ---- */
+        /* ---- Hero ---- */
         .project-hero {
             width: 100%;
             padding: 0 var(--side-padding);
             margin-top: 10px;
         }
 
-        .coming-soon-frame {
+        .project-hero video {
             width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #2a2a2a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .coming-soon-label {
-            font-family: var(--font-body);
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            letter-spacing: 0;
+            display: block;
         }
 
         /* ---- Project Title ---- */
@@ -634,11 +621,9 @@
         </nav>
     </header>
 
-    <!-- Hero: Coming Soon placeholder (leather record box + album photography + promo video to come) -->
+    <!-- Hero -->
     <div class="project-hero page-fade">
-        <div class="coming-soon-frame">
-            <span class="coming-soon-label">coming soon</span>
-        </div>
+        <video src="../../assets/video/flavors-record-spinning.mp4" autoplay loop muted playsinline aria-label="Flavors of Solitude — record spinning"></video>
     </div>
 
     <!-- Project Title -->
@@ -951,6 +936,14 @@
                 quoteSuccess.style.display = 'block';
                 setTimeout(closeQuote, 2500);
                 setTimeout(() => { quoteForm.style.display = ''; quoteSuccess.style.display = 'none'; quoteForm.reset(); }, 3000);
+            });
+        });
+
+        // ---- Hero video autoplay fallback ----
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.project-hero video').forEach(video => {
+                video.muted = true;
+                video.play().catch(() => {});
             });
         });
     </script>

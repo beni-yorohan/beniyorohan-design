@@ -43,11 +43,9 @@ assets/img/moms-club/brand-26.jpg
 assets/img/moms-club/image_*.jpg
 projects/start-today/Reviews*.pdf
 
-# Raw screen recordings — too big for GitHub (100MB cap)
-assets/Screen Recording*.mov
-assets/Screen Recording*.MOV
-assets/*.mov
-assets/*.MOV
+# Raw video sources — never commit .mov anywhere (ProRes/screen recordings blow past GitHub's 100MB cap)
+*.mov
+*.MOV
 
 # Raw portrait source — cropped shipping version lives at assets/img/team/beni.jpg
 assets/beni_yorohan_portrait_.jpg
