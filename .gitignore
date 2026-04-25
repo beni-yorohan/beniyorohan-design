@@ -31,6 +31,17 @@ assets/comi_roommate*.pdf
 # Source folders / raw files kept locally for reference but not shipped to site
 assets/Mato's/
 assets/flavors_of_solitude_book_scans_/
+assets/flavors_of_solitude_final_documentation*/
+
+# Camera RAW files — never commit (huge, encoded JPEGs ship instead)
+*.NEF
+*.nef
+*.CR2
+*.cr2
+*.ARW
+*.arw
+*.DNG
+*.dng
 assets/moms_club_images_/
 
 # Experimental / unused assets (kept on disk but not in repo)
