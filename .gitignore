@@ -32,6 +32,7 @@ assets/comi_roommate*.pdf
 assets/Mato's/
 assets/flavors_of_solitude_book_scans_/
 assets/flavors_of_solitude_final_documentation*/
+assets/flavors_of_solitude_photoshoot_/
 
 # Camera RAW files — never commit (huge, encoded JPEGs ship instead)
 *.NEF
