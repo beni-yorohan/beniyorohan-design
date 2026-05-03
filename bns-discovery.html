@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Discovery — BY Design</title>
+<style>
+  @font-face {
+    font-family: 'OT Brut';
+    src: url('assets/fonts/OTBrut-Regular.woff2') format('woff2'),
+         url('assets/fonts/OTBrut-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Acumin Variable';
+    src: url('assets/fonts/AcuminVariableConcept.otf') format('opentype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --bg: #000000;
+    --surface: #0a0a0a;
+    --surface-hover: #111111;
+    --text-primary: #e8e8e8;
+    --text-secondary: #8a8a8a;
+    --text-muted: #555555;
+    --border: #222222;
+    --border-hover: #444444;
+    --accent: #e8e8e8;
+    --accent-dim: #333333;
+
+    --font-heading: 'OT Brut', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-body: 'Acumin Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --side-padding: 48px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, html * { cursor: none !important; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 9pt;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: none !important;
+  }
+
+  a, button, input, textarea, select, [role="button"] { cursor: none !important; }
+
+  /* ── CUSTOM CURSOR ── */
+  #custom-cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0;
+    will-change: transform, background-color, box-shadow;
+    transition: width 0.3s cubic-bezier(0.25,0.1,0.25,1),
+                height 0.3s cubic-bezier(0.25,0.1,0.25,1),
+                opacity 0.2s ease;
+  }
+  #custom-cursor.hovering { width: 8px; height: 8px; }
+
+  /* ── STICKY LOGO HEADER ── */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+    background-color: var(--bg);
+    padding: 20px 24px;
+  }
+  .site-header .logo {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--bg);
+    color: var(--text-primary);
+    padding: 60px var(--side-padding) 80px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .hero p {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  /* ── CLIENT BAR ── */
+  .client-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px var(--side-padding);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .client-bar strong { color: var(--text-primary); font-weight: 500; }
+
+  /* ── PROGRESS ── */
+  .progress-container {
+    position: sticky;
+    top: 68px;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px var(--side-padding);
+  }
+  .progress-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: width 0.5s ease;
+  }
+  .progress-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--text-primary);
+    white-space: nowrap;
+    min-width: 100px;
+    text-align: right;
+  }
+
+  /* ── SECTIONS ── */
+  .form-container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 32px 100px;
+  }
+
+  .section {
+    margin-top: 100px;
+    animation: fadeUp 0.5s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-number {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(32px, 4vw, 42px);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+  }
+  .section-subtitle {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 44px;
+    line-height: 1.65;
+    max-width: 520px;
+  }
+
+  /* ── FORM ELEMENTS ── */
+  .question {
+    margin-bottom: 40px;
+  }
+  .question label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+  }
+  .question .hint {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  textarea {
+    width: 100%;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    border-radius: 0;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-primary);
+    background: transparent;
+    transition: border-color var(--transition), background var(--transition);
+    outline: none;
+  }
+  input:focus, textarea:focus {
+    border-color: var(--text-secondary);
+    background: rgba(255,255,255,0.02);
+  }
+  textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+  ::placeholder { color: var(--text-muted); }
+
+  /* ── PALETTE CARDS ── */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 16px;
+  }
+  .palette-card {
+    border: 1px solid var(--border);
+    border-radius: 0;
+    overflow: hidden;
+    cursor: none !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    background: var(--surface);
+    position: relative;
+  }
+  .palette-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+  }
+  .palette-card.selected {
+    border-color: var(--accent);
+    transform: scale(1.02);
+  }
+  .palette-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 8px; right: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #000;
+    background: var(--accent);
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .palette-card input { display: none; }
+  .palette-swatches { display: flex; height: 96px; }
+  .palette-swatches span { flex: 1; }
+  .palette-swatches span:first-child { flex: 2.5; }
+  .palette-label {
+    padding: 14px 16px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  /* ── SINGLE COLOR SWATCHES ── */
+  .single-color-grid, .avoid-color-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .color-swatch {
+    width: 48px; height: 48px;
+    border: 2px solid var(--border);
+    border-radius: 0;
+    cursor: none !important;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+  .color-swatch:hover {
+    transform: scale(1.12);
+    border-color: var(--border-hover);
+  }
+  .color-swatch.selected {
+    border-color: var(--text-primary);
+    transform: scale(1.15);
+  }
+  .color-swatch.selected::after {
+    content: '✓';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+  .avoid-color-grid .color-swatch.selected::after {
+    content: '✕';
+    color: #fff;
+  }
+
+  /* ── TYPOGRAPHY CARDS ── */
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 16px;
+  }
+  .type-card {
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 28px 22px;
+    cursor: none !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    background: var(--surface);
+    text-align: center;
+    position: relative;
+  }
+  .type-card:hover {
+    border-color: var(--border-hover);
+    background: var(--surface-hover);
+    transform: translateY(-2px);
+  }
+  .type-card.selected {
+    border-color: var(--accent);
+    background: var(--surface-hover);
+    transform: scale(1.02);
+  }
+  .type-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 10px; right: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #000;
+    background: var(--accent);
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .type-card input { display: none; }
+  .type-preview {
+    font-size: 30px;
+    margin-bottom: 12px;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+  .type-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+  }
+  .type-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ── LOGO CARDS ── */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+  }
+  .logo-card {
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 28px 18px;
+    cursor: none !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    background: var(--surface);
+    text-align: center;
+    position: relative;
+  }
+  .logo-card:hover {
+    border-color: var(--border-hover);
+    background: var(--surface-hover);
+    transform: translateY(-2px);
+  }
+  .logo-card.selected {
+    border-color: var(--accent);
+    background: var(--surface-hover);
+    transform: scale(1.02);
+  }
+  .logo-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 8px; right: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #000;
+    background: var(--accent);
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-card input { display: none; }
+  .logo-icon {
+    width: 64px; height: 64px;
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-name {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: var(--text-primary);
+  }
+  .logo-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ── SCALE SLIDER ── */
+  .scale-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .scale-row:last-child { border-bottom: none; }
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+  }
+  .scale-label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-secondary);
+    min-width: 90px;
+  }
+  .scale-label:last-child { text-align: right; }
+  .scale-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+  .scale-dot {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    cursor: none !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    background: transparent;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: transparent;
+    font-family: var(--font-body);
+  }
+  .scale-dot:hover {
+    border-color: var(--border-hover);
+    background: var(--surface-hover);
+    transform: scale(1.08);
+  }
+  .scale-dot.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+    transform: scale(1.15);
+  }
+
+  /* ── CHECKBOX GROUP ── */
+  .checkbox-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .checkbox-item {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 14px 0;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    cursor: none !important;
+    transition: all 0.25s ease;
+    font-family: var(--font-body);
+    font-size: 14px;
+    background: transparent;
+    color: var(--text-primary);
+  }
+  .checkbox-item:hover {
+    color: #fff;
+  }
+  .checkbox-item.checked {
+    color: #fff;
+  }
+  .checkbox-item input { display: none; }
+  .custom-check {
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    min-height: 20px;
+    border: 1px solid var(--border);
+    border-radius: 0;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: transparent;
+    flex-shrink: 0;
+  }
+  .checkbox-item.checked .custom-check {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+  }
+
+  /* ── SUBMIT ── */
+  .submit-section {
+    margin-top: 100px;
+    padding: 56px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 56px;
+    background: var(--text-primary);
+    color: #000;
+    border: none;
+    border-radius: 0;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    cursor: none !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .submit-btn:hover {
+    background: transparent;
+    color: var(--text-primary);
+    box-shadow: inset 0 0 0 1px var(--text-primary);
+  }
+  .submit-note {
+    margin-top: 18px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ── FOOTER (matches beniyorohan.design) ── */
+  footer {
+    margin-top: 0;
+    padding: 0 var(--side-padding) 60px;
+  }
+  .footer-line {
+    width: 100%;
+    height: 1px;
+    background-color: var(--text-primary);
+    margin-bottom: 24px;
+  }
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .footer-left {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-primary);
+  }
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  .footer-right a {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: opacity 0.25s ease;
+  }
+  .footer-right a:hover {
+    opacity: 0.6;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    :root { --side-padding: 24px; }
+    .hero { padding: 48px var(--side-padding) 40px; }
+    .client-bar { flex-direction: column; gap: 8px; padding: 16px var(--side-padding); }
+    .palette-grid, .type-grid, .logo-grid { grid-template-columns: 1fr; }
+    .scale-row { flex-direction: column; gap: 12px; }
+    .scale-labels { width: 100%; }
+    .form-container { padding: 16px 16px 60px; }
+    .progress-container { padding: 12px var(--side-padding); }
+    footer { padding: 0 var(--side-padding) 32px; }
+    .footer-content { flex-direction: column; gap: 16px; }
+    .footer-right { align-items: flex-start; }
+  }
+
+  @media print {
+    .progress-container, #custom-cursor { display: none; }
+    body { background: white; color: #1a1a1a; }
+  }
+</style>
+</head>
+<body>
+
+<div id="custom-cursor"></div>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header">
+  <a href="https://beniyorohan.design" class="logo">BY Design</a>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <h1>Brand Discovery</h1>
+  <p>Before we design anything, we listen. This questionnaire helps us understand your business, your taste, and where you want to go — so the work we produce is grounded in who you actually are.</p>
+</div>
+
+<!-- ═══ CLIENT BAR ═══ -->
+<div class="client-bar">
+  <!-- ✎ EDIT CLIENT NAME AND DATE BELOW -->
+  <span>Prepared for <strong>Kyle — Balanced Net Solutions</strong></span>
+  <span><strong>April 2026</strong></span>
+</div>
+
+<!-- ═══ PROGRESS ═══ -->
+<div class="progress-container">
+  <div class="progress-inner">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">0% complete</div>
+  </div>
+</div>
+
+<!-- ═══ FORM ═══ -->
+<form id="hiddenForm" method="POST" action="https://formsubmit.co/info@beniyorohan.design" style="display:none;">
+  <input type="hidden" name="_subject" value="Brand Discovery — Balanced Net Solutions">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_autoresponse" value="Hey, thanks for reaching out! We'll be looking at your request and respond to it within 48 hours. If you don't hear from us, don't hesitate to send us an email via info@beniyorohan.design">
+  <input type="hidden" name="_next" id="thankYouUrl">
+</form>
+<form id="brandForm" class="form-container" onsubmit="return handleSubmit(event)">
+
+  <!-- ─── YOUR EMAIL ─── -->
+  <div class="section" data-section="0" style="margin-top: 60px;">
+    <div class="question">
+      <label>Your email</label>
+      <div class="hint">So we can follow up with you directly.</div>
+      <input type="email" name="client_email" placeholder="e.g., kyle@balancednetsolutions.com" required>
+    </div>
+  </div>
+
+  <!-- ─── 01 YOUR BUSINESS ─── -->
+  <div class="section" data-section="1">
+    <div class="section-number">01</div>
+    <div class="section-title">your business</div>
+    <div class="section-subtitle">Start with the basics — what you do, who you do it for, and what sets you apart.</div>
+
+    <div class="question">
+      <label>Describe what your business does in one or two sentences.</label>
+      <textarea name="business_description" placeholder="e.g., We provide bookkeeping, tax preparation, and CFO advisory services for small businesses in the greater Boston area."></textarea>
+    </div>
+
+    <div class="question">
+      <label>What makes you different from your competitors?</label>
+      <div class="hint">The reason someone picks you over the next option.</div>
+      <textarea name="differentiator" placeholder="e.g., We specialize in creative agencies and tech startups who need a partner that speaks their language — not just traditional accounting jargon."></textarea>
+    </div>
+
+    <div class="question">
+      <label>Describe your ideal client.</label>
+      <div class="hint">The type of client you want more of.</div>
+      <textarea name="ideal_client" placeholder="e.g., Founders of 5–50 person companies doing $500K–$5M revenue, usually in tech or creative industries, scaling and ready to get serious about finances."></textarea>
+    </div>
+
+    <div class="question">
+      <label>Three words you'd want a client to use when describing your firm.</label>
+      <input type="text" name="three_words" placeholder="e.g., Trustworthy, Modern, Approachable">
+    </div>
+  </div>
+
+  <!-- ─── 02 WHERE YOU ARE NOW ─── -->
+  <div class="section" data-section="2">
+    <div class="section-number">02</div>
+    <div class="section-title">where you are now</div>
+    <div class="section-subtitle">Knowing what works and what doesn't helps us build from the right foundation.</div>
+
+    <div class="question">
+      <label>What do you like about your current branding, if anything?</label>
+      <textarea name="current_likes" placeholder="e.g., The name works well and people remember it. But the logo feels dated and doesn't reflect how we've evolved."></textarea>
+    </div>
+
+    <div class="question">
+      <label>What feels off or outdated?</label>
+      <textarea name="current_dislikes" placeholder="e.g., The clip-art style logo, the green-and-gold color scheme feels generic, our materials don't look cohesive."></textarea>
+    </div>
+
+    <div class="question">
+      <label>Is there anything that must stay? (Name, icon, specific color, etc.)</label>
+      <input type="text" name="must_keep" placeholder="e.g., The name is staying — everything else is open.">
+    </div>
+  </div>
+
+  <!-- ─── 03 BRAND PERSONALITY ─── -->
+  <div class="section" data-section="3">
+    <div class="section-number">03</div>
+    <div class="section-title">brand personality</div>
+    <div class="section-subtitle">Where does your brand sit on these spectrums? Click the dot that feels right.</div>
+
+    <div class="question">
+      <div id="scaleContainer"></div>
+    </div>
+  </div>
+
+  <!-- ─── 04 COLOR DIRECTION ─── -->
+  <div class="section" data-section="4">
+    <div class="section-number">04</div>
+    <div class="section-title">color direction</div>
+    <div class="section-subtitle">Select up to 2 palettes that feel like the right territory. We'll refine from here.</div>
+
+    <div class="question">
+      <div class="palette-grid" id="paletteGrid"></div>
+    </div>
+
+    <div class="question" style="margin-top: 24px;">
+      <label>Any colors you love or hate?</label>
+      <input type="text" name="color_notes" placeholder="e.g., No bright red — it feels aggressive. Love deep navy and warm neutrals.">
+    </div>
+  </div>
+
+  <!-- ─── 05 TYPOGRAPHY ─── -->
+  <div class="section" data-section="5">
+    <div class="section-number">05</div>
+    <div class="section-title">typography</div>
+    <div class="section-subtitle">Type carries a huge amount of personality. Which of these feels most like you?</div>
+
+    <div class="question">
+      <div class="type-grid" id="typeGrid"></div>
+    </div>
+  </div>
+
+  <!-- ─── 06 LOGO DIRECTION ─── -->
+  <div class="section" data-section="6">
+    <div class="section-number">06</div>
+    <div class="section-title">logo direction</div>
+    <div class="section-subtitle">Pick up to 2 styles that appeal to you — this helps us narrow the creative direction early.</div>
+
+    <div class="question">
+      <div class="logo-grid" id="logoGrid"></div>
+    </div>
+  </div>
+
+  <!-- ─── 07 REFERENCES & SCOPE ─── -->
+  <div class="section" data-section="7">
+    <div class="section-number">07</div>
+    <div class="section-title">references & scope</div>
+    <div class="section-subtitle">Last section — a few details to set us up for a productive first session.</div>
+
+    <div class="question">
+      <label>Name 2–3 brands whose look and feel you admire.</label>
+      <div class="hint">Any industry. We're looking for direction, not exact matches.</div>
+      <textarea name="brand_inspiration" placeholder="e.g., Stripe (clean, modern), Pilot.com (friendly but professional), Notion (simple, well-designed)"></textarea>
+    </div>
+
+    <div class="question">
+      <label>Are there any competing firms whose branding you respect?</label>
+      <textarea name="competitor_brands" placeholder="e.g., Bench does a great job looking approachable. We'd like to feel more premium than them but still friendly."></textarea>
+    </div>
+
+    <div class="question">
+      <label>What deliverables are most important right now?</label>
+      <div class="hint">Select all that apply.</div>
+      <div class="checkbox-grid" id="deliverableGrid"></div>
+    </div>
+
+    <div class="question">
+      <label>Anything else we should know?</label>
+      <textarea name="anything_else" placeholder="Goals, concerns, hard constraints, dream scenarios — anything that helps us do better work."></textarea>
+    </div>
+  </div>
+
+  <!-- ─── SUBMIT ─── -->
+  <div class="submit-section">
+    <button type="submit" class="submit-btn">Submit questionnaire</button>
+    <div class="submit-note">Your responses go directly to the BY Design team. We'll review everything before our first session.</div>
+  </div>
+</form>
+
+<!-- ═══ FOOTER (exact match: beniyorohan.design) ═══ -->
+<footer>
+    <div class="footer-line"></div>
+    <div class="footer-content">
+        <div class="footer-left">
+            &copy; 2026 BY Design. All rights reserved.
+        </div>
+        <div class="footer-right">
+            <a href="mailto:info@beniyorohan.design">info@beniyorohan.design</a>
+            <a href="https://beniyorohan.design/assets/beni_yorohan_resume_2026.pdf" target="_blank" rel="noopener">cv/resume</a>
+            <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">linkedin</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════
+// CUSTOM CURSOR
+// ═══════════════════════════════════
+
+const cursor = document.getElementById('custom-cursor');
+let mouseX = -100, mouseY = -100;
+let cursorX = -100, cursorY = -100;
+let isHovering = false;
+let currentSize = 16;
+
+const colorStops = [
+  { h: 48, s: 65, l: 72 }, { h: 30, s: 60, l: 70 }, { h: 12, s: 58, l: 72 },
+  { h: 355, s: 55, l: 74 }, { h: 340, s: 50, l: 72 }, { h: 320, s: 48, l: 70 },
+  { h: 290, s: 40, l: 72 }, { h: 200, s: 50, l: 72 }, { h: 180, s: 42, l: 68 },
+  { h: 155, s: 40, l: 68 }, { h: 130, s: 38, l: 70 }, { h: 22, s: 40, l: 62 },
+  { h: 14, s: 45, l: 68 }, { h: 48, s: 65, l: 72 },
+];
+
+function catmullRom(p0, p1, p2, p3, t) {
+  const t2 = t * t, t3 = t2 * t;
+  return 0.5 * ((2*p1) + (-p0+p2)*t + (2*p0-5*p1+4*p2-p3)*t2 + (-p0+3*p1-3*p2+p3)*t3);
+}
+function unwrapHue(v, r) { let d=v-r; if(d>180) return v-360; if(d<-180) return v+360; return v; }
+function getColor(t) {
+  const n=colorStops.length-1, s=t*n, i=Math.floor(s), f=s-i;
+  const i0=(i-1+n)%n, i1=i%n, i2=(i+1)%n, i3=(i+2)%n;
+  const p0=colorStops[i0], p1=colorStops[i1], p2=colorStops[i2], p3=colorStops[i3];
+  let h=catmullRom(unwrapHue(p0.h,p1.h),p1.h,unwrapHue(p2.h,p1.h),unwrapHue(p3.h,p1.h),f);
+  const ss=catmullRom(p0.s,p1.s,p2.s,p3.s,f), l=catmullRom(p0.l,p1.l,p2.l,p3.l,f);
+  h=((h%360)+360)%360;
+  return `hsl(${h.toFixed(1)},${Math.max(0,Math.min(100,ss)).toFixed(1)}%,${Math.max(0,Math.min(100,l)).toFixed(1)}%)`;
+}
+function getGlow(t) {
+  const n=colorStops.length-1, s=t*n, i=Math.floor(s), f=s-i;
+  const i0=(i-1+n)%n, i1=i%n, i2=(i+1)%n, i3=(i+2)%n;
+  const p0=colorStops[i0], p1=colorStops[i1], p2=colorStops[i2], p3=colorStops[i3];
+  let h=catmullRom(unwrapHue(p0.h,p1.h),p1.h,unwrapHue(p2.h,p1.h),unwrapHue(p3.h,p1.h),f);
+  const ss=catmullRom(p0.s,p1.s,p2.s,p3.s,f), l=catmullRom(p0.l,p1.l,p2.l,p3.l,f);
+  h=((h%360)+360)%360;
+  return `hsla(${h.toFixed(1)},${Math.max(0,Math.min(100,ss)).toFixed(1)}%,${Math.max(0,Math.min(100,l)).toFixed(1)}%,0.15)`;
+}
+
+let colorTime = 0;
+let cursorActive = false;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  if (!cursorActive) { cursorActive = true; cursorX = mouseX; cursorY = mouseY; cursor.style.opacity = '1'; }
+});
+document.addEventListener('mouseover', e => {
+  if (e.target.closest('a, button, [role="button"], .palette-card, .type-card, .logo-card, .scale-dot, .checkbox-item')) {
+    isHovering = true; cursor.classList.add('hovering');
+  }
+});
+document.addEventListener('mouseout', e => {
+  if (e.target.closest('a, button, [role="button"], .palette-card, .type-card, .logo-card, .scale-dot, .checkbox-item')) {
+    isHovering = false; cursor.classList.remove('hovering');
+  }
+});
+
+function animateCursor() {
+  cursorX += (mouseX - cursorX) * 0.18;
+  cursorY += (mouseY - cursorY) * 0.18;
+  const target = isHovering ? 8 : 16;
+  currentSize += (target - currentSize) * 0.12;
+  const half = currentSize / 2;
+  cursor.style.transform = `translate(${cursorX - half}px, ${cursorY - half}px)`;
+  colorTime += 0.000295;
+  if (colorTime > 1) colorTime -= 1;
+  cursor.style.backgroundColor = getColor(colorTime);
+  cursor.style.boxShadow = `0 0 12px 2px ${getGlow(colorTime)}`;
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+document.addEventListener('mouseenter', () => { if (cursorActive) cursor.style.opacity = '1'; });
+
+// ═══════════════════════════════════
+// DATA
+// ═══════════════════════════════════
+
+const SCALES = [
+  { left: 'Traditional', right: 'Modern', name: 'tradition_modern' },
+  { left: 'Serious', right: 'Friendly', name: 'serious_friendly' },
+  { left: 'Corporate', right: 'Casual', name: 'corporate_casual' },
+  { left: 'Minimalist', right: 'Expressive', name: 'minimal_expressive' },
+  { left: 'Established', right: 'Innovative', name: 'established_innovative' },
+  { left: 'Exclusive', right: 'Accessible', name: 'exclusive_accessible' },
+];
+
+const PALETTES = [
+  { name: 'Clean Ink', colors: ['#1A1A1A', '#4A4A4A', '#E8E8E8', '#F7F7F7', '#FFFFFF'] },
+  { name: 'Ledger Blue', colors: ['#0F2440', '#1D4E89', '#A3C4E0', '#EDF3F8', '#FFFFFF'] },
+  { name: 'Brass & Walnut', colors: ['#2C2016', '#5C4A3A', '#B8963E', '#E8DCC8', '#FAF6EF'] },
+  { name: 'Greenback', colors: ['#0B2618', '#1B5E3A', '#3EA06E', '#D4EAD9', '#F5FAF6'] },
+  { name: 'Slate & Ember', colors: ['#1E2328', '#3B444B', '#D4714E', '#F0E6E0', '#FAF8F6'] },
+  { name: 'Stone & Steel', colors: ['#2A2D30', '#5B6770', '#8FA3B0', '#D9E2E8', '#F4F6F8'] },
+  { name: 'Midnight Reserve', colors: ['#0C0C1F', '#1E1E48', '#6C5CE7', '#C8C3F5', '#F0EFF8'] },
+  { name: 'Sand & Iron', colors: ['#1C1B18', '#6B635A', '#C2B9A7', '#E8E3DA', '#F8F6F2'] },
+];
+
+const TYPE_STYLES = [
+  { preview: 'Balanced', family: "Georgia, 'Times New Roman', serif", name: 'Classic Serif', desc: 'Timeless, established, trustworthy' },
+  { preview: 'Balanced', family: "var(--font-body)", weight: '300', name: 'Clean Sans', desc: 'Modern, minimal, approachable' },
+  { preview: 'Balanced', family: "var(--font-body)", weight: '700', ls: '2px', transform: 'uppercase', size: '20px', name: 'Bold Geometric', desc: 'Strong, confident, contemporary' },
+  { preview: 'Balanced', family: "Georgia, 'Times New Roman', serif", style: 'italic', name: 'Elegant Italic', desc: 'Refined, premium, distinctive' },
+];
+
+const LOGO_STYLES = [
+  {
+    name: 'Wordmark',
+    desc: 'Name only, typographic',
+    svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="6" y="40" font-family="serif" font-size="22" fill="#e8e8e8" font-weight="600">BNS</text></svg>`
+  },
+  {
+    name: 'Monogram',
+    desc: 'Initials-based mark',
+    svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="48" height="48" rx="0" stroke="#e8e8e8" stroke-width="2.5"/><text x="18" y="44" font-family="sans-serif" font-size="26" fill="#e8e8e8" font-weight="600">B</text></svg>`
+  },
+  {
+    name: 'Icon + Text',
+    desc: 'Symbol paired with name',
+    svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="32" r="14" stroke="#e8e8e8" stroke-width="2.5"/><line x1="38" y1="28" x2="58" y2="28" stroke="#e8e8e8" stroke-width="2.5"/><line x1="38" y1="36" x2="54" y2="36" stroke="#e8e8e8" stroke-width="2.5"/></svg>`
+  },
+  {
+    name: 'Abstract Mark',
+    desc: 'Geometric, conceptual',
+    svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M32 8 L56 48 L8 48 Z" stroke="#e8e8e8" stroke-width="2.5" stroke-linejoin="round"/><circle cx="32" cy="36" r="8" stroke="#e8e8e8" stroke-width="2"/></svg>`
+  },
+  {
+    name: 'Emblem / Badge',
+    desc: 'Enclosed, crest-like',
+    svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="26" stroke="#e8e8e8" stroke-width="2.5"/><circle cx="32" cy="32" r="20" stroke="#e8e8e8" stroke-width="1.5"/><text x="20" y="37" font-family="serif" font-size="16" fill="#e8e8e8">BNS</text></svg>`
+  },
+  {
+    name: 'Illustrative',
+    desc: 'Hand-drawn, detailed imagery',
+    svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 48 Q20 28 32 20 Q44 28 48 48" stroke="#e8e8e8" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M24 48 Q28 36 32 32 Q36 36 40 48" stroke="#e8e8e8" stroke-width="1.5" stroke-linecap="round" fill="none"/><circle cx="32" cy="18" r="3" stroke="#e8e8e8" stroke-width="1.5" fill="none"/><line x1="22" y1="38" x2="26" y2="34" stroke="#e8e8e8" stroke-width="1.2" stroke-linecap="round"/><line x1="42" y1="38" x2="38" y2="34" stroke="#e8e8e8" stroke-width="1.2" stroke-linecap="round"/><line x1="16" y1="48" x2="48" y2="48" stroke="#e8e8e8" stroke-width="1.5" stroke-linecap="round"/></svg>`
+  },
+];
+
+const DELIVERABLES = [
+  'Logo & Brand Mark',
+  'Color Palette',
+  'Typography System',
+  'Business Cards',
+  'Letterhead & Stationery',
+  'Email Signature',
+  'Social Media Kit',
+  'Website Design',
+  'Presentation Template',
+  'Brand Guidelines Document',
+];
+
+// ═══════════════════════════════════
+// RENDER
+// ═══════════════════════════════════
+
+const scaleContainer = document.getElementById('scaleContainer');
+SCALES.forEach(scale => {
+  const row = document.createElement('div');
+  row.className = 'scale-row';
+  row.innerHTML = `
+    <div class="scale-labels">
+      <span class="scale-label">${scale.left}</span>
+      <div class="scale-dots">
+        ${[1,2,3,4,5].map(v => `<div class="scale-dot" data-name="${scale.name}" data-value="${v}">${v}</div>`).join('')}
+      </div>
+      <span class="scale-label">${scale.right}</span>
+    </div>
+  `;
+  scaleContainer.appendChild(row);
+});
+
+document.querySelectorAll('.scale-dot').forEach(dot => {
+  dot.addEventListener('click', () => {
+    const name = dot.dataset.name;
+    document.querySelectorAll(`.scale-dot[data-name="${name}"]`).forEach(d => d.classList.remove('active'));
+    dot.classList.add('active');
+    updateProgress();
+  });
+});
+
+const paletteGrid = document.getElementById('paletteGrid');
+PALETTES.forEach(palette => {
+  const card = document.createElement('div');
+  card.className = 'palette-card';
+  card.dataset.group = 'palette';
+  card.innerHTML = `
+    <input type="checkbox" name="palette" value="${palette.name}">
+    <div class="palette-swatches">${palette.colors.map(c => `<span style="background:${c}"></span>`).join('')}</div>
+    <div class="palette-label">${palette.name}</div>
+  `;
+  card.addEventListener('click', () => toggleMultiCard(card, 'palette', 2));
+  paletteGrid.appendChild(card);
+});
+
+const typeGrid = document.getElementById('typeGrid');
+TYPE_STYLES.forEach(type => {
+  const card = document.createElement('div');
+  card.className = 'type-card';
+  card.dataset.group = 'typography';
+  card.innerHTML = `
+    <input type="radio" name="typography" value="${type.name}">
+    <div class="type-preview" style="font-family:${type.family};${type.weight?'font-weight:'+type.weight+';':''}${type.style?'font-style:'+type.style+';':''}${type.ls?'letter-spacing:'+type.ls+';':''}${type.transform?'text-transform:'+type.transform+';':''}${type.size?'font-size:'+type.size+';':''}">${type.preview}</div>
+    <div class="type-name">${type.name}</div>
+    <div class="type-desc">${type.desc}</div>
+  `;
+  card.addEventListener('click', () => toggleSingleCard(card, 'typography'));
+  typeGrid.appendChild(card);
+});
+
+const logoGrid = document.getElementById('logoGrid');
+LOGO_STYLES.forEach(logo => {
+  const card = document.createElement('div');
+  card.className = 'logo-card';
+  card.dataset.group = 'logostyle';
+  card.innerHTML = `
+    <input type="checkbox" name="logostyle" value="${logo.name}">
+    <div class="logo-icon">${logo.svg}</div>
+    <div class="logo-name">${logo.name}</div>
+    <div class="logo-desc">${logo.desc}</div>
+  `;
+  card.addEventListener('click', () => toggleMultiCard(card, 'logostyle', 2));
+  logoGrid.appendChild(card);
+});
+
+const deliverableGrid = document.getElementById('deliverableGrid');
+DELIVERABLES.forEach(item => {
+  const el = document.createElement('label');
+  el.className = 'checkbox-item';
+  el.innerHTML = `
+    <input type="checkbox" name="deliverables" value="${item}">
+    <span class="custom-check">✓</span>
+    <span>${item}</span>
+  `;
+  el.addEventListener('click', (e) => {
+    if (e.target.tagName === 'INPUT') return;
+    e.preventDefault();
+    const input = el.querySelector('input');
+    input.checked = !input.checked;
+    el.classList.toggle('checked', input.checked);
+    updateProgress();
+  });
+  deliverableGrid.appendChild(el);
+});
+
+// ═══════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════
+
+function toggleSingleCard(card, group) {
+  const was = card.classList.contains('selected');
+  document.querySelectorAll(`.type-card[data-group="${group}"]`).forEach(c => {
+    c.classList.remove('selected');
+    c.querySelector('input').checked = false;
+  });
+  if (!was) { card.classList.add('selected'); card.querySelector('input').checked = true; }
+  updateProgress();
+}
+
+function toggleMultiCard(card, group, max) {
+  if (card.classList.contains('selected')) {
+    card.classList.remove('selected');
+    card.querySelector('input').checked = false;
+  } else {
+    const sel = document.querySelectorAll(`.palette-card.selected[data-group="${group}"], .logo-card.selected[data-group="${group}"]`);
+    if (sel.length >= max) { sel[0].classList.remove('selected'); sel[0].querySelector('input').checked = false; }
+    card.classList.add('selected');
+    card.querySelector('input').checked = true;
+  }
+  updateProgress();
+}
+
+// ═══════════════════════════════════
+// PROGRESS
+// ═══════════════════════════════════
+
+function updateProgress() {
+  const total = 7;
+  let filled = 0;
+  const s1 = document.querySelectorAll('[data-section="1"] textarea, [data-section="1"] input');
+  if ([...s1].some(f => f.value.trim())) filled++;
+  const s2 = document.querySelectorAll('[data-section="2"] textarea, [data-section="2"] input');
+  if ([...s2].some(f => f.value.trim())) filled++;
+  if (document.querySelectorAll('.scale-dot.active').length > 0) filled++;
+  if (document.querySelectorAll('.palette-card.selected').length > 0) filled++;
+  if (document.querySelectorAll('.type-card.selected').length > 0) filled++;
+  if (document.querySelectorAll('.logo-card.selected').length > 0) filled++;
+  const s7 = document.querySelectorAll('[data-section="7"] textarea, [data-section="7"] input');
+  const s7c = document.querySelectorAll('#deliverableGrid .checkbox-item.checked');
+  if ([...s7].some(f => f.value.trim()) || s7c.length > 0) filled++;
+
+  const pct = Math.round((filled / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = pct + '% complete';
+}
+
+document.querySelectorAll('input[type="text"], input[type="email"], input[type="url"], textarea').forEach(el => {
+  el.addEventListener('input', updateProgress);
+});
+
+// ═══════════════════════════════════
+// SUBMIT
+// ═══════════════════════════════════
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const hf = document.getElementById('hiddenForm');
+  hf.querySelectorAll('input:not([name^="_"])').forEach(el => el.remove());
+
+  function add(name, value) {
+    const inp = document.createElement('input');
+    inp.type = 'hidden'; inp.name = name; inp.value = value;
+    hf.appendChild(inp);
+  }
+
+  document.querySelectorAll('#brandForm input[type="text"], #brandForm textarea').forEach(el => {
+    if (el.name && el.value.trim()) add(el.name, el.value.trim());
+  });
+
+  const scaleLabels = {
+    tradition_modern: 'Traditional ↔ Modern',
+    serious_friendly: 'Serious ↔ Friendly',
+    corporate_casual: 'Corporate ↔ Casual',
+    minimal_expressive: 'Minimalist ↔ Expressive',
+    established_innovative: 'Established ↔ Innovative',
+    exclusive_accessible: 'Exclusive ↔ Accessible'
+  };
+  document.querySelectorAll('.scale-dot.active').forEach(dot => {
+    add(scaleLabels[dot.dataset.name] || dot.dataset.name, dot.dataset.value + ' / 5');
+  });
+
+  const palettes = [...document.querySelectorAll('.palette-card.selected input')].map(i => i.value);
+  if (palettes.length) add('Color Palettes', palettes.join(', '));
+
+
+  const typeEl = document.querySelector('.type-card.selected input');
+  if (typeEl) add('Typography Style', typeEl.value);
+
+  const logos = [...document.querySelectorAll('.logo-card.selected input')].map(i => i.value);
+  if (logos.length) add('Logo Styles', logos.join(', '));
+
+  const deliverables = [...document.querySelectorAll('#deliverableGrid input:checked')].map(i => i.value);
+  if (deliverables.length) add('Deliverables', deliverables.join(', '));
+
+  hf.submit();
+}
+
+updateProgress();
+</script>
+</body>
+</html>
