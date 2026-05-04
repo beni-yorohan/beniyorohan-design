@@ -238,6 +238,22 @@
             object-fit: contain;
         }
 
+        .project-thumb.solidworks-thumb {
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-thumb.solidworks-thumb img {
+            width: 70%;
+            height: auto;
+            object-fit: contain;
+            position: relative;
+            z-index: 1;
+        }
+
         .project-card:hover .project-thumb {
             opacity: 0.75;
         }
@@ -623,6 +639,16 @@
         <div class="projects-grid">
 
             <!-- Row 1 -->
+
+            <div class="project-card fade-in">
+                <div class="project-thumb solidworks-thumb">
+                    <img src="assets/img/solidworks/sw-logo-red.svg" alt="SOLIDWORKS Socials" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-title">SOLIDWORKS Socials</div>
+                    <div class="project-subtitle">Coming soon</div>
+                </div>
+            </div>
 
             <div class="project-card fade-in">
                 <a href="/projects/matos-organic-tomato-juice">
