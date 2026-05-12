@@ -97,7 +97,7 @@
         }
 
         html, html * {
-            cursor: none !important;
+            cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important;
         }
 
         body {
@@ -972,7 +972,7 @@
         document.addEventListener('mouseout', (e) => { if (e.target.closest('a, button, [role="button"]')) { isHovering = false; cursor.classList.remove('hovering'); } });
 
         function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.18; cursorY += (mouseY - cursorY) * 0.18;
+            cursorX = mouseX; cursorY = mouseY;
             const targetSize = isHovering ? 8 : 16; currentSize += (targetSize - currentSize) * 0.12;
             cursor.style.transform = `translate(${cursorX - currentSize / 2}px, ${cursorY - currentSize / 2}px)`;
             colorTime += colorSpeed; if (colorTime > 1) colorTime -= 1;

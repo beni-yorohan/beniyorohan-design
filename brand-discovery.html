@@ -42,7 +42,7 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html, html * { cursor: none !important; }
+  html, html * { cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important; }
 
   body {
     font-family: var(--font-body);
@@ -673,13 +673,6 @@
   <p>Before we design anything, we listen. This questionnaire helps us understand your business, your taste, and where you want to go — so the work we produce is grounded in who you actually are.</p>
 </div>
 
-<!-- ═══ CLIENT BAR ═══ -->
-<div class="client-bar">
-  <!-- ✎ EDIT CLIENT NAME AND DATE BELOW -->
-  <span>Prepared for <strong>Kyle — Balanced Net Solutions</strong></span>
-  <span><strong>April 2026</strong></span>
-</div>
-
 <!-- ═══ PROGRESS ═══ -->
 <div class="progress-container">
   <div class="progress-inner">
@@ -690,7 +683,7 @@
 
 <!-- ═══ FORM ═══ -->
 <form id="hiddenForm" method="POST" action="https://formsubmit.co/info@beniyorohan.design" style="display:none;">
-  <input type="hidden" name="_subject" value="Brand Discovery — Balanced Net Solutions">
+  <input type="hidden" name="_subject" value="Brand Discovery — New Submission">
   <input type="hidden" name="_captcha" value="false">
   <input type="hidden" name="_template" value="table">
   <input type="hidden" name="_autoresponse" value="Hey, thanks for reaching out! We'll be looking at your request and respond to it within 48 hours. If you don't hear from us, don't hesitate to send us an email via info@beniyorohan.design">
@@ -703,7 +696,7 @@
     <div class="question">
       <label>Your email</label>
       <div class="hint">So we can follow up with you directly.</div>
-      <input type="email" name="client_email" placeholder="e.g., kyle@balancednetsolutions.com" required>
+      <input type="email" name="client_email" placeholder="e.g., you@yourcompany.com" required>
     </div>
   </div>
 
@@ -715,24 +708,24 @@
 
     <div class="question">
       <label>Describe what your business does in one or two sentences.</label>
-      <textarea name="business_description" placeholder="e.g., We provide bookkeeping, tax preparation, and CFO advisory services for small businesses in the greater Boston area."></textarea>
+      <textarea name="business_description" placeholder="e.g., We're a neighborhood coffee shop and small-batch roaster — single-origin beans, pour-over, breakfast, and pastries."></textarea>
     </div>
 
     <div class="question">
       <label>What makes you different from your competitors?</label>
       <div class="hint">The reason someone picks you over the next option.</div>
-      <textarea name="differentiator" placeholder="e.g., We specialize in creative agencies and tech startups who need a partner that speaks their language — not just traditional accounting jargon."></textarea>
+      <textarea name="differentiator" placeholder="e.g., Our beans are roasted in-house each week — most cafés our size resell. That difference shows up in the cup."></textarea>
     </div>
 
     <div class="question">
       <label>Describe your ideal client.</label>
       <div class="hint">The type of client you want more of.</div>
-      <textarea name="ideal_client" placeholder="e.g., Founders of 5–50 person companies doing $500K–$5M revenue, usually in tech or creative industries, scaling and ready to get serious about finances."></textarea>
+      <textarea name="ideal_client" placeholder="e.g., People who actually care about coffee — they ask about origin and process. Usually 25–45, work-from-home crowd, repeat regulars."></textarea>
     </div>
 
     <div class="question">
       <label>Three words you'd want a client to use when describing your firm.</label>
-      <input type="text" name="three_words" placeholder="e.g., Trustworthy, Modern, Approachable">
+      <input type="text" name="three_words" placeholder="e.g., Considered, Warm, Modern">
     </div>
   </div>
 
@@ -816,12 +809,12 @@
     <div class="question">
       <label>Name 2–3 brands whose look and feel you admire.</label>
       <div class="hint">Any industry. We're looking for direction, not exact matches.</div>
-      <textarea name="brand_inspiration" placeholder="e.g., Stripe (clean, modern), Pilot.com (friendly but professional), Notion (simple, well-designed)"></textarea>
+      <textarea name="brand_inspiration" placeholder="e.g., Stripe (clean, modern), Aesop (premium, considered), Notion (simple, well-designed)"></textarea>
     </div>
 
     <div class="question">
       <label>Are there any competing firms whose branding you respect?</label>
-      <textarea name="competitor_brands" placeholder="e.g., Bench does a great job looking approachable. We'd like to feel more premium than them but still friendly."></textarea>
+      <textarea name="competitor_brands" placeholder="e.g., Blue Bottle does a great job feeling premium and approachable. We'd like to feel warmer and more local."></textarea>
     </div>
 
     <div class="question">
@@ -920,8 +913,8 @@ document.addEventListener('mouseout', e => {
 });
 
 function animateCursor() {
-  cursorX += (mouseX - cursorX) * 0.18;
-  cursorY += (mouseY - cursorY) * 0.18;
+  cursorX = mouseX;
+  cursorY = mouseY;
   const target = isHovering ? 8 : 16;
   currentSize += (target - currentSize) * 0.12;
   const half = currentSize / 2;
@@ -951,9 +944,9 @@ const SCALES = [
 
 const PALETTES = [
   { name: 'Clean Ink', colors: ['#1A1A1A', '#4A4A4A', '#E8E8E8', '#F7F7F7', '#FFFFFF'] },
-  { name: 'Ledger Blue', colors: ['#0F2440', '#1D4E89', '#A3C4E0', '#EDF3F8', '#FFFFFF'] },
+  { name: 'Harbor Blue', colors: ['#0F2440', '#1D4E89', '#A3C4E0', '#EDF3F8', '#FFFFFF'] },
   { name: 'Brass & Walnut', colors: ['#2C2016', '#5C4A3A', '#B8963E', '#E8DCC8', '#FAF6EF'] },
-  { name: 'Greenback', colors: ['#0B2618', '#1B5E3A', '#3EA06E', '#D4EAD9', '#F5FAF6'] },
+  { name: 'Field & Pine', colors: ['#0B2618', '#1B5E3A', '#3EA06E', '#D4EAD9', '#F5FAF6'] },
   { name: 'Slate & Ember', colors: ['#1E2328', '#3B444B', '#D4714E', '#F0E6E0', '#FAF8F6'] },
   { name: 'Stone & Steel', colors: ['#2A2D30', '#5B6770', '#8FA3B0', '#D9E2E8', '#F4F6F8'] },
   { name: 'Midnight Reserve', colors: ['#0C0C1F', '#1E1E48', '#6C5CE7', '#C8C3F5', '#F0EFF8'] },
@@ -971,7 +964,7 @@ const LOGO_STYLES = [
   {
     name: 'Wordmark',
     desc: 'Name only, typographic',
-    svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="6" y="40" font-family="serif" font-size="22" fill="#e8e8e8" font-weight="600">BNS</text></svg>`
+    svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="6" y="40" font-family="serif" font-size="22" fill="#e8e8e8" font-weight="600">FORM</text></svg>`
   },
   {
     name: 'Monogram',
@@ -991,7 +984,7 @@ const LOGO_STYLES = [
   {
     name: 'Emblem / Badge',
     desc: 'Enclosed, crest-like',
-    svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="26" stroke="#e8e8e8" stroke-width="2.5"/><circle cx="32" cy="32" r="20" stroke="#e8e8e8" stroke-width="1.5"/><text x="20" y="37" font-family="serif" font-size="16" fill="#e8e8e8">BNS</text></svg>`
+    svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="26" stroke="#e8e8e8" stroke-width="2.5"/><circle cx="32" cy="32" r="20" stroke="#e8e8e8" stroke-width="1.5"/><text x="22" y="37" font-family="serif" font-size="14" fill="#e8e8e8">EST.</text></svg>`
   },
   {
     name: 'Illustrative',
