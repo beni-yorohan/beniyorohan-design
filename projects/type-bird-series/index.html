@@ -332,7 +332,7 @@
         <a href="/" class="logo">BY Design</a>
         <nav>
             <a href="/about.html">about</a>
-            <a href="#" id="quote-btn">get a quote</a>
+            <a href="/brand-discovery.html" id="quote-btn">get a quote</a>
             <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">@beniyorohan.design</a>
         </nav>
     </header>
@@ -583,7 +583,7 @@
         const quoteBtn=document.getElementById('quote-btn'),quoteOverlay=document.getElementById('quote-overlay'),quoteBackdrop=document.getElementById('quote-backdrop'),quoteClose=document.getElementById('quote-close'),quoteForm=document.getElementById('quote-form'),quoteSuccess=document.getElementById('quote-success');
         function openQuote(e){e.preventDefault();quoteOverlay.classList.add('active');document.body.style.overflow='hidden'}
         function closeQuote(){quoteOverlay.classList.remove('active');document.body.style.overflow=''}
-        quoteBtn.addEventListener('click',openQuote);quoteBackdrop.addEventListener('click',closeQuote);quoteClose.addEventListener('click',closeQuote);
+        quoteBackdrop.addEventListener('click',closeQuote);quoteClose.addEventListener('click',closeQuote);
         document.addEventListener('keydown',e=>{if(e.key==='Escape')closeQuote()});
         quoteForm.addEventListener('submit',function(e){e.preventDefault();const fd=new FormData(this);const data={};fd.forEach((v,k)=>{data[k]=v});
             fetch('https://formsubmit.co/ajax/info@beniyorohan.design',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
