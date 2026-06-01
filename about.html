@@ -38,7 +38,6 @@
     <meta name="twitter:image" content="https://beniyorohan.design/assets/og-image.png">
 
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <style>
         @font-face {
             font-family: 'OT Brut Mono';
@@ -504,28 +503,6 @@
             .team-role { font-size: 12px; }
         }
 
-        .about-text .char {
-            display: inline-block;
-            position: relative;
-            transition: none;
-            white-space: pre;
-        }
-
-        .about-text .char.falling {
-            position: fixed;
-            z-index: 500;
-            pointer-events: none;
-        }
-
-        .about-text .char.fallen-placeholder {
-            visibility: hidden;
-        }
-
-        .about-text .word {
-            display: inline-block;
-            white-space: nowrap;
-        }
-
         /* ---- Footer ---- */
         footer {
             margin-top: auto;
@@ -598,8 +575,8 @@
 
     <div class="about-content">
         <div class="about-text" id="about-text">
-            <div class="paragraph" data-text="Founded in 2024, BY Design is a creative consultancy exploring new models of branding and visual culture through research, strategy, and experimental design."></div>
-            <div class="paragraph" data-text="We work with brands, institutions, and founders to shape identities, narratives, and systems — treating design as both a strategic tool and a cultural practice."></div>
+            <div class="paragraph">Founded in 2024, BY Design is a creative consultancy exploring new models of branding and visual culture through research, strategy, and experimental design.</div>
+            <div class="paragraph">We work with brands, institutions, and founders to shape identities, narratives, and systems — treating design as both a strategic tool and a cultural practice.</div>
         </div>
 
         <section class="team-section">
@@ -799,212 +776,6 @@
         animateCursor();
         document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
         document.addEventListener('mouseenter', () => { if (cursorActive) cursor.style.opacity = '1'; });
-
-        // ---- Letter Physics with Matter.js ----
-        const { Engine, World, Bodies, Body, Events, Mouse, Constraint } = Matter;
-
-        const engine = Engine.create({ gravity: { x: 0, y: 1.8 } });
-        const world = engine.world;
-
-        // Cursor as a physics body — pushes fallen letters
-        const cursorBody = Bodies.circle(-100, -100, 30, {
-            isStatic: true,
-            restitution: 0.8,
-            friction: 0.1,
-        });
-        World.add(world, cursorBody);
-
-        // Update cursor body position on mousemove
-        document.addEventListener('mousemove', (e) => {
-            Body.setPosition(cursorBody, {
-                x: e.clientX,
-                y: e.clientY + window.scrollY
-            });
-        });
-
-        // Floor — positioned just above the footer line
-        let floorBody;
-        const wallThickness = 60;
-        let leftWall, rightWall;
-
-        function createBoundaries() {
-            const footerLine = document.getElementById('footer-line');
-            const footerRect = footerLine.getBoundingClientRect();
-            const floorY = footerRect.top + window.scrollY;
-
-            if (floorBody) World.remove(world, floorBody);
-            if (leftWall) World.remove(world, leftWall);
-            if (rightWall) World.remove(world, rightWall);
-
-            floorBody = Bodies.rectangle(
-                window.innerWidth / 2, floorY + wallThickness / 2,
-                window.innerWidth * 2, wallThickness,
-                { isStatic: true, restitution: 0.3, friction: 0.8 }
-            );
-            leftWall = Bodies.rectangle(
-                -wallThickness / 2, floorY / 2,
-                wallThickness, floorY * 2,
-                { isStatic: true, restitution: 0.2, friction: 0.5 }
-            );
-            rightWall = Bodies.rectangle(
-                window.innerWidth + wallThickness / 2, floorY / 2,
-                wallThickness, floorY * 2,
-                { isStatic: true, restitution: 0.2, friction: 0.5 }
-            );
-
-            World.add(world, [floorBody, leftWall, rightWall]);
-        }
-
-        // Split text into individual character spans
-        const paragraphs = document.querySelectorAll('.paragraph');
-        const allChars = [];
-
-        paragraphs.forEach(p => {
-            const text = p.getAttribute('data-text');
-            const words = text.split(' ');
-
-            words.forEach((word, wi) => {
-                const wordSpan = document.createElement('span');
-                wordSpan.className = 'word';
-
-                for (let ci = 0; ci < word.length; ci++) {
-                    const charSpan = document.createElement('span');
-                    charSpan.className = 'char';
-                    charSpan.textContent = word[ci];
-                    charSpan.dataset.fallen = 'false';
-                    wordSpan.appendChild(charSpan);
-                    allChars.push(charSpan);
-                }
-
-                p.appendChild(wordSpan);
-
-                // Add space between words
-                if (wi < words.length - 1) {
-                    const spaceSpan = document.createElement('span');
-                    spaceSpan.className = 'char';
-                    spaceSpan.innerHTML = '&nbsp;';
-                    spaceSpan.dataset.fallen = 'false';
-                    p.appendChild(spaceSpan);
-                    allChars.push(spaceSpan);
-                }
-            });
-        });
-
-        // Random bright color — always readable against black
-        function randomBrightColor() {
-            const h = Math.random() * 360;
-            const s = 50 + Math.random() * 40;  // 50-90%
-            const l = 60 + Math.random() * 25;  // 60-85%
-            return `hsl(${h.toFixed(0)}, ${s.toFixed(0)}%, ${l.toFixed(0)}%)`;
-        }
-
-        // Track falling letters
-        const fallingLetters = [];
-        const bodyToItem = new Map();
-
-        function dropChar(charEl) {
-            if (charEl.dataset.fallen === 'true') return;
-            charEl.dataset.fallen = 'true';
-
-            const rect = charEl.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
-            const w = rect.width;
-            const h = rect.height;
-
-            if (w === 0 || h === 0) return;
-
-            // Create physics body
-            const body = Bodies.rectangle(x, y + window.scrollY, w, h, {
-                restitution: 0.35,
-                friction: 0.6,
-                frictionAir: 0.01,
-                density: 0.002,
-                angle: (Math.random() - 0.5) * 0.15,
-            });
-
-            // Give a slight random horizontal impulse
-            Body.setVelocity(body, {
-                x: (Math.random() - 0.5) * 2,
-                y: 0
-            });
-
-            World.add(world, body);
-
-            // Make the DOM element fixed and track it
-            charEl.classList.add('falling');
-            charEl.style.width = w + 'px';
-            charEl.style.height = h + 'px';
-            charEl.style.lineHeight = h + 'px';
-            charEl.style.textAlign = 'center';
-
-            // Assign random color on drop
-            charEl.style.color = randomBrightColor();
-
-            // Create invisible placeholder to keep layout
-            const placeholder = document.createElement('span');
-            placeholder.className = 'char fallen-placeholder';
-            placeholder.style.width = w + 'px';
-            placeholder.style.display = 'inline-block';
-            placeholder.innerHTML = '&nbsp;';
-            charEl.parentNode.insertBefore(placeholder, charEl);
-
-            const item = { el: charEl, body, w, h };
-            fallingLetters.push(item);
-            bodyToItem.set(body.id, item);
-        }
-
-        // Change color on collision
-        Events.on(engine, 'collisionStart', (event) => {
-            for (const pair of event.pairs) {
-                const itemA = bodyToItem.get(pair.bodyA.id);
-                const itemB = bodyToItem.get(pair.bodyB.id);
-                if (itemA) itemA.el.style.color = randomBrightColor();
-                if (itemB) itemB.el.style.color = randomBrightColor();
-            }
-        });
-
-        // Hover detection — drop chars the cursor touches
-        allChars.forEach(charEl => {
-            charEl.addEventListener('mouseenter', () => {
-                dropChar(charEl);
-            });
-        });
-
-        // Physics loop
-        let lastTime = performance.now();
-
-        function physicsLoop() {
-            const now = performance.now();
-            const delta = Math.min(now - lastTime, 32);
-            lastTime = now;
-
-            Engine.update(engine, delta);
-
-            const scrollY = window.scrollY;
-
-            for (const item of fallingLetters) {
-                const { el, body, w, h } = item;
-                const bx = body.position.x - w / 2;
-                const by = body.position.y - h / 2 - scrollY;
-                const angle = body.angle;
-                el.style.left = '0px';
-                el.style.top = '0px';
-                el.style.transform = `translate(${bx}px, ${by}px) rotate(${angle}rad)`;
-            }
-
-            requestAnimationFrame(physicsLoop);
-        }
-
-        // Initialize letter physics
-        window.addEventListener('load', () => {
-            createBoundaries();
-            physicsLoop();
-        });
-
-        window.addEventListener('resize', () => {
-            createBoundaries();
-        });
 
         // ---- Quote Overlay ----
         const quoteOverlay = document.getElementById('quote-overlay');
