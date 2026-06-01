@@ -122,18 +122,18 @@
   }
   .hero h1 {
     font-family: var(--font-heading);
-    font-size: clamp(40px, 6vw, 64px);
+    font-size: clamp(36px, 5vw, 54px);
     font-weight: 400;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    margin-bottom: 20px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
   }
   .hero p {
     font-family: var(--font-body);
-    font-size: 15px;
+    font-size: clamp(17px, 1.8vw, 22px);
     color: var(--text-secondary);
-    max-width: 520px;
-    line-height: 1.7;
+    max-width: 640px;
+    line-height: 1.55;
   }
 
   /* ── SECTIONS ── */
@@ -163,39 +163,41 @@
   }
   .section-title {
     font-family: var(--font-heading);
-    font-size: clamp(32px, 4vw, 42px);
+    font-size: clamp(30px, 4vw, 48px);
     font-weight: 400;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
     line-height: 1.1;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
     color: var(--text-primary);
   }
   .section-subtitle {
     font-family: var(--font-body);
-    font-size: 15px;
+    font-size: clamp(17px, 1.8vw, 22px);
     color: var(--text-secondary);
-    margin-bottom: 44px;
-    line-height: 1.65;
-    max-width: 520px;
+    margin-bottom: 48px;
+    line-height: 1.5;
+    max-width: 640px;
   }
 
   /* ── FORM ELEMENTS ── */
   .question {
-    margin-bottom: 40px;
+    margin-bottom: 44px;
   }
   .question label {
     display: block;
     font-family: var(--font-body);
-    font-size: 15px;
+    font-size: clamp(18px, 1.7vw, 23px);
     font-weight: 500;
-    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
     color: var(--text-primary);
   }
   .question .hint {
     font-family: var(--font-body);
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 10px;
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    line-height: 1.5;
     font-weight: 400;
   }
 
@@ -205,11 +207,11 @@
   textarea {
     width: 100%;
     max-width: 640px;
-    padding: 16px 18px;
+    padding: 18px 20px;
     border: 1px solid var(--border);
     border-radius: 0;
     font-family: var(--font-body);
-    font-size: 14px;
+    font-size: clamp(16px, 1.5vw, 18px);
     color: var(--text-primary);
     background: transparent;
     transition: border-color var(--transition), background var(--transition);
@@ -228,21 +230,21 @@
     flex-direction: column;
     gap: 0;
   }
-  .checkbox-item {
+  .checkbox-grid .checkbox-item {
     display: inline-flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     align-items: center;
     gap: 14px;
     width: 100%;
-    padding: 14px 0;
+    padding: 16px 0;
     border: none;
     border-bottom: 1px solid var(--border);
     border-radius: 0;
     cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important;
     transition: all 0.25s ease;
     font-family: var(--font-body);
-    font-size: 14px;
+    font-size: clamp(16px, 1.5vw, 18px);
     background: transparent;
     color: var(--text-primary);
   }
@@ -254,17 +256,17 @@
   }
   .checkbox-item input { display: none; }
   .custom-check {
-    width: 20px;
-    min-width: 20px;
-    height: 20px;
-    min-height: 20px;
+    width: 22px;
+    min-width: 22px;
+    height: 22px;
+    min-height: 22px;
     border: 1px solid var(--border);
     border-radius: 0;
     transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 13px;
     color: transparent;
     flex-shrink: 0;
   }
@@ -285,13 +287,13 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 18px 56px;
+    padding: 20px 56px;
     background: var(--text-primary);
     color: #000;
     border: none;
     border-radius: 0;
     font-family: var(--font-heading);
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 400;
     letter-spacing: -0.01em;
     cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important;
@@ -303,9 +305,9 @@
     box-shadow: inset 0 0 0 1px var(--text-primary);
   }
   .submit-note {
-    margin-top: 18px;
+    margin-top: 20px;
     font-family: var(--font-body);
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-muted);
   }
 
