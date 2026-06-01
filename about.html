@@ -515,7 +515,43 @@
             width: 100%;
             height: 1px;
             background-color: #ffffff;
-            margin-bottom: 24px;
+            margin-bottom: 40px;
+        }
+
+        /* Services — abundant capability grid */
+        .footer-services {
+            margin-bottom: 96px;
+        }
+
+        .footer-services-label {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0;
+            margin-bottom: 28px;
+        }
+
+        .footer-services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 24px;
+        }
+
+        .footer-col {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .footer-col li {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-primary);
+            line-height: 1.25;
+            letter-spacing: -0.01em;
         }
 
         .footer-content {
@@ -548,6 +584,23 @@
 
         .footer-right a:hover {
             opacity: 0.6;
+        }
+
+        /* Services grid — responsive (placed after base rules so overrides win) */
+        @media (max-width: 900px) {
+            .footer-services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 16px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .footer-services {
+                margin-bottom: 64px;
+            }
+            .footer-col li {
+                font-size: 13px;
+            }
         }
 
         @media (max-width: 600px) {
@@ -610,15 +663,107 @@
     </div>
 
     <footer>
-        <div class="footer-line" id="footer-line"></div>
+        <div class="footer-line"></div>
+
+        <div class="footer-services">
+            <div class="footer-services-label">What we do</div>
+            <div class="footer-services-grid">
+                <ul class="footer-col">
+                    <li>Brand Identity</li>
+                    <li>Visual Identity</li>
+                    <li>Brand Strategy</li>
+                    <li>Brand Guidelines</li>
+                    <li>Brand Systems</li>
+                    <li>Brand Architecture</li>
+                    <li>Naming</li>
+                    <li>Verbal Identity</li>
+                    <li>Tone of Voice</li>
+                    <li>Logo Design</li>
+                    <li>Wordmarks</li>
+                    <li>Monograms</li>
+                    <li>Rebrands</li>
+                    <li>Brand Audits</li>
+                    <li>Brand Worlds</li>
+                    <li>Identity Systems</li>
+                    <li>Creative Direction</li>
+                    <li>Art Direction</li>
+                    <li>Creative Consultancy</li>
+                </ul>
+                <ul class="footer-col">
+                    <li>Type Design</li>
+                    <li>Typeface Design</li>
+                    <li>Custom Lettering</li>
+                    <li>Variable Fonts</li>
+                    <li>Type Specimens</li>
+                    <li>Display Type</li>
+                    <li>Typographic Systems</li>
+                    <li>Lettering</li>
+                    <li>Editorial Design</li>
+                    <li>Magazine Design</li>
+                    <li>Publication Design</li>
+                    <li>Book Design</li>
+                    <li>Zines</li>
+                    <li>Catalogues</li>
+                    <li>Layout Design</li>
+                    <li>Print Production</li>
+                    <li>Risograph</li>
+                    <li>Editorial Systems</li>
+                    <li>Art Books</li>
+                </ul>
+                <ul class="footer-col">
+                    <li>Web Design</li>
+                    <li>Digital Design</li>
+                    <li>UI / UX</li>
+                    <li>App Design</li>
+                    <li>Interaction Design</li>
+                    <li>Design Systems</li>
+                    <li>Microsites</li>
+                    <li>Landing Pages</li>
+                    <li>Prototyping</li>
+                    <li>Packaging Design</li>
+                    <li>Label Design</li>
+                    <li>Product Packaging</li>
+                    <li>Packaging Systems</li>
+                    <li>Structural Packaging</li>
+                    <li>Motion Graphics</li>
+                    <li>Title Sequences</li>
+                    <li>Bumpers</li>
+                    <li>Animated Identities</li>
+                    <li>Front-end</li>
+                </ul>
+                <ul class="footer-col">
+                    <li>Campaign Design</li>
+                    <li>Social Media Design</li>
+                    <li>Content Systems</li>
+                    <li>Social Templates</li>
+                    <li>Poster Design</li>
+                    <li>Posters</li>
+                    <li>Out-of-home</li>
+                    <li>Advertising</li>
+                    <li>Photography Direction</li>
+                    <li>Image Making</li>
+                    <li>Illustration</li>
+                    <li>Collage</li>
+                    <li>Workshops</li>
+                    <li>Cultural Strategy</li>
+                    <li>Research</li>
+                    <li>Concept Development</li>
+                    <li>Visual Storytelling</li>
+                    <li>Work That Travels</li>
+                    <li>Conversations That Outlast Dessert</li>
+                </ul>
+            </div>
+        </div>
+
         <div class="footer-content">
             <div class="footer-left">
                 &copy; 2024 BY Design. All rights reserved.
             </div>
             <div class="footer-right">
                 <a href="mailto:info@beniyorohan.design">info@beniyorohan.design</a>
-                <a href="assets/beni_yorohan_resume_2026.pdf?v=3" target="_blank" rel="noopener">cv/resume</a>
+                <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">instagram</a>
                 <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">linkedin</a>
+                <a href="assets/beni_yorohan_resume_2026.pdf?v=3" target="_blank" rel="noopener">cv/resume</a>
             </div>
         </div>
     </footer>
