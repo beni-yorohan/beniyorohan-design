@@ -411,15 +411,17 @@
         }
 
         /* Capabilities */
-        .cap-list {
-            border-top: 1px solid #333333;
-        }
-
+        /* Rows bleed edge-to-edge across the viewport (white hover fill runs
+           the full screen width); text stays on the content grid via padding. */
         .cap-item {
             border-bottom: 1px solid #333333;
-            margin: 0 calc(-1 * var(--side-padding));
-            padding: 0 var(--side-padding);
+            margin-left: calc(-1 * var(--side-padding));
+            margin-right: calc(min(100vw, 1200px) - 100vw - var(--side-padding));
             transition: background-color 0.3s ease;
+        }
+
+        .cap-item:first-child {
+            border-top: 1px solid #333333;
         }
 
         .cap-item:hover,
@@ -431,7 +433,7 @@
             display: grid;
             grid-template-columns: 1fr 1.7fr;
             gap: 48px;
-            padding: 32px 0;
+            padding: 32px calc(100vw - min(100vw, 1200px) + var(--side-padding)) 32px var(--side-padding);
         }
 
         .cap-name {
@@ -506,8 +508,8 @@
         }
 
         .cap-tile {
-            width: calc((min(100vw, 1200px) - 2 * var(--side-padding) - (var(--cols, 4) - 1) * 12px) / var(--cols, 4));
-            aspect-ratio: 9 / 16;
+            width: min(calc((100vw - (var(--cols, 3) - 1) * 12px) / var(--cols, 3)), 560px);
+            aspect-ratio: 16 / 9;
             object-fit: cover;
             flex: 0 0 auto;
             display: block;
@@ -627,10 +629,10 @@
             .cap-row {
                 grid-template-columns: 1fr;
                 gap: 10px;
-                padding: 24px 0;
+                padding: 24px var(--side-padding);
             }
 
-            .cap-tile { width: 38vw; }
+            .cap-tile { width: 78vw; }
 
             .why-statement { margin-bottom: 48px; }
 
@@ -827,15 +829,16 @@
             <h2 class="section-header">What we make</h2>
             <!-- ════════════════════════════════════════════════════════════
                  MEDIA STRIP TEMPLATE — how to fill any capability row:
-                 1. Inside the row's .cap-track, add tiles (any mix, any count):
+                 1. Inside the row's .cap-track, add tiles (mix videos & stills, any count):
                       video:  <video class="cap-tile" src="assets/video/....mp4" muted loop playsinline preload="metadata"></video>
-                      image:  <img class="cap-tile" src="assets/img/....jpg" alt="" loading="lazy">
+                      still:  <img class="cap-tile" src="assets/img/....jpg" alt="" loading="lazy">
                  2. On the row's .cap-media, tune:
-                      --cols:  how many tiles visible at once (4 = bigger, 6 = smaller)
+                      --cols:  how many tiles visible across the screen (3 = bigger, 5 = smaller)
                       --speed: one full loop duration (lower = faster slide)
                  3. That's it — tiles are auto-duplicated for the seamless loop,
                     videos auto play/pause, and the strip only appears once at
-                    least one tile exists. Tiles are cropped to 9:16 automatically.
+                    least one tile exists. Tiles are cropped to 16:9 (horizontal)
+                    automatically and the strip slides edge-to-edge across the screen.
                  ════════════════════════════════════════════════════════════ -->
             <div class="cap-list">
 
@@ -844,17 +847,18 @@
                         <div class="cap-name">Creative Direction</div>
                         <p class="cap-desc">The vision that holds it all together — what the brand feels like, and why anyone should care.</p>
                     </div>
-                    <div class="cap-media" style="--cols: 4; --speed: 45s;">
+                    <div class="cap-media" style="--cols: 3; --speed: 50s;">
                         <div class="cap-media-inner">
                             <div class="cap-track">
-                                <video class="cap-tile" src="assets/video/patico-geometric.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/img/matos/matos_video_02.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/video/ganchos-sans.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/video/patico-menu.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/video/comi-loading.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/img/matos/matos_video_04.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/video/patico-bar.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/img/matos/matos_video_05.mp4" muted loop playsinline preload="metadata"></video>
+                                <video class="cap-tile" src="assets/video/moms-club-bumper.mp4" muted loop playsinline preload="metadata"></video>
+                                <img class="cap-tile" src="assets/img/dadi_khool_spreads_/spread_01.jpg" alt="Dadi Khool magazine spread" loading="lazy">
+                                <video class="cap-tile" src="assets/video/patico-hero.mp4" muted loop playsinline preload="metadata"></video>
+                                <img class="cap-tile" src="assets/img/moms-club/photo-storefront.jpg" alt="Moms Club storefront" loading="lazy">
+                                <video class="cap-tile" src="assets/video/flavors-record-spinning.mp4" muted loop playsinline preload="metadata"></video>
+                                <img class="cap-tile" src="assets/img/start-today/review_19_final_photos.jpg" alt="Start Today installation" loading="lazy">
+                                <video class="cap-tile" src="assets/video/matos-social-tool.mp4" muted loop playsinline preload="metadata"></video>
+                                <img class="cap-tile" src="assets/img/matos/matos_01.jpg" alt="Matos organic tomato juice" loading="lazy">
+                                <img class="cap-tile" src="assets/img/patico/patico_01.jpg" alt="Patico brand identity" loading="lazy">
                             </div>
                         </div>
                     </div>
@@ -865,7 +869,7 @@
                         <div class="cap-name">Art Direction</div>
                         <p class="cap-desc">Image, layout, and tone made coherent across every surface you touch.</p>
                     </div>
-                    <div class="cap-media" style="--cols: 5; --speed: 40s;">
+                    <div class="cap-media" style="--cols: 3; --speed: 45s;">
                         <div class="cap-media-inner">
                             <div class="cap-track">
                                 <!-- add .cap-tile videos/images here — see template note above -->
@@ -879,7 +883,7 @@
                         <div class="cap-name">Branding</div>
                         <p class="cap-desc">Complete identity systems — strategy, naming, guidelines, and the world they live in.</p>
                     </div>
-                    <div class="cap-media" style="--cols: 5; --speed: 40s;">
+                    <div class="cap-media" style="--cols: 3; --speed: 45s;">
                         <div class="cap-media-inner">
                             <div class="cap-track">
                                 <!-- add .cap-tile videos/images here — see template note above -->
@@ -893,17 +897,15 @@
                         <div class="cap-name">Custom Type</div>
                         <p class="cap-desc">Bespoke typefaces and lettering, drawn for one voice and no one else's.</p>
                     </div>
-                    <div class="cap-media" style="--cols: 6; --speed: 38s;">
+                    <div class="cap-media" style="--cols: 3; --speed: 45s;">
                         <div class="cap-media-inner">
                             <div class="cap-track">
-                                <video class="cap-tile" src="assets/video/type-birds/outputs/daylight-01.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/video/type-birds/outputs/golden-02.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/video/type-birds/outputs/night-01.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/video/type-birds/outputs/radial-03.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/video/type-birds/outputs/golden-03.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/video/type-birds/outputs/daylight-02.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/video/type-birds/outputs/night-02.mp4" muted loop playsinline preload="metadata"></video>
-                                <video class="cap-tile" src="assets/video/type-birds/outputs/golden-07.mp4" muted loop playsinline preload="metadata"></video>
+                                <video class="cap-tile" src="assets/video/patico-type-specimen.mp4" muted loop playsinline preload="metadata"></video>
+                                <video class="cap-tile" src="assets/video/type-birds/03-glyph-controls.mp4" muted loop playsinline preload="metadata"></video>
+                                <video class="cap-tile" src="assets/video/type-birds/outputs/radial-01.mp4" muted loop playsinline preload="metadata"></video>
+                                <video class="cap-tile" src="assets/video/type-birds/05-gradient-bg.mp4" muted loop playsinline preload="metadata"></video>
+                                <video class="cap-tile" src="assets/video/type-birds/01-overview.mp4" muted loop playsinline preload="metadata"></video>
+                                <video class="cap-tile" src="assets/video/type-birds/07-canvas-size.mp4" muted loop playsinline preload="metadata"></video>
                             </div>
                         </div>
                     </div>
@@ -914,7 +916,7 @@
                         <div class="cap-name">Custom Branding Tools</div>
                         <p class="cap-desc">Templates, generators, and design systems your team can run without us in the room.</p>
                     </div>
-                    <div class="cap-media" style="--cols: 5; --speed: 40s;">
+                    <div class="cap-media" style="--cols: 3; --speed: 45s;">
                         <div class="cap-media-inner">
                             <div class="cap-track">
                                 <!-- add .cap-tile videos/images here — see template note above -->
@@ -928,7 +930,7 @@
                         <div class="cap-name">Strategy &amp; Research</div>
                         <p class="cap-desc">The thinking underneath it all — positioning, naming, and the questions worth asking first.</p>
                     </div>
-                    <div class="cap-media" style="--cols: 5; --speed: 40s;">
+                    <div class="cap-media" style="--cols: 3; --speed: 45s;">
                         <div class="cap-media-inner">
                             <div class="cap-track">
                                 <!-- add .cap-tile videos/images here — see template note above -->
