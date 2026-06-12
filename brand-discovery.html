@@ -304,11 +304,50 @@
     color: var(--text-primary);
     box-shadow: inset 0 0 0 1px var(--text-primary);
   }
+  .submit-btn:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
   .submit-note {
     margin-top: 20px;
     font-family: var(--font-body);
     font-size: 15px;
     color: var(--text-muted);
+  }
+  .submit-error {
+    display: none;
+    margin-top: 20px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    max-width: 640px;
+  }
+  .submit-error a {
+    color: var(--text-primary);
+  }
+
+  /* ── SUCCESS STATE ── */
+  .form-success {
+    display: none;
+    max-width: 960px;
+    padding: 100px var(--side-padding) 160px;
+  }
+  .form-success h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+  }
+  .form-success p {
+    font-family: var(--font-body);
+    font-size: clamp(17px, 1.8vw, 22px);
+    color: var(--text-secondary);
+    max-width: 640px;
+    line-height: 1.55;
   }
 
   /* ── FOOTER (matches beniyorohan.design) ── */
@@ -389,13 +428,6 @@
 </div>
 
 <!-- ═══ FORM ═══ -->
-<form id="hiddenForm" method="POST" action="https://formsubmit.co/info@beniyorohan.design" style="display:none;">
-  <input type="hidden" name="_subject" value="Quote Request — New Submission">
-  <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_autoresponse" value="Hey, thanks for reaching out! We'll be looking at your request and respond to it within 48 hours. If you don't hear from us, don't hesitate to send us an email via info@beniyorohan.design">
-  <input type="hidden" name="_next" id="thankYouUrl">
-</form>
 <form id="brandForm" class="form-container" onsubmit="return handleSubmit(event)">
 
   <!-- ─── YOUR EMAIL ─── -->
@@ -403,7 +435,7 @@
     <div class="question">
       <label>Your email</label>
       <div class="hint">So we can follow up with you directly.</div>
-      <input type="email" name="client_email" placeholder="e.g., you@yourcompany.com" required>
+      <input type="email" name="email" placeholder="e.g., you@yourcompany.com" required>
     </div>
   </div>
 
@@ -486,8 +518,15 @@
   <div class="submit-section">
     <button type="submit" class="submit-btn">Send request</button>
     <div class="submit-note">Your request goes straight to the BY Design team. We'll review it and get back to you within 48 hours.</div>
+    <div class="submit-error" id="submitError">Something went wrong and your request didn't send. Please try again, or email us directly at <a href="mailto:info@beniyorohan.design">info@beniyorohan.design</a>.</div>
   </div>
 </form>
+
+<!-- ═══ SUCCESS ═══ -->
+<div class="form-success" id="formSuccess">
+  <h2>Request received.</h2>
+  <p>Thanks — your request is with the BY Design team. We'll review it and get back to you within 48 hours.</p>
+</div>
 
 <!-- ═══ FOOTER (exact match: beniyorohan.design) ═══ -->
 <footer>
@@ -628,23 +667,47 @@ DELIVERABLES.forEach(item => {
 
 function handleSubmit(e) {
   e.preventDefault();
-  const hf = document.getElementById('hiddenForm');
-  hf.querySelectorAll('input:not([name^="_"])').forEach(el => el.remove());
+  const form = document.getElementById('brandForm');
+  const btn = form.querySelector('.submit-btn');
+  const errEl = document.getElementById('submitError');
 
-  function add(name, value) {
-    const inp = document.createElement('input');
-    inp.type = 'hidden'; inp.name = name; inp.value = value;
-    hf.appendChild(inp);
-  }
+  const data = {
+    _subject: 'Quote Request — New Submission',
+    _template: 'table',
+    _captcha: 'false',
+    _autoresponse: "Hey, thanks for reaching out! We'll be looking at your request and respond to it within 48 hours. If you don't hear from us, don't hesitate to send us an email via info@beniyorohan.design"
+  };
 
-  document.querySelectorAll('#brandForm input[type="text"], #brandForm input[type="email"], #brandForm textarea').forEach(el => {
-    if (el.name && el.value.trim()) add(el.name, el.value.trim());
+  form.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(el => {
+    if (el.name && el.value.trim()) data[el.name] = el.value.trim();
   });
 
   const deliverables = [...document.querySelectorAll('#deliverableGrid input:checked')].map(i => i.value);
-  if (deliverables.length) add('Deliverables', deliverables.join(', '));
+  if (deliverables.length) data['Deliverables'] = deliverables.join(', ');
 
-  hf.submit();
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  errEl.style.display = 'none';
+
+  fetch('https://formsubmit.co/ajax/info@beniyorohan.design', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(r => r.json().then(d => ({ ok: r.ok, d })))
+  .then(({ ok, d }) => {
+    if (!ok || !(d.success === 'true' || d.success === true)) throw new Error(d.message || 'Submission failed');
+    form.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+    window.scrollTo(0, 0);
+  })
+  .catch(() => {
+    btn.disabled = false;
+    btn.textContent = 'Send request';
+    errEl.style.display = 'block';
+  });
+
+  return false;
 }
 </script>
 </body>
