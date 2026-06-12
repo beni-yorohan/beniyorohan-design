@@ -466,8 +466,9 @@
             color: #444444;
         }
 
-        /* Capability media strip — sliding 9:16 reel revealed on hover */
+        /* Capability media strip — sliding reel revealed on hover */
         .cap-media {
+            --tile-w: min(calc((100vw - (var(--cols, 3) - 1) * 12px) / var(--cols, 3)), 560px);
             display: grid;
             grid-template-rows: 0fr;
             transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -508,12 +509,18 @@
         }
 
         .cap-tile {
-            width: min(calc((100vw - (var(--cols, 3) - 1) * 12px) / var(--cols, 3)), 560px);
+            height: calc(var(--tile-w) * 9 / 16);
+            width: auto;
             aspect-ratio: 16 / 9;
             object-fit: cover;
             flex: 0 0 auto;
             display: block;
             background: #111111;
+        }
+
+        /* portrait tiles keep their vertical shape inside the same-height strip */
+        .cap-tile.tall {
+            aspect-ratio: 4 / 5;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -632,7 +639,7 @@
                 padding: 24px var(--side-padding);
             }
 
-            .cap-tile { width: 78vw; }
+            .cap-tile { height: calc(78vw * 9 / 16); }
 
             .why-statement { margin-bottom: 48px; }
 
@@ -839,6 +846,9 @@
                     videos auto play/pause, and the strip only appears once at
                     least one tile exists. Tiles are cropped to 16:9 (horizontal)
                     automatically and the strip slides edge-to-edge across the screen.
+                 4. Portrait shots: add the "tall" class (class="cap-tile tall") and
+                    the tile keeps a vertical 4:5 shape at the same strip height —
+                    mix wide and tall tiles for a mood-board rhythm.
                  ════════════════════════════════════════════════════════════ -->
             <div class="cap-list">
 
@@ -851,14 +861,15 @@
                         <div class="cap-media-inner">
                             <div class="cap-track">
                                 <video class="cap-tile" src="assets/video/moms-club-bumper.mp4" muted loop playsinline preload="metadata"></video>
-                                <img class="cap-tile" src="assets/img/dadi_khool_spreads_/spread_01.jpg" alt="Dadi Khool magazine spread" loading="lazy">
+                                <img class="cap-tile tall" src="assets/img/matos/matos_photo_01.jpg" alt="Mato's — tomato sunglasses" loading="lazy">
                                 <video class="cap-tile" src="assets/video/patico-hero.mp4" muted loop playsinline preload="metadata"></video>
-                                <img class="cap-tile" src="assets/img/moms-club/photo-storefront.jpg" alt="Moms Club storefront" loading="lazy">
+                                <img class="cap-tile" src="assets/img/matos/matos_02.jpg" alt="Mato's — Radical Ripeness" loading="lazy">
+                                <img class="cap-tile tall" src="assets/img/matos/matos_photo_03.jpg" alt="Mato's — flying tomatoes" loading="lazy">
                                 <video class="cap-tile" src="assets/video/flavors-record-spinning.mp4" muted loop playsinline preload="metadata"></video>
-                                <img class="cap-tile" src="assets/img/start-today/review_19_final_photos.jpg" alt="Start Today installation" loading="lazy">
+                                <img class="cap-tile" src="assets/img/dadi_khool_spreads_/spread_01.jpg" alt="Dadi Khool magazine spread" loading="lazy">
+                                <img class="cap-tile tall" src="assets/img/matos/matos_photo_04.jpg" alt="Mato's — tomato swim" loading="lazy">
                                 <video class="cap-tile" src="assets/video/dadi-khool-hero.mp4" muted loop playsinline preload="metadata"></video>
-                                <img class="cap-tile" src="assets/img/matos/matos_01.jpg" alt="Matos organic tomato juice" loading="lazy">
-                                <img class="cap-tile" src="assets/img/patico/patico_01.jpg" alt="Patico brand identity" loading="lazy">
+                                <img class="cap-tile tall" src="assets/img/matos/matos_photo_02.jpg" alt="Mato's — tomato harvest" loading="lazy">
                             </div>
                         </div>
                     </div>
@@ -873,9 +884,10 @@
                         <div class="cap-media-inner">
                             <div class="cap-track">
                                 <img class="cap-tile" src="assets/img/flavors-of-solitude/2026-03-26-0024.jpg" alt="Flavors of Solitude photoshoot" loading="lazy">
+                                <img class="cap-tile tall" src="assets/img/matos/matos_photo_05.jpg" alt="Mato's — tomato bath" loading="lazy">
                                 <img class="cap-tile" src="assets/img/patico/patico_29.jpg" alt="Patico storefront at night" loading="lazy">
+                                <img class="cap-tile tall" src="assets/img/moms-club/photo-wall-mural.jpg" alt="Mom's Club striped wall mural" loading="lazy">
                                 <img class="cap-tile" src="assets/img/moms-club/photo-cafe-counter.jpg" alt="Mom's Club café counter" loading="lazy">
-                                <img class="cap-tile" src="assets/img/matos/matos_36.jpg" alt="Matos product shots" loading="lazy">
                                 <img class="cap-tile" src="assets/img/dadi_khool_spreads_/spread_09.jpg" alt="Dadi Khool editorial spread" loading="lazy">
                                 <img class="cap-tile" src="assets/img/flavors-of-solitude/documentation/book_09_look.jpg" alt="Flavors of Solitude book" loading="lazy">
                                 <img class="cap-tile" src="assets/img/moms-club/photo-coffee.jpg" alt="Mom's Club coffee on branded napkin" loading="lazy">
