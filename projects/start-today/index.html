@@ -584,6 +584,12 @@
             .logo { font-size: 24px; }
             nav { gap: 16px; }
         }
+
+  /* ── Never show the custom cursor on touch / no-hover devices ── */
+  @media (hover: none), (pointer: coarse), (max-width: 680px) {
+    #custom-cursor { display: none !important; }
+    html, html * { cursor: auto !important; }
+  }
     </style>
 </head>
 <body>

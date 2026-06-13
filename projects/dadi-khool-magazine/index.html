@@ -475,6 +475,12 @@
         @media (max-width: 680px) {
             .quote-form-container { padding: 32px 24px; }
         }
+
+  /* ── Never show the custom cursor on touch / no-hover devices ── */
+  @media (hover: none), (pointer: coarse), (max-width: 680px) {
+    #custom-cursor { display: none !important; }
+    html, html * { cursor: auto !important; }
+  }
     </style>
 </head>
 <body>
