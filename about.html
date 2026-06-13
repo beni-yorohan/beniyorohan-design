@@ -482,11 +482,19 @@
         .cap-media-inner {
             min-height: 0;
             overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.45s ease;
+        }
+
+        .cap-item:hover .cap-media-inner,
+        .cap-item.open .cap-media-inner {
+            opacity: 1;
         }
 
         .cap-track {
             display: flex;
             width: max-content;
+            padding-top: 10px;
             padding-bottom: 32px;
             animation: capSlide var(--speed, 40s) linear infinite;
             animation-play-state: paused;
