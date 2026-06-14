@@ -445,6 +445,26 @@
             text-align: center;
         }
 
+        /* Specimens in motion */
+        .specimen-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 50px 0 30px;
+        }
+
+        .specimen-grid video {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            display: block;
+            background: #111111;
+        }
+
+        @media (max-width: 680px) {
+            .specimen-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        }
+
         /* Download button */
         .download-btn {
             display: inline-block;
@@ -812,6 +832,15 @@
         <div class="alphabet-row fade-in">P Q R S T U V W X Y Z</div>
         <div class="alphabet-row fade-in" style="font-size:80px;">a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
         <div class="alphabet-row fade-in" style="font-size:80px;">0 1 2 3 4 5 6 7 8 9</div>
+
+        <!-- Specimens in motion -->
+        <h2 class="section-header fade-in">In motion</h2>
+        <div class="specimen-grid fade-in">
+            <video src="../../assets/video/patico-specimen/istanbul.mp4" autoplay loop muted playsinline preload="metadata"></video>
+            <video src="../../assets/video/patico-specimen/fatih-sultan-mehmet-koprusu.mp4" autoplay loop muted playsinline preload="metadata"></video>
+            <video src="../../assets/video/patico-specimen/numbers.mp4" autoplay loop muted playsinline preload="metadata"></video>
+            <video src="../../assets/video/patico-specimen/dude.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        </div>
 
         <!-- Type Tester -->
         <h2 class="section-header fade-in">Type tester</h2>
