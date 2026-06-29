@@ -207,6 +207,13 @@
             margin: 72px 0 0;
             text-wrap: balance;
         }
+        .intro a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 2px solid var(--text-secondary);
+            transition: border-color 0.2s ease;
+        }
+        .intro a:hover { border-color: var(--text-primary); }
 
         /* ---- Sections ---- */
         .section { margin-top: 96px; }
@@ -293,89 +300,6 @@
             white-space: nowrap;
         }
 
-        /* ---- Toolkit (skills / software / languages) ---- */
-        .toolkit {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 48px;
-            padding-top: 36px;
-        }
-        .toolkit h3 {
-            font-family: var(--font-body);
-            font-size: 13px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
-            color: var(--text-secondary);
-            margin-bottom: 18px;
-        }
-        .toolkit ul { list-style: none; }
-        .toolkit li {
-            font-family: var(--font-body);
-            font-size: clamp(15px, 1.4vw, 18px);
-            font-weight: 400;
-            color: var(--text-primary);
-            line-height: 1.9;
-        }
-        .toolkit li span { color: var(--text-muted); }
-
-        /* ---- Notes (collab / connect) ---- */
-        .notes {
-            margin-top: 110px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px 56px;
-            align-items: flex-start;
-        }
-        .note {
-            position: relative;
-            flex: 1 1 280px;
-            max-width: 380px;
-            background: #131313;
-            border: 1px solid var(--border);
-            padding: 34px 30px 30px;
-            font-family: var(--font-body);
-            font-size: clamp(17px, 1.7vw, 20px);
-            font-style: italic;
-            line-height: 1.5;
-            color: var(--text-primary);
-            box-shadow: 0 18px 40px -28px rgba(0,0,0,0.9);
-        }
-        /* a strip of "tape" at the top */
-        .note::before {
-            content: '';
-            position: absolute;
-            top: -11px; left: 50%;
-            width: 84px; height: 22px;
-            transform: translateX(-50%) rotate(-2.5deg);
-            background: rgba(232, 232, 232, 0.10);
-            border: 1px solid rgba(232, 232, 232, 0.14);
-        }
-        .note:nth-child(1) { transform: rotate(-1.6deg); }
-        .note:nth-child(2) { transform: rotate(1.1deg); }
-        .note:nth-child(3) { transform: rotate(-0.6deg); }
-        .note:nth-child(2)::before { transform: translateX(-50%) rotate(3deg); width: 64px; }
-        .note:nth-child(3)::before { transform: translateX(-50%) rotate(-1.5deg); width: 96px; }
-        .note .note-kicker {
-            display: block;
-            font-family: var(--font-body);
-            font-style: normal;
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-secondary);
-            margin-bottom: 14px;
-        }
-        .note a {
-            font-style: normal;
-            color: var(--text-primary);
-            text-decoration: none;
-            border-bottom: 1px solid var(--text-muted);
-            transition: border-color 0.2s ease;
-        }
-        .note a:hover { border-color: var(--text-primary); }
-
         /* ---- Footer ---- */
         footer { margin-top: 0; padding: 0 var(--side-padding) 60px; }
         .footer-line { width: 100%; height: 1px; background-color: var(--text-primary); margin-bottom: 24px; }
@@ -402,7 +326,6 @@
             .hero-portrait { max-width: 260px; }
             .entry { grid-template-columns: 1fr; gap: 14px; }
             .entry-desc { align-self: start; }
-            .toolkit { grid-template-columns: 1fr; gap: 36px; }
         }
 
         @media (max-width: 680px) {
@@ -412,8 +335,6 @@
             .wrap { padding: 40px var(--side-padding) 80px; }
             .row { grid-template-columns: 1fr; gap: 6px; }
             .row-meta { text-align: left; }
-            .notes { gap: 44px; }
-            .note { flex-basis: 100%; max-width: none; }
             footer { padding: 0 var(--side-padding) 32px; }
             .footer-content { flex-direction: column; gap: 16px; }
             .footer-right { align-items: flex-start; }
@@ -449,14 +370,13 @@
                 <h1 class="hero-name">Beni&nbsp;Yorohan</h1>
                 <div class="hero-role">Designer — founder &amp; creative director of BY&nbsp;Design</div>
                 <div class="contact">
-                    Boston, MA<span class="sep">/</span>Istanbul, TR<br>
                     <a href="mailto:info@beniyorohan.design">info@beniyorohan.design</a><span class="sep">/</span><a href="https://beniyorohan.design">beniyorohan.design</a>
                 </div>
             </div>
         </section>
 
         <!-- INTRO -->
-        <p class="intro reveal">A designer, founder, and generous host. I trained at MassArt in Boston and work across branding, type, editorial, and strategy — treating design as both a strategic tool and a cultural practice. The strongest work travels: across rooms, across cultures, and the conversation that outlasts dessert.</p>
+        <p class="intro reveal">A designer, founder, and generous host. I trained at MassArt in Boston and work across branding, type, editorial, and strategy — treating design as both a strategic tool and a cultural practice. The strongest work travels: across rooms, across cultures, and the conversation that outlasts dessert. And I'm always open to collaboration — so if you're building something with care, I'd love to be in the room for it. <a href="/brand-discovery.html">Let's work together</a>.</p>
 
         <!-- WORK -->
         <section class="section">
@@ -558,76 +478,6 @@
             <div class="row reveal"><div class="row-main">Çınar Arts Tattoo <span>Apprenticeship</span></div><div class="row-meta">2022 · Istanbul, TR</div></div>
         </section>
 
-        <!-- TOOLKIT -->
-        <section class="section">
-            <div class="section-label reveal">Toolkit</div>
-            <div class="toolkit reveal">
-                <div>
-                    <h3>Practice</h3>
-                    <ul>
-                        <li>UI / UX</li>
-                        <li>Branding</li>
-                        <li>Type Engineering</li>
-                        <li>Editorial &amp; Layout</li>
-                        <li>Publishing</li>
-                        <li>Strategy</li>
-                        <li>Brand Strategy <span>Management</span></li>
-                        <li>Digital Marketing</li>
-                        <li>Social Media <span>Management</span></li>
-                        <li>Offset Printing <span>Production</span></li>
-                        <li>Design Integration <span>into Production</span></li>
-                        <li>Business Modeling</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Software</h3>
-                    <ul>
-                        <li>Illustrator</li>
-                        <li>InDesign</li>
-                        <li>Photoshop</li>
-                        <li>After Effects</li>
-                        <li>Premiere Pro</li>
-                        <li>Final Cut Pro</li>
-                        <li>Figma</li>
-                        <li>Glyphs</li>
-                        <li>Dragon Frame</li>
-                        <li>Procreate</li>
-                        <li>HTML / CSS</li>
-                        <li>Office 365</li>
-                        <li>Midjourney · Sora · Veo&nbsp;3</li>
-                        <li>ChatGPT · Claude</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Languages</h3>
-                    <ul>
-                        <li>Turkish <span>native</span></li>
-                        <li>English <span>native</span></li>
-                        <li>Spanish <span>beginner</span></li>
-                        <li>Hebrew <span>beginner</span></li>
-                        <li>French <span>beginner</span></li>
-                        <li>Ladino <span>beginner</span></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- NOTES -->
-        <section class="notes" aria-label="Let's work together">
-            <div class="note reveal">
-                <span class="note-kicker">p.s.</span>
-                I'm always open to collaboration. If you're building something with care, I'd love to be in the room for it.
-            </div>
-            <div class="note reveal">
-                <span class="note-kicker">wanna work together?</span>
-                Tell me about the project — I read every note that comes through <a href="mailto:info@beniyorohan.design">info@beniyorohan.design</a>, or <a href="/brand-discovery.html">start a quote</a>.
-            </div>
-            <div class="note reveal">
-                <span class="note-kicker">let's connect</span>
-                Find me <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">@beniyorohan.design</a> on Instagram, or over on <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">LinkedIn</a>.
-            </div>
-        </section>
-
     </main>
 
     <!-- FOOTER -->
@@ -637,7 +487,7 @@
             <div class="footer-left">&copy; 2026 BY Design. All rights reserved.</div>
             <div class="footer-right">
                 <a href="mailto:info@beniyorohan.design">info@beniyorohan.design</a>
-                <a href="assets/beni_yorohan_resume_2026.pdf?v=3" target="_blank" rel="noopener">cv/resume (pdf)</a>
+                <a href="assets/beni_yorohan_resume_2026.pdf?v=4" target="_blank" rel="noopener">cv/resume (pdf)</a>
                 <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">linkedin</a>
             </div>
         </div>
