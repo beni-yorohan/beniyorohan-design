@@ -13,15 +13,15 @@
         gtag('js', new Date());
         gtag('config', 'G-K339D507XJ');
     </script>
-    <title>SOLIDWORKS Socials — BY Design</title>
-    <meta name="description" content="SOLIDWORKS Socials — Social design by Beni Yorohan / BY Design. Coming soon.">
+    <title>SOLIDWORKS EDU — BY Design</title>
+    <meta name="description" content="SOLIDWORKS EDU — brand refinement, the Freemium launch campaign, and custom tooling for the SOLIDWORKS Education team. By Beni Yorohan / BY Design.">
     <link rel="canonical" href="https://beniyorohan.design/projects/solidworks-socials">
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://beniyorohan.design/projects/solidworks-socials">
-    <meta property="og:title" content="SOLIDWORKS Socials — BY Design">
-    <meta property="og:description" content="SOLIDWORKS Socials — Social design by Beni Yorohan / BY Design. Coming soon.">
+    <meta property="og:title" content="SOLIDWORKS EDU — BY Design">
+    <meta property="og:description" content="Brand refinement, the Freemium launch campaign, and custom tooling for the SOLIDWORKS Education team.">
     <meta property="og:site_name" content="BY Design">
     <meta property="og:image" content="https://beniyorohan.design/assets/og-image.png">
     <meta property="og:image:width" content="1200">
@@ -331,6 +331,138 @@
             }
         }
 
+        /* ---- SW EDU sections ---- */
+        .sw-section {
+            margin-top: 120px;
+            padding: 0 var(--side-padding);
+        }
+
+        .sw-header {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            margin-bottom: 10px;
+        }
+
+        .sw-sub {
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 600px;
+            margin-bottom: 36px;
+        }
+
+        .sw-label {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin: 44px 0 14px;
+        }
+        .sw-label:first-of-type { margin-top: 0; }
+
+        /* 4:5 post grid */
+        .sw-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .sw-grid img, .sw-grid video {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            display: block;
+            background: #111111;
+        }
+
+        /* horizontal snap strip (carousels) */
+        .sw-strip {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-snap-type: x proximity;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #333333 transparent;
+        }
+        .sw-strip img, .sw-strip video {
+            height: min(480px, 58vw);
+            width: auto;
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+            display: block;
+            background: #111111;
+        }
+
+        /* 16:9 deck slides */
+        .sw-deck {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .sw-deck img {
+            width: 100%;
+            display: block;
+            background: #111111;
+        }
+
+        /* teaser: story video + caption */
+        .sw-teaser {
+            display: grid;
+            grid-template-columns: minmax(220px, 340px) 1fr;
+            gap: 48px;
+            align-items: center;
+            margin-bottom: 44px;
+        }
+        .sw-teaser video {
+            width: 100%;
+            display: block;
+            background: #111111;
+        }
+        .sw-teaser p {
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 480px;
+        }
+
+        /* email banner */
+        .sw-banner img {
+            width: 100%;
+            display: block;
+        }
+
+        /* scroll reveal */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in { opacity: 1; transform: none; transition: none; }
+        }
+
+        @media (max-width: 900px) {
+            .sw-grid { grid-template-columns: repeat(2, 1fr); }
+            .sw-deck { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 680px) {
+            .sw-section { margin-top: 80px; }
+            .sw-teaser { grid-template-columns: 1fr; gap: 20px; }
+            .sw-teaser video { max-width: 300px; }
+        }
+
         /* ---- Project nav ---- */
         .project-nav {
             margin-top: 100px;
@@ -449,7 +581,10 @@
         </nav>
     </header>
 
-    <!-- Hero: white block with red SOLIDWORKS wordmark -->
+    <!-- Hero: white block with red SOLIDWORKS wordmark.
+         BUMPER SWAP — when the 16:9 bumper video is ready, replace the
+         .solidworks-hero-block div with:
+         <video src="../../assets/video/solidworks/bumper.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video> -->
     <div class="project-hero page-fade">
         <div class="solidworks-hero-block">
             <svg viewBox="0 0 1000 140" xmlns="http://www.w3.org/2000/svg" aria-label="SOLIDWORKS">
@@ -459,11 +594,162 @@
     </div>
 
     <!-- Project Title -->
-    <div class="project-name page-fade">SOLIDWORKS Socials</div>
-    <div class="project-meta-line page-fade">Social Design — 2026</div>
+    <div class="project-name page-fade">SOLIDWORKS EDU</div>
+    <div class="project-meta-line page-fade">Brand Refinement, Campaign &amp; Tooling — 2026</div>
     <div class="project-description page-fade">
-        <p>Coming soon.</p>
+        <p>SOLIDWORKS Education is Dassault Systèmes' arm for students and educators — a global brand with a fast-moving social presence. In spring 2026 I joined the team as a design intern, refining how the brand showed up across its socials: tightening the guidelines, rebuilding the templates, and leading the campaign for the SOLIDWORKS Freemium launch.</p>
+        <p style="margin-top: 14px;">When the internship ended, the relationship didn't. The team came back with a bigger ask — a custom asset-creation tool built for the way they actually work — and became an official client of BY Design.</p>
     </div>
+
+    <!-- ─── 01 BRAND REFINEMENT: CONCEPT DECKS ─── -->
+    <section class="sw-section">
+        <h2 class="sw-header fade-in">Brand refinement — post concepts</h2>
+        <p class="sw-sub fade-in">Two concept decks pitched to the EDU team: a refreshed social language for the main channels, and a system for the Champions community. Sponsorships, student benefits, and the first Freemium teases all start here.</p>
+
+        <div class="sw-label fade-in">Social media post concepts — EDU &amp; start-ups</div>
+        <div class="sw-deck fade-in">
+            <img src="../../assets/img/solidworks/decks/concepts-01.jpg" alt="SOLIDWORKS EDU social media post concepts — deck slide 1" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-02.jpg" alt="Deck slide 2" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-03.jpg" alt="Deck slide 3" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-04.jpg" alt="Deck slide 4" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-05.jpg" alt="Deck slide 5" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-06.jpg" alt="Deck slide 6" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-07.jpg" alt="Deck slide 7" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-08.jpg" alt="Deck slide 8" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-09.jpg" alt="Deck slide 9" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-10.jpg" alt="Deck slide 10" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-11.jpg" alt="Deck slide 11" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-12.jpg" alt="Deck slide 12" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-13.jpg" alt="Deck slide 13" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-14.jpg" alt="Deck slide 14" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-15.jpg" alt="Deck slide 15" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-16.jpg" alt="Deck slide 16" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-17.jpg" alt="Deck slide 17" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-18.jpg" alt="Deck slide 18" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-19.jpg" alt="Deck slide 19" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-20.jpg" alt="Deck slide 20" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-21.jpg" alt="Deck slide 21" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-22.jpg" alt="Deck slide 22" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-23.jpg" alt="Deck slide 23" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-24.jpg" alt="Deck slide 24" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/concepts-25.jpg" alt="Deck slide 25" loading="lazy">
+        </div>
+
+        <div class="sw-label fade-in">Champions — community post concepts</div>
+        <div class="sw-deck fade-in">
+            <img src="../../assets/img/solidworks/decks/champions-01.jpg" alt="SOLIDWORKS EDU Champions post concepts — deck slide 1" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/champions-02.jpg" alt="Champions deck slide 2" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/champions-03.jpg" alt="Champions deck slide 3" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/champions-04.jpg" alt="Champions deck slide 4" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/champions-05.jpg" alt="Champions deck slide 5" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/champions-06.jpg" alt="Champions deck slide 6" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/champions-07.jpg" alt="Champions deck slide 7" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/champions-08.jpg" alt="Champions deck slide 8" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/champions-09.jpg" alt="Champions deck slide 9" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/champions-10.jpg" alt="Champions deck slide 10" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/champions-11.jpg" alt="Champions deck slide 11" loading="lazy">
+            <img src="../../assets/img/solidworks/decks/champions-12.jpg" alt="Champions deck slide 12" loading="lazy">
+        </div>
+    </section>
+
+    <!-- ─── 02 THE SOCIAL SYSTEM ─── -->
+    <section class="sw-section">
+        <h2 class="sw-header fade-in">The social system</h2>
+        <p class="sw-sub fade-in">Always-on posts built on the refreshed system — certifications, program dates, promos, and community moments, all holding the same voice.</p>
+        <div class="sw-grid fade-in">
+            <img src="../../assets/img/solidworks/posts/myths-exposed.jpg" alt="SOLIDWORKS Myths Exposed post" loading="lazy">
+            <img src="../../assets/img/solidworks/posts/certifications-free.jpg" alt="Certifications for free — student promo post" loading="lazy">
+            <img src="../../assets/img/solidworks/posts/xdesign-70-off.jpg" alt="SOLIDWORKS xDesign 70% off post" loading="lazy">
+            <img src="../../assets/img/solidworks/posts/women-in-engineering.jpg" alt="International Women in Engineering Day post" loading="lazy">
+            <img src="../../assets/img/solidworks/posts/october-lineup.jpg" alt="October program lineup post" loading="lazy">
+            <img src="../../assets/img/solidworks/posts/xdesign-cyber-week.jpg" alt="xDesign Cyber Week post" loading="lazy">
+            <img src="../../assets/img/solidworks/posts/xdesign-post.jpg" alt="xDesign promo post" loading="lazy">
+            <img src="../../assets/img/solidworks/posts/q1-organic.jpg" alt="Q1 organic Instagram post" loading="lazy">
+            <img src="../../assets/img/solidworks/campaign/choose-your-package.jpg" alt="Choose your package — student packages post" loading="lazy">
+        </div>
+    </section>
+
+    <!-- ─── 03 THE FREEMIUM LAUNCH ─── -->
+    <section class="sw-section">
+        <h2 class="sw-header fade-in">The Freemium launch</h2>
+        <p class="sw-sub fade-in">The campaign announcing SOLIDWORKS Design Standard going free for students — a teaser countdown, carousel concepts, and pricing reframed around what free actually unlocks.</p>
+
+        <div class="sw-teaser fade-in">
+            <video src="../../assets/video/solidworks/story-01.mp4" autoplay loop muted playsinline preload="metadata"></video>
+            <p>The teaser story that opened the countdown: "Something is coming soon…" — the reveal blurred out until launch day.</p>
+        </div>
+
+        <div class="sw-label fade-in">Launch assets</div>
+        <div class="sw-grid fade-in">
+            <img src="../../assets/img/solidworks/campaign/freemium-0-for-students.jpg" alt="Freemium — $0 for students post" loading="lazy">
+            <video src="../../assets/video/solidworks/premium-post.mp4" autoplay loop muted playsinline preload="metadata"></video>
+            <img src="../../assets/img/solidworks/campaign/premium-60-for-students.jpg" alt="Premium — $60 for students post" loading="lazy">
+        </div>
+
+        <div class="sw-label fade-in">Carousel concept — free at last</div>
+        <div class="sw-strip fade-in">
+            <img src="../../assets/img/solidworks/carousels/idea08-s1.jpg" alt="Freemium carousel — cover" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea08-s2.jpg" alt="Freemium carousel — slide 2" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea08-s3.jpg" alt="Freemium carousel — slide 3" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea08-s4.jpg" alt="Freemium carousel — slide 4" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea08-s5.jpg" alt="Freemium carousel — slide 5" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea08-s6.jpg" alt="Freemium carousel — slide 6" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea08-s7.jpg" alt="Freemium carousel — slide 7" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea08-s8.jpg" alt="Freemium carousel — slide 8" loading="lazy">
+        </div>
+
+        <div class="sw-label fade-in">Carousel concept — the announcement</div>
+        <div class="sw-strip fade-in">
+            <img src="../../assets/img/solidworks/carousels/idea04-s1.jpg" alt="Freemium announcement carousel — slide 1" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea04-s2.jpg" alt="Freemium announcement carousel — slide 2" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea04-s3.jpg" alt="Freemium announcement carousel — slide 3" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea04-s4.jpg" alt="Freemium announcement carousel — slide 4" loading="lazy">
+        </div>
+
+        <div class="sw-label fade-in">Post concepts</div>
+        <div class="sw-strip fade-in">
+            <img src="../../assets/img/solidworks/carousels/idea01-s1.jpg" alt="Freemium post concept 1 — slide 1" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea01-s2.jpg" alt="Freemium post concept 1 — slide 2" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea03-s1.jpg" alt="Freemium post concept 2 — slide 1" loading="lazy">
+            <img src="../../assets/img/solidworks/carousels/idea03-s2.jpg" alt="Freemium post concept 2 — slide 2" loading="lazy">
+            <img src="../../assets/img/solidworks/campaign/desktop-60-off.jpg" alt="Desktop $60 off post" loading="lazy">
+        </div>
+    </section>
+
+    <!-- ─── 04 EDUCATOR LEAD-GEN ─── -->
+    <section class="sw-section">
+        <h2 class="sw-header fade-in">Educator lead-gen</h2>
+        <p class="sw-sub fade-in">A seven-slide LinkedIn carousel built to bring educators into the EDU pipeline — the story of the offer, told one swipe at a time.</p>
+        <div class="sw-strip fade-in">
+            <img src="../../assets/img/solidworks/leadgen/leadgen-s1.jpg" alt="Educator lead-gen LinkedIn carousel — slide 1" loading="lazy">
+            <img src="../../assets/img/solidworks/leadgen/leadgen-s2.jpg" alt="Lead-gen carousel — slide 2" loading="lazy">
+            <img src="../../assets/img/solidworks/leadgen/leadgen-s3.jpg" alt="Lead-gen carousel — slide 3" loading="lazy">
+            <img src="../../assets/img/solidworks/leadgen/leadgen-s4.jpg" alt="Lead-gen carousel — slide 4" loading="lazy">
+            <img src="../../assets/img/solidworks/leadgen/leadgen-s5.jpg" alt="Lead-gen carousel — slide 5" loading="lazy">
+            <img src="../../assets/img/solidworks/leadgen/leadgen-s6.jpg" alt="Lead-gen carousel — slide 6" loading="lazy">
+            <img src="../../assets/img/solidworks/leadgen/leadgen-s7.jpg" alt="Lead-gen carousel — slide 7" loading="lazy">
+        </div>
+    </section>
+
+    <!-- ─── 05 EMAIL ─── -->
+    <section class="sw-section">
+        <h2 class="sw-header fade-in">Email</h2>
+        <p class="sw-sub fade-in">Banners for the EDU email program — the same system, stretched wide.</p>
+        <div class="sw-banner fade-in">
+            <img src="../../assets/img/solidworks/edu-benefits-email-banner.jpg" alt="SOLIDWORKS EDU benefits email banner" loading="lazy">
+        </div>
+    </section>
+
+    <!-- ─── 06 ASSET CREATION TOOL — coming when the screen recording lands.
+         Template (mirror of the type-birds tool pattern):
+    <section class="sw-section">
+        <h2 class="sw-header fade-in">The asset creation tool</h2>
+        <p class="sw-sub fade-in">After the internship, the EDU team commissioned a custom asset-creation tool from BY Design — templates, brand rules, and export presets their team can run without a designer in the room.</p>
+        <div class="sw-label fade-in">01 — Overview</div>
+        <video src="../../assets/video/solidworks/tool-01-overview.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>
+        <p class="sw-sub fade-in" style="margin-top:14px;">Caption explaining the logic…</p>
+    </section>
+    ─── -->
 
     <div class="project-nav">
         <a href="/" class="back-link">&lt; back to home</a>
@@ -650,6 +936,14 @@
                 setTimeout(() => { quoteForm.style.display = ''; quoteSuccess.style.display = 'none'; quoteForm.reset(); }, 3000);
             });
         });
+
+        // ---- Scroll reveal ----
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); }
+            });
+        }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+        document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
     </script>
 
 </body>
