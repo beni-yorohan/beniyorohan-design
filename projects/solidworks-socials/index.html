@@ -267,18 +267,8 @@
             margin-top: 10px;
         }
 
-        .solidworks-hero-block {
+        .project-hero video {
             width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .solidworks-hero-block svg {
-            width: 60%;
-            height: auto;
             display: block;
         }
 
@@ -527,9 +517,6 @@
 
             .project-name { font-size: 18px; }
 
-            .solidworks-hero-block { aspect-ratio: 4 / 3; }
-            .solidworks-hero-block svg { width: 78%; }
-
             footer {
                 margin-top: 120px;
                 padding-bottom: 32px;
@@ -572,16 +559,9 @@
         </nav>
     </header>
 
-    <!-- Hero: white block with red SOLIDWORKS wordmark.
-         BUMPER SWAP — when the 16:9 bumper video is ready, replace the
-         .solidworks-hero-block div with:
-         <video src="../../assets/video/solidworks/bumper.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video> -->
+    <!-- Hero: bumper — rows of EDU posts drifting across white -->
     <div class="project-hero page-fade">
-        <div class="solidworks-hero-block">
-            <svg viewBox="0 0 1000 140" xmlns="http://www.w3.org/2000/svg" aria-label="SOLIDWORKS">
-                <text x="500" y="112" text-anchor="middle" font-family="'Arial Black', 'Helvetica Neue', Helvetica, sans-serif" font-weight="900" font-size="140" letter-spacing="-5" fill="#D71920">SOLIDWORKS</text>
-            </svg>
-        </div>
+        <video src="../../assets/video/solidworks/bumper.mp4" autoplay loop muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
 
     <!-- Project Title -->

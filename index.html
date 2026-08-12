@@ -258,22 +258,6 @@
             object-fit: contain;
         }
 
-        .project-thumb.solidworks-thumb {
-            background-color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.35);
-        }
-
-        .project-thumb.solidworks-thumb img {
-            width: 70%;
-            height: auto;
-            object-fit: contain;
-            position: relative;
-            z-index: 1;
-        }
-
         .project-card:hover .project-thumb {
             opacity: 0.75;
         }
@@ -673,8 +657,10 @@
 
             <div class="project-card fade-in">
                 <a href="/projects/solidworks-socials">
-                    <div class="project-thumb solidworks-thumb">
-                        <img src="assets/img/solidworks/sw-logo-red.svg" alt="SOLIDWORKS EDU" loading="lazy">
+                    <div class="project-thumb">
+                        <video autoplay loop muted playsinline preload="auto" disablepictureinpicture>
+                            <source src="assets/video/solidworks/card-bumper.mp4" type="video/mp4">
+                        </video>
                     </div>
                     <div class="project-info">
                         <div class="project-title">SOLIDWORKS EDU</div>
