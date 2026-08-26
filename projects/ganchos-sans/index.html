@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K339D507XJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-K339D507XJ');
+    </script>
+    <title>Ganchos Sans — BY Design</title>
+    <meta name="description" content="Ganchos Sans — a contemporary typeface translating Solitreo, the endangered handwritten script of Ladino, into a modern sans serif. Type design and research by Beni Yorohan / BY Design.">
+    <link rel="canonical" href="https://beniyorohan.design/projects/ganchos-sans">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://beniyorohan.design/projects/ganchos-sans">
+    <meta property="og:title" content="Ganchos Sans — BY Design">
+    <meta property="og:description" content="An old script made contemporary — a typeface built from Solitreo, the endangered handwritten script of Ladino.">
+    <meta property="og:site_name" content="BY Design">
+    <meta property="og:image" content="https://beniyorohan.design/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="BY Design — Creative Consultancy">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ganchos Sans — BY Design">
+    <meta name="twitter:description" content="An old script made contemporary — a typeface built from Solitreo, the endangered handwritten script of Ladino.">
+    <meta name="twitter:image" content="https://beniyorohan.design/assets/og-image.png">
+
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="../../assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <style>
+        @font-face {
+            font-family: 'OT Brut Mono';
+            src: url('../../assets/fonts/OTBrut-RegularMono.woff2') format('woff2'),
+                 url('../../assets/fonts/OTBrut-RegularMono.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'OT Brut';
+            src: url('../../assets/fonts/OTBrut-Regular.woff2') format('woff2'),
+                 url('../../assets/fonts/OTBrut-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Acumin Variable';
+            src: url('../../assets/fonts/AcuminVariableConcept.otf') format('opentype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+            font-variation-settings: 'ital' 0, 'slnt' 0;
+        }
+
+        @font-face {
+            font-family: 'Ganchos Sans';
+            src: url('../../assets/fonts/GanchosSans-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #000000;
+            --text-primary: #e8e8e8;
+            --text-secondary: #8a8a8a;
+            --font-body: 'Acumin Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --side-padding: 16px;
+            --content-gap: 18px;
+            --section-gap: 120px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, html * {
+            cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important;
+        }
+
+        body {
+            hanging-punctuation: first last allow-end;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 9pt;
+            line-height: 1.4;
+            cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a, button, input, textarea, select, [role="button"] {
+            cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important;
+        }
+
+        /* ---- Custom Cursor ---- */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+            will-change: transform, background-color, box-shadow;
+            transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        height 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        opacity 0.2s ease;
+        }
+
+        #custom-cursor.hovering {
+            width: 8px;
+            height: 8px;
+        }
+
+        /* ---- Header ---- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+        }
+
+        .logo {
+            font-family: 'OT Brut', sans-serif;
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        nav a {
+            font-family: 'OT Brut', sans-serif;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 0;
+            transition: opacity 0.25s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Quote Overlay ---- */
+        .quote-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .quote-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .quote-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .quote-form-container {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            padding: 48px 40px;
+            margin: 0 16px;
+            transform: translateY(20px);
+            transition: transform 0.35s ease;
+        }
+
+        .quote-overlay.active .quote-form-container {
+            transform: translateY(0);
+        }
+
+        .quote-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            padding: 8px;
+            transition: color 0.2s ease;
+            font-family: var(--font-body);
+        }
+
+        .quote-close:hover {
+            color: var(--text-primary);
+        }
+
+        .quote-form-container h2 {
+            font-family: var(--font-body);
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .quote-form-container p.quote-sub {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .quote-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .quote-form input,
+        .quote-form textarea,
+        .quote-form select {
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 14px;
+            padding: 12px 14px;
+            border-radius: 0;
+            outline: none;
+            transition: border-color 0.2s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+        }
+
+        .quote-form input::placeholder,
+        .quote-form textarea::placeholder {
+            color: #555;
+        }
+
+        .quote-form input:focus,
+        .quote-form textarea:focus,
+        .quote-form select:focus {
+            border-color: #888;
+        }
+
+        .quote-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .quote-form select option {
+            background: #111;
+            color: var(--text-primary);
+        }
+
+        .quote-submit {
+            background: var(--text-primary);
+            color: #000;
+            border: none;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 14px 24px;
+            letter-spacing: 0.02em;
+            transition: opacity 0.2s ease;
+            margin-top: 8px;
+            border-radius: 0;
+        }
+
+        .quote-submit:hover {
+            opacity: 0.8;
+        }
+
+        .quote-success {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .quote-success h3 {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .quote-success p {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 680px) {
+            .quote-form-container {
+                padding: 32px 24px;
+            }
+        }
+
+        /* ---- Hero ---- */
+        .project-hero {
+            width: 100%;
+            padding: 0 var(--side-padding);
+            margin-top: 10px;
+        }
+
+        .project-hero .hero-crop {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+        }
+
+        .project-hero .hero-crop img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 48%;
+            transform: scale(1.42);
+            display: block;
+        }
+
+        /* ---- Project Title ---- */
+        .project-name {
+            padding: 16px var(--side-padding) 0;
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .project-description {
+            padding: 12px var(--side-padding) 0;
+            max-width: 600px;
+        }
+
+        .project-description p {
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            line-height: 1.6;
+            text-wrap: pretty;
+        }
+
+        .project-meta-line {
+            padding: 16px var(--side-padding) 0;
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        /* ---- Case study layout ---- */
+        .case-study {
+            padding: 0 var(--side-padding);
+        }
+
+        .section-header {
+            width: 100%;
+            padding: 100px 0 10px;
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .big-question {
+            font-family: var(--font-body);
+            text-wrap: balance;
+            font-weight: 600;
+            font-size: clamp(28px, 5.4vw, 72px);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            max-width: 1100px;
+            padding: 100px 0 8px;
+        }
+
+        .story-block {
+            max-width: 640px;
+            padding: 18px 0 0;
+        }
+
+        .story-block p {
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 400;
+            color: #d6d6d6;
+            line-height: 1.65;
+            margin-bottom: 18px;
+            text-wrap: pretty;
+        }
+
+        .story-block p strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .story-block p em {
+            color: #ffffff;
+        }
+
+        /* image grids */
+        .g-full {
+            width: 100%;
+            margin-top: var(--content-gap);
+        }
+
+        .g-full img, .g-full video {
+            width: 100%;
+            display: block;
+        }
+
+        .g-two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--content-gap);
+            margin-top: var(--content-gap);
+            align-items: start;
+        }
+
+        .g-three {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--content-gap);
+            margin-top: var(--content-gap);
+            align-items: start;
+        }
+
+        .g-two img, .g-three img, .g-two video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* photo grids where images should crop to match heights */
+        .g-crop {
+            align-items: stretch;
+        }
+
+        .g-crop img {
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .caption {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.03em;
+            padding: 8px 0 0;
+            line-height: 1.5;
+            text-wrap: pretty;
+        }
+
+        /* pull quote */
+        .pull-quote {
+            max-width: 860px;
+            padding: 48px 0 8px;
+        }
+
+        .pull-quote p {
+            font-family: var(--font-body);
+            font-size: clamp(20px, 3vw, 32px);
+            font-weight: 500;
+            line-height: 1.3;
+            letter-spacing: -0.015em;
+            color: #ffffff;
+            text-indent: -0.45em;
+            hanging-punctuation: first;
+            text-wrap: pretty;
+        }
+
+        .pull-quote .quote-attr {
+            font-family: var(--font-body);
+            font-size: 11px;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding-top: 14px;
+        }
+
+        /* letterform logic — open, no boxes */
+        .logic-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px var(--content-gap);
+            margin-top: 50px;
+        }
+
+        .logic-item .logic-glyph {
+            font-family: 'Ganchos Sans', sans-serif;
+            font-size: 140px;
+            line-height: 1.2;
+            color: var(--text-primary);
+            direction: rtl;
+            white-space: nowrap;
+            letter-spacing: 0.06em;
+            height: 250px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding-bottom: 48px;
+        }
+
+        .logic-item .logic-glyph.multi {
+            font-size: 82px;
+        }
+
+        .logic-item h3 {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 0.01em;
+            padding-top: 18px;
+        }
+
+        .logic-item p {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            padding-top: 6px;
+            text-wrap: pretty;
+        }
+
+        /* Glyph hover row */
+        .glyph-row {
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: baseline;
+            gap: 0.12em;
+            padding: 60px 0 40px;
+            direction: rtl;
+            font-size: clamp(110px, 21vw, 400px);
+        }
+
+        .glyph-row span {
+            font-family: 'Ganchos Sans', sans-serif;
+            font-size: 1em;
+            color: var(--text-primary);
+            line-height: 1.15;
+            user-select: none;
+        }
+
+        /* Full alphabet rows */
+        .alphabet-row {
+            width: 100%;
+            padding: 12px 0;
+            font-family: 'Ganchos Sans', sans-serif;
+            font-size: 84px;
+            color: var(--text-primary);
+            line-height: 1.3;
+            letter-spacing: 0.1em;
+            word-break: keep-all;
+            text-align: center;
+            direction: rtl;
+        }
+
+        .alphabet-label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-align: center;
+            padding-top: 30px;
+        }
+
+        /* Transliterator — open layout, no box */
+        .translit {
+            margin-top: 110px;
+        }
+
+        .translit-label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .translit input[type="text"] {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: clamp(18px, 3vw, 28px);
+            font-weight: 400;
+            padding: 8px 0 10px;
+            width: 100%;
+            max-width: 640px;
+            outline: none;
+            transition: border-color 0.2s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .translit-output {
+            font-family: 'Ganchos Sans', sans-serif;
+            font-size: clamp(56px, 11vw, 160px);
+            line-height: 1.3;
+            color: #ffffff;
+            direction: rtl;
+            text-align: right;
+            padding: 70px 0 40px;
+            word-break: break-word;
+            min-height: 1.3em;
+            letter-spacing: 0.04em;
+        }
+
+        .translit-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-top: 40px;
+        }
+
+        .translit-presets button {
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+            padding: 9px 16px;
+            border-radius: 0;
+            transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .translit-presets button:hover {
+            color: var(--text-primary);
+            border-color: #888;
+        }
+
+        .translit-presets button.active {
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+            color: #000;
+        }
+
+        .translit-note {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 400;
+            color: #555;
+            padding-top: 34px;
+            letter-spacing: 0.02em;
+            line-height: 1.6;
+            max-width: 640px;
+            text-wrap: pretty;
+        }
+
+        /* Type Tester cascade */
+        .type-tester {
+            width: 100%;
+            padding: 90px 0 0;
+        }
+
+        .type-tester-controls {
+            display: flex;
+            gap: 24px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .type-tester-controls label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .type-tester-controls input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 120px;
+            height: 2px;
+            background: #333;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .type-tester-controls input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important;
+        }
+
+        .control-value {
+            font-family: var(--font-body);
+            font-size: 11px;
+            color: var(--text-secondary);
+            min-width: 36px;
+            text-align: right;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cascade-row {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            padding: 6px 0;
+        }
+
+        .type-cascade-size {
+            font-family: var(--font-body);
+            font-size: 10px;
+            color: var(--text-secondary);
+            display: inline-block;
+            width: 40px;
+            flex-shrink: 0;
+            padding-top: 4px;
+            vertical-align: top;
+        }
+
+        .cascade-text {
+            font-family: 'Ganchos Sans', sans-serif;
+            color: var(--text-primary);
+            word-break: break-word;
+            overflow: hidden;
+            flex: 1;
+            direction: rtl;
+            text-align: right;
+            letter-spacing: 0.04em;
+        }
+
+        /* Taalim tool link */
+        .taalim-link {
+            display: inline-block;
+            margin-top: 34px;
+            font-family: 'OT Brut', sans-serif;
+            font-size: clamp(22px, 3vw, 34px);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            color: #57A8FF;
+            text-decoration: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .taalim-link:hover {
+            opacity: 0.6;
+        }
+
+        .taalim-link.cell-link {
+            margin-top: 16px;
+            font-size: clamp(18px, 1.8vw, 24px);
+        }
+
+        /* Download button */
+        .download-btn {
+            display: inline-block;
+            margin-top: 60px;
+            padding: 14px 40px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: #000;
+            background: var(--text-primary);
+            text-decoration: none;
+            border: none;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background: #57A8FF;
+            color: #000;
+        }
+
+        .download-section {
+            text-align: center;
+        }
+
+
+        /* Poster flipbook */
+        .poster-stage {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+            gap: var(--content-gap);
+            margin-top: var(--content-gap);
+            align-items: start;
+        }
+
+        .poster-flip {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1200 / 1553;
+            overflow: hidden;
+        }
+
+        .poster-flip img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+        }
+
+        .poster-flip img.active {
+            opacity: 1;
+        }
+
+        .poster-mini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--content-gap);
+        }
+
+        .poster-mini-grid img {
+            width: 100%;
+            display: block;
+        }
+
+        /* ---- Scroll Reveal ---- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .page-fade {
+            opacity: 0;
+            transform: translateY(12px);
+            animation: pageEntry 0.6s ease forwards;
+        }
+
+        .page-fade:nth-child(2) { animation-delay: 0.05s; }
+        .page-fade:nth-child(3) { animation-delay: 0.1s; }
+
+        @keyframes pageEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ---- Project nav (back + next) ---- */
+        .project-nav {
+            margin-top: 100px;
+            padding: 0 var(--side-padding);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            font-family: 'OT Brut Mono', monospace;
+            font-size: 14px;
+            font-weight: 400;
+            color: #ffffff;
+            text-decoration: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .back-link:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Footer ---- */
+        footer {
+            margin-top: 200px;
+            padding: 0 var(--side-padding) 60px;
+        }
+
+        .footer-line {
+            width: 100%;
+            height: 1px;
+            background-color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-left {
+            font-size: 13px;
+            color: #ffffff;
+            max-width: 60%;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .footer-right a {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .footer-right a:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 900px) {
+            .logic-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            :root {
+                --side-padding: 12px;
+                --content-gap: 10px;
+                --section-gap: 60px;
+                --font-body: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 24px 16px;
+            }
+
+            nav {
+                gap: 28px;
+                flex-wrap: wrap;
+            }
+
+            nav a { font-size: 18px; }
+
+            .project-name { font-size: 18px; }
+
+            .alphabet-row {
+                font-size: 38px;
+            }
+
+            .glyph-row {
+                font-size: 62px;
+            }
+
+            .g-three {
+                grid-template-columns: 1fr;
+            }
+
+            .g-two {
+                grid-template-columns: 1fr;
+            }
+
+            .poster-stage {
+                grid-template-columns: 1fr;
+            }
+
+            .logic-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .download-btn {
+                font-size: 13px;
+                padding: 13px 32px;
+            }
+
+            .type-tester-controls {
+                gap: 16px;
+            }
+
+            .type-tester-controls input[type="range"] {
+                width: 80px;
+            }
+
+            .type-cascade-size {
+                display: none;
+            }
+
+            footer {
+                margin-top: 120px;
+                padding-bottom: 32px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-left {
+                max-width: 100%;
+                font-size: 12px;
+            }
+
+            .footer-right { align-items: flex-start; }
+
+            #custom-cursor { display: none !important; }
+            html, html * { cursor: auto !important; }
+        }
+
+        @media (max-width: 380px) {
+            :root { --side-padding: 10px; }
+            .logo { font-size: 24px; }
+            nav { gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+
+    <header class="page-fade">
+        <a href="/" class="logo">BY Design</a>
+        <nav>
+            <a href="/about.html">about</a>
+            <a href="#" id="quote-btn">get a quote</a>
+            <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">@beniyorohan.design</a>
+        </nav>
+    </header>
+
+    <!-- Hero: Ganchos Panchos, page 12 — the typeface taking shape in Glyphs -->
+    <div class="project-hero page-fade">
+        <div class="hero-crop">
+            <img src="../../assets/img/ganchos_sans_/hero_scans_/scan_12.jpg" alt="Ganchos Panchos book — spread showing Ganchos Sans being drawn in Glyphs">
+        </div>
+    </div>
+
+    <!-- Project Title -->
+    <div class="project-name page-fade">Ganchos Sans</div>
+    <div class="project-meta-line page-fade">Type Design &amp; Research — Degree Project, MassArt — 2025–2026</div>
+    <div class="project-description page-fade">
+        <p>Ganchos Sans is a contemporary sans-serif typeface built from Solitreo — the cursive, handwritten script Sephardic Jews used for centuries to write Ladino, and which today almost nobody can read. What started as a magazine assignment became a year-long independent study: archival research on two continents, interviews with the people keeping the language alive, and finally a typeface that translates the structural DNA of an endangered script into a modern system — along with a 112-page book, a poster series, a woven rug, and a transliteration guide. An old script made contemporary.</p>
+    </div>
+
+    <div class="case-study">
+
+        <!-- The Question -->
+        <div class="big-question fade-in">How can we contextualize an endangered script as a contemporary system?</div>
+        <div class="story-block fade-in">
+            <p>Every part of this project — the research, the typeface, the book, the objects — is an answer to that one question. Not preservation for its own sake, and not nostalgia: I wanted to understand what these forms can still do, how a script that history nearly erased could inform new typographic systems today instead of just sitting in an archive.</p>
+        </div>
+
+        <!-- Part 01: Ladino & Solitreo -->
+        <h2 class="section-header fade-in">Ladino, and the script everyone forgot</h2>
+        <div class="story-block fade-in">
+            <p>Ladino — Judeo-Spanish — is the language of the Sephardic Jews, descendants of those expelled from the Iberian Peninsula in 1492. But it wasn't carried out of Spain ready-made. The exiles spoke many dialects — Galician, Catalan, Aragonese, Castilian — and it was in the melting pot of the Ottoman Empire that those dialects fused into one language, absorbing Turkish, Greek, Italian, French and Hebrew along the way. A Romance language, born in diaspora, held together by memory.</p>
+            <p>For centuries Ladino was written in Hebrew-based scripts: <strong>Rashi</strong> for print, and for handwriting a fluid cursive called <strong>Solitreo</strong>. Among Sephardim it went by a simpler name — <em>ganchos</em>, "hooks" — because from a distance the writing looks like rows of small hooks linking into each other. It was the script of letters, shopping lists, love notes, and community records: fast, personal, and intimate. And unlike Rashi, it belonged to Ladino alone.</p>
+            <p>Then the twentieth century happened to it. French-language Alliance Israélite schools made Ladino feel like "dirty pajamas thrown in the corner" next to French. The 1928 "Citizen, Speak Turkish!" campaign pushed it out of public life. The Holocaust destroyed Salonika, home to the largest Solitreo-writing community in the world. What survived shifted to the Latin alphabet. Today Ladino is written phonetically in Latin characters — and Solitreo has become functionally unreadable, even to the community it belongs to. Family letters, postcards, entire archives: locked behind a script with almost no living readers.</p>
+        </div>
+        <div class="g-full fade-in">
+            <img src="../../assets/img/ganchos_sans_/research_/sephardic_migrations.jpg" alt="Map — migrations and settlements of the Spanish Jews across the Mediterranean and Ottoman Empire" loading="lazy">
+            <div class="caption">Migrations and settlements of the Spanish Jews after 1492 — the routes along which Ladino formed.</div>
+        </div>
+        <div class="g-three g-crop fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/research_/rabbis.jpg" alt="Sephardic rabbi with bar mitzvah boys" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/research_/ottoman_couple.jpg" alt="Ottoman Sephardic couple in traditional dress" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/research_/community.jpg" alt="Sephardic community — group photograph" loading="lazy">
+            </div>
+        </div>
+        <div class="caption fade-in">The world that wrote in ganchos — Sephardic communities across the former Ottoman lands.</div>
+        <div class="g-full fade-in">
+            <img src="../../assets/img/ganchos_sans_/pres_/pg23.jpg" alt="Mixed French-Ladino-Turkish speech — 'Comment ça vas?... Komo la vava... Ni dö gaz tenekesi...'" loading="lazy">
+            <div class="caption">How the community actually spoke — French, Ladino and Turkish braided into single sentences. People born between 1900 and 1920 spoke an average of seven languages.</div>
+        </div>
+
+        <!-- Part 02: Harvard -->
+        <h2 class="section-header fade-in">Into the archive</h2>
+        <div class="story-block fade-in">
+            <p>This project wasn't supposed to exist. It started in a Type 3 course at MassArt with a brief for a self-curated magazine "about a subject that holds personal importance to you." I chose Turkish Jewish identity — and before I knew it I was listing every topic in Sephardic history and losing the plot entirely. My professor, Ryan Diaz, looked at the scope and told me, more or less: <em>forget the magazine — you like this too much. Do it as an independent study, and I'll be your mentor.</em> That one conversation turned an assignment into a year of my life.</p>
+            <p>The research started at Harvard's Widener Library, in narrow unlit corridors that smelled slightly of mold, eight floors down to the Judaica section. I sat there for hours with old Ladino newspapers — <em>El Sol</em>, <em>La Luz</em>, <em>La Nationale</em>, <em>Şalom</em>, <em>El Amaneser</em> — and watched, issue by issue, the language's presence shrink and its alphabet drift from Rashi to Latin. At the same time I was emailing my way through the institutions of the Turkish Jewish community: archives, museums, foundations, researchers. Most of the outreach emails went out in a single twenty-minute burst — and within an hour, Karen Sarhon had replied.</p>
+        </div>
+        <div class="g-full fade-in">
+            <img src="../../assets/img/ganchos_sans_/pres_/pg14.jpg" alt="Widener Library, Harvard — where the archival research began" loading="lazy">
+            <div class="caption">Widener Library, Harvard — eight floors, one Judaica section, hours in the stacks.</div>
+        </div>
+        <div class="g-three fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg16.jpg" alt="Şalom newspaper — Ladino front page" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg17.jpg" alt="La Nationale — Ladino newspaper masthead" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg24.jpg" alt="El Sol — Ladino newspaper masthead in Rashi type" loading="lazy">
+            </div>
+        </div>
+        <div class="caption fade-in">The Ladino press — Şalom, La Nationale, El Sol. Printed in Rashi type, then gradually latinized, then gone.</div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg25.jpg" alt="Stack of bound Ladino journals from the Harvard archive" loading="lazy">
+                <div class="caption">Bound volumes from the stacks — Castillo y Poetas, Liberal Jewish Monthly, Jewish American archives.</div>
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg20.jpg" alt="Printing ornament and alef-bet detail from the Ladino press" loading="lazy">
+                <div class="caption">Printers' ornaments and letterforms from the Ladino press — the typographic texture of a vanished industry.</div>
+            </div>
+        </div>
+
+        <!-- Part 03: Istanbul -->
+        <h2 class="section-header fade-in">Interviews. A ton.</h2>
+        <div class="story-block fade-in">
+            <p>In Istanbul the project stopped being archival and became personal. I met <strong>Karen Sarhon</strong> — coordinator of the Ottoman-Turkish Sephardic Culture Research Center and editor of <em>El Amaneser</em>, one of the last Ladino publications on earth. Over three hours and a cup of Turkish coffee she walked me through the cultural evolution of Ladino: how it formed in the Ottoman melting pot rather than arriving from Spain, how the French schools and the 1928 campaign wore it down, what its culinary and musical traditions still carry. And she introduced me to the script the people called ganchos. That was the lightning bolt. It looked Arabic, it read like Hebrew, and it belonged to my own culture — yet I had never seen it before.</p>
+            <p>The interviews kept going: hours of recordings, transcripts, voices. Through the community I reached <strong>Benni Aguado</strong> — my namesake, one of the last people on earth whose native language is Ladino — who answered my questions in a Ladino you can still hear the Bronx in, and later checked my letterforms sketch by sketch. I studied <strong>Bryan Kirschen's</strong> LadinoType project, which digitized Solitreo faithfully, and consulted <strong>Defne Özozer</strong>, a doctoral researcher of Ottoman-era languages, on which curves of each letter were structure and which were a writer's flourish.</p>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg33.jpg" alt="Karen Sarhon holding the Maftirim book — Istanbul" loading="lazy">
+                <div class="caption">Karen Sarhon, Istanbul — meeting her was the turning point of the project.</div>
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg28.jpg" alt="Interview transcripts from the Istanbul research" loading="lazy">
+                <div class="caption">Transcripts — hours of conversations about a language at its critical point.</div>
+            </div>
+        </div>
+
+        <!-- Part 04: The script -->
+        <h2 class="section-header fade-in">A Semitic script, solely for a Romance language</h2>
+        <div class="story-block fade-in">
+            <p>Solitreo is a strange and beautiful contradiction: a Semitic script that existed only to write a Romance language. It could not be used for Hebrew, Turkish, or anything else — it belonged to Ladino alone. Its forms carry the trace of Andalusia, where Hebrew and Arabic lived side by side for three hundred years: the Ganchos alef resembles the Arabic alif far more than the Hebrew alef, and the whole script flows with an Arabic-like cursiveness that modern Hebrew handwriting never had.</p>
+            <p>Because Solitreo was never turned into type, it survives only in handwriting — poems, rabbinical records, letters, notes on the backs of family documents. Reading it meant learning it letter by letter from manuscripts, alphabet charts, and the people who still remember it. The most important source sat closer than any archive: a letter from 1961, written entirely in Solitreo, that no one in my family could read anymore.</p>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg34.jpg" alt="Solitreo manuscript on yellowed paper" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg41.jpg" alt="Dense Solitreo document — rabbinical record" loading="lazy">
+            </div>
+        </div>
+        <div class="caption fade-in">Solitreo in the wild — manuscripts, records, correspondence. Fast, personal, and now nearly unreadable.</div>
+        <div class="g-full fade-in">
+            <img src="../../assets/img/ganchos_sans_/pres_/pg46.jpg" alt="Solitreo alphabet chart — every letter with its name and Hebrew equivalent" loading="lazy">
+            <div class="caption">The Solitreo alphabet, letter by letter — the chart that made the script learnable.</div>
+        </div>
+        <div class="g-full fade-in">
+            <img src="../../assets/img/ganchos_sans_/research_/evolution_of_alef.jpg" alt="Evolution of the alef — from Egyptian hieroglyph through proto-Semitic to Hebrew, Arabic and Latin abstract forms" loading="lazy">
+            <div class="caption">One letter, five thousand years — from the ox-head hieroglyph to Latin A, Hebrew alef and Arabic alif. The Ganchos alef descends from the Arabic side of the family.</div>
+        </div>
+
+        <!-- Part 05: Design -->
+        <h2 class="section-header fade-in">November: time to design</h2>
+        <div class="story-block fade-in">
+            <p>The rule I set for myself: <strong>reinterpret, don't imitate.</strong> Bryan Kirschen's LadinoType had already preserved Solitreo's handwritten form faithfully — repeating that would add nothing. What didn't exist was a Solitreo that could live in the present tense: a modernized, simplified form that falls into the sans-serif category the way Latin scripts got to over two centuries of refinement. Solitreo never got its typographic evolution. Ganchos Sans is my attempt to give it one — a first.</p>
+            <p>The process started analog, because the script itself is analog. Pen and paper, trial and error against the scanned source material — the alef first, since its sweeping curves posed the hardest question: which are structure, and which are a writer's flourish? Working with Defne, I simplified hard, keeping only what makes each letter itself. Benni Aguado checked the sketches over WhatsApp; I also brought the drawings to <strong>Scott-Martin Kosofsky</strong>, the book designer and Hebrew typography scholar, for a working session on the system's logic.</p>
+            <p>Then into Glyphs, where the typeface went through eight versions. Monolinear strokes, simplified terminals, consistent x-height logic — but keeping the parts of the writing tradition that carry meaning: five final forms, the rafe variants that turn bet into vet and pe into fe, and the alef-lamed ligature, one of Solitreo's signature fusions. Because Ladino, unlike Hebrew, spells out every vowel, the typeface is built for a fully phonetic script — mapped onto the Hebrew Unicode block so it can be typed, today, on a normal keyboard.</p>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg54.jpg" alt="LadinoType specimen — the faithful Solitreo digitization that came before" loading="lazy">
+                <div class="caption">The precedent — Bryan Kirschen's LadinoType, a faithful digitization of handwritten Solitreo.</div>
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg49.jpg" alt="Notebook annotation — alef and vav reduced to their base strokes" loading="lazy">
+                <div class="caption">First reductions — alef and vav stripped to their base strokes.</div>
+            </div>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg56.jpg" alt="Analog sketches — brush strokes exploring the hook forms" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg58.jpg" alt="Ink sketch of the lamed" loading="lazy">
+            </div>
+        </div>
+        <div class="caption fade-in">Analog first — brush and ink, trial and error against the source material.</div>
+        <div class="g-full fade-in">
+            <img src="../../assets/img/ganchos_sans_/glyphs_/glyphs_samekh_beziers.jpg" alt="The samekh as bezier outlines in Glyphs" loading="lazy">
+            <div class="caption">The samekh in beziers — the hook surviving its translation into type, point by point.</div>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg63.jpg" alt="Digitization — letterforms photographed on screen in Glyphs" loading="lazy">
+                <div class="caption">Digitization — the letterforms entering Glyphs.</div>
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/glyphs_/glyphs_curve_dark.jpg" alt="Bezier curve editing in Glyphs — dark interface close-up" loading="lazy">
+                <div class="caption">Eight versions deep — refining a single curve.</div>
+            </div>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/glyphs_/glyphs_waterfall.jpg" alt="Ganchos Sans letters set in a row — early proof from Glyphs" loading="lazy">
+                <div class="caption">Early proofs — the system starting to hold together as a family.</div>
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg66.jpg" alt="Comparison sheet — handwritten Solitreo next to Ganchos Sans" loading="lazy">
+                <div class="caption">Source and sans, side by side — the same bones, a new body.</div>
+            </div>
+        </div>
+
+        <div class="logic-grid fade-in">
+            <div class="logic-item">
+                <div class="logic-glyph">א</div>
+                <h3>The alef, via the alif</h3>
+                <p>Solitreo's alef looks nothing like Hebrew's — it carries the DNA of Arabic alif, inherited from Andalusian Spain. Its curves were reduced to the two that define the letter.</p>
+            </div>
+            <div class="logic-item">
+                <div class="logic-glyph">&#xFB3C;</div>
+                <h3>The alef-lamed ligature</h3>
+                <p>Solitreo fuses "al" into a single stroke. Ganchos Sans keeps the fusion as one glyph — shalom is written ש&#xFB3C;ום, Salonika ס&#xFB3C;וניכא.</p>
+            </div>
+            <div class="logic-item">
+                <div class="logic-glyph multi">&#xFB4C; &#xFB4E; &#xFB4D;</div>
+                <h3>The rafe variants</h3>
+                <p>A single overline stroke turns b into v, p into f, k into kh — Ladino's phonetic engine, kept as first-class letterforms.</p>
+            </div>
+            <div class="logic-item">
+                <div class="logic-glyph multi">ך ם ן &#xFB43; ץ</div>
+                <h3>Five final forms</h3>
+                <p>Kaf, mem, nun, pe and tsadi change shape at the end of a word — a feature inherited from the Hebrew writing system and preserved in the sans.</p>
+            </div>
+        </div>
+
+        <!-- Part 06: The Typeface interactive -->
+        <h2 class="section-header fade-in">The typeface</h2>
+
+        <div class="glyph-row fade-in">
+            <span>א</span><span>ל</span><span>מ</span><span>ש</span><span>ג</span>
+        </div>
+
+        <div class="alphabet-label fade-in">consonants &amp; vowels — reads right to left</div>
+        <div class="alphabet-row fade-in">א ב ג ד ו ז ח ט י כ ל</div>
+        <div class="alphabet-row fade-in">מ נ ס ע פ צ ק ר ש ת</div>
+        <div class="alphabet-label fade-in">rafe variants · finals · ligature</div>
+        <div class="alphabet-row fade-in" style="font-size:68px;">&#xFB4C; &#xFB32; &#xFB4D; &#xFB4E; &nbsp;·&nbsp; ך ם ן &#xFB43; ץ &nbsp;·&nbsp; &#xFB3C;</div>
+        <div class="alphabet-row fade-in" style="font-size:68px; direction:ltr;">1 2 3 4 5 6 7 8 9 0</div>
+
+        <!-- Transliterator -->
+        <div class="translit fade-in">
+            <div class="translit-label">Write Ladino in Ganchos — type Latin-alphabet Ladino, read it in Solitreo logic</div>
+            <input type="text" id="translit-input" value="lingua maternal" spellcheck="false" autocomplete="off" aria-label="Type Ladino text in Latin letters">
+            <div class="translit-output" id="translit-output"></div>
+            <div class="translit-presets" id="translit-presets">
+                <button data-word="amor">amor — love</button>
+                <button data-word="kaza">kaza — house</button>
+                <button data-word="mundo">mundo — world</button>
+                <button data-word="shalom">shalom — peace</button>
+                <button data-word="sefarad">sefarad — Sepharad</button>
+                <button data-word="salonika">salonika — Thessaloniki</button>
+                <button data-word="lingua maternal">lingua maternal — mother tongue</button>
+            </div>
+            <div class="translit-note">Built on the Aki Yerushalayim orthography, following the project's transliteration guide: digraphs map to single letters (sh → shin, ch/dj → gimel, ts → tsadi), every vowel is written out, "al" becomes the ligature, and final forms apply automatically.</div>
+        </div>
+
+        <!-- Type tester -->
+        <div class="type-tester fade-in">
+            <div class="type-tester-controls">
+                <label>
+                    Tracking
+                    <div class="control-row">
+                        <input type="range" id="tracking-slider" min="-50" max="200" value="40">
+                        <span class="control-value" id="tracking-value">40</span>
+                    </div>
+                </label>
+            </div>
+            <div class="type-cascade" id="type-cascade"></div>
+        </div>
+
+        <div class="download-section fade-in">
+            <a href="../../assets/fonts/GanchosSans-Regular.ttf" download="GanchosSans-Regular.ttf" class="download-btn">DOWNLOAD GANCHOS SANS</a>
+        </div>
+
+        <div class="g-two fade-in" style="margin-top:70px;">
+            <div>
+                <video src="../../assets/video/ganchos-sans-vertical.mp4" autoplay loop muted playsinline aria-label="Ganchos Sans — animated vertical type specimen"></video>
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/apps_/specimen_dark.jpg" alt="Ganchos Sans — dark specimen graphic with annotated glyphs" loading="lazy">
+            </div>
+        </div>
+        <div class="caption fade-in">The specimen in motion, and annotated — contemporary, right to left, 1493 to now.</div>
+
+        <!-- Part 08: Applications -->
+        <h2 class="section-header fade-in">Off the page</h2>
+        <div class="story-block fade-in">
+            <p>A revival typeface only matters if it shows up in the world the way living scripts do — loud, casual, commercial, everywhere. So Ganchos Sans was pushed into every context I could put it in: a poster series announcing the degree presentation in fifteen colorways, snack packaging, street signage, neon over a doorway, merch on a table. If the script once sold fish and wrote shopping lists, its revival shouldn't be too precious to sell peanut snacks.</p>
+        </div>
+
+        <div class="poster-stage fade-in">
+            <div class="poster-flip" id="poster-flip" aria-label="Ganchos Sans poster series — cycling through fifteen colorways">
+                <img src="../../assets/img/ganchos_sans_/posters_/poster_01.jpg" alt="Ganchos Sans poster — colorway 1" class="active">
+            </div>
+            <div class="poster-mini-grid">
+                <img src="../../assets/img/ganchos_sans_/posters_/poster_03.jpg" alt="Ganchos Sans poster — white and navy colorway" loading="lazy">
+                <img src="../../assets/img/ganchos_sans_/posters_/poster_08.jpg" alt="Ganchos Sans poster — magenta colorway" loading="lazy">
+                <img src="../../assets/img/ganchos_sans_/posters_/poster_11.jpg" alt="Ganchos Sans poster — green colorway" loading="lazy">
+                <img src="../../assets/img/ganchos_sans_/posters_/poster_14.jpg" alt="Ganchos Sans poster — yellow and pink colorway" loading="lazy">
+            </div>
+        </div>
+        <div class="caption fade-in">The announcement poster — the typeface's hooks bent into a symmetrical frame, in fifteen colorways.</div>
+
+        <div class="g-three g-crop fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/apps_/bamba.jpg" alt="Bamba snack packaging concept set in Ganchos Sans" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/apps_/signage.jpg" alt="Neon storefront signage concept in Ganchos Sans" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/apps_/merch.jpg" alt="Ganchos Sans merch — shirts, mug and stickers" loading="lazy">
+            </div>
+        </div>
+        <div class="caption fade-in">A script lives when it sells snacks, glows over a doorway, and ends up on a t-shirt — Bamba packaging, neon signage, merch.</div>
+
+        <!-- Part 07: The Book -->
+        <h2 class="section-header fade-in">Ganchos Panchos — the book</h2>
+        <div class="story-block fade-in">
+            <p>The whole journey — research, journals, interviews, sketches, dead ends and the finished specimen — was designed and printed as <strong>Ganchos Panchos</strong>, a 112-page book. It opens with the question, moves through the history of Ladino and the Karen Sarhon interview, documents the design process letter by letter, and closes as a type specimen. Alongside it I designed a Ladino newspaper — <em>Estambol Esta Muncho</em>, set entirely in Ganchos Sans — a transliteration guide called <em>Writing Ladino with Ganchos Sans</em>, and a specimen sheet to send home.</p>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/hero_scans_/scan_01.jpg" alt="Ganchos Panchos — cover and opening spread" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/hero_scans_/scan_04.jpg" alt="Ganchos Panchos — 'How can we contextualize an endangered script' spread" loading="lazy">
+            </div>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/hero_scans_/scan_10.jpg" alt="Ganchos Panchos — transliteration cards spread" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/hero_scans_/scan_16.jpg" alt="Ganchos Panchos — alef and lamed specimen spread" loading="lazy">
+            </div>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/hero_scans_/scan_08.jpg" alt="Ganchos Panchos — Ganchos Panchos title spread" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/hero_scans_/scan_19.jpg" alt="Ganchos Panchos — rug spread" loading="lazy">
+            </div>
+        </div>
+        <div class="caption fade-in">Ganchos Panchos — 112 pages, printed and bound. Research on the left of the spine, design on the right, one question holding it together.</div>
+        <div class="g-three fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/glyphs_/newspaper_framed.jpg" alt="Estambol Esta Muncho — Ladino newspaper front page set in Ganchos Sans, framed" loading="lazy">
+                <div class="caption">Estambol Esta Muncho — a Ladino front page set entirely in Ganchos Sans, trilingual with Turkish and English.</div>
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/specimen_sheet_p1.jpg" alt="Ganchos Sans specimen sheet — full character set with project introduction" loading="lazy">
+                <div class="caption">The specimen sheet — the full character set over the story of the script.</div>
+                <a class="taalim-link cell-link" href="../../assets/ganchos_sans_specimen_sheet.pdf" target="_blank" rel="noopener">&#8599;&nbsp; specimen sheet — pdf</a>
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/stickers_sheet_p1.jpg" alt="Ganchos Sans sticker sheet" loading="lazy">
+                <div class="caption">The sticker sheet — hooks to stick anywhere.</div>
+                <a class="taalim-link cell-link" href="../../assets/ganchos_sans_stickers.pdf" target="_blank" rel="noopener">&#8599;&nbsp; sticker sheet — pdf</a>
+            </div>
+        </div>
+
+        <!-- Part 09: The Rug -->
+        <h2 class="section-header fade-in">The rug — letters become textile</h2>
+        <div class="story-block fade-in">
+            <p>Near the end of the project I learned that the tradition I was circling had a name. In Turkish Sephardic homes, textiles were never decoration — they were the center of domestic life, and the woven prayer rugs carried their own visual language. Ganchos Sans fell into that language naturally: the hooks, mirrored and repeated, behave exactly like the motifs of Anatolian rug patterns — rams' horns, hands, stars, protective borders.</p>
+            <p>So the typeface became a rug. I studied the Anatolian motif vocabulary, drafted the pattern from mirrored letterforms — the announcement poster and the rug share the same symmetry — and had it custom-woven. Letterforms became ornament, ornament became an object, and the object did what Sephardic textiles have always done: it went home and lived on a floor. Type you can stand on.</p>
+            <p>The idea kept going past the physical rug. <strong>Ganchos Taalim</strong> is a generative tool I built on top of the typeface: type a name, and it's transliterated into Solitreo, each letter's geometry analyzed — density, symmetry, stroke direction — and woven into a one-of-a-kind rug pattern, exportable as a weaving file straight to a loom. Every name produces its own rug, the way every Solitreo writer had their own hand.</p>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg74.jpg" alt="Anatolian rug references studied for the pattern" loading="lazy">
+                <div class="caption">The references — Anatolian rugs and their protective borders.</div>
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg76.jpg" alt="Chart of traditional Anatolian rug motifs and their meanings" loading="lazy">
+                <div class="caption">The motif vocabulary — rams' horns for power, cypress for eternity, grain for abundance, the eye to ward off evil.</div>
+            </div>
+        </div>
+        <div class="g-full fade-in">
+            <img src="../../assets/img/ganchos_sans_/rug_/rug_doc_floor.jpg" alt="The woven Ganchos rug on the studio floor" loading="lazy">
+            <div class="caption">The Ganchos Rug, woven — navy on cream, fringe and all.</div>
+        </div>
+        <div class="g-three g-crop fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/rug_/rug_doc_full.jpg" alt="The Ganchos rug held out flat" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/rug_/rug_doc_holding.jpg" alt="Holding the Ganchos rug up close" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/rug_/rug_doc_sitting.jpg" alt="Sitting on the Ganchos rug in the studio" loading="lazy">
+            </div>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/ganchos_sans_/rug_/rug_doc_portrait.jpg" alt="Portrait with the Ganchos rug as backdrop" loading="lazy">
+                <div class="caption">Studio documentation — the rug as backdrop, object, and family member.</div>
+            </div>
+            <div>
+                <img src="../../assets/img/ganchos_sans_/pres_/pg80.jpg" alt="Doorway in Istanbul — where the taalim tradition lives" loading="lazy">
+                <div class="caption">Where the tradition lives — rolled rugs at a shop doorway, Istanbul.</div>
+            </div>
+        </div>
+
+        <!-- Part 10: Reflection -->
+        <h2 class="section-header fade-in">What this project did to me</h2>
+        <div class="story-block fade-in">
+            <p>I never imagined myself doing something like this — diving into the deep, undiscovered corners of my own history. This alphabet belonged to me and I had never heard of it; that fact never stopped being strange, and it never stopped being fuel. Somewhere between the Widener stacks and Karen's office in Istanbul, the project stopped being coursework. Solitreo was an intimate script — a collective privacy, a way a community wrote to itself without the outside world's judgment — and getting to know it felt like being let into a room my own family had lost the key to.</p>
+            <p>Ganchos also carries a quieter argument. It grew out of Hebrew and Arabic living side by side in Andalusia — one script produced by two cultures that today are told they can only be enemies. Working on these letters, that history felt less like a footnote and more like proof: coexistence isn't a naive idea, it's the documented past. Sephardim have been the evidence for over five hundred years.</p>
+            <p>This isn't a project I can call fully finished, and I don't want to. The font will keep evolving, the research never really ends, and that's the point — a script only stays alive if someone keeps its hooks moving. As I wrote on the last page of the book: bravo to all of us.</p>
+        </div>
+        <div class="pull-quote fade-in">
+            <p>“Ganchos feels to me like a symbol of hope — proof of that ancient and deep-rooted friendship, from a time when Hebrew and Arabic existed together and produced something beautiful.”</p>
+            <div class="quote-attr">— from Ganchos Panchos, the process book</div>
+        </div>
+        <div class="story-block fade-in" style="padding-top:36px;">
+            <p style="color:var(--text-secondary); font-size:13px;">With gratitude — Ryan Diaz (mentor), Karen Sarhon, Benni Aguado, Bryan Kirschen, Defne Özozer, Scott-Martin Kosofsky, Eden Meisles, and the tantikas and onklis who answered a 22-year-old's questions about a script everyone else forgot.</p>
+        </div>
+
+    </div>
+
+    <div class="project-nav">
+        <a href="/" class="back-link">&lt; back to home</a>
+        <a href="/projects/patico-geometric" class="back-link">next project: Patico Geometric &gt;</a>
+    </div>
+
+    <footer>
+        <div class="footer-line"></div>
+        <div class="footer-content">
+            <div class="footer-left">
+                &copy; 2024 BY Design. All rights reserved.
+            </div>
+            <div class="footer-right">
+                <a href="mailto:info@beniyorohan.design">info@beniyorohan.design</a>
+                <a href="../../assets/beni_yorohan_resume_2026.pdf?v=3" target="_blank" rel="noopener">cv/resume</a>
+                <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">linkedin</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quote Overlay -->
+    <div class="quote-overlay" id="quote-overlay">
+        <div class="quote-backdrop" id="quote-backdrop"></div>
+        <div class="quote-form-container">
+            <button class="quote-close" id="quote-close">&times;</button>
+            <h2>Get a quote</h2>
+            <p class="quote-sub">Tell me about your project and I'll get back to you within 24 hours.</p>
+            <form class="quote-form" id="quote-form" action="https://formsubmit.co/info@beniyorohan.design" method="POST">
+                <input type="hidden" name="_subject" value="New Quote Request — BY Design">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_autoresponse" value="Hey, thanks for reaching out! We'll be looking at your request and respond to it within 48 hours. If you don't hear from us, don't hesitate to send us an email via info@beniyorohan.design">
+                <input type="text" name="name" placeholder="Your name" required>
+                <input type="email" name="email" placeholder="Email address" required>
+                <select name="service" required>
+                    <option value="" disabled selected>Type of project</option>
+                    <option value="branding">Brand Identity</option>
+                    <option value="type-design">Type Design</option>
+                    <option value="editorial">Editorial / Publication</option>
+                    <option value="packaging">Packaging Design</option>
+                    <option value="web">Web Design</option>
+                    <option value="art-direction">Art Direction</option>
+                    <option value="other">Other</option>
+                </select>
+                <textarea name="message" placeholder="Tell me about your project — scope, timeline, budget range..." rows="4"></textarea>
+                <button type="submit" class="quote-submit">Get quote now</button>
+            </form>
+            <div class="quote-success" id="quote-success">
+                <h3>Request sent</h3>
+                <p>Thanks! I'll be in touch soon.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---- Custom Cursor with smooth warm color cycling ----
+        const cursor = document.getElementById('custom-cursor');
+        let mouseX = -100, mouseY = -100;
+        let cursorX = -100, cursorY = -100;
+        let isHovering = false;
+        let currentSize = 16;
+
+        const colorStops = [
+            { h: 48,  s: 65, l: 72 },
+            { h: 30,  s: 60, l: 70 },
+            { h: 12,  s: 58, l: 72 },
+            { h: 355, s: 55, l: 74 },
+            { h: 340, s: 50, l: 72 },
+            { h: 320, s: 48, l: 70 },
+            { h: 290, s: 40, l: 72 },
+            { h: 200, s: 50, l: 72 },
+            { h: 180, s: 42, l: 68 },
+            { h: 155, s: 40, l: 68 },
+            { h: 130, s: 38, l: 70 },
+            { h: 22,  s: 40, l: 62 },
+            { h: 14,  s: 45, l: 68 },
+            { h: 48,  s: 65, l: 72 },
+        ];
+
+        function catmullRom(p0, p1, p2, p3, t) {
+            const t2 = t * t, t3 = t2 * t;
+            return 0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3);
+        }
+
+        function unwrapHue(val, ref) {
+            let diff = val - ref;
+            if (diff > 180) return val - 360;
+            if (diff < -180) return val + 360;
+            return val;
+        }
+
+        function getColor(t) {
+            const segCount = colorStops.length - 1;
+            const scaledT = t * segCount;
+            const i = Math.floor(scaledT);
+            const frac = scaledT - i;
+            const i0 = (i - 1 + segCount) % segCount, i1 = i % segCount, i2 = (i + 1) % segCount, i3 = (i + 2) % segCount;
+            const p0 = colorStops[i0], p1 = colorStops[i1], p2 = colorStops[i2], p3 = colorStops[i3];
+            const h0 = unwrapHue(p0.h, p1.h), h1 = p1.h, h2 = unwrapHue(p2.h, p1.h), h3 = unwrapHue(p3.h, p1.h);
+            let h = catmullRom(h0, h1, h2, h3, frac);
+            const s = catmullRom(p0.s, p1.s, p2.s, p3.s, frac);
+            const l = catmullRom(p0.l, p1.l, p2.l, p3.l, frac);
+            h = ((h % 360) + 360) % 360;
+            return `hsl(${h.toFixed(1)}, ${Math.max(0, Math.min(100, s)).toFixed(1)}%, ${Math.max(0, Math.min(100, l)).toFixed(1)}%)`;
+        }
+
+        let colorTime = 0;
+        const colorSpeed = 0.000295;
+
+        function getGlowColor(t) {
+            const segCount = colorStops.length - 1;
+            const scaledT = t * segCount;
+            const i = Math.floor(scaledT);
+            const frac = scaledT - i;
+            const i0 = (i - 1 + segCount) % segCount, i1 = i % segCount, i2 = (i + 1) % segCount, i3 = (i + 2) % segCount;
+            const p0 = colorStops[i0], p1 = colorStops[i1], p2 = colorStops[i2], p3 = colorStops[i3];
+            const h0 = unwrapHue(p0.h, p1.h), h1 = p1.h, h2 = unwrapHue(p2.h, p1.h), h3 = unwrapHue(p3.h, p1.h);
+            let h = catmullRom(h0, h1, h2, h3, frac);
+            const s = catmullRom(p0.s, p1.s, p2.s, p3.s, frac);
+            const l = catmullRom(p0.l, p1.l, p2.l, p3.l, frac);
+            h = ((h % 360) + 360) % 360;
+            return `hsla(${h.toFixed(1)}, ${Math.max(0, Math.min(100, s)).toFixed(1)}%, ${Math.max(0, Math.min(100, l)).toFixed(1)}%, 0.15)`;
+        }
+
+        let cursorActive = false;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            if (!cursorActive) { cursorActive = true; cursorX = mouseX; cursorY = mouseY; cursor.style.opacity = '1'; }
+        });
+        document.addEventListener('mouseover', (e) => { if (e.target.closest('a, button, [role="button"]')) { isHovering = true; cursor.classList.add('hovering'); } });
+        document.addEventListener('mouseout', (e) => { if (e.target.closest('a, button, [role="button"]')) { isHovering = false; cursor.classList.remove('hovering'); } });
+
+        function animateCursor() {
+            cursorX = mouseX; cursorY = mouseY;
+            const targetSize = isHovering ? 8 : 16; currentSize += (targetSize - currentSize) * 0.12;
+            cursor.style.transform = `translate(${cursorX - currentSize / 2}px, ${cursorY - currentSize / 2}px)`;
+            colorTime += colorSpeed; if (colorTime > 1) colorTime -= 1;
+            cursor.style.backgroundColor = getColor(colorTime);
+            cursor.style.boxShadow = `0 0 12px 2px ${getGlowColor(colorTime)}`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+        document.addEventListener('mouseenter', () => { if (cursorActive) cursor.style.opacity = '1'; });
+
+        // ---- Scroll-triggered fade-in ----
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.05,
+            rootMargin: '0px 0px -60px 0px'
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // ---- Ladino → Ganchos transliterator ----
+        // Based on the project's guide "Writing Ladino with Ganchos Sans" (Aki Yerushalayim orthography).
+        // Uses the precomposed presentation-form glyphs the v8 font actually carries.
+        const VET = 'בֿ';      // bet + rafe
+        const FE = 'פֿ';       // pe + rafe
+        const KHAF = 'כֿ';     // kaf + rafe
+        const CH_GIMEL = 'גּ'; // gimel variant for ch
+        const AL_LIG = 'לּ';   // alef-lamed ligature
+        const FINAL_FE = 'ףּ'; // final pe variant with a drawn glyph in v8
+
+        const DIGRAPHS = {
+            'sh': 'ש',
+            'ch': CH_GIMEL,
+            'dj': 'ג',
+            'ts': 'צ',
+            'kh': KHAF,
+            'zh': 'ז',
+        };
+        const SINGLES = {
+            'a': 'א', 'b': 'ב', 'v': VET, 'g': 'ג', 'j': 'ג',
+            'd': 'ד', 'f': FE, 'h': 'ח', 'k': 'כ', 'l': 'ל',
+            'm': 'מ', 'n': 'נ', 'p': 'פ', 'r': 'ר', 's': 'ס',
+            't': 'ט', 'y': 'י', 'z': 'ז',
+            'e': 'י', 'i': 'י', 'o': 'ו', 'u': 'ו',
+            'q': 'כ', 'c': 'כ', 'w': 'ו', 'x': 'ס',
+        };
+        const FINALS = {
+            'כ': 'ך',
+            'מ': 'ם',
+            'נ': 'ן',
+            [FE]: FINAL_FE,
+            'צ': 'ץ',
+        };
+        const VOWELS = 'eiou';
+
+        function translitWord(word) {
+            const out = [];
+            let i = 0;
+            while (i < word.length) {
+                const two = word.slice(i, i + 2);
+                if (two === 'al') {
+                    out.push(AL_LIG);
+                    i += 2;
+                    continue;
+                }
+                if (DIGRAPHS[two]) {
+                    out.push(DIGRAPHS[two]);
+                    i += 2;
+                    continue;
+                }
+                const ch = word[i];
+                if (i === 0 && VOWELS.includes(ch)) {
+                    out.push('א');  // silent alef before an initial non-a vowel
+                }
+                if (SINGLES[ch]) out.push(SINGLES[ch]);
+                i += 1;
+            }
+            const last = out[out.length - 1];
+            if (last && FINALS[last]) out[out.length - 1] = FINALS[last];
+            return out.join('');
+        }
+
+        function transliterate(text) {
+            return text.toLowerCase().split(/(\s+)/).map(part =>
+                /^\s+$/.test(part) ? part : part.split(/([^a-z]+)/).map(seg =>
+                    /^[a-z]+$/.test(seg) ? translitWord(seg) : seg
+                ).join('')
+            ).join('');
+        }
+
+        const translitInput = document.getElementById('translit-input');
+        const translitOutput = document.getElementById('translit-output');
+
+        function renderTranslit() {
+            translitOutput.textContent = transliterate(translitInput.value || '');
+            renderCascade();
+        }
+
+        const presetWrap = document.getElementById('translit-presets');
+
+        function syncPresetState() {
+            const val = translitInput.value.trim().toLowerCase();
+            presetWrap.querySelectorAll('button[data-word]').forEach(b =>
+                b.classList.toggle('active', b.dataset.word === val));
+        }
+
+        translitInput.addEventListener('input', () => { renderTranslit(); syncPresetState(); });
+
+        presetWrap.addEventListener('click', (e) => {
+            const btn = e.target.closest('button[data-word]');
+            if (!btn) return;
+            translitInput.value = btn.dataset.word;
+            renderTranslit();
+            syncPresetState();
+        });
+
+        // ---- Type Tester (fed by the transliterator) ----
+        const typeSizes = [96, 72, 60, 48, 36, 24, 18, 14];
+        const trackingSlider = document.getElementById('tracking-slider');
+        const trackingValue = document.getElementById('tracking-value');
+        const typeCascade = document.getElementById('type-cascade');
+
+        function renderCascade() {
+            const text = transliterate(translitInput.value || 'lingua maternal');
+            const tracking = trackingSlider.value / 1000;
+            const leading = 2;
+            trackingValue.textContent = trackingSlider.value;
+
+            typeCascade.innerHTML = '';
+            typeSizes.forEach(size => {
+                const row = document.createElement('div');
+                row.className = 'cascade-row';
+
+                const sizeLabel = document.createElement('span');
+                sizeLabel.className = 'type-cascade-size';
+                sizeLabel.textContent = size + 'px';
+
+                const textEl = document.createElement('span');
+                textEl.className = 'cascade-text';
+                textEl.style.fontSize = size + 'px';
+                textEl.style.letterSpacing = tracking + 'em';
+                textEl.style.lineHeight = leading;
+                textEl.textContent = text;
+
+                row.appendChild(sizeLabel);
+                row.appendChild(textEl);
+                typeCascade.appendChild(row);
+            });
+        }
+
+        trackingSlider.addEventListener('input', renderCascade);
+        renderTranslit();
+        syncPresetState();
+
+        // ---- Poster flipbook ----
+        (function () {
+            const stage = document.getElementById('poster-flip');
+            const TOTAL = 15;
+            const src = i => `../../assets/img/ganchos_sans_/posters_/poster_${String(i).padStart(2, '0')}.jpg`;
+            const imgs = [stage.querySelector('img')];
+            for (let i = 2; i <= TOTAL; i++) {
+                const img = document.createElement('img');
+                img.src = src(i);
+                img.alt = 'Ganchos Sans poster — colorway ' + i;
+                img.loading = 'lazy';
+                stage.appendChild(img);
+                imgs.push(img);
+            }
+            let idx = 0;
+            setInterval(() => {
+                imgs[idx].classList.remove('active');
+                idx = (idx + 1) % TOTAL;
+                imgs[idx].classList.add('active');
+            }, 1100);
+        })();
+
+        // ---- Quote Overlay ----
+        const quoteOverlay = document.getElementById('quote-overlay');
+        const quoteBtn = document.getElementById('quote-btn');
+        const quoteClose = document.getElementById('quote-close');
+        const quoteBackdrop = document.getElementById('quote-backdrop');
+        const quoteForm = document.getElementById('quote-form');
+        const quoteSuccess = document.getElementById('quote-success');
+
+        function openQuote(e) {
+            e.preventDefault();
+            quoteOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeQuote() {
+            quoteOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        quoteBtn.addEventListener('click', openQuote);
+        quoteClose.addEventListener('click', closeQuote);
+        quoteBackdrop.addEventListener('click', closeQuote);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeQuote(); });
+
+        quoteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const data = new FormData(quoteForm);
+            fetch('https://formsubmit.co/ajax/info@beniyorohan.design', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(data))
+            }).then(r => r.json()).then(() => {
+                quoteForm.style.display = 'none';
+                quoteSuccess.style.display = 'block';
+                setTimeout(closeQuote, 2500);
+                setTimeout(() => { quoteForm.style.display = ''; quoteSuccess.style.display = 'none'; quoteForm.reset(); }, 3000);
+            }).catch(() => {
+                quoteForm.style.display = 'none';
+                quoteSuccess.style.display = 'block';
+                setTimeout(closeQuote, 2500);
+                setTimeout(() => { quoteForm.style.display = ''; quoteSuccess.style.display = 'none'; quoteForm.reset(); }, 3000);
+            });
+        });
+    </script>
+
+</body>
+</html>
