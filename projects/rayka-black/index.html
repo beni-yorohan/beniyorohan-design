@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K339D507XJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-K339D507XJ');
+    </script>
+    <title>Rayka Black — BY Design</title>
+    <meta name="description" content="Rayka Black — an ultra-heavy display typeface that began as one capital R cut by hand from black paper. Type design by Beni Yorohan / BY Design.">
+    <link rel="canonical" href="https://beniyorohan.design/projects/rayka-black">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://beniyorohan.design/projects/rayka-black">
+    <meta property="og:title" content="Rayka Black — BY Design">
+    <meta property="og:description" content="One letter first, then the rest — a hand-cut display typeface with Turkish support.">
+    <meta property="og:site_name" content="BY Design">
+    <meta property="og:image" content="https://beniyorohan.design/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="BY Design — Creative Consultancy">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rayka Black — BY Design">
+    <meta name="twitter:description" content="One letter first, then the rest — a hand-cut display typeface with Turkish support.">
+    <meta name="twitter:image" content="https://beniyorohan.design/assets/og-image.png">
+
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="../../assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <style>
+        @font-face {
+            font-family: 'OT Brut Mono';
+            src: url('../../assets/fonts/OTBrut-RegularMono.woff2') format('woff2'),
+                 url('../../assets/fonts/OTBrut-RegularMono.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'OT Brut';
+            src: url('../../assets/fonts/OTBrut-Regular.woff2') format('woff2'),
+                 url('../../assets/fonts/OTBrut-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Acumin Variable';
+            src: url('../../assets/fonts/AcuminVariableConcept.otf') format('opentype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+            font-variation-settings: 'ital' 0, 'slnt' 0;
+        }
+
+        @font-face {
+            font-family: 'Rayka Black';
+            src: url('../../assets/fonts/RaykaBlack.ttf') format('truetype');
+            font-weight: 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #000000;
+            --text-primary: #e8e8e8;
+            --text-secondary: #8a8a8a;
+            --font-body: 'Acumin Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --side-padding: 16px;
+            --content-gap: 18px;
+            --section-gap: 120px;
+            --link: #57A8FF;
+            --cobalt: #1B2FE6;
+            --electric: #3F86FF;
+            --cocoa: #4A2412;
+            --chestnut: #8A4629;
+            --camel: #C4925A;
+            --cream: #F4E8D2;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, html * {
+            cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important;
+        }
+
+        body {
+            hanging-punctuation: first last allow-end;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 9pt;
+            line-height: 1.4;
+            cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a, button, input, textarea, select, [role="button"] {
+            cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important;
+        }
+
+        /* ---- Custom Cursor ---- */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+            will-change: transform, background-color, box-shadow;
+            transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        height 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        opacity 0.2s ease;
+        }
+
+        #custom-cursor.hovering {
+            width: 8px;
+            height: 8px;
+        }
+
+        /* ---- Header ---- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+        }
+
+        .logo {
+            font-family: 'OT Brut', sans-serif;
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        nav a {
+            font-family: 'OT Brut', sans-serif;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 0;
+            transition: opacity 0.25s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Quote Overlay ---- */
+        .quote-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .quote-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .quote-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .quote-form-container {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            padding: 48px 40px;
+            margin: 0 16px;
+            transform: translateY(20px);
+            transition: transform 0.35s ease;
+        }
+
+        .quote-overlay.active .quote-form-container {
+            transform: translateY(0);
+        }
+
+        .quote-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            padding: 8px;
+            transition: color 0.2s ease;
+            font-family: var(--font-body);
+        }
+
+        .quote-close:hover {
+            color: var(--text-primary);
+        }
+
+        .quote-form-container h2 {
+            font-family: var(--font-body);
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .quote-form-container p.quote-sub {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .quote-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .quote-form input,
+        .quote-form textarea,
+        .quote-form select {
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 14px;
+            padding: 12px 14px;
+            border-radius: 0;
+            outline: none;
+            transition: border-color 0.2s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+        }
+
+        .quote-form input::placeholder,
+        .quote-form textarea::placeholder {
+            color: #555;
+        }
+
+        .quote-form input:focus,
+        .quote-form textarea:focus,
+        .quote-form select:focus {
+            border-color: #888;
+        }
+
+        .quote-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .quote-form select option {
+            background: #111;
+            color: var(--text-primary);
+        }
+
+        .quote-submit {
+            background: var(--text-primary);
+            color: #000;
+            border: none;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 14px 24px;
+            letter-spacing: 0.02em;
+            transition: opacity 0.2s ease;
+            margin-top: 8px;
+            border-radius: 0;
+        }
+
+        .quote-submit:hover {
+            opacity: 0.8;
+        }
+
+        .quote-success {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .quote-success h3 {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .quote-success p {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 680px) {
+            .quote-form-container {
+                padding: 32px 24px;
+            }
+        }
+
+        /* ---- Hero: three motion pieces ---- */
+        .project-hero {
+            width: 100%;
+            padding: 0 var(--side-padding);
+            margin-top: 10px;
+        }
+
+        .hero-strip {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--content-gap);
+        }
+
+        .hero-strip video {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* ---- Project Title ---- */
+        .project-name {
+            padding: 16px var(--side-padding) 0;
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .project-description {
+            padding: 12px var(--side-padding) 0;
+            max-width: 600px;
+        }
+
+        .project-description p {
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            line-height: 1.6;
+            text-wrap: pretty;
+        }
+
+        .project-meta-line {
+            padding: 16px var(--side-padding) 0;
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        /* ---- Case study layout ---- */
+        .case-study {
+            padding: 0 var(--side-padding);
+        }
+
+        .section-header {
+            width: 100%;
+            padding: 100px 0 10px;
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .story-block {
+            max-width: 640px;
+            padding: 18px 0 0;
+        }
+
+        .story-block p {
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 400;
+            color: #d6d6d6;
+            line-height: 1.65;
+            margin-bottom: 18px;
+            text-wrap: pretty;
+        }
+
+        .story-block p strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .story-block p em {
+            color: #ffffff;
+        }
+
+        /* the source R, huge */
+        .source-r {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 40px 0 10px;
+        }
+
+        .source-r img {
+            width: min(62vw, 720px);
+            display: block;
+        }
+
+        /* image grids */
+        .g-full {
+            width: 100%;
+            margin-top: var(--content-gap);
+        }
+
+        .g-full img, .g-full video {
+            width: 100%;
+            display: block;
+        }
+
+        .g-two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--content-gap);
+            margin-top: var(--content-gap);
+            align-items: start;
+        }
+
+        .g-three {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--content-gap);
+            margin-top: var(--content-gap);
+            align-items: start;
+        }
+
+        .g-two img, .g-three img, .g-two video, .g-three video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .caption {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.03em;
+            padding: 8px 0 0;
+            line-height: 1.5;
+            text-wrap: pretty;
+        }
+
+
+        /* Glyph hover row */
+        .glyph-row {
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: baseline;
+            gap: 0.06em;
+            padding: 60px 0 30px;
+            font-size: clamp(90px, 17vw, 320px);
+        }
+
+        .glyph-row span {
+            font-family: 'Rayka Black', sans-serif;
+            font-size: 1em;
+            color: var(--text-primary);
+            line-height: 1.05;
+            user-select: none;
+        }
+
+        /* Full alphabet rows */
+        .alphabet-row {
+            width: 100%;
+            padding: 10px 0;
+            font-family: 'Rayka Black', sans-serif;
+            font-size: 84px;
+            color: var(--text-primary);
+            line-height: 1.25;
+            letter-spacing: 0.06em;
+            word-break: keep-all;
+            text-align: center;
+        }
+
+
+        /* Type tester */
+        .type-tester {
+            width: 100%;
+            padding: 90px 0 0;
+        }
+
+        .tester-label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .type-tester input[type="text"] {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: clamp(18px, 3vw, 28px);
+            font-weight: 400;
+            padding: 8px 0 10px;
+            width: 100%;
+            max-width: 640px;
+            outline: none;
+            letter-spacing: 0.01em;
+        }
+
+
+        .type-tester-controls {
+            display: flex;
+            gap: 24px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin: 36px 0 32px;
+        }
+
+        .type-tester-controls label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .type-tester-controls input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 120px;
+            height: 2px;
+            background: #333;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .type-tester-controls input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=') 0 0, none !important;
+        }
+
+        .control-value {
+            font-family: var(--font-body);
+            font-size: 11px;
+            color: var(--text-secondary);
+            min-width: 36px;
+            text-align: right;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cascade-row {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            padding: 6px 0;
+        }
+
+        .type-cascade-size {
+            font-family: var(--font-body);
+            font-size: 10px;
+            color: var(--text-secondary);
+            display: inline-block;
+            width: 40px;
+            flex-shrink: 0;
+            padding-top: 4px;
+            vertical-align: top;
+        }
+
+        .cascade-text {
+            font-family: 'Rayka Black', sans-serif;
+            color: var(--text-primary);
+            word-break: break-word;
+            overflow: hidden;
+            flex: 1;
+            text-transform: uppercase;
+        }
+
+        /* Download button */
+        .download-btn {
+            display: inline-block;
+            margin-top: 60px;
+            padding: 14px 40px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: #000;
+            background: var(--text-primary);
+            text-decoration: none;
+            border: none;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background: var(--link);
+            color: #000;
+        }
+
+        .download-section {
+            text-align: center;
+        }
+
+        /* action links — blue OT Brut */
+        .action-link {
+            display: inline-block;
+            margin-top: 16px;
+            font-family: 'OT Brut', sans-serif;
+            font-size: clamp(18px, 1.8vw, 24px);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            color: var(--link);
+            text-decoration: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .action-link:hover {
+            opacity: 0.6;
+        }
+
+        /* palette — letters in colour, open row */
+        .palette-row {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: var(--content-gap);
+            margin-top: 40px;
+        }
+
+        .swatch .swatch-glyph {
+            font-family: 'Rayka Black', sans-serif;
+            font-size: clamp(60px, 8vw, 150px);
+            line-height: 1.05;
+        }
+
+        .swatch .swatch-name {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            padding-top: 12px;
+            letter-spacing: 0.02em;
+        }
+
+        .swatch .swatch-hex {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+            padding-top: 3px;
+        }
+
+        /* pull quote */
+        .pull-quote {
+            max-width: 860px;
+            padding: 48px 0 8px;
+        }
+
+        .pull-quote p {
+            font-family: var(--font-body);
+            font-size: clamp(20px, 3vw, 32px);
+            font-weight: 500;
+            line-height: 1.3;
+            letter-spacing: -0.015em;
+            color: #ffffff;
+            text-indent: -0.45em;
+            hanging-punctuation: first;
+            text-wrap: pretty;
+        }
+
+        /* ---- Scroll Reveal ---- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .page-fade {
+            opacity: 0;
+            transform: translateY(12px);
+            animation: pageEntry 0.6s ease forwards;
+        }
+
+        .page-fade:nth-child(2) { animation-delay: 0.05s; }
+        .page-fade:nth-child(3) { animation-delay: 0.1s; }
+
+        @keyframes pageEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ---- Project nav (back + next) ---- */
+        .project-nav {
+            margin-top: 100px;
+            padding: 0 var(--side-padding);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            font-family: 'OT Brut Mono', monospace;
+            font-size: 14px;
+            font-weight: 400;
+            color: #ffffff;
+            text-decoration: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .back-link:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Footer ---- */
+        footer {
+            margin-top: 200px;
+            padding: 0 var(--side-padding) 60px;
+        }
+
+        .footer-line {
+            width: 100%;
+            height: 1px;
+            background-color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-left {
+            font-size: 13px;
+            color: #ffffff;
+            max-width: 60%;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .footer-right a {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .footer-right a:hover {
+            opacity: 0.6;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 900px) {
+            .palette-row {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 680px) {
+            :root {
+                --side-padding: 12px;
+                --content-gap: 10px;
+                --section-gap: 60px;
+                --font-body: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 24px 16px;
+            }
+
+            nav {
+                gap: 28px;
+                flex-wrap: wrap;
+            }
+
+            nav a { font-size: 18px; }
+
+            .project-name { font-size: 18px; }
+
+            .hero-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .source-r img {
+                width: 88vw;
+            }
+
+            .glyph-row {
+                font-size: 56px;
+            }
+
+            .alphabet-row {
+                font-size: 34px;
+            }
+
+            .g-three, .g-two {
+                grid-template-columns: 1fr;
+            }
+
+            .palette-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .download-btn {
+                font-size: 13px;
+                padding: 13px 32px;
+            }
+
+            .type-tester-controls {
+                gap: 16px;
+            }
+
+            .type-tester-controls input[type="range"] {
+                width: 80px;
+            }
+
+            .type-cascade-size {
+                display: none;
+            }
+
+            footer {
+                margin-top: 120px;
+                padding-bottom: 32px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-left {
+                max-width: 100%;
+                font-size: 12px;
+            }
+
+            .footer-right { align-items: flex-start; }
+
+            #custom-cursor { display: none !important; }
+            html, html * { cursor: auto !important; }
+        }
+
+        @media (max-width: 380px) {
+            :root { --side-padding: 10px; }
+            .logo { font-size: 24px; }
+            nav { gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+
+    <header class="page-fade">
+        <a href="/" class="logo">BY Design</a>
+        <nav>
+            <a href="/about.html">about</a>
+            <a href="#" id="quote-btn">get a quote</a>
+            <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">@beniyorohan.design</a>
+        </nav>
+    </header>
+
+    <!-- Hero: the three motion pieces -->
+    <div class="project-hero page-fade">
+        <div class="hero-strip">
+            <video src="../../assets/video/rayka-letter-4x5.mp4" autoplay loop muted playsinline aria-label="Rayka Black — the hand-cut R appears, cobalt on cream"></video>
+            <video src="../../assets/video/rayka-hero-4x5.mp4" autoplay loop muted playsinline aria-label="Rayka Black — RAYKA letters drop in on cobalt"></video>
+            <video src="../../assets/video/rayka-story-4x5.mp4" autoplay loop muted playsinline aria-label="Rayka Black — Çay? Evet. Kahve? Tabii. on chestnut"></video>
+        </div>
+    </div>
+
+    <!-- Project Title -->
+    <div class="project-name page-fade">Rayka Black</div>
+    <div class="project-meta-line page-fade">Type Design — Display Typeface — 2026</div>
+    <div class="project-description page-fade">
+        <p>Rayka Black is an ultra-heavy display typeface that began as a single letter: a capital R cut by hand from black paper. Every other character descends from that one object — generated from the R as its reference, traced, aligned to its baseline, spaced optically and engineered into a 58-glyph TrueType font with Turkish support. Soft lumps, closed counters, a forward lean and a fuzzy cut edge. One letter first, then the rest.</p>
+    </div>
+
+    <div class="case-study">
+
+        <!-- One letter first -->
+        <h2 class="section-header fade-in">One letter first</h2>
+        <div class="story-block fade-in">
+            <p>Everything in Rayka comes from one object. I cut a capital R out of black paper with scissors, freehand — no sketch, no grid, just the shape the scissors wanted to make — then scanned it and traced it. The cut made four decisions for me: the bowl closed into a solid lump instead of a hole, the leg became a short stub ending in a round ball, the whole letter leaned forward, and the edge kept a fine fuzz from the blade. Those four accidents became the rules of the typeface.</p>
+        </div>
+        <div class="source-r fade-in">
+            <img src="../../assets/img/rayka_black_/source-r.svg" alt="The original hand-cut capital R, traced as vector">
+        </div>
+        <div class="caption fade-in">The source R — the original artwork, scanned and traced. Every other glyph inherits its lumps, lean and edge.</div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/rayka_black_/gen_/ref_R.jpg" alt="Scan of the hand-cut paper R, black on white" loading="lazy">
+                <div class="caption">The scan — black paper, fuzzy cut edge.</div>
+            </div>
+            <div>
+                <img src="../../assets/img/rayka_black_/graphics_/03-letter.jpg" alt="Rayka Black — 'One letter, then the rest' graphic, cobalt R on cream" loading="lazy">
+                <div class="caption">Cobalt on cream — the R as the identity's own logo.</div>
+            </div>
+        </div>
+
+        <!-- Then the rest -->
+        <h2 class="section-header fade-in">Then the rest</h2>
+        <div class="story-block fade-in">
+            <p>I didn't draw the other fifty-seven characters — I described them. The R went into an image model as the reference, alongside a written specification of its construction: solid rounded lumps, counters closed or tiny, the same stroke thickness, the same forward lean, the same fuzzy hand-cut edge, every letter the height of the R. The model returned the alphabet in rows — eight sheets, with the original R riding along in each one as the control sample. Some rows came back right the first time; others took several attempts before the lumps agreed with the R.</p>
+            <p>Then the engineering, which is where the typeface actually became a typeface. Each sheet is thresholded and split into connected shapes, and the pieces are grouped into characters — the dots of the question mark and the strokes of the double quote find each other by overlap. Every character is traced into cubic béziers, then each row is normalised by its own full-height letters so that everything sits on the R's baseline at the R's cap height. A 7° forward slant is applied about the baseline. Sidebearings are optical: each glyph's leaning edges are measured row by row and centred in a fixed gap. Kerning is computed the same way — the real gap between every pair of neighbours, sampled top to bottom — which produces 2,755 pairs. fontTools assembles it into TrueType, with GPOS and legacy kern tables, and one deliberate decision: the font is <strong>unicase</strong>. Lowercase keys set the capitals, ı and i both set I, and İ keeps its dot.</p>
+        </div>
+        <div class="g-two fade-in">
+            <div><img src="../../assets/img/rayka_black_/gen_/sheet1.jpg" alt="Generated letter sheet — R A B C D E F G" loading="lazy"></div>
+            <div><img src="../../assets/img/rayka_black_/gen_/sheet2.jpg" alt="Generated letter sheet — R H I J K L M N" loading="lazy"></div>
+        </div>
+        <div class="g-two fade-in">
+            <div><img src="../../assets/img/rayka_black_/gen_/sheet3.jpg" alt="Generated letter sheet — R O P Q S T U V" loading="lazy"></div>
+            <div><img src="../../assets/img/rayka_black_/gen_/sheet4.jpg" alt="Generated letter sheet — R W X Y Z ampersand question exclamation" loading="lazy"></div>
+        </div>
+        <div class="g-two fade-in">
+            <div><img src="../../assets/img/rayka_black_/gen_/sheet5.jpg" alt="Generated figure sheet — R 0 1 2 3 4 5 6" loading="lazy"></div>
+            <div><img src="../../assets/img/rayka_black_/gen_/sheet6.jpg" alt="Generated sheet — R 7 8 9 period comma colon semicolon" loading="lazy"></div>
+        </div>
+        <div class="g-two fade-in">
+            <div><img src="../../assets/img/rayka_black_/gen_/sheet7.jpg" alt="Generated punctuation sheet — parentheses hyphen quotes slash at" loading="lazy"></div>
+            <div><img src="../../assets/img/rayka_black_/gen_/sheet8.jpg" alt="Generated Turkish sheet — R Ç Ğ İ Ö Ş Ü" loading="lazy"></div>
+        </div>
+        <div class="caption fade-in">The eight sheets — the R rides along in every row as the control, so each batch can be normalised to it.</div>
+
+
+        <!-- The typeface -->
+        <h2 class="section-header fade-in">The typeface</h2>
+
+        <div class="glyph-row fade-in">
+            <span>R</span><span>A</span><span>Y</span><span>K</span><span>A</span>
+        </div>
+        <div class="alphabet-row fade-in">A B C D E F G H I J K L M</div>
+        <div class="alphabet-row fade-in">N O P Q R S T U V W X Y Z</div>
+        <div class="alphabet-row fade-in">Ç Ğ İ Ö Ş Ü</div>
+        <div class="alphabet-row fade-in" style="font-size:72px;">0 1 2 3 4 5 6 7 8 9</div>
+        <div class="alphabet-row fade-in" style="font-size:72px;">. , : ; ! ? ' " - ( ) &amp; / @</div>
+
+        <div class="type-tester fade-in">
+            <div class="tester-label">Type tester — display sizes, 24 pt and up</div>
+            <input type="text" id="type-input" value="Çay? Evet. Kahve? Tabii." spellcheck="false" autocomplete="off" aria-label="Sample text">
+            <div class="type-tester-controls">
+                <label>
+                    Tracking
+                    <div class="control-row">
+                        <input type="range" id="tracking-slider" min="-40" max="200" value="0">
+                        <span class="control-value" id="tracking-value">0</span>
+                    </div>
+                </label>
+            </div>
+            <div class="type-cascade" id="type-cascade"></div>
+        </div>
+
+        <div class="download-section fade-in">
+            <a href="../../assets/fonts/RaykaBlack.ttf" download="RaykaBlack.ttf" class="download-btn">DOWNLOAD RAYKA BLACK</a>
+        </div>
+
+        <!-- Colour -->
+        <h2 class="section-header fade-in">Colour</h2>
+        <div class="story-block fade-in">
+            <p>A letter this heavy carries colour like a wall does. The identity runs on two blues and four browns — cobalt against cream for the loud moments, chestnut and camel when it needs to warm up, cocoa for depth, electric as the accent — and the letters take every combination without losing their shape.</p>
+        </div>
+        <div class="palette-row fade-in">
+            <div class="swatch"><div class="swatch-glyph" style="color:var(--cobalt)">R</div><div class="swatch-name">Cobalt</div><div class="swatch-hex">#1B2FE6</div></div>
+            <div class="swatch"><div class="swatch-glyph" style="color:var(--electric)">A</div><div class="swatch-name">Electric</div><div class="swatch-hex">#3F86FF</div></div>
+            <div class="swatch"><div class="swatch-glyph" style="color:var(--cocoa)">Y</div><div class="swatch-name">Cocoa</div><div class="swatch-hex">#4A2412</div></div>
+            <div class="swatch"><div class="swatch-glyph" style="color:var(--chestnut)">K</div><div class="swatch-name">Chestnut</div><div class="swatch-hex">#8A4629</div></div>
+            <div class="swatch"><div class="swatch-glyph" style="color:var(--camel)">A</div><div class="swatch-name">Camel</div><div class="swatch-hex">#C4925A</div></div>
+            <div class="swatch"><div class="swatch-glyph" style="color:var(--cream)">!</div><div class="swatch-name">Cream</div><div class="swatch-hex">#F4E8D2</div></div>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/rayka_black_/graphics_/05-palette.jpg" alt="Rayka Black colour scheme — cobalt, electric, cocoa, chestnut, camel, cream" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/rayka_black_/graphics_/02-grid.jpg" alt="Rayka Black character set on cocoa — 58 glyphs, unicase" loading="lazy">
+            </div>
+        </div>
+        <div class="caption fade-in">The colour scheme, and the full character set on cocoa.</div>
+
+        <!-- Identity & specimen -->
+        <h2 class="section-header fade-in">In use</h2>
+        <div class="story-block fade-in">
+            <p>Rayka is a display face — the counters are notches rather than holes, so it wants size. Titles, posters, packaging, signage, anything from about 24 pt up. The identity pieces and the printed specimen put it to work: a name on cobalt, a conversation about tea and coffee on chestnut, a ceramic-lamp brand that doesn't exist yet.</p>
+        </div>
+        <div class="g-two fade-in">
+            <div>
+                <img src="../../assets/img/rayka_black_/graphics_/01-hero.jpg" alt="RAYKA set in camel and cream on cobalt" loading="lazy">
+            </div>
+            <div>
+                <img src="../../assets/img/rayka_black_/graphics_/04-story.jpg" alt="Çay? Evet. Kahve? Tabii. — Rayka Black on chestnut" loading="lazy">
+            </div>
+        </div>
+        <div class="g-three fade-in">
+            <div><img src="../../assets/img/rayka_black_/specimen_/page_01.jpg" alt="Rayka Black specimen — cover" loading="lazy"></div>
+            <div><img src="../../assets/img/rayka_black_/specimen_/page_02.jpg" alt="Rayka Black specimen — capitals" loading="lazy"></div>
+            <div><img src="../../assets/img/rayka_black_/specimen_/page_03.jpg" alt="Rayka Black specimen — figures and punctuation" loading="lazy"></div>
+        </div>
+        <div class="g-three fade-in">
+            <div><img src="../../assets/img/rayka_black_/specimen_/page_04.jpg" alt="Rayka Black specimen — sizes" loading="lazy"></div>
+            <div><img src="../../assets/img/rayka_black_/specimen_/page_05.jpg" alt="Rayka Black specimen — in use" loading="lazy"></div>
+            <div>
+                <img src="../../assets/img/rayka_black_/specimen_/page_06.jpg" alt="Rayka Black specimen — colophon and specifications" loading="lazy">
+                <a class="action-link" href="../../assets/rayka_black_specimen.pdf" target="_blank" rel="noopener">&#8599;&nbsp; type specimen — pdf</a>
+            </div>
+        </div>
+        <div class="caption fade-in">The printed specimen — six pages: cover, character set, figures, sizes, in use, colophon.</div>
+
+        <!-- Closing -->
+        <h2 class="section-header fade-in">Why one letter</h2>
+        <div class="story-block fade-in">
+            <p>Most typefaces start with a system and derive the letters from it. Rayka runs the other way: the system was reverse-engineered from a single object that already existed, cut in a few seconds, with all its accidents intact. The interesting part was refusing to clean those accidents up — letting a machine copy the lumps and the fuzz faithfully, and then spending the real effort on what only careful engineering can do: baselines, slant, spacing, kerning. The hand made the character; the code made it a font.</p>
+        </div>
+        <div class="pull-quote fade-in">
+            <p>“The hand made the character. The code made it a font.”</p>
+        </div>
+
+    </div>
+
+    <div class="project-nav">
+        <a href="/" class="back-link">&lt; back to home</a>
+        <a href="/projects/solidworks-socials" class="back-link">next project: SOLIDWORKS EDU &gt;</a>
+    </div>
+
+    <footer>
+        <div class="footer-line"></div>
+        <div class="footer-content">
+            <div class="footer-left">
+                &copy; 2024 BY Design. All rights reserved.
+            </div>
+            <div class="footer-right">
+                <a href="mailto:info@beniyorohan.design">info@beniyorohan.design</a>
+                <a href="../../assets/beni_yorohan_resume_2026.pdf?v=3" target="_blank" rel="noopener">cv/resume</a>
+                <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">linkedin</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quote Overlay -->
+    <div class="quote-overlay" id="quote-overlay">
+        <div class="quote-backdrop" id="quote-backdrop"></div>
+        <div class="quote-form-container">
+            <button class="quote-close" id="quote-close">&times;</button>
+            <h2>Get a quote</h2>
+            <p class="quote-sub">Tell me about your project and I'll get back to you within 24 hours.</p>
+            <form class="quote-form" id="quote-form" action="https://formsubmit.co/info@beniyorohan.design" method="POST">
+                <input type="hidden" name="_subject" value="New Quote Request — BY Design">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_autoresponse" value="Hey, thanks for reaching out! We'll be looking at your request and respond to it within 48 hours. If you don't hear from us, don't hesitate to send us an email via info@beniyorohan.design">
+                <input type="text" name="name" placeholder="Your name" required>
+                <input type="email" name="email" placeholder="Email address" required>
+                <select name="service" required>
+                    <option value="" disabled selected>Type of project</option>
+                    <option value="branding">Brand Identity</option>
+                    <option value="type-design">Type Design</option>
+                    <option value="editorial">Editorial / Publication</option>
+                    <option value="packaging">Packaging Design</option>
+                    <option value="web">Web Design</option>
+                    <option value="art-direction">Art Direction</option>
+                    <option value="other">Other</option>
+                </select>
+                <textarea name="message" placeholder="Tell me about your project — scope, timeline, budget range..." rows="4"></textarea>
+                <button type="submit" class="quote-submit">Get quote now</button>
+            </form>
+            <div class="quote-success" id="quote-success">
+                <h3>Request sent</h3>
+                <p>Thanks! I'll be in touch soon.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---- Custom Cursor with smooth warm color cycling ----
+        const cursor = document.getElementById('custom-cursor');
+        let mouseX = -100, mouseY = -100;
+        let cursorX = -100, cursorY = -100;
+        let isHovering = false;
+        let currentSize = 16;
+
+        const colorStops = [
+            { h: 48,  s: 65, l: 72 },
+            { h: 30,  s: 60, l: 70 },
+            { h: 12,  s: 58, l: 72 },
+            { h: 355, s: 55, l: 74 },
+            { h: 340, s: 50, l: 72 },
+            { h: 320, s: 48, l: 70 },
+            { h: 290, s: 40, l: 72 },
+            { h: 200, s: 50, l: 72 },
+            { h: 180, s: 42, l: 68 },
+            { h: 155, s: 40, l: 68 },
+            { h: 130, s: 38, l: 70 },
+            { h: 22,  s: 40, l: 62 },
+            { h: 14,  s: 45, l: 68 },
+            { h: 48,  s: 65, l: 72 },
+        ];
+
+        function catmullRom(p0, p1, p2, p3, t) {
+            const t2 = t * t, t3 = t2 * t;
+            return 0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3);
+        }
+
+        function unwrapHue(val, ref) {
+            let diff = val - ref;
+            if (diff > 180) return val - 360;
+            if (diff < -180) return val + 360;
+            return val;
+        }
+
+        function getColor(t) {
+            const segCount = colorStops.length - 1;
+            const scaledT = t * segCount;
+            const i = Math.floor(scaledT);
+            const frac = scaledT - i;
+            const i0 = (i - 1 + segCount) % segCount, i1 = i % segCount, i2 = (i + 1) % segCount, i3 = (i + 2) % segCount;
+            const p0 = colorStops[i0], p1 = colorStops[i1], p2 = colorStops[i2], p3 = colorStops[i3];
+            const h0 = unwrapHue(p0.h, p1.h), h1 = p1.h, h2 = unwrapHue(p2.h, p1.h), h3 = unwrapHue(p3.h, p1.h);
+            let h = catmullRom(h0, h1, h2, h3, frac);
+            const s = catmullRom(p0.s, p1.s, p2.s, p3.s, frac);
+            const l = catmullRom(p0.l, p1.l, p2.l, p3.l, frac);
+            h = ((h % 360) + 360) % 360;
+            return `hsl(${h.toFixed(1)}, ${Math.max(0, Math.min(100, s)).toFixed(1)}%, ${Math.max(0, Math.min(100, l)).toFixed(1)}%)`;
+        }
+
+        let colorTime = 0;
+        const colorSpeed = 0.000295;
+
+        function getGlowColor(t) {
+            const segCount = colorStops.length - 1;
+            const scaledT = t * segCount;
+            const i = Math.floor(scaledT);
+            const frac = scaledT - i;
+            const i0 = (i - 1 + segCount) % segCount, i1 = i % segCount, i2 = (i + 1) % segCount, i3 = (i + 2) % segCount;
+            const p0 = colorStops[i0], p1 = colorStops[i1], p2 = colorStops[i2], p3 = colorStops[i3];
+            const h0 = unwrapHue(p0.h, p1.h), h1 = p1.h, h2 = unwrapHue(p2.h, p1.h), h3 = unwrapHue(p3.h, p1.h);
+            let h = catmullRom(h0, h1, h2, h3, frac);
+            const s = catmullRom(p0.s, p1.s, p2.s, p3.s, frac);
+            const l = catmullRom(p0.l, p1.l, p2.l, p3.l, frac);
+            h = ((h % 360) + 360) % 360;
+            return `hsla(${h.toFixed(1)}, ${Math.max(0, Math.min(100, s)).toFixed(1)}%, ${Math.max(0, Math.min(100, l)).toFixed(1)}%, 0.15)`;
+        }
+
+        let cursorActive = false;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            if (!cursorActive) { cursorActive = true; cursorX = mouseX; cursorY = mouseY; cursor.style.opacity = '1'; }
+        });
+        document.addEventListener('mouseover', (e) => { if (e.target.closest('a, button, [role="button"]')) { isHovering = true; cursor.classList.add('hovering'); } });
+        document.addEventListener('mouseout', (e) => { if (e.target.closest('a, button, [role="button"]')) { isHovering = false; cursor.classList.remove('hovering'); } });
+
+        function animateCursor() {
+            cursorX = mouseX; cursorY = mouseY;
+            const targetSize = isHovering ? 8 : 16; currentSize += (targetSize - currentSize) * 0.12;
+            cursor.style.transform = `translate(${cursorX - currentSize / 2}px, ${cursorY - currentSize / 2}px)`;
+            colorTime += colorSpeed; if (colorTime > 1) colorTime -= 1;
+            cursor.style.backgroundColor = getColor(colorTime);
+            cursor.style.boxShadow = `0 0 12px 2px ${getGlowColor(colorTime)}`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+        document.addEventListener('mouseenter', () => { if (cursorActive) cursor.style.opacity = '1'; });
+
+        // ---- Scroll-triggered fade-in ----
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.05,
+            rootMargin: '0px 0px -60px 0px'
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // ---- Type Tester ----
+        const typeSizes = [130, 96, 72, 56, 44, 34, 28, 24];
+        const typeInput = document.getElementById('type-input');
+        const trackingSlider = document.getElementById('tracking-slider');
+        const trackingValue = document.getElementById('tracking-value');
+        const typeCascade = document.getElementById('type-cascade');
+
+        function renderCascade() {
+            const text = typeInput.value || 'Çay? Evet. Kahve? Tabii.';
+            const tracking = trackingSlider.value / 1000;
+            trackingValue.textContent = trackingSlider.value;
+
+            typeCascade.innerHTML = '';
+            typeSizes.forEach(size => {
+                const row = document.createElement('div');
+                row.className = 'cascade-row';
+
+                const sizeLabel = document.createElement('span');
+                sizeLabel.className = 'type-cascade-size';
+                sizeLabel.textContent = size + 'px';
+
+                const textEl = document.createElement('span');
+                textEl.className = 'cascade-text';
+                textEl.style.fontSize = size + 'px';
+                textEl.style.letterSpacing = tracking + 'em';
+                textEl.style.lineHeight = 1.2;
+                textEl.textContent = text;
+
+                row.appendChild(sizeLabel);
+                row.appendChild(textEl);
+                typeCascade.appendChild(row);
+            });
+        }
+
+        typeInput.addEventListener('input', renderCascade);
+        trackingSlider.addEventListener('input', renderCascade);
+        renderCascade();
+
+        // ---- Quote Overlay ----
+        const quoteOverlay = document.getElementById('quote-overlay');
+        const quoteBtn = document.getElementById('quote-btn');
+        const quoteClose = document.getElementById('quote-close');
+        const quoteBackdrop = document.getElementById('quote-backdrop');
+        const quoteForm = document.getElementById('quote-form');
+        const quoteSuccess = document.getElementById('quote-success');
+
+        function openQuote(e) {
+            e.preventDefault();
+            quoteOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeQuote() {
+            quoteOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        quoteBtn.addEventListener('click', openQuote);
+        quoteClose.addEventListener('click', closeQuote);
+        quoteBackdrop.addEventListener('click', closeQuote);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeQuote(); });
+
+        quoteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const data = new FormData(quoteForm);
+            fetch('https://formsubmit.co/ajax/info@beniyorohan.design', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(data))
+            }).then(r => r.json()).then(() => {
+                quoteForm.style.display = 'none';
+                quoteSuccess.style.display = 'block';
+                setTimeout(closeQuote, 2500);
+                setTimeout(() => { quoteForm.style.display = ''; quoteSuccess.style.display = 'none'; quoteForm.reset(); }, 3000);
+            }).catch(() => {
+                quoteForm.style.display = 'none';
+                quoteSuccess.style.display = 'block';
+                setTimeout(closeQuote, 2500);
+                setTimeout(() => { quoteForm.style.display = ''; quoteSuccess.style.display = 'none'; quoteForm.reset(); }, 3000);
+            });
+        });
+    </script>
+
+</body>
+</html>
