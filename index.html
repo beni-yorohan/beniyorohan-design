@@ -682,13 +682,36 @@
                         filter 520ms cubic-bezier(0.22, 1, 0.36, 1);
         }
 
+        /* 45° arrow: OT Brut's own ↗ (Acumin has no arrows); lands a beat after the text */
+        #cursor-label .cursor-label-arrow {
+            display: inline-block;
+            margin-left: 4px;
+            font-family: 'OT Brut', sans-serif;
+            font-style: normal;
+            font-size: 12px;
+            line-height: 1;
+            transform: translate(-3px, 3px);
+            opacity: 0;
+            transition: transform 200ms cubic-bezier(0.4, 0, 1, 1),
+                        opacity 200ms cubic-bezier(0.4, 0, 1, 1);
+        }
+
+        #cursor-label.visible .cursor-label-arrow {
+            transform: translate(0, 0);
+            opacity: 1;
+            transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1) 90ms,
+                        opacity 400ms cubic-bezier(0.22, 1, 0.36, 1) 90ms;
+        }
+
         @media (hover: none), (pointer: coarse), (max-width: 680px) {
             #cursor-label { display: none !important; }
         }
 
         @media (prefers-reduced-motion: reduce) {
             #cursor-label span,
-            #cursor-label.visible span { transform: none; filter: none; transition: opacity 150ms linear; }
+            #cursor-label.visible span,
+            #cursor-label .cursor-label-arrow,
+            #cursor-label.visible .cursor-label-arrow { transform: none; filter: none; transition: opacity 150ms linear; }
         }
 
         /* Cursor: one colour, inverted against whatever sits beneath it */
@@ -701,7 +724,7 @@
 <body>
 
     <div id="custom-cursor"></div>
-    <div id="cursor-label" aria-hidden="true"><span>go to project</span></div>
+    <div id="cursor-label" aria-hidden="true"><span>go to project<i class="cursor-label-arrow">&#8599;</i></span></div>
 
     <header class="fade-in">
         <a href="/" class="logo">BY Design</a>
@@ -870,7 +893,9 @@
             <div class="project-card fade-in">
                 <a href="/projects/moms-club">
                     <div class="project-thumb">
-                        <img src="assets/img/moms-club.png" alt="Mom's Club" loading="lazy">
+                        <video poster="assets/img/posters/moms-club-card.jpg" autoplay loop muted playsinline preload="auto" disablepictureinpicture aria-label="Mom's Club — the wordmark constructs itself, the brand illustrations arrive, and the card cuts through the brand colourways">
+                            <source src="assets/video/moms-club-card.mp4" type="video/mp4">
+                        </video>
                     </div>
                     <div class="project-info">
                         <div class="project-title">Mom's Club</div>
