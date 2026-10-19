@@ -593,6 +593,9 @@
     
         /* Cursor: one colour, inverted against whatever sits beneath it */
         #custom-cursor { background-color: #ffffff; mix-blend-mode: difference; }
+    
+        /* No orphans: every block of text rebalances its last lines (inherited) */
+        body { text-wrap: pretty; }
     </style>
 </head>
 <body>
@@ -728,7 +731,7 @@
                     <option value="art-direction">Art Direction</option>
                     <option value="other">Other</option>
                 </select>
-                <textarea name="message" placeholder="Tell me about your project — scope, timeline, budget range..." rows="4"></textarea>
+                <textarea name="message" placeholder="Tell us about your project — scope, timeline, budget range..." rows="4"></textarea>
                 <button type="submit" class="quote-submit">Get quote now</button>
             </form>
             <div class="quote-success" id="quote-success">
@@ -883,6 +886,20 @@
                 setTimeout(() => { quoteForm.style.display = ''; quoteSuccess.style.display = 'none'; quoteForm.reset(); }, 3000);
             });
         });
+    </script>
+
+    <script>
+        // No-orphans fallback for browsers without text-wrap: pretty:
+        // tie each text block's last two words together when they're short enough to never overflow.
+        if (!(window.CSS && CSS.supports('text-wrap', 'pretty'))) {
+            document.querySelectorAll('p, li, h1, h2, h3, h4, blockquote, figcaption, .paragraph, .project-subtitle').forEach(el => {
+                const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+                let last = null, node;
+                while ((node = walker.nextNode())) if (node.data.trim()) last = node;
+                if (!last) return;
+                last.data = last.data.replace(/(\S{1,12}) +(\S{1,14})(\s*)$/, '$1\u00a0$2$3');
+            });
+        }
     </script>
 
 </body>
