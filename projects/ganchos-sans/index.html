@@ -1101,6 +1101,19 @@
         /* No orphans: every block of text rebalances its last lines (inherited) */
         body { text-wrap: pretty; }
     
+        /* A pair of different-ratio images shares one 4:5 crop so the row lines up */
+        .g-pair img { aspect-ratio: 4 / 5; object-fit: cover; }
+
+        .tester-label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
         /* ---- Type system (after Cotton) ----
            Acumin 13 / 500 / 120% for titles' meta, labels and captions, with hierarchy by
            colour only (primary vs grey); OT Brut is the reading voice for the writeups. */
@@ -1564,6 +1577,7 @@
 
         <!-- Type tester -->
         <div class="type-tester fade-in">
+            <div class="tester-label">Type tester — display and headline sizes, right to left</div>
             <div class="type-tester-controls">
                 <label>
                     Tracking
@@ -1582,7 +1596,7 @@
 
         <div class="g-two fade-in" style="margin-top:70px;">
             <div>
-                <video src="../../assets/video/ganchos-sans-vertical.mp4" autoplay loop muted playsinline aria-label="Ganchos Sans — animated vertical type specimen"></video>
+                <video src="../../assets/video/ganchos-sans-vertical.mp4" poster="../../assets/img/posters/ganchos-sans-vertical.jpg" autoplay loop muted playsinline aria-label="Ganchos Sans — animated vertical type specimen"></video>
             </div>
             <div>
                 <img src="../../assets/img/ganchos_sans_/apps_/specimen_dark.jpg" alt="Ganchos Sans — dark specimen graphic with annotated glyphs" loading="lazy">
@@ -1701,7 +1715,7 @@
                 <img src="../../assets/img/ganchos_sans_/rug_/rug_doc_sitting.jpg" alt="Sitting on the Ganchos rug in the studio" loading="lazy">
             </div>
         </div>
-        <div class="g-two fade-in">
+        <div class="g-two g-pair fade-in">
             <div>
                 <img src="../../assets/img/ganchos_sans_/rug_/rug_doc_portrait.jpg" alt="Portrait with the Ganchos rug as backdrop" loading="lazy">
                 <div class="caption">Studio documentation — the rug as backdrop, object, and family member.</div>
