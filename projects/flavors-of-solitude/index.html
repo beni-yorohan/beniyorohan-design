@@ -26,7 +26,7 @@
     <meta property="og:image" content="https://beniyorohan.design/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="BY Design — Creative Consultancy">
+    <meta property="og:image:alt" content="BY Design — Branding &amp; Type Studio">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -612,6 +612,9 @@
     #custom-cursor { display: none !important; }
     html, html * { cursor: auto !important; }
   }
+    
+        /* Cursor: one colour, inverted against whatever sits beneath it */
+        #custom-cursor { background-color: #ffffff; mix-blend-mode: difference; }
     </style>
 </head>
 <body>
@@ -622,8 +625,7 @@
         <a href="/" class="logo">BY Design</a>
         <nav>
             <a href="/about.html">about</a>
-            <a href="/brand-discovery.html" id="quote-btn">get a quote</a>
-            <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">@beniyorohan.design</a>
+            <a href="/brand-discovery.html" id="quote-btn">start a project</a>
         </nav>
     </header>
 
@@ -634,7 +636,7 @@
 
     <!-- Project Title -->
     <div class="project-name page-fade">Flavors of Solitude</div>
-    <div class="project-meta-line page-fade">Product Design, Album &amp; Book Design — 2025</div>
+    <div class="project-meta-line page-fade">Product &amp; Editorial Design — 2025</div>
     <div class="project-description page-fade">
         <p>Flavors of Solitude is a three-album curation organized around <em>bitter</em>, <em>sweet</em>, and <em>plain</em> — three registers of being alone — built from my move from Istanbul to Boston. As a kid in Turkey I was obsessed with cowboys and dreamt of studying in the U.S.; when I finally arrived and became the Turkish cowboy I'd imagined, I realized the dream had been a dream, and the reality of it was far lonelier. The project runs through americana and the rockesque, bluesy register that shaped that dream — Dire Straits, Eric Clapton, The Band — pairing three 12" vinyl records with a hand-crafted leather record bag and a companion catalog book of the lyrics, sleeves, and label designs. Sound, object, and text as a single curatorial system for what it feels like to be far from home and still learning what that means.</p>
         <p style="margin-top: 12px; font-size: 13px; color: #8a8a8a; line-height: 1.6;">Album curation co-led with Ali Kahramanoglu<br>Modeled by Rory O&rsquo;Donnell</p>
@@ -741,10 +743,11 @@
         <div class="footer-line"></div>
         <div class="footer-content">
             <div class="footer-left">
-                &copy; 2024 BY Design. All rights reserved.<br>KVK 42193122
+                &copy; 2026 BY Design. All rights reserved.<br>KVK 42193122
             </div>
             <div class="footer-right">
                 <a href="mailto:info@beniyorohan.design">info@beniyorohan.design</a>
+                <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">instagram</a>
                 <a href="../../assets/beni_yorohan_resume_2026.pdf?v=4" target="_blank" rel="noopener">cv/resume</a>
                 <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">linkedin</a>
             </div>
@@ -757,7 +760,7 @@
         <div class="quote-form-container">
             <button class="quote-close" id="quote-close">&times;</button>
             <h2>Get a quote</h2>
-            <p class="quote-sub">Tell me about your project and I'll get back to you within 24 hours.</p>
+            <p class="quote-sub">Tell us about your project and we'll get back to you within 48 hours.</p>
             <form class="quote-form" id="quote-form" action="https://formsubmit.co/info@beniyorohan.design" method="POST">
                 <input type="hidden" name="_subject" value="New Quote Request — BY Design">
                 <input type="hidden" name="_captcha" value="false">
@@ -780,7 +783,7 @@
             </form>
             <div class="quote-success" id="quote-success">
                 <h3>Request sent</h3>
-                <p>Thanks! I'll be in touch soon.</p>
+                <p>Thanks! We'll be in touch soon.</p>
             </div>
         </div>
     </div>
@@ -867,9 +870,6 @@
             cursorX = mouseX; cursorY = mouseY;
             const targetSize = isHovering ? 8 : 16; currentSize += (targetSize - currentSize) * 0.12;
             cursor.style.transform = `translate(${cursorX - currentSize / 2}px, ${cursorY - currentSize / 2}px)`;
-            colorTime += colorSpeed; if (colorTime > 1) colorTime -= 1;
-            cursor.style.backgroundColor = getColor(colorTime);
-            cursor.style.boxShadow = `0 0 12px 2px ${getGlowColor(colorTime)}`;
             requestAnimationFrame(animateCursor);
         }
         animateCursor();

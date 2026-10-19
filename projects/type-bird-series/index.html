@@ -26,7 +26,7 @@
     <meta property="og:image" content="https://beniyorohan.design/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="BY Design — Creative Consultancy">
+    <meta property="og:image:alt" content="BY Design — Branding &amp; Type Studio">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -328,6 +328,9 @@
     #custom-cursor { display: none !important; }
     html, html * { cursor: auto !important; }
   }
+    
+        /* Cursor: one colour, inverted against whatever sits beneath it */
+        #custom-cursor { background-color: #ffffff; mix-blend-mode: difference; }
     </style>
 </head>
 <body>
@@ -338,8 +341,7 @@
         <a href="/" class="logo">BY Design</a>
         <nav>
             <a href="/about.html">about</a>
-            <a href="/brand-discovery.html" id="quote-btn">get a quote</a>
-            <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">@beniyorohan.design</a>
+            <a href="/brand-discovery.html" id="quote-btn">start a project</a>
         </nav>
     </header>
 
@@ -352,7 +354,7 @@
 
     <!-- Project Title -->
     <div class="project-name page-fade">The Type Bird Series</div>
-    <div class="project-meta-line page-fade">Typographic Exploration &amp; Vibe Coding — 2026</div>
+    <div class="project-meta-line page-fade">Typography &amp; Creative Coding — 2026</div>
     <div class="project-description page-fade">
         <p>Glyph Birds is a browser-based typographic flock simulator that turns punctuation marks into living creatures. Every comma, slash, bracket, and period becomes a bird in flight — governed by real flocking algorithms with controls for density, drift, speed, and follow behavior. The tool lets you shape every dimension of the output: glyph weight and size, solid or gradient backgrounds with noise textures, radial or linear color fields, and full canvas sizing for any format. Built as a creative coding experiment at the intersection of type design and generative art, Glyph Birds treats typography not as static form but as something animated, organic, and unpredictable.</p>
     </div>
@@ -513,9 +515,10 @@
     <footer>
         <div class="footer-line"></div>
         <div class="footer-content">
-            <div class="footer-left">&copy; 2024 BY Design. All rights reserved.<br>KVK 42193122</div>
+            <div class="footer-left">&copy; 2026 BY Design. All rights reserved.<br>KVK 42193122</div>
             <div class="footer-right">
                 <a href="mailto:info@beniyorohan.design">info@beniyorohan.design</a>
+                <a href="https://instagram.com/beniyorohan.design" target="_blank" rel="noopener">instagram</a>
                 <a href="../../assets/beni_yorohan_resume_2026.pdf?v=4" target="_blank" rel="noopener">cv/resume</a>
                 <a href="https://www.linkedin.com/in/beni-yorohan-1b1662261/" target="_blank" rel="noopener">linkedin</a>
             </div>
@@ -528,7 +531,7 @@
         <div class="quote-form-container">
             <button class="quote-close" id="quote-close">&times;</button>
             <h2>Get a quote</h2>
-            <p class="quote-sub">Tell me about your project and I'll get back to you within 24 hours.</p>
+            <p class="quote-sub">Tell us about your project and we'll get back to you within 48 hours.</p>
             <form class="quote-form" id="quote-form" action="https://formsubmit.co/info@beniyorohan.design" method="POST">
                 <input type="hidden" name="_subject" value="New Quote Request — BY Design">
                 <input type="hidden" name="_captcha" value="false">
@@ -551,7 +554,7 @@
             </form>
             <div class="quote-success" id="quote-success">
                 <h3>Request sent</h3>
-                <p>Thanks! I'll be in touch soon.</p>
+                <p>Thanks! We'll be in touch soon.</p>
             </div>
         </div>
     </div>
@@ -574,7 +577,7 @@
         document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;if(!cursorActive){cursorActive=true;cursorX=mouseX;cursorY=mouseY;cursor.style.opacity='1'}});
         document.addEventListener('mouseover',e=>{if(e.target.closest('a,button,[role="button"],iframe')){isHovering=true;cursor.classList.add('hovering')}});
         document.addEventListener('mouseout',e=>{if(e.target.closest('a,button,[role="button"],iframe')){isHovering=false;cursor.classList.remove('hovering')}});
-        function animateCursor(){cursorX+=(mouseX-cursorX)*.18;cursorY+=(mouseY-cursorY)*.18;const ts=isHovering?8:16;currentSize+=(ts-currentSize)*.12;cursor.style.transform=`translate(${cursorX-currentSize/2}px,${cursorY-currentSize/2}px)`;colorTime+=colorSpeed;if(colorTime>1)colorTime-=1;cursor.style.backgroundColor=getColor(colorTime);cursor.style.boxShadow=`0 0 12px 2px ${getGlowColor(colorTime)}`;requestAnimationFrame(animateCursor)}
+        function animateCursor(){cursorX+=(mouseX-cursorX)*.18;cursorY+=(mouseY-cursorY)*.18;const ts=isHovering?8:16;currentSize+=(ts-currentSize)*.12;cursor.style.transform=`translate(${cursorX-currentSize/2}px,${cursorY-currentSize/2}px)`;requestAnimationFrame(animateCursor)}
         animateCursor();
         document.addEventListener('mouseleave',()=>{cursor.style.opacity='0'});
         document.addEventListener('mouseenter',()=>{if(cursorActive)cursor.style.opacity='1'});
@@ -594,7 +597,7 @@
         quoteForm.addEventListener('submit',function(e){e.preventDefault();const fd=new FormData(this);const data={};fd.forEach((v,k)=>{data[k]=v});
             fetch('https://formsubmit.co/ajax/info@beniyorohan.design',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
             .then(r=>r.json()).then(()=>{quoteForm.style.display='none';quoteSuccess.style.display='block';setTimeout(closeQuote,2500);setTimeout(()=>{quoteForm.style.display='';quoteSuccess.style.display='none';quoteForm.reset()},3000)})
-            .catch(()=>{quoteForm.style.display='none';quoteSuccess.style.display='block';quoteSuccess.querySelector('h3').textContent='Something went wrong';quoteSuccess.querySelector('p').textContent='Please try again or email directly.';setTimeout(closeQuote,2500);setTimeout(()=>{quoteForm.style.display='';quoteSuccess.style.display='none';quoteSuccess.querySelector('h3').textContent='Request sent';quoteSuccess.querySelector('p').textContent="Thanks! I'll be in touch soon.";quoteForm.reset()},3000)});
+            .catch(()=>{quoteForm.style.display='none';quoteSuccess.style.display='block';quoteSuccess.querySelector('h3').textContent='Something went wrong';quoteSuccess.querySelector('p').textContent='Please try again or email directly.';setTimeout(closeQuote,2500);setTimeout(()=>{quoteForm.style.display='';quoteSuccess.style.display='none';quoteSuccess.querySelector('h3').textContent='Request sent';quoteSuccess.querySelector('p').textContent="Thanks! We'll be in touch soon.";quoteForm.reset()},3000)});
         });
     </script>
 
