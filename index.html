@@ -193,6 +193,21 @@
             margin-bottom: 1em;
         }
 
+        /* Second intro paragraph: supporting copy in the body face */
+        /* No orphans: rebalance the last lines where supported */
+        .home-intro .paragraph {
+            text-wrap: pretty;
+        }
+
+        .home-intro .paragraph-sub {
+            font-family: var(--font-body);
+            font-size: clamp(16px, 1.6vw, 22px);
+            font-weight: 400;
+            line-height: 1.4;
+            letter-spacing: -0.005em;
+            max-width: 34em;
+        }
+
         .home-intro .paragraph:last-child {
             margin-bottom: 0;
         }
@@ -646,8 +661,8 @@
     </header>
 
     <section class="home-intro fade-in">
-        <div class="paragraph">BY Design is a creative consultancy for branding and type. We build identities from the letter up — systems that often begin with a typeface drawn for one client and no one else.</div>
-        <div class="paragraph">We’re drawn to cultural memory: forgotten scripts, shop signs, family recipes, the rituals around a table. We turn them into identities, typefaces, and tools for brands, institutions, and founders who want to feel like somewhere, not anywhere.</div>
+        <div class="paragraph">BY Design is a creative consultancy for branding and type. We build identities from the letter up — systems that often begin with a typeface drawn for one client and no one&nbsp;else.</div>
+        <div class="paragraph paragraph-sub">We’re drawn to cultural memory: forgotten scripts, shop signs, family recipes, the rituals around a table. We turn them into identities, typefaces, and tools for brands, institutions, and founders who want to feel like somewhere, not&nbsp;anywhere.</div>
     </section>
 
     <section class="projects">
