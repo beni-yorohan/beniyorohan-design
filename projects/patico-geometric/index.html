@@ -446,9 +446,23 @@
         }
 
         /* Specimens in motion */
+        /* Link to the identity the typeface was drawn for */
+        .pg-link {
+            display: inline-block;
+            margin-top: 14px;
+            font-family: 'OT Brut', sans-serif;
+            font-size: clamp(18px, 1.8vw, 24px);
+            letter-spacing: -0.01em;
+            color: #57A8FF;
+            text-decoration: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .pg-link:hover { opacity: 0.6; }
+
         .specimen-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 12px;
             padding: 50px 0 30px;
         }
@@ -813,14 +827,15 @@
 
     <!-- Hero: Specimen Video -->
     <div class="project-hero page-fade">
-        <video src="../../assets/video/patico-type-specimen.mp4" autoplay loop muted playsinline></video>
+        <video src="../../assets/video/patico-geometric-construction-wide.mp4" autoplay loop muted playsinline aria-label="Patico Geometric — the outlines, anchors and construction of PATICO GEOMETRIC drawing on, then the solid letters"></video>
     </div>
 
     <!-- Project Title -->
     <div class="project-name page-fade">Patico Geometric</div>
     <div class="project-meta-line page-fade">Type Design — 2026</div>
     <div class="project-description page-fade">
-        <p>Patico Geometric is a custom display typeface designed for Patico Bar. Its letterforms draw from the geometric lettering traditions of Istanbul's Sephardic Jewish community — the clean, rounded shapes found carved into synagogue facades, printed in old Ladino newspapers, and hand-painted on shopfronts across Balat and Galata. The typeface also carries the structural rhythm of the Galata Bridge: its repeating arcs, even weight distribution, and quiet modularity echo the bridge's procession of identical spans across the Golden Horn. What emerges is a typeface rooted in the cultural intersection where Sephardic heritage meets modern Istanbul — geometric yet warm, contemporary yet layered with history.</p>
+        <p>Patico Geometric is the display typeface we drew for Patico Bar, a listening bar in Cihangir, Istanbul. Its letterform outlines take their angularity from the Bosphorus Bridge, the conceptual anchor of the identity: a connection between East and West. Drawing on Sephardic lettering traditions and translating them into a contemporary language, its sharp forms echo the architecture of Cihangir. It sets in capitals and figures, and carries the bar’s logo, display lines, menu headers and social posts.</p>
+        <p><a class="pg-link" href="/projects/patico-bar">&#8599;&nbsp; Patico Bar — the identity it was drawn for</a></p>
     </div>
 
     <!-- Interactive Sections -->
@@ -833,14 +848,15 @@
         </div>
 
         <!-- Full Alphabet -->
-        <div class="alphabet-row fade-in">A B C D E F G H I J K L M N O</div>
-        <div class="alphabet-row fade-in">P Q R S T U V W X Y Z</div>
-        <div class="alphabet-row fade-in" style="font-size:80px;">a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
-        <div class="alphabet-row fade-in" style="font-size:80px;">0 1 2 3 4 5 6 7 8 9</div>
+        <div class="alphabet-row fade-in">A B C D E F G H I J K L M</div>
+        <div class="alphabet-row fade-in">N O P Q R S T U V W X Y Z</div>
+        <div class="alphabet-row fade-in">0 1 2 3 4 5 6 7 8 9</div>
 
         <!-- Specimens in motion -->
         <h2 class="section-header fade-in">In motion</h2>
         <div class="specimen-grid fade-in">
+            <video src="../../assets/video/patico-geometric-construction.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Patico Geometric — outlines, anchors and construction drawing on, then the solid letters"></video>
+            <video src="../../assets/video/patico-geometric.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Patico Geometric — the A, with its dimensions"></video>
             <video src="../../assets/video/patico-specimen/istanbul.mp4" autoplay loop muted playsinline preload="metadata"></video>
             <video src="../../assets/video/patico-specimen/fatih-sultan-mehmet-koprusu.mp4" autoplay loop muted playsinline preload="metadata"></video>
             <video src="../../assets/video/patico-specimen/numbers.mp4" autoplay loop muted playsinline preload="metadata"></video>

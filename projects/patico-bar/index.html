@@ -68,6 +68,14 @@
             font-variation-settings: 'ital' 0, 'slnt' 0;
         }
 
+        @font-face {
+            font-family: 'Patico Geometric';
+            src: url('../../assets/fonts/PaticoGeometric-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -82,6 +90,7 @@
             --side-padding: 16px;
             --content-gap: 18px;
             --section-gap: 120px;
+            --porto-kal: #FAA819;
         }
 
         html {
@@ -453,6 +462,160 @@
             display: block;
         }
 
+        /* ---- Case study text (mirrors Rayka's system) ---- */
+        .story-block {
+            width: 100%;
+            padding: 8px 0 6px;
+        }
+
+        .story-block p {
+            max-width: 640px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 400;
+            color: #d6d6d6;
+            line-height: 1.65;
+            margin-bottom: 18px;
+        }
+
+        .story-block p:last-child { margin-bottom: 0; }
+
+        .caption {
+            width: 100%;
+            margin-top: -8px;
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.03em;
+            line-height: 1.5;
+        }
+
+        .pull-quote {
+            width: 100%;
+            padding: 40px 0 8px;
+        }
+
+        .pull-quote p {
+            max-width: 860px;
+            font-family: var(--font-body);
+            font-size: clamp(20px, 3vw, 32px);
+            font-weight: 500;
+            line-height: 1.3;
+            letter-spacing: -0.015em;
+            color: #ffffff;
+            text-indent: -0.45em;
+            hanging-punctuation: first;
+        }
+
+        .action-link {
+            display: inline-block;
+            margin-top: 4px;
+            font-family: 'OT Brut', sans-serif;
+            font-size: clamp(18px, 1.8vw, 24px);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            color: #57A8FF;
+            text-decoration: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .action-link:hover { opacity: 0.6; }
+
+        /* Live type in Patico Geometric */
+        .glyph-row {
+            width: 100%;
+            padding: 48px 0 24px;
+            font-family: 'Patico Geometric', sans-serif;
+            font-size: clamp(90px, 17vw, 300px);
+            line-height: 1;
+            color: var(--porto-kal);
+            text-align: center;
+            user-select: none;
+        }
+
+        .alphabet-row {
+            width: 100%;
+            padding: 6px 0;
+            font-family: 'Patico Geometric', sans-serif;
+            font-size: clamp(30px, 5.5vw, 84px);
+            line-height: 1.2;
+            letter-spacing: 0.06em;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .menu-specimen {
+            width: 100%;
+            padding: 40px 0 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.15em;
+            font-family: 'Patico Geometric', sans-serif;
+            font-size: clamp(28px, 4.2vw, 60px);
+            line-height: 1.05;
+            letter-spacing: 0.04em;
+            color: var(--text-primary);
+        }
+
+        .menu-specimen .years {
+            margin-top: 0.6em;
+            color: var(--porto-kal);
+            letter-spacing: 0.1em;
+        }
+
+        /* Palette */
+        .palette-row {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--content-gap);
+            padding: 24px 0 8px;
+        }
+
+        .swatch-glyph {
+            font-family: 'Patico Geometric', sans-serif;
+            font-size: clamp(90px, 13vw, 220px);
+            line-height: 1;
+        }
+
+        .swatch-glyph.on-black { -webkit-text-stroke: 1px #3a3a3a; }
+
+        .swatch-name {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            padding-top: 12px;
+            letter-spacing: 0.02em;
+        }
+
+        .swatch-hex {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+            padding-top: 3px;
+        }
+
+        .g-full.menu-video {
+            display: flex;
+            justify-content: center;
+        }
+
+        .g-full.menu-video video { width: 50%; display: block; }
+
+        @media (max-width: 680px) {
+            .story-block p { font-size: 14px; }
+            .glyph-row { font-size: 64px; padding: 32px 0 16px; }
+            .alphabet-row { font-size: 26px; }
+            .menu-specimen { font-size: 26px; }
+            .swatch-glyph { font-size: 64px; }
+            .g-full.menu-video video { width: 100%; }
+        }
+
         /* ---- Scroll Reveal Animation (Cotton-style fade-in) ---- */
         .fade-in {
             opacity: 0;
@@ -647,85 +810,226 @@
     <div class="project-name page-fade">Patico Bar</div>
     <div class="project-meta-line page-fade">Brand Identity &amp; Art Direction — 2026</div>
     <div class="project-description page-fade">
-        <p>Patico is a listening bar reimagining Sephardic flavors through contemporary Mediterranean culture. Located in Cihangir, Istanbul, the brand identity brings Patico Bar to life — a space where food, music, and design meet. The identity spans logo, custom typeface, color palette, menus, social media, and physical applications.</p>
+        <p>Patico is a listening bar on Sıraselviler Caddesi in Cihangir, Istanbul, serving Sephardic flavors through contemporary Mediterranean culture. A short menu that changes with the season, records on the decks, and a room that does most of the talking. The identity covers the wordmark, a custom display typeface, a three-colour palette, art direction and every surface the bar touches: signage, plates, aprons, matchboxes, menus and social.</p>
     </div>
 
-    <!-- Project Gallery -->
+    <!-- Case study -->
     <div class="project-gallery">
 
-        <!-- Intro -->
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_02.jpg" alt="Project Introduction" loading="lazy"></div>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_03.jpg" alt="Mission Statement" loading="lazy"></div>
+        <!-- From restaurant to listening bar -->
+        <h2 class="section-header fade-in">From restaurant to listening bar</h2>
 
-        <!-- Who? -->
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_04.jpg" alt="Target Audience" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_05.jpg" alt="Audience Profile" loading="lazy"></div>
+        <div class="story-block fade-in">
+            <p>Patico started life as Patico D’Estambol, an earlier restaurant concept built around Sephardic cooking — a cuisine that was a fixture of Istanbul’s tables until the early 1900s. Coming back to it, we narrowed the idea from a full restaurant down to a bar: a listening bar, a speakeasy in spirit, with a short, curated menu that changes with what’s in season. The wine list and the cocktails follow the same rule.</p>
+            <p>The audience was clear from the start: a culturally fluent, design-driven crowd that comes for the sound, the taste and the atmosphere.</p>
+        </div>
 
-        <!-- Location -->
-        <h2 class="section-header fade-in">Location</h2>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_10.jpg" alt="Cihangir, Istanbul" loading="lazy"></div>
+        <div class="pull-quote fade-in">
+            <p>“A listening bar reimagining Sephardic flavors through contemporary Mediterranean culture.”</p>
+        </div>
 
-        <!-- Brand Photography -->
-        <h2 class="section-header fade-in">Brand photography</h2>
-        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_01.jpg" alt="Chef Plating" loading="lazy"></div>
-        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_02.jpg" alt="Serving Dishes" loading="lazy"></div>
-        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_03.jpg" alt="Patico Apron" loading="lazy"></div>
-        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_04.jpg" alt="Mediterranean Plate" loading="lazy"></div>
-        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_05.jpg" alt="Olives" loading="lazy"></div>
-        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_12.jpg" alt="Waiter Serving" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_06.jpg" alt="Interior Dining" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_07.jpg" alt="Bar Counter" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_08.jpg" alt="Evening Crowd" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_09.jpg" alt="Cheers" loading="lazy"></div>
-        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_10.jpg" alt="Food & Music" loading="lazy"></div>
-        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_11.jpg" alt="DJ" loading="lazy"></div>
-        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_13.jpg" alt="Bar Scene" loading="lazy"></div>
+        <!-- Place -->
+        <h2 class="section-header fade-in">Sıraselviler 58</h2>
 
-        <!-- Logo -->
-        <h2 class="section-header fade-in">Logo</h2>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_20.jpg" alt="Patico Logo" loading="lazy"></div>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_21.jpg" alt="Logo Grid Construction" loading="lazy"></div>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_22.jpg" alt="Logo Sizing" loading="lazy"></div>
+        <div class="story-block fade-in">
+            <p>The bar sits at Sıraselviler Caddesi No. 58, in Cihangir — the bohemian corner of Beyoğlu, known for its artistic, intellectual atmosphere and the narrow, steep streets that drop towards the Bosphorus. The neighbourhood set the tone before any design did.</p>
+        </div>
+
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_09.jpg" alt="Cihangir, Istanbul — street facades around Sıraselviler Caddesi" loading="lazy"></div>
+
+        <div class="caption fade-in">Cihangir — the streets around Sıraselviler Caddesi.</div>
+
+        <!-- The room -->
+        <h2 class="section-header fade-in">The room</h2>
+
+        <div class="story-block fade-in">
+            <p>We started with materials rather than graphics: raw concrete, dark oiled wood and brushed steel — surfaces that age well, take candlelight and leave room for the food. The moodboard set the register for everything after it: late nights, flash, hands, plates, records.</p>
+        </div>
+
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_16.jpg" alt="Material palette — raw concrete, dark wood, brushed steel" loading="lazy"></div>
+
+        <div class="caption fade-in">Concrete, wood, brushed steel — the material palette.</div>
+
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_15.jpg" alt="Patico moodboard — food, wine, records and late-night crowds" loading="lazy"></div>
+
+        <div class="caption fade-in">The moodboard.</div>
+
+        <!-- Imagery -->
+        <h2 class="section-header fade-in">Imagery</h2>
+
+        <div class="story-block fade-in">
+            <p>The imagery is a tightly curated series of AI-generated photographs, art-directed to feel like a night at the bar shot on a point-and-shoot: direct flash, warm tungsten, grain, cropped hands and half-finished plates. Nothing is styled to look perfect; it’s meant to feel like you were there.</p>
+        </div>
+
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_01.jpg" alt="The chef plating a dish" loading="lazy"></div>
+
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_02.jpg" alt="Plates carried out of the kitchen" loading="lazy"></div>
+
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_03.jpg" alt="A cook in a Patico apron" loading="lazy"></div>
+
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_04.jpg" alt="A Mediterranean plate on the counter" loading="lazy"></div>
+
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_05.jpg" alt="A bowl of green olives" loading="lazy"></div>
+
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_12.jpg" alt="A waiter serving at the table" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_06.jpg" alt="The dining room at night" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_07.jpg" alt="At the bar counter" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_08.jpg" alt="The evening crowd" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_photo_09.jpg" alt="A toast across the table" loading="lazy"></div>
+
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_10.jpg" alt="Food and records on the bar" loading="lazy"></div>
+
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_11.jpg" alt="The DJ behind the decks" loading="lazy"></div>
+
+        <div class="g-third fade-in"><img src="../../assets/img/patico/patico_photo_13.jpg" alt="A late-night bar scene" loading="lazy"></div>
+
+        <div class="caption fade-in">A curated series of AI imagery — kitchen, service, the bar, the DJ, the crowd.</div>
+
+        <!-- Wordmark -->
+        <h2 class="section-header fade-in">The wordmark</h2>
+
+        <div class="story-block fade-in">
+            <p>The name is set in Patico Geometric, a display typeface we drew for the bar. Its sharp, angular forms take their cue from the structure of the Bosphorus Bridge and the architecture of Cihangir, and the bridge is the idea underneath it all: a connection between East and West at the core of the identity.</p>
+            <p>The wordmark is built on a strict grid and comes in four sizes — Mega, Big, Medium and Small — so it holds together from a storefront down to a matchbox.</p>
+        </div>
+
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_20.jpg" alt="The Patico wordmark in Negro on Porto-Kal" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_21.jpg" alt="Wordmark grid construction" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_22.jpg" alt="Wordmark sizes — Mega, Big, Medium, Small" loading="lazy"></div>
+
+        <div class="caption fade-in">The wordmark, its construction grid, and the four sizes.</div>
 
         <!-- Typography -->
         <h2 class="section-header fade-in">Typography</h2>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_23.jpg" alt="Source Serif Variable" loading="lazy"></div>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_24.jpg" alt="Patico Geometric Typeface" loading="lazy"></div>
 
-        <!-- Colors -->
-        <h2 class="section-header fade-in">Colors</h2>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_25.jpg" alt="Brand Colors" loading="lazy"></div>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_26.jpg" alt="Color Application" loading="lazy"></div>
+        <div class="story-block fade-in">
+            <p>Two typefaces with clear jobs. Patico Geometric is the voice: the logo, display lines, item titles and section headers on the menus and social posts. Source Serif Variable does the reading — menus, the website, printed matter, anything where clarity matters. Its weights carry the hierarchy, while tracking and leading are left to the designer’s judgement, so it can flex to each format.</p>
+        </div>
 
-        <!-- Brand -->
-        <h2 class="section-header fade-in">Brand</h2>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_27.jpg" alt="Brand Philosophy" loading="lazy"></div>
+        <div class="glyph-row fade-in" aria-label="PATICO">PATICO</div>
 
-        <!-- Implementations -->
-        <h2 class="section-header fade-in">Implementations</h2>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_28.jpg" alt="Storefront Day" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_29.jpg" alt="Storefront Night" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_30.jpg" alt="Branded Apron" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_31.jpg" alt="DJ Sweatshirt" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_32.jpg" alt="Matchboxes" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_33.jpg" alt="Ashtray" loading="lazy"></div>
+        <div class="alphabet-row fade-in">A B C D E F G H I J K L M</div>
 
-        <!-- Social media -->
-        <h2 class="section-header fade-in">Social media</h2>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_34.jpg" alt="Instagram Profile" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_35.jpg" alt="Instagram Stories" loading="lazy"></div>
-        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_36.jpg" alt="Story Templates" loading="lazy"></div>
+        <div class="alphabet-row fade-in">N O P Q R S T U V W X Y Z</div>
+
+        <div class="alphabet-row fade-in">0 1 2 3 4 5 6 7 8 9</div>
+
+        <div class="menu-specimen fade-in">
+            <span>SMALL PLATES</span>
+            <span>FROM THE SEA</span>
+            <span>FROM THE FIRE</span>
+            <span>TO SHARE</span>
+            <span>DESSERTS</span>
+            <span class="years">1923 2004 1457</span>
+        </div>
+
+        <div class="caption fade-in">Patico Geometric, set live — capitals, figures, and the menu headers it was drawn for.</div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_23.jpg" alt="Source Serif Variable — the text typeface" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_24.jpg" alt="Patico Geometric — the display typeface" loading="lazy"></div>
+
+        <div class="story-block fade-in">
+            <a class="action-link" href="/projects/patico-geometric">&#8599;&nbsp; Patico Geometric — the typeface</a>
+        </div>
+
+        <!-- Colour -->
+        <h2 class="section-header fade-in">Colour</h2>
+
+        <div class="story-block fade-in">
+            <p>Three colours, named in Ladino and Spanish: Porto-Kal — the Ladino word for orange — Blanco and Negro. Porto-Kal is the signature, on the awning, the window frame and the matchbox; Blanco and Negro do the quiet work around it.</p>
+            <p>Everything else is borrowed from the kitchen. Secondary colours change with what’s in — olive green, the silver of a fish skin, a deep wine-dark red — so the brand shifts with the menu.</p>
+        </div>
+
+        <div class="palette-row fade-in">
+            <div class="swatch"><div class="swatch-glyph" style="color:#FAA819">P</div><div class="swatch-name">Porto-Kal</div><div class="swatch-hex">#FAA819</div></div>
+            <div class="swatch"><div class="swatch-glyph" style="color:#E9E9EA">A</div><div class="swatch-name">Blanco</div><div class="swatch-hex">#E9E9EA</div></div>
+            <div class="swatch"><div class="swatch-glyph on-black" style="color:#231F20">T</div><div class="swatch-name">Negro</div><div class="swatch-hex">#231F20</div></div>
+        </div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_25.jpg" alt="Main brand colours — Porto-Kal, Blanco, Negro" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_26.jpg" alt="Seasonal colours taken from the menu — olives, fish skin, wine-dark red" loading="lazy"></div>
+
+        <div class="caption fade-in">The main palette, and the seasonal colours that change with the menu.</div>
+
+        <!-- Restraint -->
+        <h2 class="section-header fade-in">Felt rather than seen</h2>
+
+        <div class="story-block fade-in">
+            <p>The identity is applied with restraint. The brand appears only where it’s needed, leaving room for the materials and the food; the type and the logo work as quiet markers rather than decoration.</p>
+            <p>Across print, digital and the room itself, the brand travels through texture, tone and atmosphere instead of overt graphics — so it feels built into the experience, not placed on top of it.</p>
+        </div>
+
+        <!-- In the room -->
+        <h2 class="section-header fade-in">In the room</h2>
+
+        <div class="story-block fade-in">
+            <p>On site, the mark turns up where a hand or an eye naturally lands: the awning and the Porto-Kal window frame, the rim of a plate, an apron, the DJ’s sweatshirt, a matchbox, a steel ashtray stamped with the name.</p>
+        </div>
+
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_28.jpg" alt="Storefront by day and by night — Porto-Kal awning and window frame" loading="lazy"></div>
+
+        <div class="caption fade-in">The storefront, day and night.</div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_29.jpg" alt="A Patico plate with a gold rim on a marble table" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_30.jpg" alt="A Patico apron and the DJ’s sweatshirt" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_31.jpg" alt="A black Patico matchbox" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_32.jpg" alt="A brushed-steel ashtray stamped with the wordmark" loading="lazy"></div>
+
+        <div class="caption fade-in">Plate, apron and sweatshirt, matchbox, ashtray.</div>
+
+        <!-- Social -->
+        <h2 class="section-header fade-in">On the feed</h2>
+
+        <div class="story-block fade-in">
+            <p>Social follows the same rules as the room: the photography leads and Porto-Kal frames it. Story templates carry the hours, events and specials, set in the two typefaces.</p>
+        </div>
+
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_34.jpg" alt="The Patico Instagram profile" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_35.jpg" alt="Instagram story frames — hours, events and dishes" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_36.jpg" alt="Story templates — opening hours and a ceviche special" loading="lazy"></div>
+
+        <div class="caption fade-in">The profile, and the story templates.</div>
 
         <!-- Menus -->
         <h2 class="section-header fade-in">Menus</h2>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_37.jpg" alt="Menu Title" loading="lazy"></div>
-        <div class="g-full fade-in" style="display:flex;justify-content:center;"><video src="../../assets/video/patico-menu.mp4" autoplay loop muted playsinline style="width:50%;display:block;"></video></div>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_38.jpg" alt="Menu Design" loading="lazy"></div>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_39.jpg" alt="Menu Details" loading="lazy"></div>
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_40.jpg" alt="Menu Photography" loading="lazy"></div>
 
-        <!-- End -->
-        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_41.jpg" alt="Thanks" loading="lazy"></div>
+        <div class="story-block fade-in">
+            <p>The menus are single printed sheets clipped together with a Porto-Kal tag, so they can be reprinted as often as the kitchen changes its mind. Mezzes to start, tapas to share, mains and desserts in one column; reds, whites, rosés and naturals in the other. Handwritten notes on the sheet are part of the design.</p>
+        </div>
+
+        <div class="g-full menu-video fade-in"><video src="../../assets/video/patico-menu.mp4" autoplay loop muted playsinline aria-label="The Patico menu"></video></div>
+
+        <div class="g-full fade-in"><img src="../../assets/img/patico/patico_38.jpg" alt="Three printed menu sheets with Porto-Kal tags" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_39.jpg" alt="A menu on a dark wooden table" loading="lazy"></div>
+
+        <div class="g-half fade-in"><img src="../../assets/img/patico/patico_40.jpg" alt="Menus held at the table" loading="lazy"></div>
+
+        <div class="caption fade-in">The menu sheets, at the table.</div>
+
+        <!-- Closing -->
+        <h2 class="section-header fade-in">Why restraint</h2>
+
+        <div class="story-block fade-in">
+            <p>A bar like this lives on atmosphere, and atmosphere is easy to overdesign. So the system is built to step back: one colour that does the heavy lifting, one typeface with a strong voice, and everything else left to the room, the food and the music.</p>
+        </div>
+
+        <div class="pull-quote fade-in">
+            <p>“Patico favors longevity over visibility — a brand that is felt rather than seen.”</p>
+        </div>
 
     </div>
 

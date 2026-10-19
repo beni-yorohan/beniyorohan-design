@@ -644,6 +644,53 @@
     html, html * { cursor: auto !important; }
   }
     
+        /* "go to project" label: rides above the cursor over linked project cards */
+        #cursor-label {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10000;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        #cursor-label span {
+            display: block;
+            font-family: 'Acumin Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            line-height: 1;
+            white-space: nowrap;
+            color: #000000;
+            background-color: var(--text-primary);
+            padding: 5px;
+            opacity: 0;
+            transform: translateY(6px);
+            filter: blur(4px);
+            transition: opacity 260ms cubic-bezier(0.4, 0, 1, 1),
+                        transform 260ms cubic-bezier(0.4, 0, 1, 1),
+                        filter 260ms cubic-bezier(0.4, 0, 1, 1);
+        }
+
+        #cursor-label.visible span {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+            transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
+                        filter 520ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @media (hover: none), (pointer: coarse), (max-width: 680px) {
+            #cursor-label { display: none !important; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #cursor-label span,
+            #cursor-label.visible span { transform: none; filter: none; transition: opacity 150ms linear; }
+        }
+
         /* Cursor: one colour, inverted against whatever sits beneath it */
         #custom-cursor { background-color: #ffffff; mix-blend-mode: difference; }
     
@@ -654,6 +701,7 @@
 <body>
 
     <div id="custom-cursor"></div>
+    <div id="cursor-label" aria-hidden="true"><span>go to project</span></div>
 
     <header class="fade-in">
         <a href="/" class="logo">BY Design</a>
@@ -782,8 +830,8 @@
             <div class="project-card fade-in">
                 <a href="/projects/patico-geometric">
                     <div class="project-thumb">
-                        <video poster="assets/img/posters/patico-geometric.jpg" autoplay loop muted playsinline>
-                            <source src="assets/video/patico-geometric.mp4" type="video/mp4">
+                        <video poster="assets/img/posters/patico-geometric-construction.jpg" autoplay loop muted playsinline preload="auto" disablepictureinpicture>
+                            <source src="assets/video/patico-geometric-construction.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="project-info">
@@ -1055,6 +1103,36 @@
         }
 
         animateCursor();
+
+        // ---- "go to project" label ----
+        // Follows the pointer on its own eased path (frame-rate independent), so it trails
+        // the dot by a hair and settles instead of snapping; fades in only over a linked project's image.
+        const cursorLabel = document.getElementById('cursor-label');
+        let labelX = -100, labelY = -100, labelPrev = performance.now(), labelOn = false;
+
+        document.addEventListener('mouseover', (e) => {
+            const on = !!e.target.closest('.project-card a .project-thumb');
+            if (on === labelOn) return;
+            if (on && !labelOn) { labelX = mouseX; labelY = mouseY; }
+            labelOn = on;
+            cursorLabel.classList.toggle('visible', on);
+        });
+
+        document.addEventListener('mouseleave', () => {
+            labelOn = false;
+            cursorLabel.classList.remove('visible');
+        });
+
+        function animateLabel(now) {
+            const dt = Math.min(64, now - labelPrev);
+            labelPrev = now;
+            const k = 1 - Math.exp(-dt / 70);
+            labelX += (mouseX - labelX) * k;
+            labelY += (mouseY - labelY) * k;
+            cursorLabel.style.transform = `translate3d(${labelX}px, ${labelY - 32}px, 0) translateX(-50%)`;
+            requestAnimationFrame(animateLabel);
+        }
+        requestAnimationFrame(animateLabel);
 
         document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
         document.addEventListener('mouseenter', () => { if (cursorActive) cursor.style.opacity = '1'; });
