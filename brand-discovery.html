@@ -418,6 +418,23 @@
     
         /* No orphans: every block of text rebalances its last lines (inherited) */
         body { text-wrap: pretty; }
+    
+        /* Nav clock: the visitor's city, local time and UTC offset, read as information (grey), not a link */
+        .nav-clock {
+            font-family: 'Acumin Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;   /* after Koto: small caps-style time + UTC offset */
+            color: var(--text-secondary, #8a8a8a);
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+
+        @media (max-width: 680px) {
+            .nav-clock { flex-basis: 100%; order: -1; }
+        }
     </style>
 </head>
 <body>
@@ -428,6 +445,7 @@
 <header class="site-header">
   <a href="/" class="logo">BY Design</a>
   <nav>
+    <span class="nav-clock" id="nav-clock" aria-label="Local time"><span id="nav-clock-city">Amsterdam</span> <time id="nav-clock-time"></time></span>
     <a href="about.html">about</a>
   </nav>
 </header>
@@ -732,5 +750,32 @@ function handleSubmit(e) {
         }
     </script>
 
+    <script>
+        // Nav clock (after Koto): the visitor's own city, time and UTC offset, read from the
+        // browser's time zone (no location permission needed); Amsterdam if the zone isn't a city.
+        (() => {
+            const el = document.getElementById('nav-clock-time');
+            const cityEl = document.getElementById('nav-clock-city');
+            if (!el) return;
+            let tz = 'Europe/Amsterdam';
+            try {
+                const local = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (local && local.includes('/') && !/^Etc\//.test(local)) tz = local;
+            } catch (e) {}
+            const city = tz.split('/').pop().replace(/_/g, ' ');
+            if (cityEl) cityEl.textContent = city;
+            document.getElementById('nav-clock')?.setAttribute('aria-label', `Local time in ${city}`);
+            const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false, timeZoneName: 'shortOffset' });
+            const tick = () => {
+                const now = new Date();
+                const parts = Object.fromEntries(fmt.formatToParts(now).map(p => [p.type, p.value]));
+                const zone = parts.timeZoneName === 'GMT' ? 'UTC' : parts.timeZoneName.replace('GMT', 'UTC');  // GMT+2 -> UTC+2
+                el.textContent = `${parts.hour}:${parts.minute} ${zone}`;
+                el.dateTime = now.toISOString();
+                setTimeout(tick, 60000 - (now.getSeconds() * 1000 + now.getMilliseconds()) + 50);
+            };
+            tick();
+        })();
+    </script>
 </body>
 </html>
