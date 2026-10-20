@@ -550,6 +550,41 @@
             .cap-track { animation: none; }
         }
 
+        /* ---- Clients: white logos, optically matched (height = k / sqrt(aspect)), no boxes ---- */
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 16px;
+            row-gap: 0;
+            margin-top: 24px;
+        }
+        .client {
+            height: 168px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 12%;
+        }
+        .client img {
+            height: calc(var(--h) * 1.18);
+            max-width: 100%;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.88;
+            transition: opacity 0.4s ease;
+        }
+        .client:hover img { opacity: 1; }
+        @media (max-width: 900px) {
+            .clients-grid { grid-template-columns: repeat(3, 1fr); }
+            .client { height: 140px; }
+            .client img { height: var(--h); }
+        }
+        @media (max-width: 560px) {
+            .clients-grid { grid-template-columns: repeat(2, 1fr); }
+            .client { height: 116px; padding: 0 8%; }
+            .client img { height: calc(var(--h) * 0.82); }
+        }
+
         /* ---- Meet the team section (mirrors homepage thumbnail grid exactly) ---- */
         .team-section {
             margin-top: 160px;
@@ -1092,6 +1127,23 @@
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <section class="about-section clients-section">
+            <h2 class="section-header">Selected clients</h2>
+            <div class="clients-grid">
+                <div class="client"><img src="assets/img/clients/solidworks.png" alt="SOLIDWORKS" style="--h: 26.7px" loading="lazy"></div>
+                <div class="client"><img src="assets/img/clients/vakko.png" alt="Vakko" style="--h: 59px" loading="lazy"></div>
+                <div class="client"><img src="assets/img/clients/william-raveis.png" alt="William Raveis" style="--h: 26.0px" loading="lazy"></div>
+                <div class="client"><img src="assets/img/clients/address-istanbul.png" alt="Address Istanbul" style="--h: 26.4px" loading="lazy"></div>
+                <div class="client"><img src="assets/img/clients/tekyaz.png" alt="TEKYAZ" style="--h: 30px" loading="lazy"></div>
+                <div class="client"><img src="assets/img/clients/ece-elektronik.png" alt="E.C.E Elektronik" style="--h: 35px" loading="lazy"></div>
+                <div class="client"><img src="assets/img/clients/moms-club.png" alt="Mom's Club" style="--h: 23px" loading="lazy"></div>
+                <div class="client"><img src="assets/img/clients/lous-fancy-foods.png" alt="Lou's Fancy Foods" style="--h: 40.4px" loading="lazy"></div>
+                <div class="client"><img src="assets/img/clients/demleme.png" alt="Demleme" style="--h: 66px" loading="lazy"></div>
+                <div class="client"><img src="assets/img/clients/mori-yaki.png" alt="Mori Yaki" style="--h: 67px" loading="lazy"></div>
+                <div class="client"><img src="assets/img/clients/batya-alex.png" alt="Batya &amp; Alex Team" style="--h: 47.5px" loading="lazy"></div>
             </div>
         </section>
 
