@@ -513,6 +513,15 @@
         .g-half { width: calc(50% - 9px); }
         .g-half img { width: 100%; display: block; }
 
+        .g-full video { width: 100%; display: block; }
+        .g-third { width: calc((100% - 2 * var(--content-gap)) / 3); }
+        .g-third img { width: 100%; display: block; }
+        .g-sixth { width: calc((100% - 5 * var(--content-gap)) / 6); }
+        .g-sixth img { width: 100%; display: block; }
+        @media (max-width: 680px) {
+            .g-sixth { width: calc((100% - 2 * var(--content-gap)) / 3); }
+        }
+
         /* ---- Scroll Reveal Animation ---- */
         .fade-in {
             opacity: 0;
@@ -1024,6 +1033,38 @@
         </div>
         <p class="demo-caption">Interactive web build of the Comi MVP — sign up, swipe, match, and chat directly in the browser. Best experienced with a mouse or trackpad; some gesture-heavy interactions feel subtly different on web than on iOS.</p>
     </section>
+
+    <!-- Brand identity — the v5 system built around the smile / roof mark -->
+    <div class="project-gallery">
+
+        <h2 class="section-header fade-in">Brand identity</h2>
+        <p class="section-intro fade-in">One mark carries the brand. Upright it&#8217;s a face: two eyes and a smile. Turned over, the smile becomes a roof with two people under it &#8212; roommates. The rest of the system comes straight from the app&#8217;s own design tokens: SF Pro, one teal and the iOS greys, so the brand and the product speak the same language.</p>
+
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/brand/1-cover.jpg" alt="Comi lockup on teal with the tagline Roommates you can trust" loading="lazy"></div>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/brand/2-idea.jpg" alt="The idea — upright the mark is a face; flipped, it is a roof with two people under it" loading="lazy"></div>
+        <div class="g-full fade-in"><video src="../../assets/video/comi/blueprint-mark.mp4" poster="../../assets/img/posters/comi-blueprint-mark.jpg" autoplay loop muted playsinline preload="metadata" disablepictureinpicture aria-label="Blueprint construction film of the Comi mark turning from a face into a house for two"></video></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/brand/3-construction.jpg" alt="Construction — one 18-unit stroke at a right angle and two softened squares" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/brand/4-lockups.jpg" alt="Lockups — primary, reversed, stacked and app icon" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/brand/5-clearspace.jpg" alt="Clear space and minimum sizes" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/brand/6-colour.jpg" alt="Colour — Comi teal ramp, iOS neutrals and signal accents" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/brand/7-type.jpg" alt="Typography — SF Pro and the app's type roles" loading="lazy"></div>
+        <div class="g-half fade-in"><img src="../../assets/img/comi-app/brand/8-expressions.jpg" alt="Mascot expressions — smile, wink, happy, looking, hmm, sleepy, curious, roommates" loading="lazy"></div>
+        <div class="g-full fade-in"><video src="../../assets/video/comi/expressions.mp4" poster="../../assets/img/posters/comi-expressions.jpg" autoplay loop muted playsinline preload="metadata" disablepictureinpicture aria-label="The Comi mascot moving through its expressions — looking, thinking, happy, wink, surprised, sleepy, then flipping into two roommates under one roof"></video></div>
+        <div class="g-full fade-in"><video src="../../assets/video/comi/blueprint-lockup.mp4" poster="../../assets/img/posters/comi-blueprint-lockup.jpg" autoplay loop muted playsinline preload="metadata" disablepictureinpicture aria-label="Blueprint construction film of the Comi wordmark and mark"></video></div>
+        <div class="g-full fade-in"><img src="../../assets/img/comi-app/brand/9-voice.jpg" alt="Voice — Roommates you can trust, with sample lines" loading="lazy"></div>
+
+        <h3 class="section-header sub fade-in">App Store &amp; social</h3>
+        <div class="g-sixth fade-in"><img src="../../assets/img/comi-app/brand/appstore-1.jpg" alt="App Store screenshot — Roommates you can trust" loading="lazy"></div>
+        <div class="g-sixth fade-in"><img src="../../assets/img/comi-app/brand/appstore-2.jpg" alt="App Store screenshot — Swipe to find your match" loading="lazy"></div>
+        <div class="g-sixth fade-in"><img src="../../assets/img/comi-app/brand/appstore-3.jpg" alt="App Store screenshot — Verified .edu students only" loading="lazy"></div>
+        <div class="g-sixth fade-in"><img src="../../assets/img/comi-app/brand/appstore-4.jpg" alt="App Store screenshot — Chat, then plan a meet-up" loading="lazy"></div>
+        <div class="g-sixth fade-in"><img src="../../assets/img/comi-app/brand/appstore-5.jpg" alt="App Store screenshot — Two people. One roof." loading="lazy"></div>
+        <div class="g-sixth fade-in"><img src="../../assets/img/comi-app/brand/appstore-6.jpg" alt="App Store screenshot — Everything you need to move in" loading="lazy"></div>
+        <div class="g-third fade-in"><img src="../../assets/img/comi-app/brand/post-1.jpg" alt="Instagram post — College roommate roulette? Never again." loading="lazy"></div>
+        <div class="g-third fade-in"><img src="../../assets/img/comi-app/brand/post-2.jpg" alt="Instagram post — Two people. One roof." loading="lazy"></div>
+        <div class="g-third fade-in"><img src="../../assets/img/comi-app/brand/post-3.jpg" alt="Instagram post — Pick your vibe. We'll find your person." loading="lazy"></div>
+
+    </div>
 
     <!-- Research and Version 1 — the initial UX research deck + v1 app UI that preceded the .edu pivot -->
     <div class="project-gallery">
