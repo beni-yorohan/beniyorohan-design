@@ -597,6 +597,27 @@
         /* No orphans: every block of text rebalances its last lines (inherited) */
         body { text-wrap: pretty; }
     
+        /* Credits: metadata, so the sans (Acumin 13 / 500), not the OT Brut story voice */
+        .project-description p.credits {
+            margin-top: 16px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: 0;
+            color: var(--text-secondary);
+        }
+
+        .project-description p.credits a {
+            color: var(--text-primary);
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+            transition: opacity 0.25s ease;
+        }
+
+        .project-description p.credits a:hover { opacity: 0.6; }
+
         /* ---- Type system (after Cotton) ----
            Acumin 13 / 500 / 120% for titles' meta, labels and captions, with hierarchy by
            colour only (primary vs grey); OT Brut is the reading voice for the writeups. */
@@ -846,7 +867,7 @@
     <div class="project-meta-line page-fade">Typography &amp; Installation — 2026</div>
     <div class="project-description page-fade">
         <p>Start Today is a type installation at MassArt built from artificial turf on a garden bed. The phrase carries a simple truth — a seed planted today becomes something greater tomorrow. The same applies to taking action, learning, creating. We paired pixelated letterforms with organic material to explore how two opposing forces — the digital and the natural — can coexist in a single form. The rigid grid of the pixel script meets the unpredictability of earth and plant life, each giving the other new meaning.</p>
-        <p style="margin-top: 12px; font-size: 13px; color: #8a8a8a; line-height: 1.6;">Video directed &amp; edited by Rory O'Donnell<br>A group project with Francis Fitzgerald &amp; Rory O'Donnell</p>
+        <p class="credits">Video directed &amp; edited by <a href="https://www.roryodonnell.com/" target="_blank" rel="noopener">Rory O’Donnell</a><br>A group project with <a href="https://francisfitzgerald.design/index.html" target="_blank" rel="noopener">Francis Fitzgerald</a> &amp; <a href="https://www.roryodonnell.com/" target="_blank" rel="noopener">Rory O’Donnell</a></p>
     </div>
 
     <!-- Project Gallery -->

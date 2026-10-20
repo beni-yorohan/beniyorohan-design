@@ -702,6 +702,27 @@
         /* No orphans: every block of text rebalances its last lines (inherited) */
         body { text-wrap: pretty; }
     
+        /* Credits: metadata, so the sans (Acumin 13 / 500), not the OT Brut story voice */
+        .project-description p.credits {
+            margin-top: 16px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: 0;
+            color: var(--text-secondary);
+        }
+
+        .project-description p.credits a {
+            color: var(--text-primary);
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+            transition: opacity 0.25s ease;
+        }
+
+        .project-description p.credits a:hover { opacity: 0.6; }
+
         /* ---- Type system (after Cotton) ----
            Acumin 13 / 500 / 120% for titles' meta, labels and captions, with hierarchy by
            colour only (primary vs grey); OT Brut is the reading voice for the writeups. */
@@ -944,7 +965,7 @@
     <div class="project-meta-line page-fade">Digital Product &amp; Brand Identity — 2026</div>
     <div class="project-description page-fade">
         <p>Comi is a swipe-style roommate matching app built for universities, with a commercial version designed to scale beyond the campus. Finding a roommate today is a patchwork of group chats, DMs, and half-filled matching forms — a high-stakes decision made with almost no real information. Comi turns that into something familiar: a swipe-forward interface that makes compatibility quick to read, with the questions that actually predict who you can live with surfacing underneath. The brand sits in the tension between cool and trust — casual enough that students actually want to use it, credible enough that schools and parents take it seriously.</p>
-        <p style="margin-top: 12px; font-size: 13px; color: #8a8a8a; line-height: 1.6;">In collaboration with Tayra Morhayim<br>MVP built in React with Claude Code</p>
+        <p class="credits">In collaboration with Tayra Morhayim<br>MVP built in React with Claude Code</p>
     </div>
 
     <!-- Product walkthrough — six key flows from the app, looping side-by-side -->

@@ -619,6 +619,27 @@
         /* No orphans: every block of text rebalances its last lines (inherited) */
         body { text-wrap: pretty; }
     
+        /* Credits: metadata, so the sans (Acumin 13 / 500), not the OT Brut story voice */
+        .project-description p.credits {
+            margin-top: 16px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: 0;
+            color: var(--text-secondary);
+        }
+
+        .project-description p.credits a {
+            color: var(--text-primary);
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+            transition: opacity 0.25s ease;
+        }
+
+        .project-description p.credits a:hover { opacity: 0.6; }
+
         /* ---- Type system (after Cotton) ----
            Acumin 13 / 500 / 120% for titles' meta, labels and captions, with hierarchy by
            colour only (primary vs grey); OT Brut is the reading voice for the writeups. */
@@ -861,7 +882,7 @@
     <div class="project-meta-line page-fade">Product &amp; Editorial Design — 2025</div>
     <div class="project-description page-fade">
         <p>Flavors of Solitude is a three-album curation organized around <em>bitter</em>, <em>sweet</em>, and <em>plain</em> — three registers of being alone — built from my move from Istanbul to Boston. As a kid in Turkey I was obsessed with cowboys and dreamt of studying in the U.S.; when I finally arrived and became the Turkish cowboy I'd imagined, I realized the dream had been a dream, and the reality of it was far lonelier. The project runs through americana and the rockesque, bluesy register that shaped that dream — Dire Straits, Eric Clapton, The Band — pairing three 12" vinyl records with a hand-crafted leather record bag and a companion catalog book of the lyrics, sleeves, and label designs. Sound, object, and text as a single curatorial system for what it feels like to be far from home and still learning what that means.</p>
-        <p style="margin-top: 12px; font-size: 13px; color: #8a8a8a; line-height: 1.6;">Album curation co-led with Ali Kahramanoglu<br>Modeled by Rory O&rsquo;Donnell</p>
+        <p class="credits">Album curation co-led with Ali Kahramanoglu<br>Modeled by <a href="https://www.roryodonnell.com/" target="_blank" rel="noopener">Rory O’Donnell</a></p>
     </div>
 
     <!-- Project gallery — catalog slideshow + process deck, flat sections matching Mato's / Start Today -->
