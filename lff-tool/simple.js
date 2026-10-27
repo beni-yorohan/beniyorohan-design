@@ -19,13 +19,14 @@ const STORE = "lff-simple-v2";
 
 const newText = (o = {}) => ({ text: "New text", font: "mono", size: "M", color: "cream", align: "center", x: 0.5, y: 0.45, ...o });   // x = the align anchor
 const DEFAULTS = {
-  size: "portrait", warm: true, bg: "esp",
+  size: "portrait", warm: true, soft: true, bg: "esp",
   texts: [newText({ text: "Fresh out of\nthe kitchen", align: "left", x: 0.074, y: 0.07 })], cur: 0,
   logoOn: true, logo: "combination", logoSize: "M", logoPos: "bottom", logoColor: "cream",
   px: 50, py: 50, anim: "static", guides: false,
 };
 let S = load();
 let photo = null;
+let photoFx = null;   // { graded, soft } from LFFPhoto.process — the Lou's photo filter, made once per photo
 let sel = null;            // index of the text box being dragged, or "logo"
 let BOX = { texts: [] };   // last drawn bounds (canvas px)
 let snapX = null;          // x (canvas px) of the line a dragged text box snapped to
@@ -91,15 +92,10 @@ function withShadow(c, on, W, fn) {
 function drawPhoto(c, W, H) {
   const s = Math.max(W / photo.naturalWidth, H / photo.naturalHeight);
   const iw = photo.naturalWidth * s, ih = photo.naturalHeight * s;
-  const ix = (W - iw) * S.px / 100, iy = (H - ih) * S.py / 100, k = S.warm ? 0.6 : 0;
-  if (k && "filter" in c) c.filter = `sepia(${0.22 * k}) saturate(${1 + 0.1 * k}) contrast(${1 + 0.05 * k}) brightness(${1 + 0.02 * k})`;
-  c.drawImage(photo, ix, iy, iw, ih);
-  c.filter = "none";
-  if (k) {
-    c.globalCompositeOperation = "soft-light"; c.globalAlpha = 0.32 * k; c.fillStyle = "#D98A3D"; c.fillRect(0, 0, W, H);
-    c.globalCompositeOperation = "multiply"; c.globalAlpha = 0.08 * k; c.fillStyle = C.brown; c.fillRect(0, 0, W, H);
-    c.globalCompositeOperation = "source-over"; c.globalAlpha = 1;
-  }
+  const ix = (W - iw) * S.px / 100, iy = (H - ih) * S.py / 100;
+  // Lou's photo filter: white balance + 3000K warmth, levels, vibrance, and (optionally) the soft portrait background
+  const src = S.warm && photoFx ? (S.soft !== false ? photoFx.soft : photoFx.graded) : photo;
+  c.drawImage(src, ix, iy, iw, ih);
 }
 function measureText(c, W, tb) {
   const F = FONTS[tb.font]; let px = W * TEXT_PX[tb.size] / 100;
@@ -305,7 +301,7 @@ function useFile(f) {
 function setPhoto(src) {
   if (!src) { photo = null; sync(); return; }
   const img = new Image();
-  img.onload = () => { photo = img; sync(); };
+  img.onload = () => { photo = img; photoFx = window.LFFPhoto ? LFFPhoto.process(img) : null; sync(); };
   img.src = src;
 }
 let dragDepth = 0;
@@ -318,7 +314,7 @@ window.addEventListener("drop", e => {
 });
 $("#choose").onclick = () => $("#file").click();
 $("#file").onchange = e => { useFile(e.target.files[0]); e.target.value = ""; };
-$("#remove").onclick = () => { photo = null; savePhoto(null); fixColours(); save(); setPhoto(null); };
+$("#remove").onclick = () => { photo = null; photoFx = null; savePhoto(null); fixColours(); save(); setPhoto(null); };
 
 /* ---------- panel ---------- */
 function swatches() {
@@ -395,11 +391,14 @@ function sync() {
     b.classList.toggle("on", b.dataset.v === (box.dataset.for === "logoColor" ? logoInk() : S[box.dataset.for]));
   }));
   $("#warm").checked = S.warm;
+  $("#soft").checked = S.soft !== false; $("#soft").disabled = !S.warm;
   $("#logo-on").checked = S.logoOn;
   $(".when-logo").classList.toggle("hidden", !S.logoOn);
   $(".when-nophoto").classList.toggle("hidden", !!photo);
   $("#remove").classList.toggle("hidden", !photo);
   $("#warm").parentElement.classList.toggle("hidden", !photo);
+  $("#soft").parentElement.classList.toggle("hidden", !photo);
+  $("#shoot-tip").classList.toggle("hidden", !!photo);
   $("#choose").textContent = photo ? "Change photo" : "Choose photo";
   syncText();
   draw(); play();
@@ -429,6 +428,7 @@ function bindPanel() {
     S.texts.splice(S.cur, 1); S.cur = Math.max(0, Math.min(S.cur, S.texts.length - 1)); save(); sync();
   };
   $("#warm").onchange = e => { S.warm = e.target.checked; save(); sync(); };
+  $("#soft").onchange = e => { S.soft = e.target.checked; save(); sync(); };
   $("#logo-on").onchange = e => { S.logoOn = e.target.checked; save(); sync(); };
   $("#text").oninput = e => { if (T()) T().text = e.target.value; save(); draw();
     const chip = $(`#text-list [data-i="${S.cur}"]`); if (chip) chip.textContent = (e.target.value.split("\n")[0] || "Empty").slice(0, 18); };

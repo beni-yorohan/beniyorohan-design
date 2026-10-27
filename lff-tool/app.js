@@ -54,7 +54,7 @@ const DEFAULTS = {
   body: "Slow-cooked, packed by hand and banded in the kitchen.\nAvailable until we run out.",
   l1k: "Ingredients", l1v: "", l2k: "Made on", l2v: "", l3k: "Best by", l3v: "",
   footer: true, footL: "Lou's Fancy Foods\nEvery day is all there is", footR: "Brand mark\n2026",
-  guides: false, safe: true, zoom: 1, px: 50, py: 50, logoPos: "auto", warm: 0.6,
+  guides: false, safe: true, zoom: 1, px: 50, py: 50, logoPos: "auto", warm: 1, soft: true,
   anim: "static",
   igName: "lousfancyfoods", igCaption: "Chicken and rice, made this morning. Available until we run out.",
 };
@@ -80,6 +80,7 @@ const FIRST_VISIT = (() => { try { return !localStorage.getItem("lff-asset-tool-
 let state = load();
 if (!LOGOS[state.logo]) state.logo = "combination";
 let photo = null;          // HTMLImageElement
+let photoFx = null;        // { graded, soft } from LFFPhoto.process — the Lou's photo filter, made once per photo
 let exportScale = 1;
 let VIEW = "design";   // design | ig
 
@@ -187,14 +188,14 @@ function drawPhoto(ctx, x, y, w, h, cw, clipPath) {
     const s = Math.max(w / photo.naturalWidth, h / photo.naturalHeight) * state.zoom;
     const iw = photo.naturalWidth * s, ih = photo.naturalHeight * s;
     const ix = x + (w - iw) * (state.px / 100), iy = y + (h - ih) * (state.py / 100);
+    // Lou's photo filter (white balance + 3000K warmth, levels, vibrance, optional portrait background);
+    // the slider blends it over the original
     const k = state.warm;
-    if (k > 0 && "filter" in ctx) ctx.filter = `sepia(${0.22 * k}) saturate(${1 + 0.1 * k}) contrast(${1 + 0.05 * k}) brightness(${1 + 0.02 * k})`;
     ctx.drawImage(photo, ix, iy, iw, ih);
-    ctx.filter = "none";
-    if (k > 0) {   // warm wash: amber in soft-light + a whisper of brown in the shadows
-      ctx.globalCompositeOperation = "soft-light"; ctx.globalAlpha = 0.32 * k; ctx.fillStyle = "#D98A3D"; ctx.fillRect(x, y, w, h);
-      ctx.globalCompositeOperation = "multiply"; ctx.globalAlpha = 0.08 * k; ctx.fillStyle = C.brown; ctx.fillRect(x, y, w, h);
-      ctx.globalCompositeOperation = "source-over"; ctx.globalAlpha = 1;
+    if (k > 0 && photoFx) {
+      ctx.globalAlpha = Math.min(1, k);
+      ctx.drawImage(state.soft !== false ? photoFx.soft : photoFx.graded, ix, iy, iw, ih);
+      ctx.globalAlpha = 1;
     }
   } else {
     ctx.fillStyle = cw.ink; ctx.globalAlpha = 0.12; ctx.fillRect(x, y, w, h); ctx.globalAlpha = 1;   // empty photo frame, no label
@@ -610,7 +611,7 @@ function build() {
   $("#stage").addEventListener("dragover", e => e.preventDefault());
   $("#stage").addEventListener("drop", e => { e.preventDefault(); take(e.dataTransfer.files[0]); });
   $("#photo-remove").addEventListener("click", () => {
-    photo = null; drop.classList.remove("has"); drop.style.backgroundImage = "";
+    photo = null; photoFx = null; drop.classList.remove("has"); drop.style.backgroundImage = "";
     try { localStorage.removeItem(STORE + "-photo"); } catch (e) {}
     update();
   });
@@ -730,8 +731,9 @@ function openPop(field, el) {
   if (field === "footer") html += `<label class="toggle"><input type="checkbox" data-pf="footer"> Show captions</label>` + fieldInput("Left", "footL", true) + fieldInput("Right", "footR", true);
   if (field === "photo") html += `<div class="pop-btns"><button class="btn small" data-act="choose">${photo ? "Change photo" : "Add a photo"}</button>${photo ? '<button class="btn ghost small" data-act="remove">Remove</button>' : ""}</div>
       <div class="slider"><span>Zoom</span><input type="range" data-pf="zoom" min="1" max="3" step="0.01"></div>
-      <div class="slider"><span>Warm filter</span><input type="range" data-pf="warm" min="0" max="1" step="0.01"></div>
-      <p class="hint">Drag the photo on the design to move it.</p>`;
+      <div class="slider"><span>Lou's filter</span><input type="range" data-pf="warm" min="0" max="1" step="0.01"></div>
+      <label class="toggle"><input type="checkbox" data-pf="soft"> Soft background (portrait look)</label>
+      <p class="hint">Drag the photo on the design to move it. Best photos: shot from 45° with the whole plate in frame, in iPhone Portrait mode.</p>`;
   if (field === "logo") html += `<div class="row-label">Where</div>
       <div class="pos-grid small">${["tl","tc","tr","ml","mc","mr","bl","bc","br"].map(p => `<button data-ppos="${p}"></button>`).join("")}</div>
       <button class="seg-btn auto-btn" data-ppos="auto">Auto</button>
@@ -809,7 +811,7 @@ function initDirectEdit() {
 function setPhoto(src, fresh) {
   const img = new Image();
   img.onload = () => {
-    photo = img; const d = $("#drop"); d.classList.add("has"); d.style.backgroundImage = `url(${src})`;
+    photo = img; photoFx = window.LFFPhoto ? LFFPhoto.process(img) : null; const d = $("#drop"); d.classList.add("has"); d.style.backgroundImage = `url(${src})`;
     if (fresh) { state.zoom = 1; state.px = 50; state.py = 50; }
     update();
   };
