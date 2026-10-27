@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Lou's Asset Generator · Templates</title>
+  <link rel="stylesheet" href="style.css?v=25">
+</head>
+<body>
+  <header id="topbar">
+    <div class="brand">
+      <svg id="brand-mark" aria-label="Lou's Fancy Foods"></svg>
+      <span class="brand-div"></span>
+      <span class="brand-title">Asset Generator</span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="insta" role="tab">Instagram</button>
+      <button class="tab" data-tab="labels" role="tab">Stickers &amp; Labels</button>
+      <button class="tab" data-tab="notes" role="tab">Notes</button>
+    </nav>
+    <div class="top-actions">
+      <nav class="modes" aria-label="Mode"><a href="index.html">Editor</a><a class="on" aria-current="page">Templates</a></nav>
+      <button class="btn ghost" id="new-design">New design</button>
+      <div class="export-wrap">
+        <button class="btn" id="export-open">Download <span class="caret">▾</span></button>
+        <div class="export-menu" id="export-menu" hidden>
+          <div class="em-row"><span>Quality</span>
+            <div class="seg cols-2" id="scale-seg">
+              <button class="seg-btn active" data-scale="1">1× <small>standard</small></button>
+              <button class="seg-btn" data-scale="2">2× <small>extra sharp</small></button>
+            </div>
+          </div>
+          <button class="em-item" id="export-png"><b>Picture</b><span>PNG · this size</span></button>
+          <button class="em-item" id="export-all"><b>Picture in all 4 sizes</b><span>Story, tall, square and wide post</span></button>
+          <div class="em-sep">Moving logo · 5 second loop</div>
+          <button class="em-item" id="export-mp4"><b>Video</b><span>MP4 · for Reels, Stories and posts</span></button>
+          <button class="em-item" id="export-gif"><b>GIF</b><span>Small, for stickers and email</span></button>
+          <p class="em-note" id="em-note"></p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== INSTAGRAM ===================== -->
+  <main id="view-insta" class="view active">
+    <aside class="sidebar" id="sidebar">
+      <div class="tip"><b>Tip</b> Click any text, the photo or the logo on the design to change it.</div>
+      <section class="step" data-step="size">
+        <button class="step-head" type="button"><i>1</i><span class="step-title">Size</span><span class="step-sum" data-sum="size"></span><span class="chev"></span></button>
+        <div class="step-body">
+          <div class="size-cards" id="format-seg"></div>
+        </div>
+      </section>
+      <section class="step" data-step="template">
+        <button class="step-head" type="button"><i>2</i><span class="step-title">Style</span><span class="step-sum" data-sum="template"></span><span class="chev"></span></button>
+        <div class="step-body">
+          <div class="tpl-grid" id="template-tiles"></div>
+        </div>
+      </section>
+      <section class="step" data-step="colours">
+        <button class="step-head" type="button"><i>3</i><span class="step-title">Colours</span><span class="step-sum" data-sum="colours"></span><span class="chev"></span></button>
+        <div class="step-body">
+          <div class="swatches" id="colour-tiles"></div>
+        </div>
+      </section>
+      <section class="step" data-step="logo">
+        <button class="step-head" type="button"><i>4</i><span class="step-title">Logo</span><span class="step-sum" data-sum="logo"></span><span class="chev"></span></button>
+        <div class="step-body">
+          <div class="logo-tiles" id="logo-tiles"></div>
+          <div class="row-label">Movement <em>for video / GIF</em></div>
+          <div class="seg cols-4" id="anim-seg"></div>
+                  </div>
+      </section>
+      <section class="step" data-step="more">
+        <button class="step-head" type="button"><i>…</i><span class="step-title">More options</span><span class="step-sum" data-sum="more"></span><span class="chev"></span></button>
+        <div class="step-body">
+          <div class="sub" data-sub="text" data-show="announce,product,split,seal"><div class="sub-title">Text</div>
+          <label class="field" data-show="announce,product,split"><span>Small heading</span><input data-field="eyebrow" type="text" placeholder="e.g. New this week"></label>
+          <label class="field" data-show="announce,split,seal"><span>Headline</span><textarea data-field="headline" rows="2"></textarea></label>
+          <label class="field" data-show="product"><span>Product name</span><input data-field="product" type="text"></label>
+          <label class="field" data-show="announce,split"><span>Body text</span><textarea data-field="body" rows="3"></textarea></label>
+          <div class="field" data-show="product"><span>Label lines <em>name · value</em></span>
+            <div class="pair"><input data-field="l1k" type="text"><input data-field="l1v" type="text" placeholder="—"></div>
+            <div class="pair"><input data-field="l2k" type="text"><input data-field="l2v" type="text" placeholder="—"></div>
+            <div class="pair"><input data-field="l3k" type="text"><input data-field="l3v" type="text" placeholder="—"></div>
+          </div>
+          <p class="hint">Press Enter for a new line. Text is set in capitals automatically.</p>
+        </div>
+          <div class="sub" data-sub="photo" data-show="photo,product,split"><div class="sub-title">Photo</div>
+          <label class="drop" id="drop">
+            <input type="file" id="photo-input" accept="image/*" hidden>
+            <span id="drop-label">Drop a photo here, or click to choose one</span>
+          </label>
+          <div class="slider"><span>Warm filter <b data-val="warm"></b></span><input type="range" data-field="warm" min="0" max="1" step="0.01"></div>
+          <div class="slider"><span>Zoom <b data-val="zoom"></b></span><input type="range" data-field="zoom" min="1" max="3" step="0.01"></div>
+          <div class="slider two"><div><span>Left ↔ right <b data-val="px"></b></span><input type="range" data-field="px" min="0" max="100" step="1"></div>
+            <div><span>Up ↕ down <b data-val="py"></b></span><input type="range" data-field="py" min="0" max="100" step="1"></div></div>
+          <button class="btn ghost small" id="photo-remove">Remove photo</button>
+        </div>
+          <div class="sub" data-sub="logo2"><div class="sub-title">Logo size &amp; position</div><div class="row-label">Size</div>
+          <div class="seg cols-4" id="logo-size-seg">
+            <button class="seg-btn" data-size="XS">XS</button><button class="seg-btn" data-size="S">S</button>
+            <button class="seg-btn" data-size="M">M</button><button class="seg-btn" data-size="L">L</button>
+          </div>
+          <div class="row-label">Position</div>
+          <div class="pos-row">
+            <div class="pos-grid" id="pos-grid">
+              <button data-pos="tl" title="Top left"></button><button data-pos="tc" title="Top centre"></button><button data-pos="tr" title="Top right"></button>
+              <button data-pos="ml" title="Middle left"></button><button data-pos="mc" title="Middle"></button><button data-pos="mr" title="Middle right"></button>
+              <button data-pos="bl" title="Bottom left"></button><button data-pos="bc" title="Bottom centre"></button><button data-pos="br" title="Bottom right"></button>
+            </div>
+            <div class="pos-side">
+              <button class="seg-btn auto-btn" data-pos="auto">Auto</button>
+              <p class="hint" id="pos-hint"></p>
+            </div>
+          </div>
+        </div>
+          <div class="sub" data-sub="footer"><div class="sub-title">Footer captions</div>
+          <label class="toggle"><input type="checkbox" data-field="footer"> Show captions</label>
+          <div class="pair-fields">
+            <label class="field"><span>Left</span><textarea data-field="footL" rows="2"></textarea></label>
+            <label class="field"><span>Right</span><textarea data-field="footR" rows="2"></textarea></label>
+          </div>
+        </div>
+          <div class="sub ig-only" data-sub="ig"><div class="sub-title">Instagram preview</div>
+          <label class="field"><span>Profile name</span><input data-field="igName" type="text"></label>
+          <label class="field"><span>Post caption</span><textarea data-field="igCaption" rows="3"></textarea></label>
+          <p class="hint">Only shown in the Instagram preview — never exported.</p>
+        </div>
+          <div class="sub" data-sub="extras"><div class="sub-title">Extras</div>
+          <label class="toggle"><input type="checkbox" data-field="guides"> Show layout guides</label>
+          <label class="toggle"><input type="checkbox" data-field="safe"> Show Story safe area <em>(not exported)</em></label>
+          <button class="btn ghost small" id="reset">Start over</button>
+        </div>
+        </div>
+      </section>
+    </aside>
+
+    <section id="stage">
+      <div class="view-toggle">
+        <button class="vt active" data-view="design">Design</button>
+        <button class="vt" data-view="ig">Instagram preview</button>
+      </div>
+      <div id="frame">
+        <canvas id="canvas"></canvas>
+        <div id="hits"></div>
+        <div id="pop" hidden></div>
+        <div id="ig" hidden>
+          <!-- feed post -->
+          <div class="phone feed" id="ig-feed">
+            <div class="status"><span>9:41</span><span class="dots">●●●</span></div>
+            <div class="ig-top"><span class="ig-title">Posts</span></div>
+            <div class="post-head">
+              <span class="avatar"></span>
+              <span class="who"><b class="ig-name"></b><small>Lou's Fancy Foods</small></span>
+              <span class="more">•••</span>
+            </div>
+            <div class="post-media" id="feed-media"></div>
+            <div class="actions">
+              <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-9.2-8.6C1.3 8.6 3 5 6.4 5c2 0 3.2 1.1 3.9 2.2.3.5.9.5 1.2 0C12.2 6.1 13.4 5 15.4 5 18.8 5 20.6 8.6 19 11.4 17 15.5 12 20 12 20z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M20.5 11.5a8.5 8.5 0 1 1-4-7.2c2.3 1.5 4 4.1 4 7.2zm0 0L21.5 20l-4.6-1.8"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M21 3 3 10.5l7 2.5 2.5 7L21 3zm-11 10 5-5"/></svg>
+              <span class="grow"></span>
+              <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>
+            </div>
+            <div class="likes">128 likes</div>
+            <div class="caption"><b class="ig-name"></b> <span class="ig-caption"></span></div>
+            <div class="when">2 hours ago</div>
+          </div>
+          <!-- story -->
+          <div class="phone story" id="ig-story">
+            <div class="story-media" id="story-media"></div>
+            <div class="story-ui top">
+              <div class="bars"><i class="on"></i><i></i><i></i></div>
+              <div class="story-head"><span class="avatar"></span><b class="ig-name"></b><small>2h</small><span class="grow"></span><span class="x">✕</span></div>
+            </div>
+            <div class="story-ui bottom">
+              <span class="reply">Send message</span>
+              <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-9.2-8.6C1.3 8.6 3 5 6.4 5c2 0 3.2 1.1 3.9 2.2.3.5.9.5 1.2 0C12.2 6.1 13.4 5 15.4 5 18.8 5 20.6 8.6 19 11.4 17 15.5 12 20 12 20z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M21 3 3 10.5l7 2.5 2.5 7L21 3zm-11 10 5-5"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="dims"></div>
+    </section>
+  </main>
+
+  <!-- ===================== STARTERS ===================== -->
+  <div id="starters" class="modal" hidden>
+    <div class="modal-card">
+      <h2>What are you making today?</h2>
+      <p>Pick a starting point — you can change everything afterwards.</p>
+      <div class="starter-grid" id="starter-grid"></div>
+      <button class="link-btn" id="starters-close">Keep working on my current design</button>
+    </div>
+  </div>
+
+  <!-- ===================== INACTIVE TABS ===================== -->
+  <main id="view-labels" class="view inactive">
+    <div class="inactive-card"><b>Stickers &amp; Labels</b><span>Not active yet</span></div>
+  </main>
+  <main id="view-notes" class="view inactive">
+    <div class="inactive-card"><b>Notes</b><span>Not active yet</span></div>
+  </main>
+
+  <footer id="footer">
+    <span>Lou's Fancy Foods · Asset Generator</span>
+    <span>Designed by BY Design × Solitreo Studio</span>
+  </footer>
+
+  <script src="logos.js?v=25"></script>
+  <script src="vendor/mp4-muxer.js"></script>
+  <script src="vendor/gif.js"></script>
+  <script src="anim.js?v=25"></script>
+  <script src="app.js?v=26"></script>
+</body>
+</html>

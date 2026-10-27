@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lou's Asset Generator</title>
+<link rel="stylesheet" href="simple.css?v=9">
+</head>
+<body>
+<header class="bar">
+  <div class="brand"><canvas id="bar-logo" width="120" height="52"></canvas><span>Asset Generator</span></div>
+  <nav class="tabs" role="tablist">
+    <button class="tab on" data-tab="insta" role="tab">Instagram</button>
+    <button class="tab" data-tab="labels" role="tab">Stickers &amp; Labels</button>
+    <button class="tab" data-tab="notes" role="tab">Notes</button>
+  </nav>
+  <div class="bar-right">
+    <nav class="modes" aria-label="Mode"><a class="on" aria-current="page">Editor</a><a href="templates.html">Templates</a></nav>
+    <div class="dl">
+      <button id="download" class="btn primary">Download ▾</button>
+      <div class="dl-menu" id="dl-menu" hidden>
+        <button data-dl="png"><b>Picture</b><span>PNG · full size</span></button>
+        <button data-dl="mp4" class="needs-anim"><b>Video</b><span>MP4 · 5 second loop · for posts and Stories</span></button>
+        <button data-dl="gif" class="needs-anim"><b>GIF</b><span>Small · 540 px wide</span></button>
+        <p class="dl-note" id="dl-note">For a video or GIF, pick a Movement under Logo.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="view-insta" class="view on">
+  <section class="stage" id="stage">
+    <div class="canvas-wrap" id="wrap">
+      <canvas id="c"></canvas>
+      <div class="drop-hint" id="drop-hint">Drop your photo</div>
+    </div>
+    <div class="under">
+      <p class="hint">Drag a photo onto the design · drag text boxes to move them · click the logo to move it top / middle / bottom</p>
+      <label class="check"><input type="checkbox" id="guides"> Show guides</label>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <div class="group">
+      <h3>Size</h3>
+      <div class="seg" id="sizes">
+        <button data-size="portrait">Post 4:5</button>
+        <button data-size="square">Square</button>
+        <button data-size="story">Story</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>Photo</h3>
+      <div class="row">
+        <button class="btn" id="choose">Choose photo</button>
+        <button class="btn ghost" id="remove">Remove</button>
+      </div>
+      <label class="check"><input type="checkbox" id="warm"> Warm Lou's filter</label>
+      <div class="when-nophoto">
+        <span class="label">Background</span>
+        <div class="swatches" data-for="bg"></div>
+      </div>
+      <input type="file" id="file" accept="image/*" hidden>
+    </div>
+
+    <div class="group">
+      <div class="h-row"><h3>Text</h3><button class="add" id="add-text">+ Add text box</button></div>
+      <div class="chips" id="text-list"></div>
+      <div class="when-text">
+        <textarea id="text" rows="3" placeholder="Type here"></textarea>
+        <span class="label">Font</span>
+        <div class="seg fonts" id="fonts">
+          <button data-font="mono" class="f-mono">MONUMENT EXTENDED</button>
+          <button data-font="mono-light" class="f-mono-light">MONUMENT LIGHT</button>
+        </div>
+        <span class="label">Size</span>
+        <div class="seg small" id="text-sizes"></div>
+        <div class="h-row">
+          <div class="swatches" data-for="textColor"></div>
+          <div class="seg small" id="align">
+            <button data-align="left">Left</button><button data-align="center">Centre</button><button data-align="right">Right</button>
+          </div>
+        </div>
+        <button class="del" id="del-text">Delete this text box</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="h-row"><h3>Logo</h3><label class="check"><input type="checkbox" id="logo-on"> Show</label></div>
+      <div class="when-logo">
+        <div class="logos" id="logos"></div>
+        <span class="label">Size</span>
+        <div class="seg small" id="logo-sizes"></div>
+        <span class="label">Position</span>
+        <div class="seg small" id="logo-pos">
+          <button data-pos="top">Top</button><button data-pos="middle">Middle</button><button data-pos="bottom">Bottom</button>
+        </div>
+        <div class="swatches" data-for="logoColor"></div>
+        <span class="label">Movement <em>· for video / GIF</em></span>
+        <div class="seg small" id="anim">
+          <button data-anim="static">Still</button><button data-anim="draw">Draw on</button><button data-anim="construct">Construction</button><button data-anim="fade">Fade up</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="reset" id="reset">Start over</button>
+  </aside>
+</main>
+
+<main id="view-labels" class="view inactive"><div class="inactive-card"><b>Stickers &amp; Labels</b><span>Not active yet</span></div></main>
+<main id="view-notes" class="view inactive"><div class="inactive-card"><b>Notes</b><span>Not active yet</span></div></main>
+
+<div class="toast" id="toast"></div>
+
+<script src="logos.js?v=1"></script>
+<script src="anim.js?v=1"></script>
+<script src="vendor/mp4-muxer.js"></script>
+<script src="vendor/gif.js"></script>
+<script src="simple.js?v=17"></script>
+</body>
+</html>

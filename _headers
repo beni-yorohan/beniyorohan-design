@@ -1,0 +1,4 @@
+# Unlisted tools: keep them out of search results (not listed in robots.txt on purpose,
+# since that file is public and would advertise the path).
+/lff-tool/*
+  X-Robots-Tag: noindex, nofollow
