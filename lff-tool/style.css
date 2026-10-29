@@ -475,3 +475,38 @@ input[type=text], textarea, select { font-size: 14px; padding: 9px 10px; backgro
 .modes a[href]:hover { opacity: 1; }
 .modes a.on { background: var(--cream); color: var(--esp); opacity: 1; }
 .top-actions .modes { align-self: center; }
+
+[hidden] { display: none !important; }
+
+/* phones: top bar stays on top, the design sits under it while the steps scroll below */
+@media (max-width: 760px) {
+  html, body { height: auto; overflow: visible; }
+  #topbar { position: sticky; top: 0; grid-template-columns: auto 1fr; gap: 8px; padding: 0 12px; }
+  .brand-div, .brand-title { display: none; }
+  #brand-mark { height: 26px; }
+  .top-actions { gap: 6px; }
+  .modes a { padding: 6px 9px; font-size: 12.5px; }
+  #new-design { padding: 8px 10px; font-size: 12.5px; }
+  #export-open { padding: 8px 12px; font-size: 12.5px; }
+  .export-menu { width: min(300px, calc(100vw - 24px)); }
+  #view-insta.view.active { position: static; display: flex; flex-direction: column; }
+  #stage { position: sticky; top: var(--topbar-h); order: -1; z-index: 4; height: 54vh; height: 54svh;
+    left: auto; right: auto; background: var(--page); box-shadow: 0 1px 0 var(--line); }
+  #frame { padding: 8px; }
+  .view-toggle { margin-top: 8px; }
+  #dims { display: none; }
+  .sidebar { position: static; width: auto; margin: 12px; }
+  #footer { position: static; height: auto; flex-direction: column; gap: 2px; padding: 8px 16px 20px; text-align: center; }
+  .size-cards { gap: 6px; }
+  .modal { padding: 12px; align-items: stretch; }
+  .modal-card { padding: 22px 16px 14px; }
+  .modal-card h2 { font-size: 22px; }
+  .starter-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .starter .thumb { height: 140px; }
+}
+@media (max-width: 760px) {
+  #new-design .long { display: none; }
+  .top-actions { min-width: 0; }
+  #brand-mark { height: 22px; }
+  .modes a { padding: 6px 8px; }
+}

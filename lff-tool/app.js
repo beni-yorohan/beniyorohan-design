@@ -485,7 +485,8 @@ const canvas = $("#canvas");
 function fit() {
   const f = FORMATS[state.format], fr = $("#frame").getBoundingClientRect();
   if (VIEW === "ig") return fitIG(f, fr);
-  const s = Math.min((fr.width - 56) / f.w, (fr.height - 56) / f.h);
+  const pad = innerWidth <= 760 ? 16 : 56;   // phones: use the whole width
+  const s = Math.min((fr.width - pad) / f.w, (fr.height - pad) / f.h);
   canvas.style.width = f.w * s + "px"; canvas.style.height = f.h * s + "px";
   $("#dims").textContent = `${f.label} · ${f.w} × ${f.h} px · ${TEMPLATES[state.template].title} · ${COLOURWAYS[state.colour].label}`;
 }

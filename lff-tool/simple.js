@@ -22,7 +22,7 @@ const DEFAULTS = {
   size: "portrait", warm: true, soft: true, bg: "esp",
   texts: [newText({ text: "Fresh out of\nthe kitchen", align: "left", x: 0.074, y: 0.07 })], cur: 0,
   logoOn: true, logo: "combination", logoSize: "M", logoPos: "bottom", logoColor: "cream",
-  px: 50, py: 50, anim: "static", guides: false,
+  px: 50, py: 50, pz: 1, logoScrim: false, anim: "static", guides: false,
 };
 let S = load();
 let photo = null;
@@ -67,8 +67,32 @@ function load() {
     return s;
   } catch (e) { return JSON.parse(JSON.stringify(DEFAULTS)); }
 }
+// undo / redo: snapshots of the design (not the photo itself); quick runs of changes
+// (typing, nudging) count as one step
+const HIST = { undo: [], redo: [], last: null, at: 0 };
 function save() {
-  try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {}
+  const now = JSON.stringify(S);
+  if (HIST.last !== null && now !== HIST.last) {
+    if (performance.now() - HIST.at > 600 || !HIST.undo.length) HIST.undo.push(HIST.last);
+    if (HIST.undo.length > 80) HIST.undo.shift();
+    HIST.redo = []; HIST.at = performance.now();
+  }
+  HIST.last = now;
+  try { localStorage.setItem(STORE, now); } catch (e) {}
+  syncUndo();
+}
+function stepHistory(back) {
+  const from = back ? HIST.undo : HIST.redo, to = back ? HIST.redo : HIST.undo;
+  if (!from.length) return;
+  to.push(HIST.last); HIST.last = from.pop(); HIST.at = 0;
+  S = JSON.parse(HIST.last);
+  try { localStorage.setItem(STORE, HIST.last); } catch (e) {}
+  syncUndo(); sync();
+}
+function syncUndo() {
+  const u = document.getElementById("undo"), r = document.getElementById("redo");
+  if (u) u.disabled = !HIST.undo.length;
+  if (r) r.disabled = !HIST.redo.length;
 }
 function savePhoto(src) {
   try { if (src) localStorage.setItem(STORE + "-photo", src); else localStorage.removeItem(STORE + "-photo"); } catch (e) {}
@@ -89,8 +113,10 @@ function withShadow(c, on, W, fn) {
   if (on) { c.shadowColor = "rgba(34,14,2,.42)"; c.shadowBlur = W * 0.018 * RS; c.shadowOffsetY = W * 0.0035 * RS; }
   fn(); c.restore();
 }
+// cover-fit scale × zoom (1 = the photo just fills the frame)
+const photoScale = (W, H) => Math.max(W / photo.naturalWidth, H / photo.naturalHeight) * (S.pz || 1);
 function drawPhoto(c, W, H) {
-  const s = Math.max(W / photo.naturalWidth, H / photo.naturalHeight);
+  const s = photoScale(W, H);
   const iw = photo.naturalWidth * s, ih = photo.naturalHeight * s;
   const ix = (W - iw) * S.px / 100, iy = (H - ih) * S.py / 100;
   // Lou's photo filter: white balance + 3000K warmth, levels, vibrance, and (optionally) the soft portrait background
@@ -139,6 +165,7 @@ function render(c, W, H, preview, t = null) {
   c.clearRect(0, 0, W, H);
   c.fillStyle = C[S.bg]; c.fillRect(0, 0, W, H);
   if (photo) drawPhoto(c, W, H);   // no placeholder text: the hint under the design and the drop overlay cover it
+  if (photo && S.logoOn && S.logoScrim) drawScrim(c, W, H);
   const onPhoto = !!photo;
   BOX = { texts: [] };
   if (S.logoOn) {
@@ -152,9 +179,10 @@ function render(c, W, H, preview, t = null) {
   }
   S.texts.forEach((tb, i) => {
     if (!tb.text.trim()) { BOX.texts[i] = null; return; }
-    const m = measureText(c, W, tb), ax = tb.x * W;
+    const m = measureText(c, W, tb);
     const boxH = m.px * 0.78 + (m.lines.length - 1) * m.lh + m.px * 0.08, top = clampTextY(tb, H, boxH);
-    const x0 = tb.align === "left" ? ax : tb.align === "center" ? ax - m.w / 2 : ax - m.w;
+    const off = tb.align === "left" ? 0 : tb.align === "center" ? m.w / 2 : m.w;
+    const x0 = Math.max(0, Math.min(tb.x * W - off, W - m.w)), ax = x0 + off;   // never off the side of the frame
     withShadow(c, onPhoto, W * 0.6, () => {
       c.fillStyle = C[textInk(tb)]; c.textBaseline = "alphabetic"; c.textAlign = "left";
       m.lines.forEach((l, k) => {   // pen x so the line's ink edge / ink centre sits on the anchor
@@ -174,6 +202,24 @@ function render(c, W, H, preview, t = null) {
     if (typeof hover === "number" && hover !== S.cur) outline(BOX.texts[hover], false);
     if (hover === "logo") outline(BOX.logo, false);
   }
+}
+// "Darken behind logo": a soft brown fade from the logo's edge of the frame (photos only)
+function drawScrim(c, W, H) {
+  const b = logoBox(W, H), col = a => `rgba(48,30,18,${a})`;
+  c.save();
+  if (S.logoPos === "middle") {
+    const cx = W / 2, cy = b.y + b.h / 2, r = Math.max(b.w, b.h) * 0.95;
+    const g = c.createRadialGradient(cx, cy, 0, cx, cy, r);
+    g.addColorStop(0, col(0.5)); g.addColorStop(0.55, col(0.28)); g.addColorStop(1, col(0));
+    c.fillStyle = g; c.fillRect(0, 0, W, H);
+  } else {
+    const top = S.logoPos === "top", edge = top ? 0 : H;
+    const reach = top ? b.y + b.h * 1.9 : H - b.y + b.h * 0.9;
+    const g = c.createLinearGradient(0, edge, 0, top ? reach : H - reach);
+    g.addColorStop(0, col(0.6)); g.addColorStop(0.45, col(0.34)); g.addColorStop(1, col(0));
+    c.fillStyle = g; c.fillRect(0, top ? 0 : H - reach, W, reach);
+  }
+  c.restore();
 }
 // helper lines that stay visible on any background (white, brown, olive or a photo):
 // brown and white dashes alternating along the same path; `solid` = brown line + white dashes
@@ -232,6 +278,8 @@ function pick(x, y) {
 }
 cv.addEventListener("pointermove", e => {
   const [x, y] = toCanvas(e);
+  if (touches.has(e.pointerId)) touches.set(e.pointerId, [x, y]);
+  if (pinch) { if (touches.size === 2) setZoom(pinch.z * spread() / pinch.d); return; }
   if (!drag) {
     const p = pick(x, y), h = p === "photo" ? null : p;
     cv.style.cursor = p === "photo" ? "grab" : p === "logo" ? "pointer" : p !== null ? "move" : "default";
@@ -247,17 +295,34 @@ cv.addEventListener("pointermove", e => {
       const bw = b.w / W, left = tb.align === "left" ? tx : tb.align === "center" ? tx - bw / 2 : tx - bw;
       const lines = [[left, MARGIN], [left + bw / 2, 0.5], [left + bw, 1 - MARGIN]];
       for (const [edge, line] of lines) if (Math.abs(edge - line) < 0.02) { tx += line - edge; snapX = line * W; break; }
+      const off = left - tx;   // keep the whole box inside the frame
+      tx = Math.max(-off, Math.min(tx, 1 - bw - off));
     }
     tb.x = tx; tb.y = drag.s.y + dy / H;
   } else if (drag.what === "photo") {
-    const s = Math.max(W / photo.naturalWidth, H / photo.naturalHeight);
+    const s = photoScale(W, H);
     const ox = photo.naturalWidth * s - W, oy = photo.naturalHeight * s - H;
     if (ox > 1) S.px = Math.max(0, Math.min(100, drag.s.px - dx / ox * 100));
     if (oy > 1) S.py = Math.max(0, Math.min(100, drag.s.py - dy / oy * 100));
   }
   draw();
 });
+// two fingers on the photo = zoom (phones / tablets)
+const touches = new Map();
+let pinch = null;
+const spread = () => { const [a, b] = [...touches.values()]; return Math.hypot(a[0] - b[0], a[1] - b[1]); };
+function setZoom(z) {
+  S.pz = Math.round(Math.max(1, Math.min(3, z)) * 100) / 100;
+  const zr = $("#zoom"); if (zr) zr.value = S.pz;
+  draw();
+}
 cv.addEventListener("pointerdown", e => {
+  if (e.pointerType === "touch") {
+    touches.set(e.pointerId, toCanvas(e));
+    if (touches.size === 2 && photo) { drag = null; snapX = null; pinch = { d: spread(), z: S.pz || 1 }; return; }
+  }
+  if (pinch) return;
+  cv.focus({ preventScroll: true });
   const [x, y] = toCanvas(e), what = pick(x, y);
   if (what === null) { if (!photo) $("#file").click(); return; }
   if (what === "logo") {   // the logo isn't dragged: it lives at top / middle / bottom
@@ -272,9 +337,18 @@ cv.addEventListener("pointerdown", e => {
   else { drag = { what, x, y, s: { px: S.px, py: S.py } }; cv.style.cursor = "grabbing"; }
   draw();
 });
-const endDrag = () => { if (!drag) return; drag = null; snapX = null; save(); draw(); };
+const endDrag = e => {
+  touches.delete(e.pointerId);
+  if (pinch) { if (touches.size < 2) { pinch = null; save(); } return; }
+  if (!drag) return; drag = null; snapX = null; save(); draw();
+};
 cv.addEventListener("pointerup", endDrag);
 cv.addEventListener("pointercancel", endDrag);
+// trackpad pinch (and ctrl + scroll) zooms the photo too
+cv.addEventListener("wheel", e => {
+  if (!photo || !e.ctrlKey) return;
+  e.preventDefault(); setZoom((S.pz || 1) * Math.exp(-e.deltaY * 0.01)); clearTimeout(cv._z); cv._z = setTimeout(save, 300);
+}, { passive: false });
 cv.addEventListener("pointerleave", () => { if (!drag && hover !== null) { hover = null; draw(); } });
 cv.addEventListener("dblclick", e => {
   const [x, y] = toCanvas(e), p = pick(x, y);
@@ -292,7 +366,7 @@ function useFile(f) {
       const t = document.createElement("canvas"); t.width = Math.round(img.naturalWidth * k); t.height = Math.round(img.naturalHeight * k);
       t.getContext("2d").drawImage(img, 0, 0, t.width, t.height);
       const src = t.toDataURL("image/jpeg", 0.9);
-      setPhoto(src); savePhoto(src); S.px = 50; S.py = 50; save();
+      setPhoto(src); savePhoto(src); S.px = 50; S.py = 50; S.pz = 1; save();
     };
     img.src = r.result;
   };
@@ -393,6 +467,10 @@ function sync() {
   $("#warm").checked = S.warm;
   $("#soft").checked = S.soft !== false; $("#soft").disabled = !S.warm;
   $("#logo-on").checked = S.logoOn;
+  $("#scrim").checked = !!S.logoScrim;
+  $("#scrim").parentElement.classList.toggle("hidden", !photo);
+  $("#zoom").value = S.pz || 1;
+  $("#zoom-row").classList.toggle("hidden", !photo);
   $(".when-logo").classList.toggle("hidden", !S.logoOn);
   $(".when-nophoto").classList.toggle("hidden", !!photo);
   $("#remove").classList.toggle("hidden", !photo);
@@ -430,10 +508,34 @@ function bindPanel() {
   $("#warm").onchange = e => { S.warm = e.target.checked; save(); sync(); };
   $("#soft").onchange = e => { S.soft = e.target.checked; save(); sync(); };
   $("#logo-on").onchange = e => { S.logoOn = e.target.checked; save(); sync(); };
+  $("#scrim").onchange = e => { S.logoScrim = e.target.checked; save(); sync(); };
+  $("#zoom").oninput = e => setZoom(+e.target.value);
+  $("#zoom").onchange = () => save();
+  $("#undo").onclick = () => stepHistory(true);
+  $("#redo").onclick = () => stepHistory(false);
+  document.addEventListener("keydown", e => {
+    const typing = /^(TEXTAREA|INPUT)$/.test(document.activeElement.tagName);
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "z" && !typing) {
+      e.preventDefault(); stepHistory(!e.shiftKey); return;
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "y" && !typing) { e.preventDefault(); stepHistory(false); return; }
+    // with the design selected: arrows nudge the current text box, Delete removes it
+    if (document.activeElement !== cv || !T()) return;
+    const step = e.shiftKey ? 0.025 : 0.005, mv = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key];
+    if (mv) {
+      e.preventDefault();
+      const tb = T(), b = BOX.texts[S.cur];
+      if (b) tb.y = b.y / cv.height;   // start from where it's drawn (it may have been kept inside the frame)
+      tb.x += mv[0] * step; tb.y = Math.max(0, Math.min(0.98, tb.y + mv[1] * step));
+      draw(); const b2 = BOX.texts[S.cur]; if (b2) { const off = tb.align === "left" ? 0 : tb.align === "center" ? b2.w / 2 : b2.w; tb.x = (b2.x + off) / cv.width; }
+      save(); return;
+    }
+    if (e.key === "Delete" || e.key === "Backspace") { e.preventDefault(); $("#del-text").click(); }
+  });
   $("#text").oninput = e => { if (T()) T().text = e.target.value; save(); draw();
     const chip = $(`#text-list [data-i="${S.cur}"]`); if (chip) chip.textContent = (e.target.value.split("\n")[0] || "Empty").slice(0, 18); };
   $("#reset").onclick = () => { if (!confirm("Start over? This clears the photo and text.")) return;
-    S = JSON.parse(JSON.stringify(DEFAULTS)); save(); savePhoto(null); setPhoto(null); };
+    S = JSON.parse(JSON.stringify(DEFAULTS)); save(); savePhoto(null); photoFx = null; setPhoto(null); };
   document.querySelectorAll("#anim button").forEach(b => b.onclick = () => { S.anim = b.dataset.anim; save(); sync(); });
   $("#guides").onchange = e => { S.guides = e.target.checked; save(); sync(); };
   const menu = $("#dl-menu");
@@ -528,7 +630,8 @@ function toast(msg, sticky) {
   const bl = $("#bar-logo");
   drawLogo(bl.getContext("2d"), "combination", 0, 0, bl.width, C.cream);
   bl.style.width = "60px";
-  swatches(); logoTiles(); bindPanel();
+  HIST.last = JSON.stringify(S);
+  swatches(); logoTiles(); bindPanel(); syncUndo();
   let saved = null; try { saved = localStorage.getItem(STORE + "-photo"); } catch (e) {}
   if (saved) setPhoto(saved); else sync();
   document.fonts.ready.then(draw);

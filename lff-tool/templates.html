@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Lou's Asset Generator · Templates</title>
-  <link rel="stylesheet" href="style.css?v=25">
+  <link rel="stylesheet" href="style.css?v=27">
 </head>
 <body>
   <header id="topbar">
@@ -14,14 +14,14 @@
       <span class="brand-div"></span>
       <span class="brand-title">Asset Generator</span>
     </div>
-    <nav class="tabs" role="tablist">
+    <nav class="tabs" role="tablist" hidden>   <!-- one active tab for now: shown again when Stickers & Labels / Notes are built -->
       <button class="tab active" data-tab="insta" role="tab">Instagram</button>
-      <button class="tab" data-tab="labels" role="tab">Stickers &amp; Labels</button>
-      <button class="tab" data-tab="notes" role="tab">Notes</button>
+      <button class="tab" data-tab="labels" role="tab" hidden>Stickers &amp; Labels</button>
+      <button class="tab" data-tab="notes" role="tab" hidden>Notes</button>
     </nav>
     <div class="top-actions">
       <nav class="modes" aria-label="Mode"><a href="index.html">Editor</a><a class="on" aria-current="page">Templates</a></nav>
-      <button class="btn ghost" id="new-design">New design</button>
+      <button class="btn ghost" id="new-design">New<span class="long"> design</span></button>
       <div class="export-wrap">
         <button class="btn" id="export-open">Download <span class="caret">▾</span></button>
         <div class="export-menu" id="export-menu" hidden>
@@ -215,6 +215,6 @@
   <script src="vendor/gif.js"></script>
   <script src="anim.js?v=25"></script>
   <script src="photofilter.js?v=1"></script>
-  <script src="app.js?v=27"></script>
+  <script src="app.js?v=28"></script>
 </body>
 </html>

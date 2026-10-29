@@ -5,15 +5,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lou's Asset Generator</title>
-<link rel="stylesheet" href="simple.css?v=9">
+<link rel="stylesheet" href="simple.css?v=10">
 </head>
 <body>
 <header class="bar">
   <div class="brand"><canvas id="bar-logo" width="120" height="52"></canvas><span>Asset Generator</span></div>
-  <nav class="tabs" role="tablist">
+  <nav class="tabs" role="tablist" hidden>   <!-- one active tab for now: shown again when Stickers & Labels / Notes are built -->
     <button class="tab on" data-tab="insta" role="tab">Instagram</button>
-    <button class="tab" data-tab="labels" role="tab">Stickers &amp; Labels</button>
-    <button class="tab" data-tab="notes" role="tab">Notes</button>
+    <button class="tab" data-tab="labels" role="tab" hidden>Stickers &amp; Labels</button>
+    <button class="tab" data-tab="notes" role="tab" hidden>Notes</button>
   </nav>
   <div class="bar-right">
     <nav class="modes" aria-label="Mode"><a class="on" aria-current="page">Editor</a><a href="templates.html">Templates</a></nav>
@@ -32,12 +32,16 @@
 <main id="view-insta" class="view on">
   <section class="stage" id="stage">
     <div class="canvas-wrap" id="wrap">
-      <canvas id="c"></canvas>
+      <canvas id="c" tabindex="0" aria-label="Your design"></canvas>
       <div class="drop-hint" id="drop-hint">Drop your photo</div>
     </div>
     <div class="under">
       <p class="hint">Drag a photo onto the design · drag text boxes to move them · click the logo to move it top / middle / bottom</p>
-      <label class="check"><input type="checkbox" id="guides"> Show guides</label>
+      <p class="hint touch">Drag text to move it · pinch the photo to zoom · tap the logo to move it</p>
+      <div class="under-tools">
+        <div class="undo"><button id="undo" title="Undo (⌘Z)" aria-label="Undo">↶ Undo</button><button id="redo" title="Redo (⇧⌘Z)" aria-label="Redo">Redo ↷</button></div>
+        <label class="check"><input type="checkbox" id="guides"> Show guides</label>
+      </div>
     </div>
   </section>
 
@@ -57,6 +61,7 @@
         <button class="btn" id="choose">Choose photo</button>
         <button class="btn ghost" id="remove">Remove</button>
       </div>
+      <div class="zoom-row" id="zoom-row"><span class="label">Zoom</span><input type="range" id="zoom" min="1" max="3" step="0.01" value="1" aria-label="Zoom the photo"></div>
       <label class="check"><input type="checkbox" id="warm"> Lou's photo filter</label>
       <label class="check sub"><input type="checkbox" id="soft"> Soft background (portrait look)</label>
       <p class="tip-shoot" id="shoot-tip">For the best result: shoot from 45° with the whole plate in frame, in iPhone Portrait mode.</p>
@@ -100,6 +105,7 @@
           <button data-pos="top">Top</button><button data-pos="middle">Middle</button><button data-pos="bottom">Bottom</button>
         </div>
         <div class="swatches" data-for="logoColor"></div>
+        <label class="check"><input type="checkbox" id="scrim"> Darken behind logo <em class="opt">· for busy photos</em></label>
         <span class="label">Movement <em>· for video / GIF</em></span>
         <div class="seg small" id="anim">
           <button data-anim="static">Still</button><button data-anim="draw">Draw on</button><button data-anim="construct">Construction</button><button data-anim="fade">Fade up</button>
@@ -121,6 +127,6 @@
 <script src="vendor/mp4-muxer.js"></script>
 <script src="vendor/gif.js"></script>
 <script src="photofilter.js?v=1"></script>
-<script src="simple.js?v=18"></script>
+<script src="simple.js?v=20"></script>
 </body>
 </html>
