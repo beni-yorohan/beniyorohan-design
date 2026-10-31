@@ -17,3 +17,7 @@ https://tools.beniyorohan.design/lous     /lff-tool/index.html                  
 https://tools.beniyorohan.design/lous/*   /lff-tool/:splat                        200!
 http://tools.beniyorohan.design/*         https://tools.beniyorohan.design/:splat 301!
 https://tools.beniyorohan.design/*        https://beniyorohan.design/             302!
+
+# The old address of the Lou's tool now forwards to its own subdomain (one link for the client).
+https://beniyorohan.design/lff-tool/*        https://tools.beniyorohan.design/lous/:splat  301!
+https://www.beniyorohan.design/lff-tool/*    https://tools.beniyorohan.design/lous/:splat  301!
