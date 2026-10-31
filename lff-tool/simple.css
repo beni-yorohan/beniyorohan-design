@@ -178,12 +178,12 @@ input[type=range] { width: 100%; accent-color: var(--esp); }
 .move-row .label { margin: 0; }
 .ghost-add { background: transparent; color: var(--esp); box-shadow: inset 0 0 0 1px var(--line); white-space: nowrap; }
 
-/* header: New design · Library · Download */
+/* header: New design · Download */
 .bar-btn { background: transparent; color: var(--cream); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); padding: 9px 16px; }
 .bar-btn:hover { background: rgba(255,255,255,.1); filter: none; }
 #layout button { font-size: 12px; }
 
-/* New design + Library */
+/* New design */
 .modal { position: fixed; inset: 0; z-index: 50; background: rgba(78,53,36,.45); display: flex; align-items: center; justify-content: center; padding: 24px; }
 .modal[hidden] { display: none; }
 .modal-card { background: var(--panel); border-radius: 18px; padding: 30px 30px 18px; width: min(980px, 100%); max-height: 100%; overflow: auto;
@@ -195,24 +195,12 @@ input[type=range] { width: 100%; accent-color: var(--esp); }
 .starter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; text-align: left; }
 .starter { border: 1px solid var(--line); background: transparent; border-radius: 14px; padding: 10px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
 .starter:hover { border-color: var(--esp); box-shadow: inset 0 0 0 1px var(--esp); }
-.starter .thumb, .lib-open .thumb { height: 200px; border-radius: 10px; background: rgba(78,53,36,.06); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.starter img, .lib-open img { max-width: 100%; max-height: 100%; display: block; box-shadow: 0 6px 18px rgba(78,53,36,.15); }
+.starter .thumb { height: 200px; border-radius: 10px; background: rgba(78,53,36,.06); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.starter img { max-width: 100%; max-height: 100%; display: block; box-shadow: 0 6px 18px rgba(78,53,36,.15); }
 .starter b { font-weight: 400; font-size: 15px; margin-top: 6px; }
 .starter > span:last-child { font-size: 12.5px; color: var(--mute); }
 .link-btn { margin-top: 18px; border: 0; background: transparent; color: var(--mute); text-decoration: underline; cursor: pointer; font-size: 13px; }
 
-.lib-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; text-align: left; }
-.lib-card { border: 1px solid var(--line); border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
-.lib-card.current { border-color: var(--olive); box-shadow: inset 0 0 0 1px var(--olive); }
-.lib-open { border: 0; padding: 0; background: transparent; cursor: pointer; display: block; width: 100%; }
-.lib-open .thumb { height: 180px; }
-.lib-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.lib-meta b { font-weight: 400; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.lib-meta span { font-size: 12px; color: var(--mute); }
-.lib-acts { display: flex; gap: 12px; }
-.lib-acts button { border: 0; background: transparent; padding: 0; font-size: 12.5px; color: var(--mute); text-decoration: underline; cursor: pointer; }
-.lib-acts button:hover { color: var(--esp); }
-.lib-empty { grid-column: 1 / -1; text-align: center; color: var(--mute); padding: 40px 0; margin: 0; }
 
 @media (max-width: 760px) {
   .bar-btn { padding: 8px 11px; font-size: 13px; }
@@ -220,9 +208,8 @@ input[type=range] { width: 100%; accent-color: var(--esp); }
   .modal { padding: 12px; }
   .modal-card { padding: 22px 14px 12px; }
   .modal-card h2 { font-size: 22px; }
-  .starter-grid, .lib-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .starter-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .starter .thumb { height: 150px; }
-  .lib-open .thumb { height: 140px; }
 }
 
 /* Design | Instagram preview */

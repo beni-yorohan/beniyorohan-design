@@ -6,7 +6,7 @@
 <script>if (location.pathname === "/lous") location.replace("/lous/" + location.search + location.hash);   /* tools.beniyorohan.design/lous → /lous/ so relative files load */</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lou's Asset Generator</title>
-<link rel="stylesheet" href="simple.css?v=16">
+<link rel="stylesheet" href="simple.css?v=17">
 </head>
 <body>
 <header class="bar">
@@ -18,7 +18,6 @@
   </nav>
   <div class="bar-right">
     <button class="btn bar-btn" id="new-design">New<span class="long"> design</span></button>
-    <button class="btn bar-btn" id="library">Library</button>
     <div class="dl">
       <button id="download" class="btn primary">Download ▾</button>
       <div class="dl-menu" id="dl-menu" hidden>
@@ -176,21 +175,13 @@
   </div>
 </div>
 
-<div class="modal" id="lib" hidden>
-  <div class="modal-card">
-    <h2>Library</h2>
-    <p>Every design is saved here automatically, on this computer and in this browser.</p>
-    <div class="lib-grid" id="lib-grid"></div>
-    <button class="link-btn" id="lib-close">Close</button>
-  </div>
-</div>
 
 <script src="logos.js?v=1"></script>
 <script src="anim.js?v=1"></script>
 <script src="vendor/mp4-muxer.js"></script>
 <script src="vendor/gif.js"></script>
 <script src="photofilter.js?v=1"></script>
-<script src="simple.js?v=26"></script>
-<script src="library.js?v=3"></script>
+<script src="simple.js?v=27"></script>
+<script src="starters.js?v=1"></script>
 </body>
 </html>

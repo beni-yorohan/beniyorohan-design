@@ -1,6 +1,6 @@
 /* Lou's Fancy Foods — Asset Generator (the socials asset tool; editor and templates in one).
    A design = a photo (full frame, or the top half), any number of text boxes and the logo.
-   "New design" starts from a template (starters below); every design is kept in the Library (library.js).
+   "New design" starts from a template (starters.js).
    - Text boxes: drag anywhere; set sizes XS–XL; brand fonts.
    - Text is always centred in the frame and centre-aligned; boxes move up and down only.
    - Logo: sizes S / M / L, centred at the top, middle or bottom; videos and GIFs draw it on (anim.js).
@@ -88,11 +88,9 @@ function save() {
     if (HIST.undo.length > 80) HIST.undo.shift();
     HIST.redo = []; HIST.at = performance.now();
   }
-  const changed = HIST.last !== null && now !== HIST.last;
   HIST.last = now;
   try { localStorage.setItem(STORE, now); } catch (e) {}
   syncUndo();
-  if (changed && window.LIB) LIB.touch();   // keep the Library copy up to date
 }
 function stepHistory(back) {
   const from = back ? HIST.undo : HIST.redo, to = back ? HIST.redo : HIST.undo;
@@ -101,14 +99,13 @@ function stepHistory(back) {
   S = JSON.parse(HIST.last);
   try { localStorage.setItem(STORE, HIST.last); } catch (e) {}
   syncUndo(); sync();
-  if (window.LIB) LIB.touch();
 }
 function syncUndo() {
   const u = document.getElementById("undo"), r = document.getElementById("redo");
   if (u) u.disabled = !HIST.undo.length;
   if (r) r.disabled = !HIST.redo.length;
 }
-let photoSrc = null;   // the photo as a data URL (kept with the design in the Library)
+let photoSrc = null;   // the photo as a data URL (kept when a template that uses a photo is picked)
 function savePhoto(src) {
   photoSrc = src || null;
   try { if (src) localStorage.setItem(STORE + "-photo", src); else localStorage.removeItem(STORE + "-photo"); } catch (e) {}
@@ -434,7 +431,7 @@ function useFile(f) {
       t.getContext("2d").drawImage(img, 0, 0, t.width, t.height);
       const src = t.toDataURL("image/jpeg", 0.9);
       savePhoto(src); S.px = 50; S.py = 50; S.pz = 1; save();
-      setPhoto(src, () => window.LIB && LIB.touch());   // re-save once the filtered photo is ready (for the thumbnail)
+      setPhoto(src);
     };
     img.src = r.result;
   };
@@ -456,7 +453,7 @@ window.addEventListener("drop", e => {
 });
 $("#choose").onclick = () => $("#file").click();
 $("#file").onchange = e => { useFile(e.target.files[0]); e.target.value = ""; };
-$("#remove").onclick = () => { photo = null; photoFx = null; savePhoto(null); fixColours(); save(); setPhoto(null); if (window.LIB) LIB.touch(); };
+$("#remove").onclick = () => { photo = null; photoFx = null; savePhoto(null); fixColours(); save(); setPhoto(null); };
 
 /* ---------- panel ---------- */
 function swatches() {
