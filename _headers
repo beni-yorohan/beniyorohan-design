@@ -2,3 +2,5 @@
 # since that file is public and would advertise the path).
 /lff-tool/*
   X-Robots-Tag: noindex, nofollow
+/lous/*
+  X-Robots-Tag: noindex, nofollow

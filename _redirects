@@ -7,3 +7,11 @@ http://beniyorohan-design.com/*       https://beniyorohan.design/:splat  301!
 https://beniyorohan-design.com/*      https://beniyorohan.design/:splat  301!
 http://www.beniyorohan-design.com/*   https://beniyorohan.design/:splat  301!
 https://www.beniyorohan-design.com/*  https://beniyorohan.design/:splat  301!
+
+# Client tools live on their own subdomain: tools.beniyorohan.design (a domain alias of this site).
+# /lous = the Lou's Fancy Foods asset generator (files in /lff-tool/). Anything else on the
+# tools host goes back to the portfolio, so the subdomain never mirrors the whole site.
+https://tools.beniyorohan.design/lous     https://tools.beniyorohan.design/lous/  301!
+https://tools.beniyorohan.design/lous/*   /lff-tool/:splat                        200!
+http://tools.beniyorohan.design/*         https://tools.beniyorohan.design/:splat 301!
+https://tools.beniyorohan.design/*        https://beniyorohan.design/             302!
