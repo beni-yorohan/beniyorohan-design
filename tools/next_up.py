@@ -27,6 +27,7 @@ CARD = re.compile(
 # 2–3 sentences per project for the "next up" handoff, in studio voice.
 # Every linked homepage card needs an entry; the script refuses to run without one.
 BLURBS = {
+    "lous-fancy-foods": "A small kitchen cooking seasonal food by hand, given an identity as considered as the cooking: a drawn script, wide capitals and three colours from the kitchen. Labels, seals, printed tissue, stationery and postcards, plus an asset tool so the team can make their own posts on brand.",
     "rayka-black": "An ultra-heavy display typeface that began as a single capital R, cut by hand from black paper. Every other character descends from that one object — traced, spaced and engineered into a 58-glyph font with Turkish support.",
     "solidworks-socials": "Dassault Systèmes’ education brand, refined across its social channels: tighter guidelines, rebuilt templates and the campaign for the SOLIDWORKS Freemium launch. The work grew into a custom asset-creation tool, and the team became a BY Design client.",
     "matos-organic-tomato-juice": "An organic tomato juice brand built around one idea: Radical Ripeness. Logo, packaging, typography, colour, social and print, all designed to feel bold, unapologetic and rooted in real agriculture.",
