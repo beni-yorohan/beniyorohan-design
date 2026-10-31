@@ -1,35 +1,38 @@
 /* Lou's Fancy Foods — Simple editor (the socials asset tool).
    One template: a photo, any number of text boxes and the logo.
    - Text boxes: drag anywhere; set sizes XS–XL; brand fonts.
-   - Logo: set sizes XS–XL, centred at the top, middle or bottom; can animate (anim.js).
+   - Text is always centred in the frame and centre-aligned; boxes move up and down only.
+   - Logo: sizes S / M / L, centred at the top, middle or bottom; videos and GIFs draw it on (anim.js).
    Brand rules kept: PP Monument Extended is always ALL CAPS and tracked +250; photos get the
    warm Lou's grade (switchable); anything sitting on a photo gets a soft shadow. */
 
 const C = { cream: "#FFFFFF", esp: "#4E3524", brown: "#4E3524", olive: "#6D712E" };   // LFF guidelines v1.0: white / 2322 C / 5757 C (keys kept for compatibility)
-const SIZES = { portrait: [1080, 1350], square: [1080, 1080], story: [1080, 1920] };
+const SIZES = { portrait: [1080, 1350], story: [1080, 1920] };
 const FONTS = {
   mono: { css: '400 {px}px "PP Monument Extended"', caps: true, track: 0.25, lh: 1.08 },
   "mono-light": { css: '300 {px}px "PP Monument Extended"', caps: true, track: 0.25, lh: 1.08 },
 };
 const STEPS = ["XS", "S", "M", "L", "XL"];
 const TEXT_PX = { XS: 2.6, S: 3.6, M: 5, L: 6.8, XL: 9 };          // % of the frame width
-const LOGO_W = { XS: 0.2, S: 0.28, M: 0.38, L: 0.5, XL: 0.64 };     // width for a 2.35:1 mark, scaled by shape
-const LOGO_LIST = ["combination", "script", "lous", "lff", "sans_stack", "sans_h", "bonus"];
+const LOGO_STEPS = ["S", "M", "L"];
+const LOGO_W = { S: 0.2, M: 0.38, L: 0.64 };     // width for a 2.35:1 mark, scaled by shape (were XS / M / XL)
+const LOGO_LIST = ["combination", "lous", "lff", "sans_stack", "script", "sans_h", "bonus"];   // compact marks in pairs, then the long lockups full width
 const STORE = "lff-simple-v2";
 
-const newText = (o = {}) => ({ text: "New text", font: "mono", size: "M", color: "cream", align: "center", x: 0.5, y: 0.45, ...o });   // x = the align anchor
+const newText = (o = {}) => ({ text: "New text", font: "mono", size: "M", color: "cream", ...o, align: "center", x: 0.5 });   // always centred
 const DEFAULTS = {
   size: "portrait", warm: true, soft: true, bg: "esp",
-  texts: [newText({ text: "Fresh out of\nthe kitchen", align: "left", x: 0.074, y: 0.07 })], cur: 0,
+  texts: [newText({ text: "Fresh out of\nthe kitchen", y: 0.12 })], cur: 0,
   logoOn: true, logo: "combination", logoSize: "M", logoPos: "bottom", logoColor: "cream",
-  px: 50, py: 50, pz: 1, logoScrim: false, anim: "static", guides: false,
+  px: 50, py: 50, pz: 1, logoScrim: false, guides: false,
 };
 let S = load();
 let photo = null;
 let photoFx = null;   // { graded, soft } from LFFPhoto.process — the Lou's photo filter, made once per photo
 let sel = null;            // index of the text box being dragged, or "logo"
 let BOX = { texts: [] };   // last drawn bounds (canvas px)
-let snapX = null;          // x (canvas px) of the line a dragged text box snapped to
+let snapY = null;          // y (canvas px) of the centre line a dragged text box snapped to
+const ANIM_MODE = "draw";  // the only logo movement: drawn on
 const MARGIN = 0.074;      // left/right margin as a share of the width (same as the guides)
 let RS = 1;                // render scale (shadow blur is in device px)
 const T0 = performance.now();
@@ -63,7 +66,10 @@ function load() {
     const s = Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem(STORE) || "{}"));
     if (!Array.isArray(s.texts)) s.texts = DEFAULTS.texts;
     s.cur = Math.min(s.cur || 0, s.texts.length - 1);
-    s.texts.forEach(t => { if (!FONTS[t.font]) t.font = "mono"; });   // GT America is not a brand font
+    s.texts.forEach(t => { if (!FONTS[t.font]) t.font = "mono"; t.align = "center"; t.x = 0.5; });   // GT America is not a brand font; text is always centred
+    if (!SIZES[s.size]) s.size = "portrait";                                   // the square post was dropped
+    s.logoSize = { XS: "S", S: "S", M: "M", L: "L", XL: "L" }[s.logoSize] || "M";
+    delete s.anim;
     return s;
   } catch (e) { return JSON.parse(JSON.stringify(DEFAULTS)); }
 }
@@ -172,7 +178,7 @@ function render(c, W, H, preview, t = null) {
     // construction fill (Construction movement): olive on white; white on brown and on olive (olive and brown never touch)
     const ink = logoInk(), b = logoBox(W, H), col = C[ink], accent = (ink === "olive" || (!photo && S.bg !== "cream")) ? C.cream : C.olive;
     withShadow(c, onPhoto, W, () => {
-      if (S.anim !== "static" && t !== null) drawLogoAnimated(c, S.logo, b.x, b.y, b.w, col, accent, t, S.anim, Math.min(W, H) / 100);
+      if (t !== null) drawLogoAnimated(c, S.logo, b.x, b.y, b.w, col, accent, t, ANIM_MODE, Math.min(W, H) / 100);
       else drawLogo(c, S.logo, b.x, b.y, b.w, col);
     });
     BOX.logo = b;
@@ -195,7 +201,7 @@ function render(c, W, H, preview, t = null) {
   });
   if (preview && S.guides) drawGuides(c, W, H);
   if (preview) {
-    if (snapX !== null) twoTone(c, W, W * 0.002, () => { c.moveTo(snapX, 0); c.lineTo(snapX, H); });
+    if (snapY !== null) twoTone(c, W, W * 0.002, () => { c.moveTo(0, snapY); c.lineTo(W, snapY); });
     const outline = (b, solid) => { if (!b) return; const p = W * 0.012;
       twoTone(c, W, W * 0.003, () => c.rect(b.x - p, b.y - p, b.w + 2 * p, b.h + 2 * p), solid); };
     if (S.texts.length > 1 || hover === S.cur) outline(BOX.texts[S.cur], true);   // which box the panel is editing
@@ -247,12 +253,14 @@ function drawGuides(c, W, H) {
     c.restore();
   }
 }
-function animating() { return S.anim !== "static" && TAB === "insta"; }
+// the editor shows the finished logo; "Preview movement" plays the draw-on once
+let PREVIEW_END = 0, PREVIEW_T0 = 0;
+function animating() { return performance.now() < PREVIEW_END && TAB === "insta"; }
 function draw() {
   const [W, H] = SIZES[S.size];
   if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
   RS = 1;
-  render(ctx, W, H, true, animating() ? clock() : null);
+  render(ctx, W, H, true, animating() ? (performance.now() - PREVIEW_T0) / 1000 : null);
 }
 let PLAYING = false;
 function play() {
@@ -287,18 +295,15 @@ cv.addEventListener("pointermove", e => {
     return;
   }
   const W = cv.width, H = cv.height, dx = x - drag.x, dy = y - drag.y;
-  snapX = null;
-  if (typeof drag.what === "number") {
+  snapY = null;
+  if (typeof drag.what === "number") {   // text stays centred: it only moves up and down
     const tb = S.texts[drag.what], b = BOX.texts[drag.what];
-    let tx = drag.s.x + dx / W;
-    if (b) {   // snap the box's left edge / middle / right edge to the left margin / centre / right margin
-      const bw = b.w / W, left = tb.align === "left" ? tx : tb.align === "center" ? tx - bw / 2 : tx - bw;
-      const lines = [[left, MARGIN], [left + bw / 2, 0.5], [left + bw, 1 - MARGIN]];
-      for (const [edge, line] of lines) if (Math.abs(edge - line) < 0.02) { tx += line - edge; snapX = line * W; break; }
-      const off = left - tx;   // keep the whole box inside the frame
-      tx = Math.max(-off, Math.min(tx, 1 - bw - off));
+    let ty = drag.s.y + dy / H;
+    if (b) {   // snap the box's middle to the middle of the frame
+      const mid = ty + b.h / H / 2;
+      if (Math.abs(mid - 0.5) < 0.015) { ty += 0.5 - mid; snapY = H / 2; }
     }
-    tb.x = tx; tb.y = drag.s.y + dy / H;
+    tb.y = ty;
   } else if (drag.what === "photo") {
     const s = photoScale(W, H);
     const ox = photo.naturalWidth * s - W, oy = photo.naturalHeight * s - H;
@@ -319,7 +324,7 @@ function setZoom(z) {
 cv.addEventListener("pointerdown", e => {
   if (e.pointerType === "touch") {
     touches.set(e.pointerId, toCanvas(e));
-    if (touches.size === 2 && photo) { drag = null; snapX = null; pinch = { d: spread(), z: S.pz || 1 }; return; }
+    if (touches.size === 2 && photo) { drag = null; snapY = null; pinch = { d: spread(), z: S.pz || 1 }; return; }
   }
   if (pinch) return;
   cv.focus({ preventScroll: true });
@@ -340,7 +345,7 @@ cv.addEventListener("pointerdown", e => {
 const endDrag = e => {
   touches.delete(e.pointerId);
   if (pinch) { if (touches.size < 2) { pinch = null; save(); } return; }
-  if (!drag) return; drag = null; snapX = null; save(); draw();
+  if (!drag) return; drag = null; snapY = null; save(); draw();
 };
 cv.addEventListener("pointerup", endDrag);
 cv.addEventListener("pointercancel", endDrag);
@@ -397,8 +402,8 @@ function swatches() {
     box.innerHTML = "";
     for (const name of ["cream", "esp", "olive"]) {
       const b = document.createElement("button");
-      b.style.background = C[name]; b.title = { cream: "White", esp: "Brown", olive: "Olive" }[name];
-      b.dataset.v = name;
+      b.innerHTML = `<i style="background:${C[name]}"></i><span>${NAMES[name]}</span>`;   // colour dot + name
+      b.title = NAMES[name]; b.dataset.v = name;
       b.onclick = () => {
         if (key === "textColor") { if (T()) T().color = name; } else S[key] = name;
         fixColours(); save(); sync();
@@ -407,9 +412,9 @@ function swatches() {
     }
   });
 }
-function steps(boxSel, onPick) {
+function steps(boxSel, onPick, list = STEPS) {
   const box = $(boxSel);
-  box.innerHTML = STEPS.map(s => `<button data-v="${s}">${s}</button>`).join("");
+  box.innerHTML = list.map(s => `<button data-v="${s}">${s}</button>`).join("");
   box.querySelectorAll("button").forEach(b => b.onclick = () => onPick(b.dataset.v));
 }
 function logoTiles() {
@@ -441,7 +446,6 @@ function syncText() {
   if (!tb) return;
   if (document.activeElement !== $("#text")) $("#text").value = tb.text;
   onClass("#fonts button", "font", tb.font);
-  onClass("#align button", "align", tb.align);
   onClass("#text-sizes button", "v", tb.size);
   $('[data-for="textColor"]').querySelectorAll("button").forEach(b => {
     const why = blocked(b.dataset.v, false);
@@ -454,11 +458,7 @@ function sync() {
   onClass("#logos button", "v", S.logo);
   onClass("#logo-sizes button", "v", S.logoSize);
   onClass("#logo-pos button", "pos", S.logoPos);
-  onClass("#anim button", "anim", S.anim);
   $("#guides").checked = S.guides;
-  const still = S.anim === "static";
-  document.querySelectorAll(".needs-anim").forEach(b => b.disabled = still);
-  $("#dl-note").textContent = still ? "For a video or GIF, pick a Movement under Logo." : "";
   document.querySelectorAll(".swatches:not([data-for=textColor])").forEach(box => box.querySelectorAll("button").forEach(b => {
     const why = box.dataset.for === "logoColor" ? blocked(b.dataset.v, true) : false;
     b.disabled = !!why; b.title = why || NAMES[b.dataset.v];
@@ -484,15 +484,8 @@ function sync() {
 function bindPanel() {
   document.querySelectorAll("#sizes button").forEach(b => b.onclick = () => { S.size = b.dataset.size; save(); sync(); });
   document.querySelectorAll("#fonts button").forEach(b => b.onclick = () => { if (T()) T().font = b.dataset.font; save(); sync(); });
-  // Left / Centre / Right puts the box on the left margin, the centre of the frame or the right margin
-  document.querySelectorAll("#align button").forEach(b => b.onclick = () => {
-    const tb = T(); if (!tb) return;
-    tb.align = b.dataset.align;
-    tb.x = { left: MARGIN, center: 0.5, right: 1 - MARGIN }[tb.align];
-    save(); sync();
-  });
   steps("#text-sizes", v => { if (T()) T().size = v; save(); sync(); });
-  steps("#logo-sizes", v => { S.logoSize = v; save(); sync(); });
+  steps("#logo-sizes", v => { S.logoSize = v; save(); sync(); }, LOGO_STEPS);
   document.querySelectorAll("#logo-pos button").forEach(b => b.onclick = () => { S.logoPos = b.dataset.pos; save(); sync(); });
   $("#add-text").onclick = () => {
     const n = S.texts.length, dark = photo || S.bg !== "cream";
@@ -521,14 +514,13 @@ function bindPanel() {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "y" && !typing) { e.preventDefault(); stepHistory(false); return; }
     // with the design selected: arrows nudge the current text box, Delete removes it
     if (document.activeElement !== cv || !T()) return;
-    const step = e.shiftKey ? 0.025 : 0.005, mv = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key];
-    if (mv) {
+    const step = e.shiftKey ? 0.025 : 0.005, mv = { ArrowUp: -1, ArrowDown: 1 }[e.key];
+    if (mv) {   // text only moves up and down (it's always centred)
       e.preventDefault();
       const tb = T(), b = BOX.texts[S.cur];
       if (b) tb.y = b.y / cv.height;   // start from where it's drawn (it may have been kept inside the frame)
-      tb.x += mv[0] * step; tb.y = Math.max(0, Math.min(0.98, tb.y + mv[1] * step));
-      draw(); const b2 = BOX.texts[S.cur]; if (b2) { const off = tb.align === "left" ? 0 : tb.align === "center" ? b2.w / 2 : b2.w; tb.x = (b2.x + off) / cv.width; }
-      save(); return;
+      tb.y = Math.max(0, Math.min(0.98, tb.y + mv * step));
+      save(); draw(); return;
     }
     if (e.key === "Delete" || e.key === "Backspace") { e.preventDefault(); $("#del-text").click(); }
   });
@@ -536,7 +528,7 @@ function bindPanel() {
     const chip = $(`#text-list [data-i="${S.cur}"]`); if (chip) chip.textContent = (e.target.value.split("\n")[0] || "Empty").slice(0, 18); };
   $("#reset").onclick = () => { if (!confirm("Start over? This clears the photo and text.")) return;
     S = JSON.parse(JSON.stringify(DEFAULTS)); save(); savePhoto(null); photoFx = null; setPhoto(null); };
-  document.querySelectorAll("#anim button").forEach(b => b.onclick = () => { S.anim = b.dataset.anim; save(); sync(); });
+  $("#play").onclick = () => { PREVIEW_T0 = performance.now(); PREVIEW_END = PREVIEW_T0 + ANIM.D * 1000; play(); };
   $("#guides").onchange = e => { S.guides = e.target.checked; save(); sync(); };
   const menu = $("#dl-menu");
   $("#download").onclick = e => { e.stopPropagation(); menu.hidden = !menu.hidden; };
@@ -579,7 +571,6 @@ function download() {   // the still always shows the finished logo
 }
 let BUSY = false;
 async function exportVideo(kind) {
-  if (S.anim === "static") { toast("Pick a Movement under Logo first"); return; }
   if (BUSY) return; BUSY = true;
   const [FW, FH] = SIZES[S.size], c = document.createElement("canvas");
   try {
@@ -603,7 +594,7 @@ async function exportVideo(kind) {
         while (enc.encodeQueueSize > 6) await new Promise(r => setTimeout(r, 5));
       }
       await enc.flush(); muxer.finalize();
-      save_(new Blob([muxer.target.buffer], { type: "video/mp4" }), `${stamp()}_${S.anim}.mp4`);
+      save_(new Blob([muxer.target.buffer], { type: "video/mp4" }), `${stamp()}_logo.mp4`);
     } else {
       const s = 540 / FW, fps = 20, N = ANIM.D * fps;
       c.width = Math.round(FW * s); c.height = Math.round(FH * s);
@@ -614,7 +605,7 @@ async function exportVideo(kind) {
       }
       await new Promise(res => {
         gif.on("progress", p => toast(`Making GIF… ${Math.round(p * 100)}%`, true));
-        gif.on("finished", b => { save_(b, `${stamp()}_${S.anim}.gif`); res(); });
+        gif.on("finished", b => { save_(b, `${stamp()}_logo.gif`); res(); });
         gif.render();
       });
     }

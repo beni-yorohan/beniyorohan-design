@@ -510,3 +510,27 @@ input[type=text], textarea, select { font-size: 14px; padding: 9px 10px; backgro
   #brand-mark { height: 22px; }
   .modes a { padding: 6px 8px; }
 }
+
+/* =====================================================================
+   v28 — same control language as the Editor: pill segmented controls,
+   two sizes, four templates, logo size + position in the Logo step
+   ===================================================================== */
+.step-body .seg, #pop .seg { display: flex; border: 0; border-radius: 999px; background: rgba(78,53,36,.06); padding: 3px; gap: 0; overflow: visible; }
+.step-body .seg-btn, #pop .seg-btn { flex: 1; border: 0 !important; border-radius: 999px; padding: 8px 6px; font-size: 13px; white-space: nowrap; }
+.step-body .seg-btn.active, #pop .seg-btn.active { background: var(--esp); color: var(--cream); }
+.step-body .seg-btn:not(.active):hover, #pop .seg-btn:not(.active):hover { background: rgba(255,255,255,.7); }
+.size-cards { grid-template-columns: repeat(2, 1fr); }
+.size-card { flex-direction: row; justify-content: flex-start; gap: 12px; padding: 12px 14px; text-align: left; border-radius: 12px; }
+.size-card .shape { height: 34px; flex: none; }
+.size-card b { display: block; font-size: 14px; }
+.size-card small { display: block; }
+.tpl-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.tpl { border-radius: 12px; padding: 8px; }
+.tpl b { font-size: 13px; }
+.swatch { border-radius: 12px; }
+.logo-tile { border-radius: 12px; }
+.move-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 4px; font-size: 13px; color: var(--mute); }
+.move-row .btn.ghost.small { width: auto; text-transform: none; letter-spacing: 0; color: var(--esp); border-color: var(--line); border-radius: 999px; padding: 7px 14px; }
+#photo-remove { border-radius: 999px; text-transform: none; letter-spacing: 0; }
+.row-label { margin-top: 2px; }
+#pos-hint:empty { display: none; }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Lou's Asset Generator · Templates</title>
-  <link rel="stylesheet" href="style.css?v=27">
+  <link rel="stylesheet" href="style.css?v=28">
 </head>
 <body>
   <header id="topbar">
@@ -32,8 +32,8 @@
             </div>
           </div>
           <button class="em-item" id="export-png"><b>Picture</b><span>PNG · this size</span></button>
-          <button class="em-item" id="export-all"><b>Picture in all 4 sizes</b><span>Story, tall, square and wide post</span></button>
-          <div class="em-sep">Moving logo · 5 second loop</div>
+          <button class="em-item" id="export-all"><b>Picture in both sizes</b><span>Post and Story</span></button>
+          <div class="em-sep">The logo draws itself on · 5 seconds</div>
           <button class="em-item" id="export-mp4"><b>Video</b><span>MP4 · for Reels, Stories and posts</span></button>
           <button class="em-item" id="export-gif"><b>GIF</b><span>Small, for stickers and email</span></button>
           <p class="em-note" id="em-note"></p>
@@ -68,60 +68,35 @@
         <button class="step-head" type="button"><i>4</i><span class="step-title">Logo</span><span class="step-sum" data-sum="logo"></span><span class="chev"></span></button>
         <div class="step-body">
           <div class="logo-tiles" id="logo-tiles"></div>
-          <div class="row-label">Movement <em>for video / GIF</em></div>
-          <div class="seg cols-4" id="anim-seg"></div>
-                  </div>
+          <div class="row-label">Size</div>
+          <div class="seg cols-3" id="logo-size-seg">
+            <button class="seg-btn" data-size="S">S</button><button class="seg-btn" data-size="M">M</button><button class="seg-btn" data-size="L">L</button>
+          </div>
+          <div class="row-label">Position</div>
+          <div class="seg cols-4" id="pos-seg">
+            <button class="seg-btn" data-pos="auto">Auto</button><button class="seg-btn" data-pos="tc">Top</button><button class="seg-btn" data-pos="mc">Middle</button><button class="seg-btn" data-pos="bc">Bottom</button>
+          </div>
+          <p class="hint" id="pos-hint"></p>
+          <div class="move-row"><span>Videos and GIFs draw the logo on</span><button class="btn ghost small" id="play" type="button">▶ Preview</button></div>
+        </div>
       </section>
       <section class="step" data-step="more">
         <button class="step-head" type="button"><i>…</i><span class="step-title">More options</span><span class="step-sum" data-sum="more"></span><span class="chev"></span></button>
         <div class="step-body">
-          <div class="sub" data-sub="text" data-show="announce,product,split,seal"><div class="sub-title">Text</div>
-          <label class="field" data-show="announce,product,split"><span>Small heading</span><input data-field="eyebrow" type="text" placeholder="e.g. New this week"></label>
-          <label class="field" data-show="announce,split,seal"><span>Headline</span><textarea data-field="headline" rows="2"></textarea></label>
-          <label class="field" data-show="product"><span>Product name</span><input data-field="product" type="text"></label>
-          <label class="field" data-show="announce,split"><span>Body text</span><textarea data-field="body" rows="3"></textarea></label>
-          <div class="field" data-show="product"><span>Label lines <em>name · value</em></span>
-            <div class="pair"><input data-field="l1k" type="text"><input data-field="l1v" type="text" placeholder="—"></div>
-            <div class="pair"><input data-field="l2k" type="text"><input data-field="l2v" type="text" placeholder="—"></div>
-            <div class="pair"><input data-field="l3k" type="text"><input data-field="l3v" type="text" placeholder="—"></div>
-          </div>
-          <p class="hint">Press Enter for a new line. Text is set in capitals automatically.</p>
+          <div class="sub" data-sub="text" data-show="announce,split,seal"><div class="sub-title">Headline</div>
+          <label class="field"><textarea data-field="headline" rows="2" aria-label="Headline"></textarea></label>
+          <p class="hint">Press Enter for a new line. Text is set in capitals and centred automatically.</p>
         </div>
-          <div class="sub" data-sub="photo" data-show="photo,product,split"><div class="sub-title">Photo</div>
+          <div class="sub" data-sub="photo" data-show="logo,split"><div class="sub-title">Photo</div>
           <label class="drop" id="drop">
             <input type="file" id="photo-input" accept="image/*" hidden>
             <span id="drop-label">Drop a photo here, or click to choose one</span>
           </label>
-          <div class="slider"><span>Warm filter <b data-val="warm"></b></span><input type="range" data-field="warm" min="0" max="1" step="0.01"></div>
+          <div class="slider"><span>Lou's filter <b data-val="warm"></b></span><input type="range" data-field="warm" min="0" max="1" step="0.01"></div>
           <div class="slider"><span>Zoom <b data-val="zoom"></b></span><input type="range" data-field="zoom" min="1" max="3" step="0.01"></div>
-          <div class="slider two"><div><span>Left ↔ right <b data-val="px"></b></span><input type="range" data-field="px" min="0" max="100" step="1"></div>
-            <div><span>Up ↕ down <b data-val="py"></b></span><input type="range" data-field="py" min="0" max="100" step="1"></div></div>
+          <label class="toggle"><input type="checkbox" data-field="soft"> Soft background (portrait look)</label>
+          <p class="hint">Drag the photo on the design to move it.</p>
           <button class="btn ghost small" id="photo-remove">Remove photo</button>
-        </div>
-          <div class="sub" data-sub="logo2"><div class="sub-title">Logo size &amp; position</div><div class="row-label">Size</div>
-          <div class="seg cols-4" id="logo-size-seg">
-            <button class="seg-btn" data-size="XS">XS</button><button class="seg-btn" data-size="S">S</button>
-            <button class="seg-btn" data-size="M">M</button><button class="seg-btn" data-size="L">L</button>
-          </div>
-          <div class="row-label">Position</div>
-          <div class="pos-row">
-            <div class="pos-grid" id="pos-grid">
-              <button data-pos="tl" title="Top left"></button><button data-pos="tc" title="Top centre"></button><button data-pos="tr" title="Top right"></button>
-              <button data-pos="ml" title="Middle left"></button><button data-pos="mc" title="Middle"></button><button data-pos="mr" title="Middle right"></button>
-              <button data-pos="bl" title="Bottom left"></button><button data-pos="bc" title="Bottom centre"></button><button data-pos="br" title="Bottom right"></button>
-            </div>
-            <div class="pos-side">
-              <button class="seg-btn auto-btn" data-pos="auto">Auto</button>
-              <p class="hint" id="pos-hint"></p>
-            </div>
-          </div>
-        </div>
-          <div class="sub" data-sub="footer"><div class="sub-title">Footer captions</div>
-          <label class="toggle"><input type="checkbox" data-field="footer"> Show captions</label>
-          <div class="pair-fields">
-            <label class="field"><span>Left</span><textarea data-field="footL" rows="2"></textarea></label>
-            <label class="field"><span>Right</span><textarea data-field="footR" rows="2"></textarea></label>
-          </div>
         </div>
           <div class="sub ig-only" data-sub="ig"><div class="sub-title">Instagram preview</div>
           <label class="field"><span>Profile name</span><input data-field="igName" type="text"></label>
@@ -215,6 +190,6 @@
   <script src="vendor/gif.js"></script>
   <script src="anim.js?v=25"></script>
   <script src="photofilter.js?v=1"></script>
-  <script src="app.js?v=28"></script>
+  <script src="app.js?v=29"></script>
 </body>
 </html>

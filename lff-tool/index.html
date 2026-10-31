@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lou's Asset Generator</title>
-<link rel="stylesheet" href="simple.css?v=10">
+<link rel="stylesheet" href="simple.css?v=12">
 </head>
 <body>
 <header class="bar">
@@ -21,9 +21,8 @@
       <button id="download" class="btn primary">Download ▾</button>
       <div class="dl-menu" id="dl-menu" hidden>
         <button data-dl="png"><b>Picture</b><span>PNG · full size</span></button>
-        <button data-dl="mp4" class="needs-anim"><b>Video</b><span>MP4 · 5 second loop · for posts and Stories</span></button>
-        <button data-dl="gif" class="needs-anim"><b>GIF</b><span>Small · 540 px wide</span></button>
-        <p class="dl-note" id="dl-note">For a video or GIF, pick a Movement under Logo.</p>
+        <button data-dl="mp4"><b>Video</b><span>MP4 · 5 seconds · the logo draws itself on</span></button>
+        <button data-dl="gif"><b>GIF</b><span>Small · 540 px wide · the logo draws itself on</span></button>
       </div>
     </div>
   </div>
@@ -36,8 +35,8 @@
       <div class="drop-hint" id="drop-hint">Drop your photo</div>
     </div>
     <div class="under">
-      <p class="hint">Drag a photo onto the design · drag text boxes to move them · click the logo to move it top / middle / bottom</p>
-      <p class="hint touch">Drag text to move it · pinch the photo to zoom · tap the logo to move it</p>
+      <p class="hint">Drag a photo onto the design · drag text up or down · click the logo to move it top / middle / bottom</p>
+      <p class="hint touch">Drag text up or down · pinch the photo to zoom · tap the logo to move it</p>
       <div class="under-tools">
         <div class="undo"><button id="undo" title="Undo (⌘Z)" aria-label="Undo">↶ Undo</button><button id="redo" title="Redo (⇧⌘Z)" aria-label="Redo">Redo ↷</button></div>
         <label class="check"><input type="checkbox" id="guides"> Show guides</label>
@@ -50,7 +49,6 @@
       <h3>Size</h3>
       <div class="seg" id="sizes">
         <button data-size="portrait">Post 4:5</button>
-        <button data-size="square">Square</button>
         <button data-size="story">Story</button>
       </div>
     </div>
@@ -84,12 +82,8 @@
         </div>
         <span class="label">Size</span>
         <div class="seg small" id="text-sizes"></div>
-        <div class="h-row">
-          <div class="swatches" data-for="textColor"></div>
-          <div class="seg small" id="align">
-            <button data-align="left">Left</button><button data-align="center">Centre</button><button data-align="right">Right</button>
-          </div>
-        </div>
+        <span class="label">Colour</span>
+        <div class="swatches" data-for="textColor"></div>
         <button class="del" id="del-text">Delete this text box</button>
       </div>
     </div>
@@ -104,12 +98,10 @@
         <div class="seg small" id="logo-pos">
           <button data-pos="top">Top</button><button data-pos="middle">Middle</button><button data-pos="bottom">Bottom</button>
         </div>
+        <span class="label">Colour</span>
         <div class="swatches" data-for="logoColor"></div>
         <label class="check"><input type="checkbox" id="scrim"> Darken behind logo <em class="opt">· for busy photos</em></label>
-        <span class="label">Movement <em>· for video / GIF</em></span>
-        <div class="seg small" id="anim">
-          <button data-anim="static">Still</button><button data-anim="draw">Draw on</button><button data-anim="construct">Construction</button><button data-anim="fade">Fade up</button>
-        </div>
+        <div class="h-row move-row"><span class="label">Videos and GIFs draw the logo on</span><button class="add ghost-add" id="play">▶ Preview</button></div>
       </div>
     </div>
 
@@ -127,6 +119,6 @@
 <script src="vendor/mp4-muxer.js"></script>
 <script src="vendor/gif.js"></script>
 <script src="photofilter.js?v=1"></script>
-<script src="simple.js?v=20"></script>
+<script src="simple.js?v=23"></script>
 </body>
 </html>

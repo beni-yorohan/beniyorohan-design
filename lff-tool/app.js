@@ -5,10 +5,8 @@
 const C = { cream: "#FFFFFF", esp: "#4E3524", brown: "#4E3524", olive: "#6D712E" };   // LFF guidelines v1.0: white / 2322 C / 5757 C (keys kept for compatibility)
 
 const FORMATS = {
-  story:     { w: 1080, h: 1920, label: "Story / Reel", sub: "Full screen" },
-  portrait:  { w: 1080, h: 1350, label: "Tall post",    sub: "Best for feed" },
-  square:    { w: 1080, h: 1080, label: "Square post",  sub: "Classic" },
-  landscape: { w: 1080, h: 566,  label: "Wide post",    sub: "Landscape" },
+  story:     { w: 1080, h: 1920, label: "Story / Reel", sub: "9:16 · full screen" },
+  portrait:  { w: 1080, h: 1350, label: "Post",         sub: "4:5 · for the feed" },
 };
 
 const COLOURWAYS = {
@@ -31,48 +29,35 @@ const LOGO_OPTIONS = [   // logo pack — Option 2 (final round of the Mid-Point
     ["lff", "LFF monogram"]]],
 ];
 
+// four templates, all centred: Logo (on a colour, or on your photo), Announcement (one headline),
+// Product (photo half, name half) and Monogram + tagline
 const TEMPLATES = {
-  photo:    { title: "Photo + logo",  sub: "Full-bleed photo, mark on top",
-              icon: '<rect x="2" y="2" width="30" height="30" rx="2" fill="currentColor" opacity=".18"/><rect x="10" y="22" width="14" height="4" rx="1" fill="currentColor"/>' },
-  announce: { title: "Announcement",  sub: "Headline, body, logo",
-              icon: '<rect x="5" y="6" width="10" height="2" fill="currentColor"/><rect x="5" y="11" width="24" height="4" fill="currentColor"/><rect x="5" y="17" width="18" height="4" fill="currentColor"/><rect x="5" y="26" width="12" height="3" fill="currentColor" opacity=".6"/>' },
-  product:  { title: "Product label", sub: "Photo + label lines",
-              icon: '<path d="M11 21V12a6 6 0 0 1 12 0v9z" fill="currentColor" opacity=".25"/><rect x="9" y="24" width="16" height="2" fill="currentColor"/><rect x="7" y="28" width="20" height="1" fill="currentColor" opacity=".6"/><rect x="13" y="4" width="8" height="2" fill="currentColor"/>' },
-  seal:     { title: "Monogram + tagline", sub: "LFF centred, line beneath",
-              icon: '<text x="17" y="21" text-anchor="middle" font-size="12" font-style="italic" font-family="Georgia,serif" fill="currentColor">LFF</text><rect x="9" y="26" width="16" height="2" fill="currentColor"/>' },
-  logo:     { title: "Logo only",     sub: "The mark on its own — made for GIFs",
-              icon: '<rect x="8" y="13" width="18" height="6" rx="1" fill="currentColor"/>' },
-  split:    { title: "Split",         sub: "Photo half, colour half",
-              icon: '<rect x="2" y="2" width="30" height="16" fill="currentColor" opacity=".18"/><rect x="5" y="21" width="16" height="3" fill="currentColor"/><rect x="5" y="26" width="10" height="2" fill="currentColor" opacity=".6"/><rect x="23" y="25" width="7" height="4" fill="currentColor"/>' },
+  logo:     { title: "Logo",          sub: "The mark on a colour, or on your photo" },
+  announce: { title: "Announcement",  sub: "One big headline and the logo" },
+  split:    { title: "Product",       sub: "Photo half, name half" },
+  seal:     { title: "Monogram + tagline", sub: "LFF centred, line beneath" },
 };
+const OLD_TEMPLATE = { photo: "logo", product: "split" };   // merged templates (saved designs)
 
 const DEFAULTS = {
   format: "portrait", template: "announce", colour: "cream", logo: "combination", logoSize: "M",
-  eyebrow: "New this week",
   headline: "Chicken and rice,\nmade this morning.",
-  product: "Chicken and rice",
-  body: "Slow-cooked, packed by hand and banded in the kitchen.\nAvailable until we run out.",
-  l1k: "Ingredients", l1v: "", l2k: "Made on", l2v: "", l3k: "Best by", l3v: "",
-  footer: true, footL: "Lou's Fancy Foods\nEvery day is all there is", footR: "Brand mark\n2026",
   guides: false, safe: true, zoom: 1, px: 50, py: 50, logoPos: "auto", warm: 1, soft: true,
-  anim: "static",
+  anim: "draw",   // the only logo movement
   igName: "lousfancyfoods", igCaption: "Chicken and rice, made this morning. Available until we run out.",
 };
 
 const STARTERS = [
-  { title: "New product", sub: "Photo with label lines",
-    set: { template: "product", format: "portrait", colour: "cream", logo: "combination", anim: "static", product: "Chicken and rice" } },
-  { title: "Announcement", sub: "A big headline and a short line",
-    set: { template: "announce", format: "portrait", colour: "esp", logo: "combination", anim: "static", eyebrow: "New this week",
-           headline: "Chicken and rice,\nmade this morning.", body: "Slow-cooked, packed by hand and banded in the kitchen.\nAvailable until we run out." } },
-  { title: "Photo post", sub: "Your photo with the logo on top",
-    set: { template: "photo", format: "portrait", colour: "esp", logo: "combination", anim: "static" } },
+  { title: "Announcement", sub: "One big headline and the logo",
+    set: { template: "announce", format: "portrait", colour: "esp", logo: "combination", headline: "Chicken and rice,\nmade this morning." } },
+  { title: "New product", sub: "Your photo, the name underneath",
+    set: { template: "split", format: "portrait", colour: "cream", logo: "combination", headline: "Chicken and rice" } },
   { title: "Story", sub: "Photo on top, words underneath",
-    set: { template: "split", format: "story", colour: "olive", logo: "lous", anim: "static", eyebrow: "Today at Lou's", headline: "Fresh out of the kitchen." } },
-  { title: "Logo animation", sub: "The logo drawing itself — for GIF or video",
-    set: { template: "logo", format: "square", colour: "esp", logo: "combination", anim: "construct" } },
+    set: { template: "split", format: "story", colour: "olive", logo: "lous", headline: "Fresh out of the kitchen." } },
+  { title: "Logo", sub: "On a colour or on your photo · draws itself on in video",
+    set: { template: "logo", format: "portrait", colour: "esp", logo: "combination" } },
   { title: "Brand line", sub: "The LFF monogram and a short line",
-    set: { template: "seal", format: "portrait", colour: "cream", logo: "lff", anim: "static", headline: "Every day is all there is" } },
+    set: { template: "seal", format: "portrait", colour: "cream", logo: "lff", headline: "Every day is all there is" } },
 ];
 
 const STORE = "lff-asset-tool-v1";
@@ -85,8 +70,14 @@ let exportScale = 1;
 let VIEW = "design";   // design | ig
 
 function load() {
-  try { return Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem(STORE) || "{}")); }
-  catch (e) { return Object.assign({}, DEFAULTS); }
+  let s; try { s = Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem(STORE) || "{}")); }
+  catch (e) { s = Object.assign({}, DEFAULTS); }
+  s.template = OLD_TEMPLATE[s.template] || (TEMPLATES[s.template] ? s.template : "announce");
+  if (!FORMATS[s.format]) s.format = "portrait";                       // square / wide posts were dropped
+  s.logoSize = { XS: "S", S: "S", M: "M", L: "L", XL: "L" }[s.logoSize] || "M";
+  if (s.logoPos !== "auto") s.logoPos = (s.logoPos || "m")[0] + "c";   // the logo is always centred
+  s.anim = "draw";
+  return s;
 }
 function save() {
   try {
@@ -114,7 +105,7 @@ function fitLogoW(key, maxW, maxH) {
   const L = LOGOS[key], wide = L.w / L.h > 5 ? 1.55 : 1;   // long lockups need more width to read
   return Math.min(maxW * wide, maxH * L.w / L.h, 1080 * 0.86);
 }
-const TIER = { XS: 0.55, S: 0.75, M: 1, L: 1.3 };
+const TIER = { S: 0.55, M: 1, L: 1.5 };   // logo sizes S / M / L
 
 const FONT_FAMILY = '"PP Monument Extended"';     // brand secondary typeface
 function font(px, weight = 400) { return `${weight} ${px}px ${FONT_FAMILY}`; }
@@ -216,9 +207,9 @@ let HITS = [], LAST_HITS = [], THUMBING = false;
 const hit = (field, x, y, w, h) => HITS.push({ field, x, y, w, h });
 let RS = 1;          // current render scale (shadows are in device px, so they need it)
 
-// logo position: "auto" uses the template default; otherwise tl tc tr / ml mc mr / bl bc br
+// logo position: "auto" uses the template default; otherwise tc / mc / bc (always centred)
 function place(def, w, h, R) {
-  const p = state.logoPos === "auto" ? def : state.logoPos, v = p[0], hz = p[1];
+  const p = state.logoPos === "auto" ? def : state.logoPos, v = p[0], hz = "c";
   const x = hz === "l" ? R.x0 : hz === "r" ? R.x1 - w : (R.x0 + R.x1 - w) / 2;
   const y = v === "t" ? R.y0 : v === "b" ? R.y1 - h : (R.y0 + R.y1 - h) / 2;
   return { x, y, v, h: hz };
@@ -251,181 +242,78 @@ function frameMetrics(W, H) {
     bot: story ? H * 0.13 : m,         // and reply bar
   };
 }
-function footer(ctx, W, H, M, cw, color, x0, onPhoto) {
-  if (!state.footer) return 0;
-  if (onPhoto) { let r; withPhotoShadow(ctx, M, () => { r = footer(ctx, W, H, M, cw, C.cream, x0, false); }); return r; }
-  x0 = x0 == null ? M.m : x0;
-  const px = Math.max(11, 1.6 * M.u), lead = 1.35, tr = 0.04;
-  const l = state.footL ? state.footL.toUpperCase().split("\n") : [];
-  const r = state.footR ? state.footR.toUpperCase().split("\n") : [];
-  const wl = Math.max(0, ...l.map(s => textW(ctx, s, px, tr))), wr = Math.max(0, ...r.map(s => textW(ctx, s, px, tr)));
-  const room = W - M.m - x0;
-  const stacked = wl + wr + 4 * M.u > room;          // narrow column: stack right under left
-  const lines = stacked ? l.concat(r) : null;
-  const n = stacked ? lines.length : Math.max(l.length, r.length), h = n * px * lead;
-  const y0 = H - M.bot - h;
-  if (stacked) lines.forEach((s, i) => drawLine(ctx, s, x0, y0 + px * 0.8 + i * px * lead, px, tr, color));
-  else {
-    l.forEach((s, i) => drawLine(ctx, s, x0, y0 + px * 0.8 + i * px * lead, px, tr, color));
-    r.forEach((s, i) => drawLine(ctx, s, W - M.m, y0 + px * 0.8 + i * px * lead, px, tr, color, "right"));
-  }
-  GUIDES.push({ y: y0 }); hit("footer", x0, y0, W - M.m - x0, h);
-  return h + 5 * M.u;                                   // breathing room above the captions
+// one headline, centred both ways inside [y, yEnd]
+function headlineBlock(ctx, M, cw, x, y, maxW, yEnd, headPx, color) {
+  if (!state.headline || !state.headline.trim()) return;
+  const hpx = fitPx(ctx, state.headline, maxW, Math.max(30, yEnd - y), headPx, 1.04, 0, 3 * M.u);
+  const h = blockH(ctx, state.headline, maxW, hpx, 1.04, 0);
+  const hy = y + Math.max(0, (yEnd - y - h) / 2);
+  drawBlock(ctx, state.headline, x, hy, maxW, hpx, 1.04, 0, color || cw.ink, "center");
+  hit("headline", x, hy, maxW, h); GUIDES.push({ y: hy }, { y: hy + h });
 }
 
 const RENDER = {
-  photo(ctx, W, H, M, cw) {
-    drawPhoto(ctx, 0, 0, W, H, cw);
-    const fh = footer(ctx, W, H, M, cw, C.cream, M.m, true);
-    const key = state.logo, base = Math.min(W * 0.52, H * 0.42) * TIER[state.logoSize];
-    const lw = fitLogoW(key, base, base * 0.55), lh = lw * LOGOS[key].h / LOGOS[key].w;
-    const P = place("bc", lw, lh, { x0: M.m, y0: M.top, x1: W - M.m, y1: H - M.bot - fh });
-    drawMark(ctx, M, key, P.x, P.y, lw, C.cream, true);
+  // the mark on its own; with a photo it sits on the photo in white
+  logo(ctx, W, H, M, cw) {
+    const key = state.logo;
+    if (photo) drawPhoto(ctx, 0, 0, W, H, cw); else hit("photo", 0, 0, W, H);
+    const base = Math.min(W * (photo ? 0.52 : 0.62), H * (photo ? 0.42 : 0.5)) * TIER[state.logoSize];
+    const lw = fitLogoW(key, base, base * (photo ? 0.55 : 0.62)), lh = lw * LOGOS[key].h / LOGOS[key].w;
+    const P = place(photo ? "bc" : "mc", lw, lh, { x0: M.m, y0: M.top, x1: W - M.m, y1: H - M.bot });
+    drawMark(ctx, M, key, P.x, P.y, lw, photo ? C.cream : cw.ink, !!photo);
     GUIDES.push({ y: P.y }, { y: P.y + lh }, { x: P.x }, { x: P.x + lw });
   },
 
+  // one big centred headline + the logo
   announce(ctx, W, H, M, cw) {
-    const ink = cw.ink, fh = footer(ctx, W, H, M, cw, ink);
-    const key = state.logo, landscape = W / H > 1.5;
-    const lmax = (landscape ? W * 0.3 : W * 0.42) * TIER[state.logoSize];
-    const lw = fitLogoW(key, lmax, (landscape ? H * 0.22 : H * 0.14) * TIER[state.logoSize]);
+    const ink = cw.ink, key = state.logo;
+    const lw = fitLogoW(key, W * 0.42 * TIER[state.logoSize], H * 0.14 * TIER[state.logoSize]);
     const lh = lw * LOGOS[key].h / LOGOS[key].w;
-    const R = { x0: M.m, y0: M.top, x1: W - M.m, y1: H - M.bot - fh };
-    const P = place("bl", lw, lh, R);
+    const R = { x0: M.m, y0: M.top, x1: W - M.m, y1: H - M.bot };
+    const P = place("bc", lw, lh, R);
     drawMark(ctx, M, key, P.x, P.y, lw, ink, false);
     GUIDES.push({ y: P.y }, { y: P.y + lh });
-    // text keeps clear of the mark
-    const maxW = landscape ? W * 0.62 : W - 2 * M.m;
+    // the headline takes the room on the far side of the logo
     let y = M.top, yEnd = P.y - 6 * M.u;
     if (P.v === "t") { y = P.y + lh + 6 * M.u; yEnd = R.y1; }
-    if (landscape && P.h === "r" && P.v !== "b") { y = M.top; yEnd = R.y1; }
-    textStack(ctx, M, cw, M.m, y, maxW, yEnd, (landscape ? 9.5 : 11) * M.u, 2.9 * M.u);
+    headlineBlock(ctx, M, cw, M.m, y, W - 2 * M.m, yEnd, 11 * M.u);
   },
 
-  product(ctx, W, H, M, cw) {
-    const ink = cw.ink, landscape = W / H > 1.3;
-    const aw0 = Math.min(W * 0.36, (H - M.top - M.bot) * 0.62);
-    const fh = footer(ctx, W, H, M, cw, ink, landscape ? M.m + aw0 + 6 * M.u : M.m);
-    const key = state.logo, lmax = (landscape ? W * 0.18 : W * 0.3) * TIER[state.logoSize];
-    const lw = fitLogoW(key, lmax, H * (landscape ? 0.12 : 0.085) * TIER[state.logoSize]);
+  // photo half, colour half with the name and the logo (centred)
+  split(ctx, W, H, M, cw) {
+    const ink = cw.ink, ph = H * (M.story ? 0.56 : 0.52);
+    const photoR = { x: 0, y: 0, w: W, h: ph };
+    drawPhoto(ctx, 0, 0, W, ph, cw);
+    const key = state.logo, tx = M.m, ty = ph + 5 * M.u, tw = W - 2 * M.m;
+    const lw = fitLogoW(key, tw * 0.5 * TIER[state.logoSize], H * 0.09 * TIER[state.logoSize]);
     const lh = lw * LOGOS[key].h / LOGOS[key].w;
-    const pos = state.logoPos === "auto" ? "tc" : state.logoPos, v = pos[0];
-    const linesPx = Math.max(12, 1.9 * M.u), rows = [[state.l1k, state.l1v], [state.l2k, state.l2v], [state.l3k, state.l3v]].filter(r => r[0] || r[1]);
-    const overPhoto = (ax, ay, aw, ah) => {           // middle = the mark sits on the photo
-      const w2 = Math.min(aw * 0.78, lw * 1.25), h2 = w2 * LOGOS[key].h / LOGOS[key].w;
-      drawMark(ctx, M, key, ax + (aw - w2) / 2, ay + ah * 0.62 - h2 / 2, w2, C.cream, true);
-    };
-    if (landscape) {
-      const aw = aw0, ah = H - M.top - M.bot, ax = M.m, ay = M.top;
-      drawPhoto(ctx, ax, ay, aw, ah, cw, framePath(ax, ay, aw, ah));
-      const tx = ax + aw + 6 * M.u, tw = W - tx - M.m;
-      let y = M.top;
-      if (v === "t") { drawMark(ctx, M, key, tx, M.top, lw, ink, false); y += lh + 6 * M.u; }
-      else if (v === "m") overPhoto(ax, ay, aw, ah);
-      else drawMark(ctx, M, key, tx, H - M.bot - fh - lh, lw, ink, false);
-      const ppx = fitPx(ctx, state.product, tw, 14 * M.u, 5.5 * M.u, 1.1, 0.05, 2.5 * M.u, true);
-      { const py0 = y; y = drawBlock(ctx, state.product, tx, y, tw, ppx, 1.1, 0.05, ink, "left", true); hit("product", tx, py0, tw, y - py0); y += 4 * M.u; }
-      productRows(ctx, rows, tx, y, tw, linesPx, M, ink);
-      return;
-    }
-    const hx = pos[1] === "l" ? M.m : pos[1] === "r" ? W - M.m - lw : (W - lw) / 2;
-    let y = M.top;
-    if (v === "t") { drawMark(ctx, M, key, hx, y, lw, ink, false); y += lh + 4.5 * M.u; }
-    const rowsH = rows.length * (linesPx * 1.2 + 4.2 * M.u);
-    const ppx = fitPx(ctx, state.product, W - 2 * M.m, 12 * M.u, 5.4 * M.u, 1.1, 0.05, 2.6 * M.u, true);
-    const prodH = blockH(ctx, state.product, W - 2 * M.m, ppx, 1.1, 0.05, true);
-    let bottom = H - M.bot - fh;
-    if (v === "b") { drawMark(ctx, M, key, hx, bottom - lh, lw, ink, false); bottom -= lh + 4 * M.u; }
-    const ah = Math.max(10 * M.u, bottom - y - prodH - rowsH - 10 * M.u);
-    const aw = Math.min(W * 0.62, ah * 0.72), ax = (W - aw) / 2;
-    drawPhoto(ctx, ax, y, aw, ah, cw, framePath(ax, y, aw, ah));
-    if (v === "m") overPhoto(ax, y, aw, ah);
-    GUIDES.push({ y }, { y: y + ah }, { x: ax }, { x: ax + aw });
-    y += ah + 5 * M.u;
-    { const py0 = y; y = drawBlock(ctx, state.product, M.m, y, W - 2 * M.m, ppx, 1.1, 0.05, ink, "center", true); hit("product", M.m, py0, W - 2 * M.m, y - py0); y += 3.5 * M.u; }
-    const rw = Math.min(W - 2 * M.m, W * 0.66);
-    productRows(ctx, rows, (W - rw) / 2, y, rw, linesPx, M, ink);
+    // auto = bottom of the colour panel; top / middle / bottom use the whole frame (over the photo it turns white)
+    const panelR = { x0: tx, y0: ty, x1: W - M.m, y1: H - M.bot };
+    const R = state.logoPos === "auto" ? panelR : { x0: M.m, y0: M.top, x1: W - M.m, y1: H - M.bot };
+    const P = place("bc", lw, lh, R);
+    const box = { x: P.x, y: P.y, w: lw, h: lh };
+    drawMark(ctx, M, key, P.x, P.y, lw, ink, overlaps(box, photoR));
+    let y = ty, yEnd = panelR.y1;
+    if (overlaps(box, { x: 0, y: ty, w: W, h: H - ty })) { if (P.y > ty + (panelR.y1 - ty) * 0.35) yEnd = P.y - 4 * M.u; else y = Math.max(ty, P.y + lh + 4 * M.u); }
+    headlineBlock(ctx, M, cw, tx, y, tw, yEnd, 8 * M.u);
   },
 
   seal(ctx, W, H, M, cw) {
-    const ink = cw.ink, fh = footer(ctx, W, H, M, cw, ink);
+    const ink = cw.ink;
     const key = "lff";                                   // this template is always the monogram
-    const L = LOGOS[key], avH = H - M.top - M.bot - fh;
+    const L = LOGOS[key], avH = H - M.top - M.bot;
     const tpx = Math.max(14, 3.1 * M.u);
     const textH = state.headline ? blockH(ctx, state.headline, W * 0.7, tpx, 1.3, 0.06, true) + 6 * M.u : 0;
     const lw = Math.min(W * (M.story ? 0.5 : 0.36) * TIER[state.logoSize], (avH - textH) * L.w / L.h * 0.8);
     const lh = lw * L.h / L.w;
     const tw = Math.max(lw, Math.min(W * 0.7, W - 2 * M.m));
-    const P = place("mc", tw, lh + textH, { x0: M.m, y0: M.top, x1: W - M.m, y1: H - M.bot - fh });
+    const P = place("mc", tw, lh + textH, { x0: M.m, y0: M.top, x1: W - M.m, y1: H - M.bot });
     const sx = P.x + (tw - lw) / 2;
     drawMark(ctx, M, key, sx, P.y, lw, ink, false);
     GUIDES.push({ y: P.y }, { y: P.y + lh }, { x: sx }, { x: sx + lw });
     if (state.headline) { const hy = P.y + lh + 6 * M.u, he = drawBlock(ctx, state.headline, P.x, hy, tw, tpx, 1.3, 0.06, ink, "center", true); hit("headline", P.x, hy, tw, he - hy); }
   },
-
-  logo(ctx, W, H, M, cw) {
-    const ink = cw.ink, fh = footer(ctx, W, H, M, cw, ink);
-    const key = state.logo, base = Math.min(W * 0.62, H * 0.5) * TIER[state.logoSize];
-    const lw = fitLogoW(key, base, base * 0.62), lh = lw * LOGOS[key].h / LOGOS[key].w;
-    const P = place("mc", lw, lh, { x0: M.m, y0: M.top, x1: W - M.m, y1: H - M.bot - fh });
-    drawMark(ctx, M, key, P.x, P.y, lw, ink, false);
-    GUIDES.push({ y: P.y }, { y: P.y + lh }, { x: P.x }, { x: P.x + lw });
-  },
-
-  split(ctx, W, H, M, cw) {
-    const ink = cw.ink, vertical = H / W > 1.05;
-    let photoR, tx, ty, tw;
-    if (vertical) { const ph = H * (H / W > 1.6 ? 0.56 : 0.52); photoR = { x: 0, y: 0, w: W, h: ph }; tx = M.m; ty = ph + 5 * M.u; tw = W - 2 * M.m; }
-    else { photoR = { x: 0, y: 0, w: W * 0.5, h: H }; tx = W * 0.5 + 5 * M.u; ty = M.top; tw = W - tx - M.m; }
-    drawPhoto(ctx, photoR.x, photoR.y, photoR.w, photoR.h, cw);
-    const fh = footer(ctx, W, H, M, cw, ink, tx);
-    const key = state.logo;
-    const lw = fitLogoW(key, tw * 0.5 * TIER[state.logoSize], (vertical ? H * 0.09 : H * 0.18) * TIER[state.logoSize]);
-    const lh = lw * LOGOS[key].h / LOGOS[key].w;
-    // auto = bottom-left of the colour panel; any other position is on the whole frame
-    const panelR = { x0: tx, y0: ty, x1: W - M.m, y1: H - M.bot - fh };
-    const R = state.logoPos === "auto" ? panelR : { x0: M.m, y0: M.top, x1: W - M.m, y1: H - M.bot - fh };
-    const P = place("bl", lw, lh, R);
-    const box = { x: P.x, y: P.y, w: lw, h: lh };
-    const onPhoto = overlaps(box, photoR);
-    drawMark(ctx, M, key, P.x, P.y, lw, ink, onPhoto);
-    const inPanel = overlaps(box, { x: tx, y: ty, w: W - tx, h: H - ty });
-    let y = ty, yEnd = panelR.y1;
-    if (inPanel) { if (P.y > ty + (panelR.y1 - ty) * 0.35) yEnd = P.y - 4 * M.u; else y = Math.max(ty, P.y + lh + 4 * M.u); }
-    textStack(ctx, M, cw, tx, y, tw, yEnd, 8 * M.u, 2.6 * M.u);
-  },
 };
-
-// eyebrow + headline (auto-fit) + body inside [y, yEnd]
-function textStack(ctx, M, cw, x, y, maxW, yEnd, headPx, bodyPx0) {
-  const ink = cw.ink;
-  if (state.eyebrow) {
-    const epx = 2.2 * M.u; drawLine(ctx, state.eyebrow.toUpperCase(), x, y + epx * 0.8, epx, 0.06, cw.eyebrow);
-    y += epx * 1.2 + 3 * M.u; GUIDES.push({ y });
-  }
-  if (state.eyebrow) hit("eyebrow", x, y - 3 * M.u - 2.2 * M.u * 1.2, maxW, 2.2 * M.u * 1.3);
-  let bodyPx = Math.max(13, bodyPx0);
-  const bw = maxW * 0.9;
-  // body may use at most 60% of the room left (wide +250 tracking wraps sooner), the headline gets the rest
-  const room = yEnd - y, minBody = Math.max(11, 2 * M.u);
-  while (state.body && bodyPx > minBody && blockH(ctx, state.body, bw, bodyPx, 1.38, 0) + 3 * M.u > room * 0.6) bodyPx *= 0.95;
-  const bodyH = state.body ? blockH(ctx, state.body, bw, bodyPx, 1.38, 0) + 3 * M.u : 0;
-  const hpx = fitPx(ctx, state.headline, maxW, Math.max(30, yEnd - y - bodyH), headPx, 1.04, 0, 3 * M.u);
-  const hy = y; y = drawBlock(ctx, state.headline, x, y, maxW, hpx, 1.04, 0, ink); hit("headline", x, hy, maxW, y - hy);
-  if (state.body) { const by = y + 3 * M.u, be = drawBlock(ctx, state.body, x, by, bw, bodyPx, 1.38, 0, ink); hit("body", x, by, bw, be - by); }
-}
-
-function productRows(ctx, rows, x, y, w, px, M, ink) {
-  if (rows.length) hit("rows", x, y, w, rows.length * (px * 1.2 + 4.2 * M.u));
-  for (const [k, v] of rows) {
-    const yy = y + px;
-    const kw = drawLine(ctx, (k || "").toUpperCase(), x, yy, px, 0.06, ink);
-    if (v) drawLine(ctx, v, x + kw + 2.5 * M.u, yy, px * 1.15, 0, ink);
-    hr(ctx, x, yy + 1.6 * M.u, w, ink, 0.55, Math.max(1, M.u * 0.12));
-    y += px * 1.2 + 4.2 * M.u;
-  }
-  return y;
-}
 
 // t = seconds into the logo loop; null = still (fully drawn)
 const LAYER = { key: null, canvas: null, calls: [] };
@@ -460,7 +348,7 @@ function renderStatic(target, scale = 1) {
 }
 
 function drawGuides(ctx, W, H, M, cw) {
-  const ink = state.template === "photo" ? C.cream : cw.ink;
+  const ink = state.template === "logo" && photo ? C.cream : cw.ink;
   ctx.save(); ctx.globalAlpha = 0.28; ctx.fillStyle = ink;
   const t = Math.max(1, M.u * 0.1);
   const xs = [M.m, W - M.m, W / 2], ys = [M.top, H - M.bot];
@@ -512,15 +400,18 @@ function setView(v) {
   update();
 }
 
-let T0 = performance.now(), PLAYING = false;
+// the design shows the finished logo; "Preview" plays the draw-on once (videos and GIFs always draw it on)
+let T0 = performance.now(), PLAYING = false, PREVIEW_END = 0;
+const previewing = () => performance.now() < PREVIEW_END;
 function loopTime() { return ((performance.now() - T0) / 1000) % ANIM.D; }
 function tick() {
-  if (state.anim === "static" || document.querySelector(".tab.active").dataset.tab !== "insta") { PLAYING = false; return; }
+  if (!previewing()) { PLAYING = false; render(canvas, 1); return; }
   render(canvas, 1, loopTime()); requestAnimationFrame(tick);
 }
+function playPreview() { T0 = performance.now(); PREVIEW_END = T0 + ANIM.D * 1000; if (!PLAYING) { PLAYING = true; requestAnimationFrame(tick); } }
 function update() {
-  if (state.anim === "static") render(canvas, 1);
-  else { render(canvas, 1, loopTime()); if (!PLAYING) { PLAYING = true; requestAnimationFrame(tick); } }
+  if (!previewing()) render(canvas, 1);
+  else render(canvas, 1, loopTime());
   fit(); syncUI(); save(); layoutHits();
 }
 
@@ -537,11 +428,10 @@ function syncUI() {
   $$("#colour-tiles .swatch").forEach(b => b.classList.toggle("active", b.dataset.colour === state.colour));
   $$("#logo-size-seg .seg-btn").forEach(b => b.classList.toggle("active", b.dataset.size === state.logoSize));
   $$("[data-pos]").forEach(b => b.classList.toggle("active", b.dataset.pos === state.logoPos));
-  $$("#anim-seg .seg-btn").forEach(b => b.classList.toggle("active", b.dataset.anim === state.anim));
 
   $$("#logo-tiles .logo-tile").forEach(b => b.classList.toggle("active", b.dataset.logo === state.logo));
-  const posNotes = { split: "Auto keeps it in the colour panel. Other positions use the whole frame — over the photo it turns white.",
-    product: "Middle puts the mark over the photo.", seal: "This template always uses the LFF monogram. Position moves it and its line together." };
+  const posNotes = { split: "Auto keeps it in the colour panel. Top / middle / bottom use the whole frame — over the photo it turns white.",
+    logo: "With a photo the logo turns white and sits at the bottom.", seal: "This template always uses the LFF monogram. Position moves it and its line together." };
   $("#pos-hint").textContent = posNotes[state.template] || "Auto uses the template's usual spot.";
   // show only the controls a template uses
   $$(".ig-only").forEach(el => el.classList.toggle("hidden", VIEW !== "ig"));
@@ -555,7 +445,7 @@ function build() {
   bm.innerHTML = L.paths.map(d => `<path d="${d}"/>`).join("");
 
   $("#format-seg").innerHTML = Object.entries(FORMATS).map(([k, f]) =>
-    `<button class="size-card" data-format="${k}" title="${f.w} × ${f.h} px"><span class="shape" style="aspect-ratio:${f.w}/${f.h}"></span><b>${f.label}</b><small>${f.sub}</small></button>`).join("");
+    `<button class="size-card" data-format="${k}" title="${f.w} × ${f.h} px"><span class="shape" style="aspect-ratio:${f.w}/${f.h}"></span><span><b>${f.label}</b><small>${f.sub}</small></span></button>`).join("");
   $("#template-tiles").innerHTML = Object.entries(TEMPLATES).map(([k, t]) =>
     `<button class="tpl" data-template="${k}" title="${t.sub}"><span class="thumb"><img alt=""></span><b>${t.title}</b></button>`).join("");
   $("#colour-tiles").innerHTML = Object.entries(COLOURWAYS).map(([k, c]) =>
@@ -577,8 +467,7 @@ function build() {
   $("#template-tiles").addEventListener("click", e => { const b = e.target.closest("[data-template]"); if (b) { state.template = b.dataset.template; update(); } });
   $("#colour-tiles").addEventListener("click", e => { const b = e.target.closest("[data-colour]"); if (b) { state.colour = b.dataset.colour; update(); } });
   $$("[data-pos]").forEach(b => b.addEventListener("click", () => { state.logoPos = b.dataset.pos; update(); }));
-  $("#anim-seg").innerHTML = ANIM.MODES.map(([k, l]) => `<button class="seg-btn" data-anim="${k}">${l}</button>`).join("");
-  $("#anim-seg").addEventListener("click", e => { const b = e.target.closest("[data-anim]"); if (b) { state.anim = b.dataset.anim; T0 = performance.now(); update(); } });
+  $("#play").addEventListener("click", playPreview);
   $("#export-mp4").addEventListener("click", () => exportVideo("mp4"));
   $("#export-gif").addEventListener("click", () => exportVideo("gif"));
   $("#logo-size-seg").addEventListener("click", e => { const b = e.target.closest("[data-size]"); if (b) { state.logoSize = b.dataset.size; update(); } });
@@ -625,7 +514,7 @@ function build() {
   $("#export-all").addEventListener("click", async () => {
     const keep = state.format;
     for (const f of Object.keys(FORMATS)) { state.format = f; await exportPNG(true); await new Promise(r => setTimeout(r, 350)); }
-    state.format = keep; update(); toast("Exported 4 formats");
+    state.format = keep; update(); toast("Saved both sizes");
   });
   $$(".vt").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
   $("#reset").addEventListener("click", () => { state = Object.assign({}, DEFAULTS); update(); });
@@ -640,19 +529,16 @@ const LOGO_NAMES = Object.fromEntries(LOGO_OPTIONS.flatMap(([, o]) => o));
 function syncSummaries() {
   const f = FORMATS[state.format], firstLine = s => (s || "").split("\n")[0];
   const sums = {
-    size: f.label, more: "Text, photo, captions…",
+    size: f.label, more: "Text, photo, logo position",
     template: TEMPLATES[state.template].title,
-    text: firstLine(state.template === "product" ? state.product : state.headline),
+    text: firstLine(state.headline),
     photo: photo ? "Photo added" : "No photo",
-    logo: (LOGO_NAMES[state.logo] || "").split(" — ")[0] + (state.anim !== "static" ? " · animated" : ""),
+    logo: (LOGO_NAMES[state.logo] || "").split(" — ")[0],
     colours: COLOURWAYS[state.colour].label,
-    footer: state.footer ? "On" : "Off",
     ig: state.igName, extras: "",
   };
   $$("[data-sum]").forEach(el => el.textContent = sums[el.dataset.sum] ?? "");
-  const still = state.anim === "static";
-  ["#export-mp4", "#export-gif"].forEach(s => $(s).classList.toggle("dim", still));
-  $("#em-note").textContent = still ? "For a video or GIF, pick a Movement under 4 · Logo (e.g. Draw on)." : "";
+
 }
 let THUMB_T = null;
 function scheduleThumbs() { clearTimeout(THUMB_T); THUMB_T = setTimeout(renderThumbs, 160); }
@@ -687,7 +573,7 @@ function initSteps() {
 /* ---------- starters ---------- */
 function applyStarter(st) {
   Object.assign(state, DEFAULTS, { igName: state.igName, igCaption: state.igCaption }, st.set, { logoPos: "auto" });
-  T0 = performance.now(); update();
+  update();
 }
 function openStarters() {
   const g = $("#starter-grid"), keep = Object.assign({}, state), c = document.createElement("canvas");
@@ -701,8 +587,7 @@ function openStarters() {
 }
 
 /* ---------- edit on the design ---------- */
-const HIT_LABELS = { eyebrow: "Small heading", headline: "Headline", body: "Body text", product: "Product name",
-  rows: "Label lines", footer: "Footer captions", photo: "Photo", logo: "Logo" };
+const HIT_LABELS = { headline: "Headline", photo: "Photo", logo: "Logo" };
 function layoutHits() {
   const layer = $("#hits"); layer.innerHTML = "";
   if (VIEW !== "design") return;
@@ -724,22 +609,16 @@ function fieldInput(label, key, multi, ph) {
 function openPop(field, el) {
   const pop = $("#pop");
   let html = `<div class="pop-title">${HIT_LABELS[field]}</div>`;
-  if (field === "eyebrow") html += fieldInput("", "eyebrow");
   if (field === "headline") html += fieldInput("", "headline", true);
-  if (field === "body") html += fieldInput("", "body", true);
-  if (field === "product") html += fieldInput("", "product");
-  if (field === "rows") html += [1, 2, 3].map(i => `<div class="pair"><input data-pf="l${i}k" type="text"><input data-pf="l${i}v" type="text" placeholder="—"></div>`).join("");
-  if (field === "footer") html += `<label class="toggle"><input type="checkbox" data-pf="footer"> Show captions</label>` + fieldInput("Left", "footL", true) + fieldInput("Right", "footR", true);
   if (field === "photo") html += `<div class="pop-btns"><button class="btn small" data-act="choose">${photo ? "Change photo" : "Add a photo"}</button>${photo ? '<button class="btn ghost small" data-act="remove">Remove</button>' : ""}</div>
       <div class="slider"><span>Zoom</span><input type="range" data-pf="zoom" min="1" max="3" step="0.01"></div>
       <div class="slider"><span>Lou's filter</span><input type="range" data-pf="warm" min="0" max="1" step="0.01"></div>
       <label class="toggle"><input type="checkbox" data-pf="soft"> Soft background (portrait look)</label>
       <p class="hint">Drag the photo on the design to move it. Best photos: shot from 45° with the whole plate in frame, in iPhone Portrait mode.</p>`;
   if (field === "logo") html += `<div class="row-label">Where</div>
-      <div class="pos-grid small">${["tl","tc","tr","ml","mc","mr","bl","bc","br"].map(p => `<button data-ppos="${p}"></button>`).join("")}</div>
-      <button class="seg-btn auto-btn" data-ppos="auto">Auto</button>
+      <div class="seg cols-4">${[["auto","Auto"],["tc","Top"],["mc","Middle"],["bc","Bottom"]].map(([p, l]) => `<button class="seg-btn" data-ppos="${p}">${l}</button>`).join("")}</div>
       <div class="row-label">Size</div>
-      <div class="seg cols-4">${["XS","S","M","L"].map(s => `<button class="seg-btn" data-psize="${s}">${s}</button>`).join("")}</div>
+      <div class="seg cols-3">${["S","M","L"].map(s => `<button class="seg-btn" data-psize="${s}">${s}</button>`).join("")}</div>
       <p class="hint">Change the logo itself in step 4.</p>`;
   html += `<div class="pop-foot"><button class="btn small" data-act="done">Done</button></div>`;
   pop.innerHTML = html; pop.hidden = false;
@@ -790,7 +669,7 @@ function initDirectEdit() {
     if (!drag.moved) return;
     if (drag.ox > 1) state.px = Math.max(0, Math.min(100, drag.px - dx / drag.ox * 100));
     if (drag.oy > 1) state.py = Math.max(0, Math.min(100, drag.py - dy / drag.oy * 100));
-    render(canvas, 1, state.anim === "static" ? null : loopTime());
+    render(canvas, 1, previewing() ? loopTime() : null);
   });
   layer.addEventListener("pointerup", e => {
     const el = e.target.closest(".hit");
@@ -836,9 +715,8 @@ function exportPNG(quiet) {
 }
 let BUSY = false;
 async function exportVideo(kind) {
-  if (state.anim === "static") { toast("Pick a Movement under 4 · Logo first"); return; }
   if (BUSY) return; BUSY = true;
-  const f = FORMATS[state.format], base = `lff_${state.template}_${state.format}_${state.anim}`;
+  const f = FORMATS[state.format], base = `lff_${state.template}_${state.format}_logo`;
   const c = document.createElement("canvas");
   EXPORTING = true;
   try {
