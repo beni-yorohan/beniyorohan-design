@@ -26,6 +26,7 @@ const DEFAULTS = {
   texts: [newText({ text: "Fresh out of\nthe kitchen", y: 0.12 })], cur: 0,
   logoOn: true, logo: "combination", logoSize: "M", logoPos: "bottom", logoColor: "cream",
   px: 50, py: 50, pz: 1, logoScrim: false, guides: false,
+  igName: "lousfancyfoods", igCaption: "",   // Instagram preview only
 };
 let S = load();
 let photo = null;
@@ -286,7 +287,36 @@ function drawGuides(c, W, H) {
 // the editor shows the finished logo; "Preview movement" plays the draw-on once
 let PREVIEW_END = 0, PREVIEW_T0 = 0;
 function animating() { return performance.now() < PREVIEW_END && TAB === "insta"; }
+// Design view = the editable canvas; Instagram view = the same design inside a phone (never exported)
+let VIEW = "design";
+const igc = document.createElement("canvas");
+function fitPhones() {
+  const r = $("#wrap").getBoundingClientRect();
+  const pw = Math.max(120, Math.min((r.height - 12) / 2.1667, r.width - 40, 420));
+  document.querySelectorAll(".phone").forEach(p => p.style.setProperty("--pw", pw + "px"));
+  return pw;
+}
+function drawIG(t) {
+  const story = S.size === "story", [W, H] = SIZES[S.size];
+  $("#ig-feed").classList.toggle("show", !story); $("#ig-story").classList.toggle("show", story);
+  const host = story ? $("#story-media") : $("#feed-media");
+  if (igc.parentElement !== host) host.appendChild(igc);
+  const pw = fitPhones(), k = Math.min(2.5, pw * (devicePixelRatio || 1) / W);
+  igc.width = Math.round(W * k); igc.height = Math.round(H * k);
+  frame(igc, k, t);
+  document.querySelectorAll(".ig-name").forEach(e => e.textContent = S.igName || "lousfancyfoods");
+  document.querySelectorAll(".ig-caption").forEach(e => e.textContent = S.igCaption || "");
+}
+function setView(v) {
+  VIEW = v;
+  document.body.classList.toggle("view-ig", v === "ig");
+  document.querySelectorAll("#views button").forEach(b => b.classList.toggle("on", b.dataset.view === v));
+  $("#ig").hidden = v !== "ig";
+  $("#ig-name").value = S.igName || ""; $("#ig-caption").value = S.igCaption || "";
+  hover = null; draw();
+}
 function draw() {
+  if (VIEW === "ig") { drawIG(animating() ? (performance.now() - PREVIEW_T0) / 1000 : null); return; }
   const [W, H] = SIZES[S.size];
   if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
   RS = 1;
@@ -561,6 +591,10 @@ function bindPanel() {
   $("#text").oninput = e => { if (T()) T().text = e.target.value; save(); draw();
     const chip = $(`#text-list [data-i="${S.cur}"]`); if (chip) chip.textContent = (e.target.value.split("\n")[0] || "Empty").slice(0, 18); };
   document.querySelectorAll("#layout button").forEach(b => b.onclick = () => { S.layout = b.dataset.layout; S.px = 50; S.py = 50; save(); sync(); });
+  document.querySelectorAll("#views button").forEach(b => b.onclick = () => setView(b.dataset.view));
+  $("#ig-name").oninput = e => { S.igName = e.target.value; save(); draw(); };
+  $("#ig-caption").oninput = e => { S.igCaption = e.target.value; save(); draw(); };
+  new ResizeObserver(() => { if (VIEW === "ig") draw(); }).observe($("#wrap"));
   $("#play").onclick = () => { PREVIEW_T0 = performance.now(); PREVIEW_END = PREVIEW_T0 + ANIM.D * 1000; play(); };
   $("#guides").onchange = e => { S.guides = e.target.checked; save(); sync(); };
   const menu = $("#dl-menu");
@@ -662,6 +696,9 @@ function toast(msg, sticky) {
   bl.style.width = "60px";
   HIST.last = JSON.stringify(S);
   swatches(); logoTiles(); bindPanel(); syncUndo();
+  { const L = LOGOS.lff;   // Instagram avatar = the LFF monogram
+    document.querySelectorAll(".avatar").forEach(el => el.innerHTML = `<svg viewBox="0 0 ${L.w} ${L.h}">${L.paths.map(d => `<path d="${d}"/>`).join("")}</svg>`); }
+  setView("design");
   let saved = null; try { saved = localStorage.getItem(STORE + "-photo"); } catch (e) {}
   if (saved) { photoSrc = saved; setPhoto(saved); } else sync();
   document.fonts.ready.then(draw);
