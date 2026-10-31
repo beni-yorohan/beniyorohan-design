@@ -1,5 +1,6 @@
-/* Lou's Fancy Foods — Simple editor (the socials asset tool).
-   One template: a photo, any number of text boxes and the logo.
+/* Lou's Fancy Foods — Asset Generator (the socials asset tool; editor and templates in one).
+   A design = a photo (full frame, or the top half), any number of text boxes and the logo.
+   "New design" starts from a template (starters below); every design is kept in the Library (library.js).
    - Text boxes: drag anywhere; set sizes XS–XL; brand fonts.
    - Text is always centred in the frame and centre-aligned; boxes move up and down only.
    - Logo: sizes S / M / L, centred at the top, middle or bottom; videos and GIFs draw it on (anim.js).
@@ -21,7 +22,7 @@ const STORE = "lff-simple-v2";
 
 const newText = (o = {}) => ({ text: "New text", font: "mono", size: "M", color: "cream", ...o, align: "center", x: 0.5 });   // always centred
 const DEFAULTS = {
-  size: "portrait", warm: true, soft: true, bg: "esp",
+  size: "portrait", layout: "full", warm: true, soft: true, bg: "esp",
   texts: [newText({ text: "Fresh out of\nthe kitchen", y: 0.12 })], cur: 0,
   logoOn: true, logo: "combination", logoSize: "M", logoPos: "bottom", logoColor: "cream",
   px: 50, py: 50, pz: 1, logoScrim: false, guides: false,
@@ -41,24 +42,26 @@ const clock = () => (performance.now() - T0) / 1000;
 const $ = q => document.querySelector(q);
 const cv = $("#c"), ctx = cv.getContext("2d");
 const T = () => S.texts[S.cur];          // the text box being edited (or undefined)
-// colour rules on a plain background (a photo allows any colour):
+// colour rules on a plain background (on a photo any colour is fine):
 //  - never the same colour as the background (text and logo)
 //  - never olive on brown, never brown on olive (text and logo)
+// onP = the element sits on the photo (worked out while drawing; see BOX)
 const NAMES = { cream: "White", esp: "Brown", olive: "Olive" };
-function blocked(name, forLogo) {
-  if (photo) return false;
+function blocked(name, forLogo, onP) {
+  if (onP) return false;
   if (name === S.bg) return "Same colour as the background";
   if (name === "olive" && S.bg === "esp") return forLogo ? "Olive isn't used on brown" : "Olive text isn't used on brown";
   if (name === "esp" && S.bg === "olive") return forLogo ? "Brown isn't used on olive" : "Brown text isn't used on olive";
   return false;
 }
-const allowed = (name, forLogo) => blocked(name, forLogo) ? ["cream", "esp", "olive"].find(n => !blocked(n, forLogo)) : name;
-const textInk = tb => allowed(tb.color, false);
-const logoInk = () => allowed(S.logoColor, true);
+const allowed = (name, forLogo, onP) => blocked(name, forLogo, onP) ? ["cream", "esp", "olive"].find(n => !blocked(n, forLogo, onP)) : name;
+const onPhotoNow = i => i === "logo" ? !!(BOX.logo && BOX.logo.onPhoto) : !!(BOX.texts[i] && BOX.texts[i].onPhoto);
+const textInk = (tb, onP) => allowed(tb.color, false, onP);
+const logoInk = onP => allowed(S.logoColor, true, onP);
 // store the allowed colours, so the panel shows what's actually used
 function fixColours() {
-  S.texts.forEach(t => { t.color = textInk(t); });
-  S.logoColor = logoInk();
+  S.texts.forEach((t, i) => { t.color = textInk(t, onPhotoNow(i)); });
+  S.logoColor = logoInk(onPhotoNow("logo"));
 }
 
 function load() {
@@ -68,6 +71,7 @@ function load() {
     s.cur = Math.min(s.cur || 0, s.texts.length - 1);
     s.texts.forEach(t => { if (!FONTS[t.font]) t.font = "mono"; t.align = "center"; t.x = 0.5; });   // GT America is not a brand font; text is always centred
     if (!SIZES[s.size]) s.size = "portrait";                                   // the square post was dropped
+    if (s.layout !== "split") s.layout = "full";
     s.logoSize = { XS: "S", S: "S", M: "M", L: "L", XL: "L" }[s.logoSize] || "M";
     delete s.anim;
     return s;
@@ -83,9 +87,11 @@ function save() {
     if (HIST.undo.length > 80) HIST.undo.shift();
     HIST.redo = []; HIST.at = performance.now();
   }
+  const changed = HIST.last !== null && now !== HIST.last;
   HIST.last = now;
   try { localStorage.setItem(STORE, now); } catch (e) {}
   syncUndo();
+  if (changed && window.LIB) LIB.touch();   // keep the Library copy up to date
 }
 function stepHistory(back) {
   const from = back ? HIST.undo : HIST.redo, to = back ? HIST.redo : HIST.undo;
@@ -94,13 +100,16 @@ function stepHistory(back) {
   S = JSON.parse(HIST.last);
   try { localStorage.setItem(STORE, HIST.last); } catch (e) {}
   syncUndo(); sync();
+  if (window.LIB) LIB.touch();
 }
 function syncUndo() {
   const u = document.getElementById("undo"), r = document.getElementById("redo");
   if (u) u.disabled = !HIST.undo.length;
   if (r) r.disabled = !HIST.redo.length;
 }
+let photoSrc = null;   // the photo as a data URL (kept with the design in the Library)
 function savePhoto(src) {
+  photoSrc = src || null;
   try { if (src) localStorage.setItem(STORE + "-photo", src); else localStorage.removeItem(STORE + "-photo"); } catch (e) {}
 }
 
@@ -119,15 +128,34 @@ function withShadow(c, on, W, fn) {
   if (on) { c.shadowColor = "rgba(34,14,2,.42)"; c.shadowBlur = W * 0.018 * RS; c.shadowOffsetY = W * 0.0035 * RS; }
   fn(); c.restore();
 }
-// cover-fit scale × zoom (1 = the photo just fills the frame)
-const photoScale = (W, H) => Math.max(W / photo.naturalWidth, H / photo.naturalHeight) * (S.pz || 1);
-function drawPhoto(c, W, H) {
-  const s = photoScale(W, H);
+// where the photo goes: the whole frame, or the top half ("Photo on top" layout)
+function photoRect(W, H) {
+  return S.layout === "split" ? { x: 0, y: 0, w: W, h: Math.round(H * (S.size === "story" ? 0.56 : 0.52)) } : { x: 0, y: 0, w: W, h: H };
+}
+const overlaps = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+const onPhotoBox = (b, W, H) => !!photo && !!b && overlaps(b, photoRect(W, H));
+// cover-fit scale × zoom (1 = the photo just fills its area)
+const photoScale = (R) => Math.max(R.w / photo.naturalWidth, R.h / photo.naturalHeight) * (S.pz || 1);
+function drawPhoto(c, R) {
+  const s = photoScale(R);
   const iw = photo.naturalWidth * s, ih = photo.naturalHeight * s;
-  const ix = (W - iw) * S.px / 100, iy = (H - ih) * S.py / 100;
+  const ix = R.x + (R.w - iw) * S.px / 100, iy = R.y + (R.h - ih) * S.py / 100;
   // Lou's photo filter: white balance + 3000K warmth, levels, vibrance, and (optionally) the soft portrait background
   const src = S.warm && photoFx ? (S.soft !== false ? photoFx.soft : photoFx.graded) : photo;
+  c.save(); c.beginPath(); c.rect(R.x, R.y, R.w, R.h); c.clip();
   c.drawImage(src, ix, iy, iw, ih);
+  c.restore();
+}
+// "Photo on top" without a photo yet: a quiet empty area (and an "Add a photo" hint while editing)
+function drawPhotoSlot(c, R, preview) {
+  c.save();
+  c.fillStyle = S.bg === "cream" ? "rgba(78,53,36,.08)" : "rgba(255,255,255,.12)"; c.fillRect(R.x, R.y, R.w, R.h);
+  if (preview) {
+    c.font = `400 ${R.w * 0.032}px "GT America"`; if ("letterSpacing" in c) c.letterSpacing = "0px";
+    c.fillStyle = S.bg === "cream" ? "rgba(78,53,36,.55)" : "rgba(255,255,255,.7)"; c.textAlign = "center";
+    c.fillText("+ Add a photo", R.x + R.w / 2, R.y + R.h / 2);
+  }
+  c.restore();
 }
 function measureText(c, W, tb) {
   const F = FONTS[tb.font]; let px = W * TEXT_PX[tb.size] / 100;
@@ -170,18 +198,19 @@ function logoBox(W, H) {
 function render(c, W, H, preview, t = null) {
   c.clearRect(0, 0, W, H);
   c.fillStyle = C[S.bg]; c.fillRect(0, 0, W, H);
-  if (photo) drawPhoto(c, W, H);   // no placeholder text: the hint under the design and the drop overlay cover it
-  if (photo && S.logoOn && S.logoScrim) drawScrim(c, W, H);
-  const onPhoto = !!photo;
+  const R = photoRect(W, H);
+  if (photo) drawPhoto(c, R); else if (S.layout === "split") drawPhotoSlot(c, R, preview);
   BOX = { texts: [] };
   if (S.logoOn) {
-    // construction fill (Construction movement): olive on white; white on brown and on olive (olive and brown never touch)
-    const ink = logoInk(), b = logoBox(W, H), col = C[ink], accent = (ink === "olive" || (!photo && S.bg !== "cream")) ? C.cream : C.olive;
-    withShadow(c, onPhoto, W, () => {
+    const b = logoBox(W, H), onP = onPhotoBox(b, W, H);
+    if (onP && S.logoScrim) drawScrim(c, W, H);
+    // draw-on accent: olive on white; white on brown and on olive (olive and brown never touch)
+    const ink = logoInk(onP), col = C[ink], accent = (ink === "olive" || (!onP && S.bg !== "cream")) ? C.cream : C.olive;
+    withShadow(c, onP, W, () => {
       if (t !== null) drawLogoAnimated(c, S.logo, b.x, b.y, b.w, col, accent, t, ANIM_MODE, Math.min(W, H) / 100);
       else drawLogo(c, S.logo, b.x, b.y, b.w, col);
     });
-    BOX.logo = b;
+    BOX.logo = { ...b, onPhoto: onP };
   }
   S.texts.forEach((tb, i) => {
     if (!tb.text.trim()) { BOX.texts[i] = null; return; }
@@ -189,15 +218,16 @@ function render(c, W, H, preview, t = null) {
     const boxH = m.px * 0.78 + (m.lines.length - 1) * m.lh + m.px * 0.08, top = clampTextY(tb, H, boxH);
     const off = tb.align === "left" ? 0 : tb.align === "center" ? m.w / 2 : m.w;
     const x0 = Math.max(0, Math.min(tb.x * W - off, W - m.w)), ax = x0 + off;   // never off the side of the frame
-    withShadow(c, onPhoto, W * 0.6, () => {
-      c.fillStyle = C[textInk(tb)]; c.textBaseline = "alphabetic"; c.textAlign = "left";
+    const onP = onPhotoBox({ x: x0, y: top, w: m.w, h: boxH }, W, H);
+    withShadow(c, onP, W * 0.6, () => {
+      c.fillStyle = C[textInk(tb, onP)]; c.textBaseline = "alphabetic"; c.textAlign = "left";
       m.lines.forEach((l, k) => {   // pen x so the line's ink edge / ink centre sits on the anchor
         const { l: il, r: ir } = m.ink[k];
         const lx = tb.align === "left" ? ax + il : tb.align === "center" ? ax - (ir - il) / 2 : ax - ir;
         c.fillText(l, lx, top + m.px * 0.78 + k * m.lh);
       });
     });
-    BOX.texts[i] = { x: x0, y: top, w: m.w, h: boxH };
+    BOX.texts[i] = { x: x0, y: top, w: m.w, h: boxH, onPhoto: onP };
   });
   if (preview && S.guides) drawGuides(c, W, H);
   if (preview) {
@@ -282,7 +312,9 @@ function pick(x, y) {
   const pad = cv.width * 0.015;
   for (let i = S.texts.length - 1; i >= 0; i--) if (inside(BOX.texts[i], x, y, pad)) return i;
   if (inside(BOX.logo, x, y, pad)) return "logo";
-  return photo ? "photo" : null;
+  const R = photoRect(cv.width, cv.height);
+  if (inside(R, x, y, 0)) return photo ? "photo" : S.layout === "split" ? "addphoto" : null;
+  return null;
 }
 cv.addEventListener("pointermove", e => {
   const [x, y] = toCanvas(e);
@@ -290,8 +322,8 @@ cv.addEventListener("pointermove", e => {
   if (pinch) { if (touches.size === 2) setZoom(pinch.z * spread() / pinch.d); return; }
   if (!drag) {
     const p = pick(x, y), h = p === "photo" ? null : p;
-    cv.style.cursor = p === "photo" ? "grab" : p === "logo" ? "pointer" : p !== null ? "move" : "default";
-    if (h !== hover) { hover = h; draw(); }
+    cv.style.cursor = p === "photo" ? "grab" : p === "logo" || p === "addphoto" || (p === null && !photo) ? "pointer" : p !== null ? "move" : "default";
+    if (h !== hover && h !== "addphoto") { hover = h; draw(); }
     return;
   }
   const W = cv.width, H = cv.height, dx = x - drag.x, dy = y - drag.y;
@@ -305,8 +337,8 @@ cv.addEventListener("pointermove", e => {
     }
     tb.y = ty;
   } else if (drag.what === "photo") {
-    const s = photoScale(W, H);
-    const ox = photo.naturalWidth * s - W, oy = photo.naturalHeight * s - H;
+    const R = photoRect(W, H), s = photoScale(R);
+    const ox = photo.naturalWidth * s - R.w, oy = photo.naturalHeight * s - R.h;
     if (ox > 1) S.px = Math.max(0, Math.min(100, drag.s.px - dx / ox * 100));
     if (oy > 1) S.py = Math.max(0, Math.min(100, drag.s.py - dy / oy * 100));
   }
@@ -329,7 +361,7 @@ cv.addEventListener("pointerdown", e => {
   if (pinch) return;
   cv.focus({ preventScroll: true });
   const [x, y] = toCanvas(e), what = pick(x, y);
-  if (what === null) { if (!photo) $("#file").click(); return; }
+  if (what === null || what === "addphoto") { if (!photo) $("#file").click(); return; }
   if (what === "logo") {   // the logo isn't dragged: it lives at top / middle / bottom
     const order = ["top", "middle", "bottom"];
     S.logoPos = order[(order.indexOf(S.logoPos) + 1) % 3]; save(); sync(); return;
@@ -371,16 +403,17 @@ function useFile(f) {
       const t = document.createElement("canvas"); t.width = Math.round(img.naturalWidth * k); t.height = Math.round(img.naturalHeight * k);
       t.getContext("2d").drawImage(img, 0, 0, t.width, t.height);
       const src = t.toDataURL("image/jpeg", 0.9);
-      setPhoto(src); savePhoto(src); S.px = 50; S.py = 50; S.pz = 1; save();
+      savePhoto(src); S.px = 50; S.py = 50; S.pz = 1; save();
+      setPhoto(src, () => window.LIB && LIB.touch());   // re-save once the filtered photo is ready (for the thumbnail)
     };
     img.src = r.result;
   };
   r.readAsDataURL(f);
 }
-function setPhoto(src) {
-  if (!src) { photo = null; sync(); return; }
+function setPhoto(src, done) {
+  if (!src) { photo = null; photoFx = null; sync(); return; }
   const img = new Image();
-  img.onload = () => { photo = img; photoFx = window.LFFPhoto ? LFFPhoto.process(img) : null; sync(); };
+  img.onload = () => { photo = img; photoFx = window.LFFPhoto ? LFFPhoto.process(img) : null; sync(); if (done) done(); };
   img.src = src;
 }
 let dragDepth = 0;
@@ -393,7 +426,7 @@ window.addEventListener("drop", e => {
 });
 $("#choose").onclick = () => $("#file").click();
 $("#file").onchange = e => { useFile(e.target.files[0]); e.target.value = ""; };
-$("#remove").onclick = () => { photo = null; photoFx = null; savePhoto(null); fixColours(); save(); setPhoto(null); };
+$("#remove").onclick = () => { photo = null; photoFx = null; savePhoto(null); fixColours(); save(); setPhoto(null); if (window.LIB) LIB.touch(); };
 
 /* ---------- panel ---------- */
 function swatches() {
@@ -448,9 +481,9 @@ function syncText() {
   onClass("#fonts button", "font", tb.font);
   onClass("#text-sizes button", "v", tb.size);
   $('[data-for="textColor"]').querySelectorAll("button").forEach(b => {
-    const why = blocked(b.dataset.v, false);
+    const why = blocked(b.dataset.v, false, onPhotoNow(S.cur));
     b.disabled = !!why; b.title = why || NAMES[b.dataset.v];
-    b.classList.toggle("on", b.dataset.v === textInk(tb));
+    b.classList.toggle("on", b.dataset.v === textInk(tb, onPhotoNow(S.cur)));
   });
 }
 function sync() {
@@ -460,9 +493,9 @@ function sync() {
   onClass("#logo-pos button", "pos", S.logoPos);
   $("#guides").checked = S.guides;
   document.querySelectorAll(".swatches:not([data-for=textColor])").forEach(box => box.querySelectorAll("button").forEach(b => {
-    const why = box.dataset.for === "logoColor" ? blocked(b.dataset.v, true) : false;
+    const why = box.dataset.for === "logoColor" ? blocked(b.dataset.v, true, onPhotoNow("logo")) : false;
     b.disabled = !!why; b.title = why || NAMES[b.dataset.v];
-    b.classList.toggle("on", b.dataset.v === (box.dataset.for === "logoColor" ? logoInk() : S[box.dataset.for]));
+    b.classList.toggle("on", b.dataset.v === (box.dataset.for === "logoColor" ? logoInk(onPhotoNow("logo")) : S[box.dataset.for]));
   }));
   $("#warm").checked = S.warm;
   $("#soft").checked = S.soft !== false; $("#soft").disabled = !S.warm;
@@ -472,7 +505,8 @@ function sync() {
   $("#zoom").value = S.pz || 1;
   $("#zoom-row").classList.toggle("hidden", !photo);
   $(".when-logo").classList.toggle("hidden", !S.logoOn);
-  $(".when-nophoto").classList.toggle("hidden", !!photo);
+  $(".when-nophoto").classList.toggle("hidden", !!photo && S.layout !== "split");
+  onClass("#layout button", "layout", S.layout);
   $("#remove").classList.toggle("hidden", !photo);
   $("#warm").parentElement.classList.toggle("hidden", !photo);
   $("#soft").parentElement.classList.toggle("hidden", !photo);
@@ -526,8 +560,7 @@ function bindPanel() {
   });
   $("#text").oninput = e => { if (T()) T().text = e.target.value; save(); draw();
     const chip = $(`#text-list [data-i="${S.cur}"]`); if (chip) chip.textContent = (e.target.value.split("\n")[0] || "Empty").slice(0, 18); };
-  $("#reset").onclick = () => { if (!confirm("Start over? This clears the photo and text.")) return;
-    S = JSON.parse(JSON.stringify(DEFAULTS)); save(); savePhoto(null); photoFx = null; setPhoto(null); };
+  document.querySelectorAll("#layout button").forEach(b => b.onclick = () => { S.layout = b.dataset.layout; S.px = 50; S.py = 50; save(); sync(); });
   $("#play").onclick = () => { PREVIEW_T0 = performance.now(); PREVIEW_END = PREVIEW_T0 + ANIM.D * 1000; play(); };
   $("#guides").onchange = e => { S.guides = e.target.checked; save(); sync(); };
   const menu = $("#dl-menu");
@@ -536,7 +569,7 @@ function bindPanel() {
   document.addEventListener("keydown", e => { if (e.key === "Escape") menu.hidden = true; });
   menu.querySelectorAll("[data-dl]").forEach(b => b.onclick = () => {
     menu.hidden = true;
-    if (b.dataset.dl === "png") download(); else exportVideo(b.dataset.dl);
+    if (b.dataset.dl === "png") download(); else if (b.dataset.dl === "both") downloadBoth(); else exportVideo(b.dataset.dl);
   });
   document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
     TAB = t.dataset.tab;
@@ -567,7 +600,13 @@ function frame(c, s, t) {
 function download() {   // the still always shows the finished logo
   const [W, H] = SIZES[S.size], c = document.createElement("canvas");
   c.width = W; c.height = H; frame(c, 1, null);
-  c.toBlob(b => save_(b, stamp() + ".png"), "image/png");
+  return new Promise(res => c.toBlob(b => { save_(b, stamp() + ".png"); res(); }, "image/png"));
+}
+// the same design as a Post and as a Story (text and logo positions are relative, so they carry over)
+async function downloadBoth() {
+  const keep = S.size;
+  for (const sz of Object.keys(SIZES)) { S.size = sz; await download(); await new Promise(r => setTimeout(r, 350)); }
+  S.size = keep; draw(); toast("Saved the Post and the Story");
 }
 let BUSY = false;
 async function exportVideo(kind) {
@@ -624,7 +663,7 @@ function toast(msg, sticky) {
   HIST.last = JSON.stringify(S);
   swatches(); logoTiles(); bindPanel(); syncUndo();
   let saved = null; try { saved = localStorage.getItem(STORE + "-photo"); } catch (e) {}
-  if (saved) setPhoto(saved); else sync();
+  if (saved) { photoSrc = saved; setPhoto(saved); } else sync();
   document.fonts.ready.then(draw);
   Promise.all(["mono", "mono-light"].map(k => document.fonts.load(FONTS[k].css.replace("{px}", 40)))).then(draw);
 })();

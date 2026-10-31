@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lou's Asset Generator</title>
-<link rel="stylesheet" href="simple.css?v=12">
+<link rel="stylesheet" href="simple.css?v=14">
 </head>
 <body>
 <header class="bar">
@@ -16,11 +16,13 @@
     <button class="tab" data-tab="notes" role="tab" hidden>Notes</button>
   </nav>
   <div class="bar-right">
-    <nav class="modes" aria-label="Mode"><a class="on" aria-current="page">Editor</a><a href="templates.html">Templates</a></nav>
+    <button class="btn bar-btn" id="new-design">New<span class="long"> design</span></button>
+    <button class="btn bar-btn" id="library">Library</button>
     <div class="dl">
       <button id="download" class="btn primary">Download ▾</button>
       <div class="dl-menu" id="dl-menu" hidden>
         <button data-dl="png"><b>Picture</b><span>PNG · full size</span></button>
+        <button data-dl="both"><b>Picture in both sizes</b><span>Post 4:5 and Story</span></button>
         <button data-dl="mp4"><b>Video</b><span>MP4 · 5 seconds · the logo draws itself on</span></button>
         <button data-dl="gif"><b>GIF</b><span>Small · 540 px wide · the logo draws itself on</span></button>
       </div>
@@ -55,6 +57,9 @@
 
     <div class="group">
       <h3>Photo</h3>
+      <div class="seg small" id="layout">
+        <button data-layout="full">Fills the design</button><button data-layout="split">On the top half</button>
+      </div>
       <div class="row">
         <button class="btn" id="choose">Choose photo</button>
         <button class="btn ghost" id="remove">Remove</button>
@@ -105,7 +110,6 @@
       </div>
     </div>
 
-    <button class="reset" id="reset">Start over</button>
   </aside>
 </main>
 
@@ -114,11 +118,31 @@
 
 <div class="toast" id="toast"></div>
 
+<div class="modal" id="starters" hidden>
+  <div class="modal-card">
+    <h2>What are you making today?</h2>
+    <p>Pick a starting point. You can change everything afterwards.</p>
+    <p class="modal-note" id="starters-note"></p>
+    <div class="starter-grid" id="starter-grid"></div>
+    <button class="link-btn" id="starters-close">Keep working on my current design</button>
+  </div>
+</div>
+
+<div class="modal" id="lib" hidden>
+  <div class="modal-card">
+    <h2>Library</h2>
+    <p>Every design is saved here automatically, on this computer and in this browser.</p>
+    <div class="lib-grid" id="lib-grid"></div>
+    <button class="link-btn" id="lib-close">Close</button>
+  </div>
+</div>
+
 <script src="logos.js?v=1"></script>
 <script src="anim.js?v=1"></script>
 <script src="vendor/mp4-muxer.js"></script>
 <script src="vendor/gif.js"></script>
 <script src="photofilter.js?v=1"></script>
-<script src="simple.js?v=23"></script>
+<script src="simple.js?v=24"></script>
+<script src="library.js?v=3"></script>
 </body>
 </html>
