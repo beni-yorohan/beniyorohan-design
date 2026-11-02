@@ -15,9 +15,14 @@ https://www.beniyorohan-design.com/*  https://beniyorohan.design/:splat  301!
 # trailing slash so its relative files load from /lous/.)
 https://tools.beniyorohan.design/lous     /lff-tool/index.html                    200!
 https://tools.beniyorohan.design/lous/*   /lff-tool/:splat                        200!
+# /rayka = the Rayka Seeds tool (pomegranate + RAYKA seed letters; single file in /rayka-tool/).
+https://tools.beniyorohan.design/rayka    /rayka-tool/index.html                  200!
+https://tools.beniyorohan.design/rayka/*  /rayka-tool/:splat                      200!
 http://tools.beniyorohan.design/*         https://tools.beniyorohan.design/:splat 301!
 https://tools.beniyorohan.design/*        https://beniyorohan.design/             302!
 
 # The old address of the Lou's tool now forwards to its own subdomain (one link for the client).
 https://beniyorohan.design/lff-tool/*        https://tools.beniyorohan.design/lous/:splat  301!
 https://www.beniyorohan.design/lff-tool/*    https://tools.beniyorohan.design/lous/:splat  301!
+https://beniyorohan.design/rayka-tool/*      https://tools.beniyorohan.design/rayka        301!
+https://www.beniyorohan.design/rayka-tool/*  https://tools.beniyorohan.design/rayka        301!

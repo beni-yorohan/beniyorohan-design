@@ -4,3 +4,7 @@
   X-Robots-Tag: noindex, nofollow
 /lous/*
   X-Robots-Tag: noindex, nofollow
+/rayka-tool/*
+  X-Robots-Tag: noindex, nofollow
+/rayka/*
+  X-Robots-Tag: noindex, nofollow
