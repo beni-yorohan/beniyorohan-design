@@ -60,5 +60,5 @@ const STARTERS = [
   document.addEventListener("keydown", e => { if (e.key === "Escape") $("#starters").hidden = true; });
 
   let first = true; try { first = !localStorage.getItem(STORE); } catch (e) {}
-  if (first) document.fonts.ready.then(showStarters);   // first visit: start from a template
+  if (first) document.fonts.ready.then(() => { if (TAB === "insta") showStarters(); });   // first visit: start from a template (not when opened on Labels)
 })();

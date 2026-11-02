@@ -9,15 +9,14 @@
 <link rel="icon" href="assets/icon/lous-icon.svg?v=2" type="image/svg+xml">
 <link rel="icon" href="assets/icon/lous-icon-32.png?v=2" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/icon/lous-apple-touch.png?v=2">
-<link rel="stylesheet" href="simple.css?v=17">
+<link rel="stylesheet" href="simple.css?v=18">
 </head>
 <body>
 <header class="bar">
   <div class="brand"><canvas id="bar-logo" width="120" height="52"></canvas><span>Asset Generator</span></div>
-  <nav class="tabs" role="tablist" hidden>   <!-- one active tab for now: shown again when Stickers & Labels / Notes are built -->
+  <nav class="tabs" role="tablist">
     <button class="tab on" data-tab="insta" role="tab">Instagram</button>
-    <button class="tab" data-tab="labels" role="tab" hidden>Stickers &amp; Labels</button>
-    <button class="tab" data-tab="notes" role="tab" hidden>Notes</button>
+    <button class="tab" data-tab="labels" role="tab">Labels</button>
   </nav>
   <div class="bar-right">
     <button class="btn bar-btn" id="new-design">New<span class="long"> design</span></button>
@@ -28,6 +27,10 @@
         <button data-dl="both"><b>Picture in both sizes</b><span>Post 4:5 and Story</span></button>
         <button data-dl="mp4"><b>Video</b><span>MP4 · 5 seconds · the logo draws itself on</span></button>
         <button data-dl="gif"><b>GIF</b><span>Small · 540 px wide · the logo draws itself on</span></button>
+      </div>
+      <div class="dl-menu" id="dl-menu-labels" hidden>
+        <button data-lab="pdf"><b>Print PDF</b><span>For the printer · vector · PANTONE 5757 C · 2 × 4 in with ⅛ in bleed</span></button>
+        <button data-lab="png"><b>Picture</b><span>PNG · 600 dpi · for checking or printing at home</span></button>
       </div>
     </div>
   </div>
@@ -163,8 +166,39 @@
   </aside>
 </main>
 
-<main id="view-labels" class="view inactive"><div class="inactive-card"><b>Stickers &amp; Labels</b><span>Not active yet</span></div></main>
-<main id="view-notes" class="view inactive"><div class="inactive-card"><b>Notes</b><span>Not active yet</span></div></main>
+<main id="view-labels" class="view">
+  <section class="stage">
+    <div class="canvas-wrap" id="lab-wrap"><canvas id="lab-c" aria-label="Your label"></canvas></div>
+    <div class="under">
+      <p class="hint">Container label · 2 × 4 in · <span id="lab-scale"></span></p>
+      <div class="under-tools"><label class="check"><input type="checkbox" id="lab-cut"> Show the pink cut line</label></div>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <div class="group">
+      <h3>Label</h3>
+      <div class="seg small"><button class="on">Container · 2 × 4 in</button></div>
+      <p class="tip-shoot">Prints in one colour, PANTONE 5757 C. The stamp behind the list is its 10% tint.</p>
+    </div>
+    <div class="group">
+      <h3>Dish name</h3>
+      <textarea id="lab-dish" class="caps" rows="2" spellcheck="false" placeholder="Charred leeks"></textarea>
+      <p class="tip-shoot">Press Enter to break onto a new line. Capitals are automatic.</p>
+    </div>
+    <div class="group">
+      <h3>Ingredients</h3>
+      <textarea id="lab-ingr" class="caps" rows="6" spellcheck="false" placeholder="One ingredient per line"></textarea>
+      <p class="tip-shoot">One ingredient per line.</p>
+      <div id="lab-notes" aria-live="polite"></div>
+    </div>
+    <div class="group" id="lab-recent-group" hidden>
+      <div class="h-row"><h3>Recent labels</h3><button class="del" id="lab-clear">Clear</button></div>
+      <div class="chips" id="lab-recent"></div>
+      <p class="tip-shoot">Every label you download is kept here, on this device.</p>
+    </div>
+  </aside>
+</main>
 
 <div class="toast" id="toast"></div>
 
@@ -184,7 +218,10 @@
 <script src="vendor/mp4-muxer.js"></script>
 <script src="vendor/gif.js"></script>
 <script src="photofilter.js?v=1"></script>
-<script src="simple.js?v=27"></script>
-<script src="starters.js?v=1"></script>
+<script src="simple.js?v=28"></script>
+<script src="starters.js?v=2"></script>
+<script src="labelfont.js?v=1"></script>
+<script src="labelart.js?v=1"></script>
+<script src="labels.js?v=1"></script>
 </body>
 </html>

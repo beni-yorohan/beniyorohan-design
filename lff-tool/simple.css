@@ -267,3 +267,21 @@ body.view-ig #c, body.view-ig .hint:not(.ig-hint), body.view-ig .under-tools { d
 .reply { flex: 1; border: 1px solid rgba(255,255,255,.7); border-radius: 999px; padding: calc(var(--pw)*.028) calc(var(--pw)*.045); opacity: .95; }
 .story-ui svg { stroke: #fff; }
 @media (max-width: 760px) { .views button { padding: 5px 12px; font-size: 12px; } body.view-ig .stage { height: 74vh; height: 74svh; } }
+
+/* Labels tab (Lara's container label editor, in the tool's own UI) */
+body.tab-labels #new-design { display: none; }
+#lab-c { display: block; background: #fff; box-shadow: 0 18px 50px rgba(78,53,36,.18); }
+textarea.caps { text-transform: uppercase; letter-spacing: .06em; }
+textarea.caps::placeholder { text-transform: none; letter-spacing: 0; }
+.note { margin: 0; font-size: 12.5px; line-height: 1.4; padding: 8px 10px; border-radius: 8px; }
+.note.info { background: rgba(78,53,36,.06); color: var(--mute); }
+.note.warn { background: rgba(109,113,46,.14); color: var(--esp); }
+#lab-notes { display: flex; flex-direction: column; gap: 6px; }
+#lab-notes:empty { display: none; }
+.dl-menu button span { line-height: 1.35; }
+@media (max-width: 760px) {
+  .tabs { display: flex; }
+  .tab { padding: 6px 11px; font-size: 12.5px; }
+  .bar .brand { display: none; }
+  .bar { justify-content: space-between; }
+}

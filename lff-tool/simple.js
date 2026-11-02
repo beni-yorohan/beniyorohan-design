@@ -594,21 +594,29 @@ function bindPanel() {
   new ResizeObserver(() => { if (VIEW === "ig") draw(); }).observe($("#wrap"));
   $("#play").onclick = () => { PREVIEW_T0 = performance.now(); PREVIEW_END = PREVIEW_T0 + ANIM.D * 1000; play(); };
   $("#guides").onchange = e => { S.guides = e.target.checked; save(); sync(); };
-  const menu = $("#dl-menu");
-  $("#download").onclick = e => { e.stopPropagation(); menu.hidden = !menu.hidden; };
-  document.addEventListener("click", e => { if (!menu.hidden && !menu.contains(e.target)) menu.hidden = true; });
-  document.addEventListener("keydown", e => { if (e.key === "Escape") menu.hidden = true; });
-  menu.querySelectorAll("[data-dl]").forEach(b => b.onclick = () => {
-    menu.hidden = true;
+  // one Download button; its menu follows the tab
+  const menus = [$("#dl-menu"), $("#dl-menu-labels")], menu = () => TAB === "labels" ? menus[1] : menus[0];
+  $("#download").onclick = e => { e.stopPropagation(); const m = menu(); menus.forEach(x => x.hidden = x !== m || !m.hidden); };
+  document.addEventListener("click", e => { menus.forEach(m => { if (!m.hidden && !m.contains(e.target)) m.hidden = true; }); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") menus.forEach(m => m.hidden = true); });
+  menus[0].querySelectorAll("[data-dl]").forEach(b => b.onclick = () => {
+    menus[0].hidden = true;
     if (b.dataset.dl === "png") download(); else if (b.dataset.dl === "both") downloadBoth(); else exportVideo(b.dataset.dl);
   });
-  document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
-    TAB = t.dataset.tab;
-    document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x === t));
-    document.querySelectorAll(".view").forEach(v => v.classList.toggle("on", v.id === "view-" + TAB));
-    $("#download").parentElement.style.visibility = TAB === "insta" ? "" : "hidden";
-    sync();
-  });
+  menus[1].querySelectorAll("[data-lab]").forEach(b => b.onclick = () => { menus[1].hidden = true; window.LFFLabels.download(b.dataset.lab); });
+  document.querySelectorAll(".tab").forEach(t => t.onclick = () => setTab(t.dataset.tab));
+  window.addEventListener("hashchange", () => setTab(location.hash === "#labels" ? "labels" : "insta"));
+}
+// Instagram | Labels — the address remembers the tab (…/lous/#labels)
+function setTab(tab) {
+  TAB = tab;
+  document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x.dataset.tab === TAB));
+  document.querySelectorAll("main.view").forEach(v => v.classList.toggle("on", v.id === "view-" + TAB));
+  document.body.classList.toggle("tab-labels", TAB === "labels");
+  document.querySelectorAll(".dl-menu").forEach(m => m.hidden = true);
+  const want = TAB === "labels" ? "#labels" : "";
+  if (location.hash !== want) history.replaceState(null, "", location.pathname + location.search + want);
+  if (TAB === "labels") window.LFFLabels && window.LFFLabels.render(); else sync();
 }
 
 /* ---------- export ---------- */
@@ -681,6 +689,7 @@ async function exportVideo(kind) {
     }
   } finally { BUSY = false; }
 }
+window.LFF = { save: save_ };   // shared with the Labels tab
 function toast(msg, sticky) {
   const t = $("#toast"); t.textContent = msg; t.classList.add("on");
   clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), sticky ? 6000 : 2200);
